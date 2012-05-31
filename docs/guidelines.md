@@ -6,3 +6,6 @@
 _(没找到官方链接)_
 
 [Accessibility 主题](http://www.w3.org/standards/webdesign/accessibility)
+
+[Dive Into Accessibility](http://dia.z6i.org/table_of_contents.html)
+_(繁体中文)_
