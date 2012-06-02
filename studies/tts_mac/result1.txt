@@ -1,0 +1,8 @@
+Word Count:	    1174 jiangwen.txt
+
+real	0m2.232s
+user	0m2.117s
+sys	0m0.109s
+
+Audio File:	v.aiff
+File Size:	10741008 bytes
