@@ -27,3 +27,16 @@
 [link](http://www.cdpsn.org.cn/static/yzmdownload20120517/yzmdownload.html)
 
 人工服务
+
+### 大家网络
+
+[工具条](http://www.caiamiit.org/yixuan/yixuan_cloud/index.html)
+
+[说明](http://www.caiamiit.org/adetail.html)
+
+[网站无障碍入口](http://www.cniil.com:81/)
+
+[文档下载](http://www.kisse.org/yx_server/yxcab/yixuan.rar) *WARNING: RAR, MS Word*
+
+[三年前的招聘](http://www.yingjiesheng.com/job-000-636-599.html)
+[另一则](http://gdjy.hfut.edu.cn/viewcomp.jsp?id=AEZuAAC)
