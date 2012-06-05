@@ -9,7 +9,11 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QCryptographicHash>
 #include <QDateTime>
-
+/**************************************************
+ * download webpage in whitelist and convert text codec
+ * to UTF-8
+ *
+ ************************************************/
 class YZSpider : public QObject
 {
     Q_OBJECT

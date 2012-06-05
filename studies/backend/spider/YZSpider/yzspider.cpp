@@ -1,5 +1,7 @@
 #include "yzspider.h"
 #include <QDebug>
+#include <QTextCodec>
+#include <QTextDecoder>
 
 YZSpider::YZSpider(QObject *parent) :
     QObject(parent)
@@ -34,7 +36,7 @@ void YZSpider::webPageDownloaded()
         return;
     }
     file.write((QString::number(reply->header(QNetworkRequest::LastModifiedHeader).toDateTime().toMSecsSinceEpoch())+"\n").toAscii());
-    file.write(result);
+    file.write(QTextCodec::codecForHtml(result)->toUnicode(result).toUtf8());
     qDebug()<<"done";
     file.close();
     reply->deleteLater();
