@@ -1,0 +1,3 @@
+/spider/*
+!/spider/YZSpider
+/spider/YZSpider/YZSpider.pro.user
