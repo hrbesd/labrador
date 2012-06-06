@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QFile>
+#include <QDir>
 #include "DataInterface.h"
 #include "../xmlWriter/yzxmlwriter.h"
 
@@ -22,7 +23,7 @@ signals:
     
 public slots:
 protected:
-    ArticalInterface m_articalInterface;
+    ArticleInterface m_articleInterface;
 };
 
 #endif // YZPARSER_H

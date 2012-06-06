@@ -9,6 +9,7 @@ class HarbinGovParser : public YZParser
 public:
     explicit HarbinGovParser(QObject *parent = 0);
     virtual int parseFile(QString fileName);
+    void parseFolder(QString folder);
 signals:
     
 public slots:
