@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>新闻内容</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="standard.css" rel="stylesheet" title="standard">
+    <link href="high_contrast.css" rel="stylesheet" title="high_contrast">
+    <link href="dark.css" rel="stylesheet" title="dark">
+    
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+<script>
+function setActiveStyleSheet(title) {
+   var i, a, main;
+   for(i=0; (a = document.getElementsByTagName("link")[i]); i++) {
+     if(a.getAttribute("rel").indexOf("style") != -1
+        && a.getAttribute("title")) {
+       a.disabled = true;
+       if(a.getAttribute("title") == title) a.disabled = false;
+     }
+   }
+}
+</script>
+
+<form>
+<input type="submit"
+  onclick="javascript:setActiveStyleSheet('standard');return false;"
+  name="theme" value="Standard Theme">
+<input type="submit"
+  onclick="javascript:setActiveStyleSheet('dark');return false;"
+  name="theme" value="Dark Theme">
+<input type="submit"
+  onclick="javascript:setActiveStyleSheet('high_contrast');return false;"
+  name="theme" value="High Contrast Theme">
+</form>
+
+    <div id="wrapper" class="container">
+
+      <p><a id="accessible" href="#">无障碍浏览</a></p>
+
+      <!-- Example row of columns -->
+          <h1>哈尔滨市人民政府关于开展农村集体土地确权登记发证工作的通告</h1>
+          <p><div id="author">
+		哈政发法字[2012]5号
+	</div></p>
+          <p><div id="date">2012年12月21日
+	</div></p>
+        
+        <hr/>
+
+        
+		<P>　　为加快推进农村土地产权制度改革，切实维护农村集体土地权利人的合法权益，根据国土资源部、财政部、农业部<a href="#">《关于加快推进农村集体土地确权登记发证工作的通知》</a>和黑龙江省人民政府办公厅《关于转发省国土资源厅省财政厅省农委黑龙江省农村集体土地确权登记发证工作方案的通知》要求，哈尔滨市人民政府决定对市辖各区农村集体土地所有权、宅基地使用权、集体建设用地使用权进行确权登记。现将有关事项通告如下:
+		</P> 
+		<h2>一、集体土地确权登记的范围和对象</h2> 
+		<P>　　
+			确权登记范围为本市各区范围内的集体所有土地（农垦、森工所属土地除外）。确权登记对象为依法拥有农村集体土地所有权的农民集体、合法使用宅基地的土地使用权人和集体建设用地的土地使用权人。
+			<BR/>
+		</P> 
+		<h2>二、土地确权登记区的划分及承办单位</h2> 
+		<P>　　
+			土地确权登记区划分为道里区、道外区、南岗区、香坊区、松北区、平房区、阿城区、呼兰区。各区国土资源分局为各登记区集体土地确权工作的承办单位，农村集体所有土地所有权人、宅基地土地使用权人、集体建设用地土地使用权人到集体土地所属地的登记区进行确权登记。
+			<BR/>
+		</P> 
+		<h2>三、土地确权登记期限	</h2> 
+		<ol>　　
+			<li>各区国土资源分局受理所辖区域农村集体土地所有权人申请的确权登记期限为自本通告发布之日起至2012年7月31日；
+			</li>	　　
+		<li>各区国土资源分局受理所辖区域农村宅基地、集体建设用地土地使用权人申请的确权登记期限为自本通告发布之日起至2013年12月31日止。</li> 
+			</ol>
+			<h2>四、土地确权登记受理、收取要件地点</h2> 
+		<P>　　各区国土资源分局在各乡（镇）国土资源所统一受理、收取集体所有土地所有权人、宅基地土地使用权人、集体建设用地土地使用权人申请确权登记提交的各项要件。<BR/>
+		</P> 
+		<h2>五、土地确权登记要件	</h2> 
+		<P>　　（一）土地登记申请书；<BR/>　　（二）申请人身份证明材料；<BR/>　　（三）土地权属来源证明；<BR/>　　（四）地籍调查表、宗地图及宗地坐标；<BR/>　　（五）地上附着物权属证明；<BR/>　　（六）其他需要提供的证明材料。<BR/>
+		</P> 
+		<h2>六、本通告自发布之日起施行。</h2> 
+		<P> </P> 
+		<P style="text-align:right">哈尔滨市人民政府<BR/>二○一二年五月四日<BR/>
+		</P>
+	
+
+    </div> <!-- /container -->
+
+    <!-- 将文件放到底部，加快加载速度 -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/toolbar/toolbar.js"></script>
+    <script src="assets/js/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>
