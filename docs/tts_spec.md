@@ -54,7 +54,9 @@
 
 - Text2Speech和Ssml2Speech
 	* JobID
-	* URL (Not ready upon response)
+	* URLs (Not ready upon response)
+	
+对应格式和男女，有多个URL。
 
 - GetStaus	
 	* 若干状态，分别表示（排队中，已合成，已转换，已上传）
