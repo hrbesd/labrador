@@ -82,12 +82,13 @@
  * 去除网页中闪烁的部分
  * 保留布局标签、保留正文部分的<Strong>标签
  * 将网页保存成XML格式，需要包括如下四部分内容：
- * *标题: <title>
- * *作者：<author>
- * *时间：<lastModified>
- * *正文：<bodyData>
- * 保存的XML全文标签使用 <article>
-
+ <code>
+  标题: title
+  作者：author
+  时间: lastModified
+  正文：bodyData
+  保存的XML全文标签使用 article
+</code>
 ### Labrador Assembler:
  * 设计通用的CSS文件
  * 将Analyzer处理过的XML文件与CSS整合成新的html文件供用户浏览
