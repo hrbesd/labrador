@@ -18,22 +18,25 @@ int HarbinGovParser::parseFile(QString fileName)
         return -1;
     }
     QByteArray lastModifiedTime = file.readLine();
+    QByteArray title = file.readLine();
     QByteArray webData = file.readAll();
 
-    QByteArray lastModified, author, title, body;
+    QByteArray lastModified, author, body;
 
     lastModified = lastModifiedTime.trimmed();
 
     int startIndex = webData.lastIndexOf("detail_zw");
-    startIndex = webData.indexOf("<P>",startIndex);
-    int endIndex = webData.indexOf("</div>",startIndex);
+    startIndex = webData.indexOf("<div",startIndex);
+    int endIndex = webData.indexOf("</div>",startIndex)+6;
     body = webData.mid(startIndex,endIndex - startIndex);
-    int titleStartIndex = webData.indexOf("<P align=\"center\">",startIndex)+18;
-    int titleEndIndex = webData.indexOf("</P>",titleStartIndex);
-    title = webData.mid(titleStartIndex,titleEndIndex - titleStartIndex);
-    int authorStartIndex = webData.indexOf("<P align=\"center\">",titleEndIndex)+18;
-    int authorEndIndex = webData.indexOf("</P>",authorStartIndex);
-    author = webData.mid(authorStartIndex,authorEndIndex - authorStartIndex);
+    qDebug()<<endIndex - startIndex;
+    int authorStartIndex = webData.lastIndexOf("detail_ly");
+    if(authorStartIndex!=-1)
+    {
+        authorStartIndex = webData.indexOf(">",authorStartIndex)+1;
+        int authorEndIndex = webData.indexOf("<",authorStartIndex);
+        author = webData.mid(authorStartIndex,authorEndIndex - authorStartIndex);
+    }
 
     m_articleInterface.lastModified = QString::fromUtf8(lastModified.data());
     m_articleInterface.title = QString::fromUtf8(title.data());
