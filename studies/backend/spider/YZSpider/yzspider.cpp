@@ -42,6 +42,8 @@ void YZSpider::webPageDownloaded()
     file.write((QString::number(reply->header(QNetworkRequest::LastModifiedHeader).toDateTime().toMSecsSinceEpoch())+"\n").toAscii());
     file.write(QTextCodec::codecForHtml(result)->toUnicode(m_titleLinkMap.value(reply->url().toString())).toUtf8());
     file.write("\n");
+    file.write(reply->url().toString().toUtf8());
+    file.write("\n");
     file.write(QTextCodec::codecForHtml(result)->toUnicode(result).toUtf8());
     qDebug()<<"done";
     file.close();
