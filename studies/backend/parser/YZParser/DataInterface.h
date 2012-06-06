@@ -6,7 +6,7 @@
  *  XML data structure
  *
  ***********************************/
-struct ArticalInterface
+struct ArticleInterface
 {
     QString title;
     QString author;

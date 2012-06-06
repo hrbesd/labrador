@@ -17,7 +17,7 @@ class YZXmlWriter : public QObject
     Q_OBJECT
 public:
     explicit YZXmlWriter(QObject *parent = 0);
-    static void writeArticalToXml(ArticalInterface &data, QString fileName);
+    static void writeArticleToXml(ArticleInterface &data, QString fileName);
 signals:
     
 public slots:

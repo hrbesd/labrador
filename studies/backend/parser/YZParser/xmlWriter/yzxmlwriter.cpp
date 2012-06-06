@@ -6,7 +6,7 @@ YZXmlWriter::YZXmlWriter(QObject *parent) :
 {
 }
 
-void YZXmlWriter::writeArticalToXml(ArticalInterface &data, QString fileName)
+void YZXmlWriter::writeArticleToXml(ArticleInterface &data, QString fileName)
 {
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -18,7 +18,7 @@ void YZXmlWriter::writeArticalToXml(ArticalInterface &data, QString fileName)
     QXmlStreamWriter writer(&file);
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
-    writer.writeStartElement("artical");
+    writer.writeStartElement("article");
     writer.writeTextElement("title", data.title);
     writer.writeTextElement("author",data.author);
     writer.writeTextElement("lastModified",data.lastModified);
