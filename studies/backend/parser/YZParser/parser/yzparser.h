@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QFile>
+#include <QUrl>
 #include <QDir>
 #include "DataInterface.h"
 #include "../xmlWriter/yzxmlwriter.h"

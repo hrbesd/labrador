@@ -23,6 +23,18 @@ void YZXmlWriter::writeArticleToXml(ArticleInterface &data, QString fileName)
     writer.writeTextElement("author",data.author);
     writer.writeTextElement("lastModified",data.lastModified);
     writer.writeTextElement("bodyData",data.bodyData);
+    if(!data.hashData.isEmpty())
+    {
+        writer.writeStartElement("hashData");
+        foreach(HashNode node, data.hashData)
+        {
+            writer.writeStartElement("hashNode");
+            writer.writeTextElement("hash",node.hash);
+            writer.writeTextElement("url",node.url);
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
+    }
     writer.writeEndElement();
     writer.writeEndDocument();
     file.close();
