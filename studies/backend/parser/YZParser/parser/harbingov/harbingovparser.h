@@ -14,6 +14,7 @@ public:
     void cleanBodyData(QString& bodyData);
     void removeTags(QString& bodyData, QList<QString> tagList);
     void removeTag(QString& bodyData, QString tag);
+    void removeBlankCharacter(QString& bodyData);
 signals:
     
 public slots:
