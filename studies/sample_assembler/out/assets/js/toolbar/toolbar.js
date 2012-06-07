@@ -31,27 +31,21 @@ jQuery(document).ready(function(){
     function eraseCookie(name){
         setCookie(name, "", -1);
     }
+
+    // change active style sheet
+    function setActiveStyleSheet(title) {
+       var i, a;
+       for(i=0; (a = document.getElementsByTagName("link")[i]); i++) {
+         if(a.getAttribute("rel").indexOf("style") != -1
+            && a.getAttribute("title")) {
+            // if the title of the selected style does not match
+            // then, disable it
+            a.disabled = (a.getAttribute("title") != title);
+         }
+       }
+    } 
   
 	var accessible_enable = false;
-	//high contrast
-	function acc_highcontrast(){
-	
-        if (accessible_enable == false || $('#highcontrast').hasClass('high')) {
-			eraseCookie('accessible_highcontrast');
-            $('body').css('background', '#FFFFFF');
-            $('body').css('color', '#333333');
-            $('a').css('color', '#000000');
-            $('button').css('color', '#000000');
-            $('#highcontrast').removeClass('high').text('高对比度');
-			$('ul li').css('color', '#ffffff');
-        }
-        else {
-			setCookie('accessible_highcontrast', 1, 360);
-            $('body').css('background', '#000000');
-            $('a, button, body').css('color', '#FFFFFF');
-            $('#highcontrast').addClass('high').text('还原对比度');
-        }
-	}
   
     if (getCookie('accessible') == 1) {
         accessible();
@@ -60,10 +54,6 @@ jQuery(document).ready(function(){
     if (getCookie('accessible_textmode') == 1) {
         accessible();
 		acc_textmode();
-    }
-	if (getCookie('accessible_highcontrast') == 1) {
-		accessible();
-		acc_highcontrast();
     }
 	
 	// ctrl + shirt + S  high contrast
@@ -81,16 +71,21 @@ jQuery(document).ready(function(){
         if (!$('#acctoolbar')[0]) {
 			accessible_enable = true;
 			
-		    var link = document.createElement('LINK');
-		    link.setAttribute('rel','stylesheet');
-		    link.setAttribute('type','text/css');
-		    link.setAttribute('href','css/accessible.css');
-		    document.getElementsByTagName('head')[0].appendChild(link);
-			
 			//initial buttons
-            $('body').prepend('<div id="acctoolbar"><button id="textin">文字放大</button><button id="textout">文字缩小</button><button id="highcontrast">高度对比</button><button id="guides">辅助线</button><button id="accclose" class="last" >关闭</button></div>');
+            var buttonHtml = '<div id="acctoolbar">' + 
+                    '<button id="textin">文字放大</button>' +
+                    '<button id="textout">文字缩小</button>' + 
+                    '<button id="guides">辅助线</button>' + 
+                    '<button id="theme_standard">基本主题</button>' + 
+                    '<button id="theme_dark">黑色主题</button>' +
+                    '<button id="theme_highcontrast">高对比度主题</button>' +
+                    '<button id="accclose" class="last">关闭</button>' + 
+                '</div>';
+
+            $('body').prepend(buttonHtml);
             $('#acctoolbar').css('left', $('#wrapper').offset().left + 1);
             $('#wrapper').css('padding-top', '31px');
+
 			//ie6 style hack
             if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
                 $('#acctoolbar').css('position', 'absolute');
@@ -98,9 +93,6 @@ jQuery(document).ready(function(){
                     $('#acctoolbar').css('top', $(window).scrollTop());
                 })
             }
-			
-			//high contrast
-			$('#highcontrast').click(acc_highcontrast);
 			
 			//text zoom in
             $('#textin').click(function() {
@@ -138,16 +130,30 @@ jQuery(document).ready(function(){
                     }
                 }
             });
+
+            // change stylesheet button
+            $('#theme_standard').click(function() {
+                setActiveStyleSheet('standard');
+            });
+
+            $('#theme_dark').click(function() {
+                setActiveStyleSheet('dark');
+            });
+
+            $('#theme_highcontrast').click(function() {
+                setActiveStyleSheet('high_contrast');
+            });
             
 			//close button
             $('#accclose').click(function(){
 				accessible_enable = false;
-				
-                acc_highcontrast();  
-				          
+
                 if (parseInt($('body').css('font-size').replace('px', ''), 10) != 12) {
                     $('body').css('font-size', '12px');
                 }
+
+                // change back to standard style
+                setActiveStyleSheet('standard');
                 
 				if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
                     $(window).unbind("scroll");

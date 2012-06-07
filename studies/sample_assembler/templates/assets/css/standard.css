@@ -1,0 +1,54 @@
+* {margin:100;padding:100;}
+
+body {
+	background-color: white;
+	margin: auto;
+	padding: 47px;
+	background-color: #F8F8F8;
+	line-height:1.5em;
+
+}
+
+h1 {
+	font-family: "微软雅黑", "Hei", sans-serif;
+	color: #555;
+	text-align: center;
+	line-height: normal;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "微软雅黑", "Hei", sans-serif;
+    color: #404040;
+    text-align: left;
+}
+
+p {
+	font-family: serif;
+}
+
+a {color:#10467d;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:#2c2394;}
+
+button {
+	color: #555;
+}
+
+#author {
+	text-align:right;
+    color: #555;
+}
+
+#date {
+	text-align:right;
+    color: #555;
+}
+
+#signature {
+	text-align:right;
+	color: #555;
+}
