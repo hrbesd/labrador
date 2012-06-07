@@ -39,12 +39,13 @@ int HarbinGovParser::parseFile(QString fileName)
         int authorEndIndex = webData.indexOf("<",authorStartIndex);
         author = webData.mid(authorStartIndex,authorEndIndex - authorStartIndex);
     }
-    parseImageFromBody(body,QString(baseUrl),articleInterface);
-
     articleInterface.lastModified = QString::fromUtf8(lastModified.data());
     articleInterface.title = QString::fromUtf8(title.data());
     articleInterface.author = QString::fromUtf8(author.data());
     articleInterface.bodyData = QString::fromUtf8(body.data());
+
+    parseImageFromBody(articleInterface.bodyData,QString(baseUrl),articleInterface);
+    cleanBodyData(articleInterface.bodyData);
     QFileInfo fileInfo(file);
     QDir fileDir = fileInfo.absoluteDir();
     fileDir.cd("../result");
@@ -71,10 +72,9 @@ void HarbinGovParser::parseFolder(QString folder)
 
 }
 
-void HarbinGovParser::parseImageFromBody(QByteArray &data, QString base, ArticleInterface &articleInterface)
+void HarbinGovParser::parseImageFromBody(const QString &dataString, QString base, ArticleInterface &articleInterface)
 {
     int index=-1;
-    QString dataString = QString::fromUtf8(data.data());
     while(1)
     {
         index = dataString.indexOf("<img",index+1,Qt::CaseInsensitive);
@@ -103,12 +103,28 @@ void HarbinGovParser::parseImageFromBody(QByteArray &data, QString base, Article
     }
 }
 
-void HarbinGovParser::cleanBodyData(QByteArray &bodyData)
+void HarbinGovParser::cleanBodyData(QString &bodyData)
 {
-
+    QList<QString> tagList;
+    tagList<<QString("div");
+    tagList<<QString("font");
+    tagList<<QString("br");
+    removeTags(bodyData,tagList);
 }
 
-void HarbinGovParser::removeTags(QByteArray &bodyData, QList<QString> tagList)
+void HarbinGovParser::removeTags(QString &bodyData, QList<QString> tagList)
 {
+    foreach(QString tag, tagList)
+    {
+        removeTag(bodyData,tag);
+    }
+}
+
+void HarbinGovParser::removeTag(QString &bodyData, QString tag)
+{
+    QRegExp startRx("<"+tag+"[^>]*>",Qt::CaseInsensitive);
+    QRegExp endRx("</"+tag+">",Qt::CaseInsensitive);
+    bodyData.replace(startRx,"");
+    bodyData.replace(endRx,"");
 
 }
