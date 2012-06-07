@@ -7,7 +7,7 @@
 #          in_folder_path: 原始xml文件所在的目录（根目录即可）
 #          out_folder_path: 生成之后的没文件的目标路径
 # 依赖条件：此python文件与templates文件夹相对位置固定（../templates），保证文件可以复制过来
-import sys, os, shutil, re, codecs
+import sys, os, shutil, re, codecs, datetime
 from xml.dom.minidom import parseString # xml解析类库
 
 class Assembler:
@@ -100,6 +100,14 @@ class Assembler:
 		result = self.dom.getElementsByTagName(unicode(value))[0].toxml()
 		# 去掉开头和结尾的xml标签
 		result = result[result.find('>') + 1:result.rfind('<')]
+
+		# 针对lastModified做特殊处理
+		# 因为lastModified是以long的形式呈现的，这里需要转换为Date的字符串表示
+		if value == 'lastModified':
+			modifiedDate = datetime.datetime.fromtimestamp(long(result) / 1000)
+			dateStr = modifiedDate.strftime(u'%Y年%m月%d日'.encode('utf-8'))
+			result = dateStr.decode('utf-8')
+
 		return result
 		
 # 当以单独的命令执行的时候，调用这个方法
