@@ -74,18 +74,19 @@ void HarbinGovParser::parseFolder(QString folder)
 void HarbinGovParser::parseImageFromBody(QByteArray &data, QString base, ArticleInterface &articleInterface)
 {
     int index=-1;
+    QString dataString = QString::fromUtf8(data.data());
     while(1)
     {
-        index = data.indexOf("<img",index+1);
+        index = dataString.indexOf("<img",index+1,Qt::CaseInsensitive);
         if(index==-1)
         {
             return;
         }
-        int urlStartIndex = data.indexOf("src=",index)+5;
-        int urlEndIndex = data.indexOf("\"",urlStartIndex);
+        int urlStartIndex = dataString.indexOf("src=",index,Qt::CaseInsensitive)+5;
+        int urlEndIndex = dataString.indexOf("\"",urlStartIndex);
 
         QUrl baseUrl(base);
-        QUrl subUrl(QString(data.mid(urlStartIndex,urlEndIndex - urlStartIndex)));
+        QUrl subUrl(QString(dataString.mid(urlStartIndex,urlEndIndex - urlStartIndex)));
         QUrl url ;
         if(subUrl.isRelative())
         {
