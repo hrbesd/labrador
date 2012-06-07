@@ -110,6 +110,7 @@ void HarbinGovParser::cleanBodyData(QString &bodyData)
     tagList<<QString("font");
     tagList<<QString("br");
     removeTags(bodyData,tagList);
+    removeBlankCharacter(bodyData);
 }
 
 void HarbinGovParser::removeTags(QString &bodyData, QList<QString> tagList)
@@ -126,5 +127,10 @@ void HarbinGovParser::removeTag(QString &bodyData, QString tag)
     QRegExp endRx("</"+tag+">",Qt::CaseInsensitive);
     bodyData.replace(startRx,"");
     bodyData.replace(endRx,"");
+
+}
+
+void HarbinGovParser::removeBlankCharacter(QString &bodyData)
+{
 
 }
