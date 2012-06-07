@@ -18,6 +18,7 @@ int HarbinGovParser::parseFile(QString fileName)
         qWarning()<<"can't open parse file";
         return -1;
     }
+    ArticleInterface articleInterface;
     QByteArray lastModifiedTime = file.readLine();
     QByteArray title = file.readLine();
     QByteArray baseUrl = file.readLine();
@@ -38,16 +39,18 @@ int HarbinGovParser::parseFile(QString fileName)
         int authorEndIndex = webData.indexOf("<",authorStartIndex);
         author = webData.mid(authorStartIndex,authorEndIndex - authorStartIndex);
     }
-    parseImageFromBody(body,QString(baseUrl));
-    m_articleInterface.lastModified = QString::fromUtf8(lastModified.data());
-    m_articleInterface.title = QString::fromUtf8(title.data());
-    m_articleInterface.author = QString::fromUtf8(author.data());
-    m_articleInterface.bodyData = QString::fromUtf8(body.data());
+    parseImageFromBody(body,QString(baseUrl),articleInterface);
+
+    articleInterface.lastModified = QString::fromUtf8(lastModified.data());
+    articleInterface.title = QString::fromUtf8(title.data());
+    articleInterface.author = QString::fromUtf8(author.data());
+    articleInterface.bodyData = QString::fromUtf8(body.data());
     QFileInfo fileInfo(file);
     QDir fileDir = fileInfo.absoluteDir();
     fileDir.cd("../result");
-    YZXmlWriter::writeArticleToXml(m_articleInterface,fileDir.absolutePath()+"/"+fileInfo.baseName()+".xml");
+    YZXmlWriter::writeArticleToXml(articleInterface,fileDir.absolutePath()+"/"+fileInfo.baseName()+".xml");
     qDebug()<<"done";
+    file.close();
     return 0;
 }
 
@@ -68,7 +71,7 @@ void HarbinGovParser::parseFolder(QString folder)
 
 }
 
-void HarbinGovParser::parseImageFromBody(QByteArray &data, QString base)
+void HarbinGovParser::parseImageFromBody(QByteArray &data, QString base, ArticleInterface &articleInterface)
 {
     int index=-1;
     while(1)
@@ -80,6 +83,7 @@ void HarbinGovParser::parseImageFromBody(QByteArray &data, QString base)
         }
         int urlStartIndex = data.indexOf("src=",index)+5;
         int urlEndIndex = data.indexOf("\"",urlStartIndex);
+
         QUrl baseUrl(base);
         QUrl subUrl(QString(data.mid(urlStartIndex,urlEndIndex - urlStartIndex)));
         QUrl url ;
@@ -94,11 +98,16 @@ void HarbinGovParser::parseImageFromBody(QByteArray &data, QString base)
         HashNode node;
         node.url = url.toString();
         node.hash = QCryptographicHash::hash(url.toString().toUtf8(),QCryptographicHash::Md5).toHex();
-        m_articleInterface.hashData.append(node);
+        articleInterface.hashData.append(node);
     }
 }
 
 void HarbinGovParser::cleanBodyData(QByteArray &bodyData)
+{
+
+}
+
+void HarbinGovParser::removeTags(QByteArray &bodyData, QList<QString> tagList)
 {
 
 }

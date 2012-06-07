@@ -24,7 +24,7 @@ signals:
     
 public slots:
 protected:
-    ArticleInterface m_articleInterface;
+
 };
 
 #endif // YZPARSER_H
