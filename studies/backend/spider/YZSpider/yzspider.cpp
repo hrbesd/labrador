@@ -1,12 +1,14 @@
 #include "yzspider.h"
 #include <QDebug>
+#include <QCoreApplication>
 #include <QTextCodec>
-#include <QTextDecoder>
+#include <QDir>
 
 YZSpider::YZSpider(QObject *parent) :
     QObject(parent)
 {
     m_threadLimit = 10;
+    m_webPageCount = 0;
     m_networkAccessManager = new QNetworkAccessManager(this);
 }
 
@@ -33,7 +35,10 @@ void YZSpider::webPageDownloaded()
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
     QByteArray result = reply->readAll();
     QString fileName = QCryptographicHash::hash(QByteArray(reply->url().toString().toUtf8()),QCryptographicHash::Md5).toHex();
-    QFile file(fileName);
+    QDir folderDir;
+    folderDir.mkpath(QDir::currentPath()+"/webpage/originalFiles");
+    folderDir.cd("webpage/originalFiles");
+    QFile file(folderDir.absolutePath() + "/"+ fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         qWarning("can't save webpage");
@@ -45,7 +50,7 @@ void YZSpider::webPageDownloaded()
     file.write(reply->url().toString().toUtf8());
     file.write("\n");
     file.write(QTextCodec::codecForHtml(result)->toUnicode(result).toUtf8());
-    qDebug()<<"done";
+    qDebug()<<QString::number(m_webPageCount++)+ " web page downloaded";
     file.close();
     reply->deleteLater();
     downloadScheduler();
@@ -132,5 +137,22 @@ void YZSpider::downloadScheduler()
     if(m_innerLinks.isEmpty()&&m_threadLimit==10)
     {
         qDebug()<<"finish";
+        qApp->exit();
     }
+}
+
+void YZSpider::parseUrlListFile(QString urlListFile)
+{
+    QFile file(urlListFile);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qWarning("can't open urlList File");
+        return;
+    }
+    while (!file.atEnd()) {
+          QByteArray line = file.readLine();
+          qDebug()<<"Parsing links: "+ QString(line).trimmed();
+          parseLinks(QString(line).trimmed());
+      }
+
 }
