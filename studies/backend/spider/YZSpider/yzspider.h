@@ -25,6 +25,7 @@ public:
     YZSpider(QString whiteListFileName, QObject *parent = 0);
     void downloadWebPage(QString url);
     void parseLinks(QString url);
+    void parseUrlListFile(QString urlListFile);
 signals:
     
 protected slots:
@@ -41,6 +42,7 @@ private:
     QMap<QString, QByteArray> m_titleLinkMap;
 
     int m_threadLimit;
+    quint32 m_webPageCount;
 };
 
 #endif // YZSPIDER_H
