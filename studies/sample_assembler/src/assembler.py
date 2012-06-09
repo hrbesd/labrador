@@ -73,7 +73,7 @@ class Assembler:
 		xmlFile.close()
 
 		domString = domString.replace("BR" , "BR/")
-
+		domString = domString.replace("&nbsp;", " ")
 
 		self.dom = parseString(domString)
 
@@ -89,8 +89,6 @@ class Assembler:
 		# 最后，将文件存盘
 		if not os.path.exists(resultFileDir):
 			os.makedirs(resultFileDir)
-
-		print 'result: ' + resultData
 
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
 		resultFile.write(resultData)

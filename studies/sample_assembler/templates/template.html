@@ -20,37 +20,20 @@
     <script src="assets/js/soapclient.js"></script>
     <script src="assets/js/toolbar/toolbar.js"></script>
 
-    <script type="text/javascript">
-      var url = "http://localhost:12321";
-
-      function Speak()
-      {
-        var pl = new SOAPClientParameters();
-        pl.add("string", "what do you want?");
-        SOAPClient.invoke(url, "text2speech", pl, true, Speak_callBack);
-      }
-
-      function Speak_callBack(r)
-      {
-        alert(r);
-      }
-
-      Speak();
-    </script>
   </head>
 
   <body>
 
     <div id="wrapper" class="container">
 
-      <p><a id="accessible" href="#">无障碍浏览</a></p>
+      <p><a id="accessible" href="#" onmouseover="speak($('#accessible').html());">无障碍浏览</a></p>
 
       <!-- Example row of columns -->
       <div class="row">
         <div align="center">
-          <h1>${title}</h1>
-          <p><div id="author">${author}</div></p>
-          <p><div id="date">发表日期：${lastModified}</div></p>
+          <h1 id="news_title" onmouseover="speak($('#news_title').html());">${title}</h1>
+          <p><div id="author"><span id="author_content" onmouseover="speak($('#author_content').html());">${author}</span></div></p>
+          <p><div id="date"><span id="date_content" onmouseover="speak($('#date_content').html());">发表日期：${lastModified}</span></div></p>
         </div>
         
         <hr/>
