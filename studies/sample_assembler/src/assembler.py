@@ -8,6 +8,7 @@
 #          out_folder_path: 生成之后的没文件的目标路径
 # 依赖条件：此python文件与templates文件夹相对位置固定（../templates），保证文件可以复制过来
 import sys, os, shutil, re, codecs, datetime
+import html # 使用开源的html组件，将html进行解码。由于不是标准库，所以首先需要安装这个库。文件放到libs目录下了。
 from xml.dom.minidom import parseString # xml解析类库
 
 class Assembler:
@@ -72,7 +73,7 @@ class Assembler:
 		xmlFile.close()
 
 		domString = domString.replace("BR" , "BR/")
-		domString = domString.replace("&nbsp;", " ")
+
 
 		self.dom = parseString(domString)
 
@@ -89,6 +90,8 @@ class Assembler:
 		if not os.path.exists(resultFileDir):
 			os.makedirs(resultFileDir)
 
+		print 'result: ' + resultData
+
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
 		resultFile.write(resultData)
 		resultFile.close()
@@ -100,6 +103,9 @@ class Assembler:
 		result = self.dom.getElementsByTagName(unicode(value))[0].toxml()
 		# 去掉开头和结尾的xml标签
 		result = result[result.find('>') + 1:result.rfind('<')]
+
+		# 同时，对html进行一次返解码
+		result = html.unescape_string(result)
 
 		# 针对lastModified做特殊处理
 		# 因为lastModified是以long的形式呈现的，这里需要转换为Date的字符串表示
