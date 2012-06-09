@@ -14,6 +14,29 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/md5.js"></script>
+    <script src="assets/js/soapclient.js"></script>
+    <script src="assets/js/toolbar/toolbar.js"></script>
+
+    <script type="text/javascript">
+      var url = "http://localhost:12321";
+
+      function Speak()
+      {
+        var pl = new SOAPClientParameters();
+        pl.add("string", "what do you want?");
+        SOAPClient.invoke(url, "text2speech", pl, true, Speak_callBack);
+      }
+
+      function Speak_callBack(r)
+      {
+        alert(r);
+      }
+
+      Speak();
+    </script>
   </head>
 
   <body>
@@ -36,9 +59,5 @@
       </div>
 
     </div> <!-- /container -->
-
-    <!-- 将文件放到底部，加快加载速度 -->
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/toolbar/toolbar.js"></script>
   </body>
 </html>
