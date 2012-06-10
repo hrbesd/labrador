@@ -6,48 +6,6 @@
  
 \*****************************************************************************/
 
-var url = "http://localhost:12321";
-
-var audioPlaying = false;
-
-function speak(text)
-{
-    var pl = new SOAPClientParameters();
-    pl.add("string", text);
-    SOAPClient.simpleSoapRequest(url, "http://example.com/tts_service", "text2speech", pl);
-    // tests if the audio file exists
-    var audioURL = "http://localhost:2000/" + faultylabs.MD5(text) + ".m4a";
-    checkSoundExists(audioURL);
-}
-
-function checkSoundExists(audioURL) {
-    $.ajax({
-        url:audioURL,
-        type:'HEAD',
-        error: function()
-        {
-            setTimeout(checkSoundExists(audioURL), 1000);
-        },
-        success: function()
-        {
-            sayWord(audioURL);
-        }
-    });   
-}
-
-function audioFinished() {
-    audioPlaying = false;
-}
-
-function sayWord(audioURL) {
-    if(!audioPlaying) {
-        audioPlaying = true;
-        var soundPlayer = new Audio(audioURL);
-        soundPlayer.addEventListener('ended', audioFinished);
-        soundPlayer.play();
-    }    
-}
-
 function SOAPClientParameters()
 {
     var _pl = new Array();
