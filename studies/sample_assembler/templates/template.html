@@ -31,7 +31,7 @@
       <!-- Example row of columns -->
       <div class="row">
         <div align="center">
-          <h1 id="news_title" onmouseover="speak($('#news_title').html());">${title}</h1>
+          <h1 id="news_title" onmouseover="speak($('#news_title').html());doTranslate($('#news_title').html());">${title}</h1>
           <p><div id="author"><span id="author_content" onmouseover="speak($('#author_content').html());">${author}</span></div></p>
           <p><div id="date"><span id="date_content" onmouseover="speak($('#date_content').html());">发表日期：${lastModified}</span></div></p>
         </div>

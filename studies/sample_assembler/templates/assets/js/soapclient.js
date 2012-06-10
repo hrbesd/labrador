@@ -140,13 +140,13 @@ SOAPClient._getXmlHttp = function()
             {
                 req.readyState = 1;
                 req.addEventListener("load", 
-                                    function() 
-                                    {
-                                        req.readyState = 4;
-                                        if(typeof req.onreadystatechange == "function")
-                                            req.onreadystatechange();
-                                    },
-                                    false);
+                    function() 
+                    {
+                        req.readyState = 4;
+                        if(typeof req.onreadystatechange == "function")
+                            req.onreadystatechange();
+                    },
+                    false);
             }
             return req;
         }

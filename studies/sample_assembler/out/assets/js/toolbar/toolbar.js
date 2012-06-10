@@ -245,3 +245,18 @@ function sayWord(audioURL) {
         soundPlayer.play();
     }    
 }
+
+function doTranslate(text) {
+    var translateURL = "https://www.googleapis.com/language/translate/v2?key=AIzaSyDaSjttIQryVZn8sqUkVmx227SsiWiYzC8&source=zh-CN&target=en&q=" + escape(text);
+    $.ajax({
+        url:translateURL,
+        type:'GET',
+        error: function()
+        {
+        },
+        success: function(data)
+        {
+            alert(data.data.translations[0].translatedText);
+        }
+    }); 
+}
