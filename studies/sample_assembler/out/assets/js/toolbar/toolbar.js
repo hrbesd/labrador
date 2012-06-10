@@ -3,6 +3,10 @@
  * 目前没有开发的功能：预定样式表、放大镜、语音播放
  * @version 0.1
  */
+var url = "http://localhost:12321";
+var audioPlaying = false;
+var read_enabled;
+
 jQuery(document).ready(function(){
     
 	//cookie fucntions
@@ -50,17 +54,20 @@ jQuery(document).ready(function(){
     if (getCookie('accessible') == 1) {
         accessible();
     }
-	
-    if (getCookie('accessible_textmode') == 1) {
-        accessible();
-		acc_textmode();
+
+    // toggle read
+    if (getCookie('read_the_words') == 1) {
+        read_enabled = true;
+    } else {
+        read_enabled = false;
     }
+
+    updateStatus();
 	
 	// ctrl + shirt + S  high contrast
 	$(document).keydown(function(event){
         if (event.ctrlKey && event.shiftKey && event.keyCode == '83') {
             accessible();
-			acc_highcontrast();
         }
     });
     
@@ -79,6 +86,7 @@ jQuery(document).ready(function(){
                     '<button id="theme_standard">基本主题</button>' + 
                     '<button id="theme_dark">黑色主题</button>' +
                     '<button id="theme_highcontrast">高对比度主题</button>' +
+                    '<button id="should_read">关闭声音朗读</button>' + 
                     '<button id="accclose" class="last">关闭</button>' + 
                 '</div>';
 
@@ -143,6 +151,12 @@ jQuery(document).ready(function(){
             $('#theme_highcontrast').click(function() {
                 setActiveStyleSheet('high_contrast');
             });
+
+            $('#should_read').click(function() {
+                read_enabled = !read_enabled;
+                
+                updateStatus();
+            });
             
 			//close button
             $('#accclose').click(function(){
@@ -179,4 +193,55 @@ jQuery(document).ready(function(){
         }
         return false;
     }
+
+    function updateStatus() {
+        if(read_enabled) {
+            $('#should_read').html('关闭声音朗读');
+            setCookie('read_the_words', 1, 360);
+        } else {
+            $('#should_read').html('开启声音朗读');
+            eraseCookie('read_the_words');
+        }
+    }
 });
+
+function speak(text)
+{
+    if(!read_enabled) {
+        return;
+    }
+    var pl = new SOAPClientParameters();
+    pl.add("string", text);
+    SOAPClient.simpleSoapRequest(url, "http://example.com/tts_service", "text2speech", pl);
+    // tests if the audio file exists
+    var audioURL = "http://localhost:2000/" + faultylabs.MD5(text) + ".m4a";
+    checkSoundExists(audioURL);
+}
+
+function checkSoundExists(audioURL) {
+    $.ajax({
+        url:audioURL,
+        type:'HEAD',
+        error: function()
+        {
+            setTimeout(checkSoundExists(audioURL), 1000);
+        },
+        success: function()
+        {
+            sayWord(audioURL);
+        }
+    });   
+}
+
+function audioFinished() {
+    audioPlaying = false;
+}
+
+function sayWord(audioURL) {
+    if(!audioPlaying) {
+        audioPlaying = true;
+        var soundPlayer = new Audio(audioURL);
+        soundPlayer.addEventListener('ended', audioFinished);
+        soundPlayer.play();
+    }    
+}
