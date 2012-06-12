@@ -3,7 +3,7 @@
  *
  * 调用Web Service获取某段中文内容的对应翻译
  * 这里假定原始文字信息是中文的
- * “包”名： speaker
+ * “包”名： trans
  *
  * Author: Void Main
  */
