@@ -7,6 +7,9 @@ var url = "http://localhost:12321";
 var audioPlaying = false;
 var read_enabled;
 
+// 记录内容宽度，0-很宽，1-正常，2-很窄
+var widthType;
+
 jQuery(document).ready(function(){
     
 	//cookie fucntions
@@ -48,6 +51,14 @@ jQuery(document).ready(function(){
          }
        }
     } 
+
+    function setContentWidth(type) {
+        var width = 100 - 20 * type;
+        var left = type * 10;
+
+        $('body').css('width', width + '%');
+        $('body').css('left', left + '%');
+    }
   
 	var accessible_enable = false;
   
@@ -86,6 +97,9 @@ jQuery(document).ready(function(){
                     '<button id="theme_standard">基本主题</button>' + 
                     '<button id="theme_dark">黑色主题</button>' +
                     '<button id="theme_highcontrast">高对比度主题</button>' +
+                    '<button id="width_high">很宽</button>' +
+                    '<button id="width_normal">正常</button>' +
+                    '<button id="width_low">很窄</button>' +
                     '<button id="should_read">关闭声音朗读</button>' + 
                     '<button id="accclose" class="last">关闭</button>' + 
                 '</div>';
@@ -101,6 +115,12 @@ jQuery(document).ready(function(){
                     $('#acctoolbar').css('top', $(window).scrollTop());
                 })
             }
+
+            // 设置内容宽度
+            var contentWidth = getCookie('content_width');
+            if(contentWidth) {
+                setContentWidth(contentWidth);
+            }
 			
 			//text zoom in
             $('#textin').click(function() {
@@ -113,6 +133,24 @@ jQuery(document).ready(function(){
                 var s = parseInt($('body').css('font-size').replace('px', ''), 10);
                 s = s - 2;
                 $('body').css('font-size', s + 'px');
+            });
+
+            $('#width_high').click(function() {
+                setContentWidth(0);
+
+                setCookie('content_width', 0, 360);
+            });
+
+            $('#width_normal').click(function() {
+                setContentWidth(1);
+
+                setCookie('content_width', 1, 360);
+            });
+
+            $('#width_low').click(function() {
+                setContentWidth(2);
+
+                setCookie('content_width', 2, 360);
             });
 			
 			//guide lines
@@ -247,17 +285,14 @@ function sayWord(audioURL) {
 }
 
 function doTranslate(text) {
-    var translateURL = "https://www.googleapis.com/language/translate/v2?key=AIzaSyDaSjttIQryVZn8sqUkVmx227SsiWiYzC8&source=zh-CN&target=en&q=" + escape(text);
+    var translateURL = "http://localhost:9999/translate/en/" + text;
     $.ajax({
         url:translateURL,
         type:'GET',
-        error: function()
-        {
-        },
         success: function(data)
         {
-            // only works in Safari
-            alert(data.data.translations[0].translatedText);
+            dataJSON = JSON.parse(data);
+            alert(dataJSON.data.translations[0].translatedText);
         }
     }); 
 }
