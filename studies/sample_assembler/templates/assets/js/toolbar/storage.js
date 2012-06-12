@@ -44,5 +44,5 @@ storage.getCookie = function(name){
 // 删除cookie内容
 // 参数：name - 要删除的cookie的名称
 storage.eraseCookie = function(name){
-    setCookie(name, "", -1);
+    storage.setCookie(name, "", -1);
 }
