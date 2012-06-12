@@ -6,6 +6,7 @@
 struct Node
 {
     QString url;
+    QString nodeName;
     QString regExp;
     QString nextPageRegExp;
     QString maxPageCount;

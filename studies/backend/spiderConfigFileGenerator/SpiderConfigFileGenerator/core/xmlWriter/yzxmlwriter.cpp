@@ -37,6 +37,7 @@ void YZXmlWriter::writeWebsiteItemToXml(WebSite &websiteItem, QString fileName)
 
 void YZXmlWriter::writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter &writer)
 {
+    writer.writeTextElement("name",nodeItem.nodeName);
     writer.writeTextElement("url",nodeItem.url);
     writer.writeTextElement("regExp",nodeItem.regExp);
     writer.writeTextElement("nextPageRegExp",nodeItem.nextPageRegExp);
