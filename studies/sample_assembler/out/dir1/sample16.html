@@ -19,25 +19,30 @@
     <script src="assets/js/md5.js"></script>
     <script src="assets/js/soapclient.js"></script>
     <script src="assets/js/toolbar/toolbar.js"></script>
-
+    <script src="assets/js/toolbar/speaker.js"></script>
+    <script src="assets/js/toolbar/storage.js"></script>
+    <script src="assets/js/toolbar/trans.js"></script>
+    <script type="text/javascript">
+      function transResult(text) {
+        alert(text);
+      }
+    </script>
   </head>
 
   <body>
-
     <div id="wrapper" class="container">
-
-      <p><a id="accessible" href="#" onmouseover="speak($('#accessible').html());">无障碍浏览</a></p>
+      <p><a id="accessible" href="#" onmouseover="speaker.speak($('#accessible').html());">无障碍浏览</a></p>
 
       <!-- Example row of columns -->
       <div class="row">
         <div align="center">
-          <h1 id="news_title" onmouseover="speak($('#news_title').html());doTranslate($('#news_title').html());">
+          <h1 id="news_title" onmouseover="speaker.speak($('#news_title').html());trans.doTranslate($('#news_title').html(), transResult);">
 		哈尔滨市人民政府关于开展农村集体土地确权登记发证工作的通告
 	</h1>
-          <p><div id="author"><span id="author_content" onmouseover="speak($('#author_content').html());">
+          <p><div id="author"><span id="author_content" onmouseover="speaker.speak($('#author_content').html());">
 		哈政发法字[2012]5号
 	</span></div></p>
-          <p><div id="date"><span id="date_content" onmouseover="speak($('#date_content').html());">发表日期：2012年06月04日</span></div></p>
+          <p><div id="date"><span id="date_content" onmouseover="speaker.speak($('#date_content').html());">发表日期：2012年06月04日</span></div></p>
         </div>
         
         <hr/>

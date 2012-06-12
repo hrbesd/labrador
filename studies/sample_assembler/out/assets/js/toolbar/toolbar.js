@@ -1,43 +1,15 @@
 /**
- * 工具条的简单实现，提供了4个功能：放大、缩小、辅助线、对比度翻转；
- * 目前没有开发的功能：预定样式表、放大镜、语音播放
- * @version 0.1
+ * 工具栏的调度部分
+ * 
+ * 主要完成的功能是工具栏界面显示与对应JS功能实现的绑定
+ * 而具体模块功能的实现，则是放到单独的实现文件之中
+ * 
+ * Author： Void Main
  */
-var url = "http://localhost:12321";
-var audioPlaying = false;
-var read_enabled;
-
 // 记录内容宽度，0-很宽，1-正常，2-很窄
 var widthType;
 
 jQuery(document).ready(function(){
-    
-	//cookie fucntions
-    function setCookie(name, value, days){
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            var expires = "; expires=" + date.toGMTString();
-        }
-        else 
-            var expires = "";
-        document.cookie = name + "=" + value + expires + "; path=/";
-    }
-    function getCookie(name){
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') 
-                c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) 
-                return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
-    function eraseCookie(name){
-        setCookie(name, "", -1);
-    }
 
     // change active style sheet
     function setActiveStyleSheet(title) {
@@ -62,15 +34,15 @@ jQuery(document).ready(function(){
   
 	var accessible_enable = false;
   
-    if (getCookie('accessible') == 1) {
+    if (storage.getCookie('accessible') == 1) {
         accessible();
     }
 
     // toggle read
-    if (getCookie('read_the_words') == 1) {
-        read_enabled = true;
+    if (storage.getCookie('read_the_words') == 1) {
+        speaker.read_enabled = true;
     } else {
-        read_enabled = false;
+        speaker.read_enabled = false;
     }
 
     updateStatus();
@@ -116,7 +88,8 @@ jQuery(document).ready(function(){
                 })
             }
 
-            var contentWidth = getCookie('content_width');
+            // 设置内容宽度
+            var contentWidth = storage.getCookie('content_width');
             if(contentWidth) {
                 setContentWidth(contentWidth);
             }
@@ -137,19 +110,19 @@ jQuery(document).ready(function(){
             $('#width_high').click(function() {
                 setContentWidth(0);
 
-                setCookie('content_width', 0, 360);
+                storage.setCookie('content_width', 0, 360);
             });
 
             $('#width_normal').click(function() {
                 setContentWidth(1);
 
-                setCookie('content_width', 1, 360);
+                storage.setCookie('content_width', 1, 360);
             });
 
             $('#width_low').click(function() {
                 setContentWidth(2);
 
-                setCookie('content_width', 2, 360);
+                storage.setCookie('content_width', 2, 360);
             });
 			
 			//guide lines
@@ -190,7 +163,7 @@ jQuery(document).ready(function(){
             });
 
             $('#should_read').click(function() {
-                read_enabled = !read_enabled;
+                speaker.read_enabled = !speaker.read_enabled;
                 
                 updateStatus();
             });
@@ -222,76 +195,22 @@ jQuery(document).ready(function(){
                 $('#wrapper').css('padding-top', 0);
 				
 				//remove cookie
-                eraseCookie('accessible');
+                storage.eraseCookie('accessible');
             });
 			
 			//save cookie
-			setCookie('accessible', 1, 360);
+			storage.setCookie('accessible', 1, 360);
         }
         return false;
     }
 
     function updateStatus() {
-        if(read_enabled) {
+        if(speaker.read_enabled) {
             $('#should_read').html('关闭声音朗读');
-            setCookie('read_the_words', 1, 360);
+            storage.setCookie('read_the_words', 1, 360);
         } else {
             $('#should_read').html('开启声音朗读');
-            eraseCookie('read_the_words');
+            storage.eraseCookie('read_the_words');
         }
     }
 });
-
-function speak(text)
-{
-    if(!read_enabled) {
-        return;
-    }
-    var pl = new SOAPClientParameters();
-    pl.add("string", text);
-    SOAPClient.simpleSoapRequest(url, "http://example.com/tts_service", "text2speech", pl);
-    // tests if the audio file exists
-    var audioURL = "http://localhost:2000/" + faultylabs.MD5(text) + ".m4a";
-    checkSoundExists(audioURL);
-}
-
-function checkSoundExists(audioURL) {
-    $.ajax({
-        url:audioURL,
-        type:'HEAD',
-        error: function()
-        {
-            setTimeout(checkSoundExists(audioURL), 1000);
-        },
-        success: function()
-        {
-            sayWord(audioURL);
-        }
-    });   
-}
-
-function audioFinished() {
-    audioPlaying = false;
-}
-
-function sayWord(audioURL) {
-    if(!audioPlaying) {
-        audioPlaying = true;
-        var soundPlayer = new Audio(audioURL);
-        soundPlayer.addEventListener('ended', audioFinished);
-        soundPlayer.play();
-    }    
-}
-
-function doTranslate(text) {
-    var translateURL = "http://localhost:9999/translate/en/" + text;
-    $.ajax({
-        url:translateURL,
-        type:'GET',
-        success: function(data)
-        {
-            dataJSON = JSON.parse(data);
-            alert(dataJSON.data.translations[0].translatedText);
-        }
-    }); 
-}
