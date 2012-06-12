@@ -19,21 +19,26 @@
     <script src="assets/js/md5.js"></script>
     <script src="assets/js/soapclient.js"></script>
     <script src="assets/js/toolbar/toolbar.js"></script>
-
+    <script src="assets/js/toolbar/speaker.js"></script>
+    <script src="assets/js/toolbar/storage.js"></script>
+    <script src="assets/js/toolbar/trans.js"></script>
+    <script type="text/javascript">
+      function transResult(text) {
+        alert(text);
+      }
+    </script>
   </head>
 
   <body>
-
     <div id="wrapper" class="container">
-
-      <p><a id="accessible" href="#" onmouseover="speak($('#accessible').html());">无障碍浏览</a></p>
+      <p><a id="accessible" href="#" onmouseover="speaker.speak($('#accessible').html());">无障碍浏览</a></p>
 
       <!-- Example row of columns -->
       <div class="row">
         <div align="center">
-          <h1 id="news_title" onmouseover="speak($('#news_title').html());doTranslate($('#news_title').html());">${title}</h1>
-          <p><div id="author"><span id="author_content" onmouseover="speak($('#author_content').html());">${author}</span></div></p>
-          <p><div id="date"><span id="date_content" onmouseover="speak($('#date_content').html());">发表日期：${lastModified}</span></div></p>
+          <h1 id="news_title" onmouseover="speaker.speak($('#news_title').html());trans.doTranslate($('#news_title').html(), transResult);">${title}</h1>
+          <p><div id="author"><span id="author_content" onmouseover="speaker.speak($('#author_content').html());">${author}</span></div></p>
+          <p><div id="date"><span id="date_content" onmouseover="speaker.speak($('#date_content').html());">发表日期：${lastModified}</span></div></p>
         </div>
         
         <hr/>
