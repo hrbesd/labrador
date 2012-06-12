@@ -4,3 +4,6 @@
 /parser/*
 !/parser/YZParser
 /parser/YZParser/YZParser.pro.user
+/spiderConfigFileGenerator/*
+!/spiderConfigFileGenerator/SpiderConfigFileGenerator
+/spiderConfigFileGenerator/SpiderConfigFileGenerator/SpiderConfigFileGenerator.pro.user
