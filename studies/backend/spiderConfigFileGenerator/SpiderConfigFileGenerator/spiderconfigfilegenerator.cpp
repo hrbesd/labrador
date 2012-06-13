@@ -6,15 +6,17 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
 {
     WebSite websiteItem;
     websiteItem.url = "http://www.harbin.gov.cn/";
-    websiteItem.regExp = "";
-    websiteItem.websiteName = "chinese harbin";
+    websiteItem.urlRegExp = "";
+    websiteItem.name = "chinese harbin";
     Node nodeItem;
+    nodeItem.name = "zhengfugonggao";
     nodeItem.url = "http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm";
-    nodeItem.regExp = "<a .*href=\"([^\"]*)\" class=\"bgc1\" onmouseover=\"this.className=\'bgc2\'\" onmouseout=\"this.className=\'bgc1\'";
+    nodeItem.urlRegExp = "<a .*href=\"([^\"]*)\" class=\"bgc1\" onmouseover=\"this.className=\'bgc2\'\" onmouseout=\"this.className=\'bgc1\'";
+    nodeItem.nameRegExp = "class=\"bgc1\" onmouseover=\"this.className='bgc2'\" .*<span>(.*)</span>";
     Node childNodeItem;
     childNodeItem.nextPageRegExp="<a href=\"([^\"]*)\" class=\"Next\">下页";
-    childNodeItem.regExp = "<a class=\"f3348\" href=\"([^\"]*)\"";
-    childNodeItem.titleRegExp = "<a class=\"f3348\".*title=\"([^\"]*)\"";
+    childNodeItem.urlRegExp = "<a class=\"f3348\" href=\"([^\"]*)\"";
+    childNodeItem.nameRegExp = "<a class=\"f3348\".*title=\"([^\"]*)\"";
     nodeItem.nodeList.append(childNodeItem);
     websiteItem.nodeList.append(nodeItem);
     YZXmlWriter::writeWebsiteItemToXml(websiteItem,"config.xml");

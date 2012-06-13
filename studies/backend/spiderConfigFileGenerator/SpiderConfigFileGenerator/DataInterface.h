@@ -6,20 +6,21 @@
 struct Node
 {
     QString url;
-    QString nodeName;
-    QString regExp;
+    QString name;
+    QString urlRegExp;
     QString nextPageRegExp;
     QString maxPageCount;
     QString refreshRate;
-    QString titleRegExp;
+    QString nameRegExp;
     QList<Node> nodeList;
 };
 
 struct WebSite
 {
     QString url;
-    QString regExp;
-    QString websiteName;
+    QString urlRegExp;
+    QString nameRegExp;
+    QString name;
     QList<Node> nodeList;
 };
 #endif // DATAINTERFACE_H
