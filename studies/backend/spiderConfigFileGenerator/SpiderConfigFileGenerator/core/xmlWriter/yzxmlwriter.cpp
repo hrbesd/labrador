@@ -19,10 +19,10 @@ void YZXmlWriter::writeWebsiteItemToXml(WebSite &websiteItem, QString fileName)
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("website");
-    writer.writeTextElement("websiteName", websiteItem.websiteName);
-    writer.writeTextElement("regExp",websiteItem.regExp);
+    writer.writeTextElement("name", websiteItem.name);
+    writer.writeTextElement("urlRegExp",websiteItem.urlRegExp);
     writer.writeTextElement("url",websiteItem.url);
-
+    writer.writeTextElement("nameRegExp",websiteItem.nameRegExp);
     writer.writeStartElement("NodeList");
     foreach(Node nodeItem, websiteItem.nodeList)
     {
@@ -37,13 +37,13 @@ void YZXmlWriter::writeWebsiteItemToXml(WebSite &websiteItem, QString fileName)
 
 void YZXmlWriter::writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter &writer)
 {
-    writer.writeTextElement("name",nodeItem.nodeName);
+    writer.writeTextElement("name",nodeItem.name);
     writer.writeTextElement("url",nodeItem.url);
-    writer.writeTextElement("regExp",nodeItem.regExp);
+    writer.writeTextElement("urlRegExp",nodeItem.urlRegExp);
     writer.writeTextElement("nextPageRegExp",nodeItem.nextPageRegExp);
     writer.writeTextElement("maxPageCount",nodeItem.maxPageCount);
     writer.writeTextElement("refreshRate",nodeItem.refreshRate);
-    writer.writeTextElement("titleRegExp",nodeItem.titleRegExp);
+    writer.writeTextElement("nameRegExp",nodeItem.nameRegExp);
     writer.writeStartElement("NodeList");
     foreach(Node nodeItem, nodeItem.nodeList)
     {
