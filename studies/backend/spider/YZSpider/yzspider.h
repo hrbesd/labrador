@@ -25,7 +25,7 @@ public:
     YZSpider(QString whiteListFileName, QObject *parent = 0);
     void downloadWebPage(QString url);
     void parseLinks(QString url);
-    void parseUrlListFile(QString urlListFile);
+    void parseConfigFile(QString configFile);
 signals:
     
 protected slots:

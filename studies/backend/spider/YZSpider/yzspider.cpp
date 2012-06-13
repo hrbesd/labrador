@@ -141,18 +141,13 @@ void YZSpider::downloadScheduler()
     }
 }
 
-void YZSpider::parseUrlListFile(QString urlListFile)
+void YZSpider::parseConfigFile(QString configFile)
 {
-    QFile file(urlListFile);
+    QFile file(configFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        qWarning("can't open urlList File");
+        qWarning("can't open config File");
         return;
     }
-    while (!file.atEnd()) {
-          QByteArray line = file.readLine();
-          qDebug()<<"Parsing links: "+ QString(line).trimmed();
-          parseLinks(QString(line).trimmed());
-      }
 
 }
