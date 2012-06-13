@@ -6,6 +6,7 @@
  * 
  * Author： Void Main
  */
+
 // 记录内容宽度，0-很宽，1-正常，2-很窄
 var widthType;
 
@@ -23,7 +24,7 @@ jQuery(document).ready(function(){
         speaker.read_enabled = false;
     }
 
-    updateStatus();
+    updateSpeakerStatus();
 	
 	// ctrl + shirt + S  high contrast
 	$(document).keydown(function(event){
@@ -70,6 +71,7 @@ function accessible(){
                 '<button id="width_high">很宽</button>' +
                 '<button id="width_normal">正常</button>' +
                 '<button id="width_low">很窄</button>' +
+                '<button id="show_help">帮助</button>' +
                 '<button id="should_read">关闭声音朗读</button>' + 
                 '<button id="accclose" class="last">关闭</button>' + 
             '</div>';
@@ -163,7 +165,7 @@ function accessible(){
         $('#should_read').click(function() {
             speaker.read_enabled = !speaker.read_enabled;
             
-            updateStatus();
+            updateSpeakerStatus();
         });
         
         //close button
@@ -195,6 +197,10 @@ function accessible(){
             //remove cookie
             storage.eraseCookie('accessible');
         });
+
+        $('#show_help').click(function() {
+            ui.seperateLayer(100, 200, 800, 600, "<h1>测试弹出层</h1>");
+        });
         
         //save cookie
         storage.setCookie('accessible', 1, 360);
@@ -202,7 +208,7 @@ function accessible(){
     return false;
 }
 
-function updateStatus() {
+function updateSpeakerStatus() {
     if(speaker.read_enabled) {
         $('#should_read').html('关闭声音朗读');
         storage.setCookie('read_the_words', 1, 360);
