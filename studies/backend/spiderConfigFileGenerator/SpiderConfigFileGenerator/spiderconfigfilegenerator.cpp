@@ -5,9 +5,11 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     QObject(parent)
 {
     WebSite websiteItem;
-    websiteItem.url = "http://www.harbin.gov.cn/";
-    websiteItem.urlRegExp = "";
-    websiteItem.name = "chinese harbin";
+    websiteItem.editor = "genghailong";
+    websiteItem.info = "zhong guo haerbin";
+    websiteItem.node.url = "http://www.harbin.gov.cn/";
+    websiteItem.node.urlRegExp = "";
+    websiteItem.node.name = "chinese harbin";
     Node nodeItem;
     nodeItem.name = "zhengfugonggao";
     nodeItem.url = "http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm";
@@ -18,7 +20,7 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     childNodeItem.urlRegExp = "<a class=\"f3348\" href=\"([^\"]*)\"";
     childNodeItem.nameRegExp = "<a class=\"f3348\".*title=\"([^\"]*)\"";
     nodeItem.nodeList.append(childNodeItem);
-    websiteItem.nodeList.append(nodeItem);
+    websiteItem.node.nodeList.append(nodeItem);
     YZXmlWriter::writeWebsiteItemToXml(websiteItem,"config.xml");
     qDebug()<<"finish";
 }
