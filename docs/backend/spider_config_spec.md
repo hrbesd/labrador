@@ -22,21 +22,17 @@ struct Node
 
 struct WebSite
 {
-    String url;
-    String urlRegExp;
-    String nameRegExp;
-    String name;
-    List<Node> nodeList;
+    Node node;
+    String info;
+    String editor;
 };
 </code></pre>
 ##数据属性说明
 Website结构负责保存整个网站的信息，Node用来递归的定义栏目的描述信息
 ###WebSite
-    url: 网站的URL地址
-    name： 网站名称
-    urlRegExp: 用来自动匹配栏目url的正则表达式
-    nameRegExp: 用来自动匹配栏目名称的正则表达式
-    nodeList: 用来手工添加栏目节点信息
+    info: 网站的描述信息
+    editor： 网站配置文件编辑者
+    node: 记录网站的链接信息
 ###Node
     url: 栏目的url地址
     name： 栏目的名称
@@ -49,29 +45,44 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
 ##XML示例
     <?xml version="1.0" encoding="UTF-8"?>
     <website>
-    <name>chinese harbin</name>
-    <urlRegExp></urlRegExp>
-    <url>http://www.harbin.gov.cn/</url>
-    <nameRegExp></nameRegExp>
-    <NodeList>
-        <name>zhengfugonggao</name>
-        <url>http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm</url>
-        <urlRegExp>&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'</urlRegExp>
+    <editor>genghailong</editor>
+    <info>zhong guo haerbin</info>
+    <node>
+        <name>chinese harbin</name>
+        <url>http://www.harbin.gov.cn/</url>
+        <urlRegExp></urlRegExp>
         <nextPageRegExp></nextPageRegExp>
         <maxPageCount></maxPageCount>
         <refreshRate></refreshRate>
-        <nameRegExp>class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;</nameRegExp>
+        <nameRegExp></nameRegExp>
         <NodeList>
-            <name></name>
-            <url></url>
-            <urlRegExp>&lt;a class=&quot;f3348&quot; href=&quot;([^&quot;]*)&quot;</urlRegExp>
-            <nextPageRegExp>&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页</nextPageRegExp>
-            <maxPageCount></maxPageCount>
-            <refreshRate></refreshRate>
-            <nameRegExp>&lt;a class=&quot;f3348&quot;.*title=&quot;([^&quot;]*)&quot;</nameRegExp>
-            <NodeList/>
+            <node>
+                <name>zhengfugonggao</name>
+                <url>http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm</url>
+                <urlRegExp>&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'</urlRegExp>
+                <nextPageRegExp></nextPageRegExp>
+                <maxPageCount></maxPageCount>
+                <refreshRate></refreshRate>
+                <nameRegExp>class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;</nameRegExp>
+                <NodeList>
+                    <node>
+                        <name></name>
+                        <url></url>
+                        <urlRegExp>&lt;a class=&quot;f3348&quot; href=&quot;([^&quot;]*)&quot;</urlRegExp>
+                        <nextPageRegExp>&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页</nextPageRegExp>
+                        <maxPageCount></maxPageCount>
+                        <refreshRate></refreshRate>
+                        <nameRegExp>&lt;a class=&quot;f3348&quot;.*title=&quot;([^&quot;]*)&quot;</nameRegExp>
+                        <NodeList/>
+                    </node>
+                </NodeList>
+            </node>
         </NodeList>
-    </NodeList>
+    </node>
     </website>
+
+
+
+
 
   
