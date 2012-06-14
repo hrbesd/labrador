@@ -8,16 +8,22 @@
 正则表达式负责自动获取节点信息，手动添加的节点和自动添加的节点合并为最后要分析的节点。后期会为配置文件生成器开发图形界面。
 ##数据结构定义
 <pre><code>
+struct Rule
+{
+    String urlRegExp;
+    String nextPageRegExp;
+    String maxPageCount;
+    String nameRegExp;
+    Rule*   childRule;
+    QList<Node> nodeList;
+};
+
 struct Node
 {
     String url;
     String name;
-    String urlRegExp;
-    String nextPageRegExp;
-    String maxPageCount;
     String refreshRate;
-    String nameRegExp;
-    List<Node> nodeList;
+    QList<Rule*> ruleList;
 };
 
 struct WebSite
@@ -29,19 +35,22 @@ struct WebSite
 </code></pre>
 ##数据属性说明
 Website结构负责保存整个网站的信息，Node用来递归的定义栏目的描述信息
-###WebSite
+###WebSite 描述一个网站的整体信息
     info: 网站的描述信息
     editor： 网站配置文件编辑者
     node: 记录网站的链接信息
-###Node
-    url: 栏目的url地址
-    name： 栏目的名称
+###Node 描述一个页面的信息
+    url: 页面的url地址
+    name： 页面的名称
+    refreshRate： 记录页面刷新
+    ruleList： 页面匹配规则列表
+###Rule 记录匹配规则
     urlRegExp： 匹配子栏目或者正文URL的正则表达式
     nextPageRegExp： 用来找出下一页地址的正则表达式
     maxPageCount： 记录最多翻页数
-    refreshRate： 记录刷新率
     nameRegExp： 用来匹配子栏目标题或正文标题的正则表达式
     nodeList： 用来手工添加子栏目节点
+    childRule： 应用于下层节点的规则
 ##XML示例
     <?xml version="1.0" encoding="UTF-8"?>
     <website>
