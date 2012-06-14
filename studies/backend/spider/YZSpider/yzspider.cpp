@@ -71,6 +71,15 @@ void YZSpider::parseLinks(QString url)
     connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
 }
 
+void YZSpider::nodeRequestReply()
+{
+    QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
+    QByteArray result = reply->readAll();
+    QUrl baseUrl = reply->url();
+
+    reply->deleteLater();
+}
+
 void YZSpider::parseLinksReply()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
@@ -149,5 +158,128 @@ void YZSpider::parseConfigFile(QString configFile)
         qWarning("can't open config File");
         return;
     }
+    QXmlStreamReader xmlReader(&file);
+    while (!xmlReader.atEnd()) {
+        if(xmlReader.isStartElement())
+        {
+            if(xmlReader.name()=="website")
+                parseWebsiteXml(xmlReader);
+            else
+            {
+                qWarning()<<"invalid xml format";
+            }
+        }
+        xmlReader.readNext();
+    }
+    file.close();
+    parseWebsiteData();
+}
+
+void YZSpider::parseWebsiteXml(QXmlStreamReader &reader)
+{
+    reader.readNext();
+    while(!reader.atEnd())
+    {
+        if(reader.isEndElement()&&reader.name()=="website")
+        {
+            return;
+        }
+        else if(reader.isStartElement())
+        {
+            if(reader.name()=="editor")
+            {
+                m_website.editor = reader.readElementText();
+            }
+            else if(reader.name()=="info")
+            {
+                m_website.info = reader.readElementText();
+            }
+            else if(reader.name()=="node")
+            {
+                parseNodeXml(reader,m_website.node);
+            }
+        }
+        reader.readNext();
+    }
+
+}
+
+void YZSpider::parseNodeXml(QXmlStreamReader &reader, Node &node)
+{
+    reader.readNext();
+    while(!reader.atEnd())
+    {
+        if(reader.isEndElement()&&reader.name()=="node")
+        {
+            return;
+        }
+        else if(reader.isStartElement())
+        {
+            if(reader.name()=="name")
+            {
+                node.name = reader.readElementText();
+            }
+            else if(reader.name()=="url")
+            {
+                node.url = reader.readElementText();
+            }
+            else if(reader.name()=="urlRegExp")
+            {
+                node.urlRegExp = reader.readElementText();
+            }
+            else if(reader.name()=="nextPageRegExp")
+            {
+                node.nextPageRegExp = reader.readElementText();
+            }
+            else if(reader.name()=="maxPageCount")
+            {
+                node.maxPageCount = reader.readElementText();
+            }
+            else if(reader.name()=="refreshRate")
+            {
+                node.refreshRate = reader.readElementText();
+            }
+            else if(reader.name()=="nameRegExp")
+            {
+                node.nameRegExp = reader.readElementText();
+            }
+            else if(reader.name()=="NodeList")
+            {
+                parseNodeListXml(reader,node.nodeList);
+            }
+        }
+        reader.readNext();
+    }
+}
+
+void YZSpider::parseNodeListXml(QXmlStreamReader &reader, QList<Node> &parentNodeList)
+{
+    reader.readNext();
+    while(!reader.atEnd())
+    {
+        if(reader.isEndElement()&&reader.name()=="NodeList")
+        {
+            return;
+        }
+        else if(reader.isStartElement())
+        {
+            if(reader.name()=="node")
+            {
+                Node newNode;
+                parentNodeList<<newNode;
+                parseNodeXml(reader,parentNodeList.last());
+            }
+        }
+        reader.readNext();
+    }
+}
+
+void YZSpider::parseWebsiteData()
+{
+
+}
+
+void YZSpider::parseNodeData()
+{
 
 }
