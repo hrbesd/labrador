@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core network
+QT       += core network xml
 
 QT       -= gui
 
@@ -19,4 +19,5 @@ SOURCES += main.cpp \
     yzspider.cpp
 
 HEADERS += \
-    yzspider.h
+    yzspider.h \
+    DataInterface.h

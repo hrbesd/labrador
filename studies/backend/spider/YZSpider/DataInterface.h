@@ -21,4 +21,5 @@ struct WebSite
     QString info;
     QString editor;
 };
+
 #endif // DATAINTERFACE_H

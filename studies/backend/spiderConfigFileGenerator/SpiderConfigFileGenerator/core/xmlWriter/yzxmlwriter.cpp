@@ -19,16 +19,9 @@ void YZXmlWriter::writeWebsiteItemToXml(WebSite &websiteItem, QString fileName)
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("website");
-    writer.writeTextElement("name", websiteItem.name);
-    writer.writeTextElement("urlRegExp",websiteItem.urlRegExp);
-    writer.writeTextElement("url",websiteItem.url);
-    writer.writeTextElement("nameRegExp",websiteItem.nameRegExp);
-    writer.writeStartElement("NodeList");
-    foreach(Node nodeItem, websiteItem.nodeList)
-    {
-        writeNodeItemToXml(nodeItem,writer);
-    }
-    writer.writeEndElement();
+    writer.writeTextElement("editor", websiteItem.editor);
+    writer.writeTextElement("info",websiteItem.info);
+    YZXmlWriter::writeNodeItemToXml(websiteItem.node,writer);
 
     writer.writeEndElement();
     writer.writeEndDocument();
@@ -37,6 +30,7 @@ void YZXmlWriter::writeWebsiteItemToXml(WebSite &websiteItem, QString fileName)
 
 void YZXmlWriter::writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter &writer)
 {
+    writer.writeStartElement("node");
     writer.writeTextElement("name",nodeItem.name);
     writer.writeTextElement("url",nodeItem.url);
     writer.writeTextElement("urlRegExp",nodeItem.urlRegExp);
@@ -49,5 +43,6 @@ void YZXmlWriter::writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter &writer)
     {
         writeNodeItemToXml(nodeItem,writer);
     }
+    writer.writeEndElement();
     writer.writeEndElement();
 }
