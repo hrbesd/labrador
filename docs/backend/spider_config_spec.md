@@ -54,24 +54,30 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
     <url>http://www.harbin.gov.cn/</url>
     <nameRegExp></nameRegExp>
     <NodeList>
-        <name>zhengfugonggao</name>
-        <url>http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm</url>
-        <urlRegExp>&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'</urlRegExp>
-        <nextPageRegExp></nextPageRegExp>
-        <maxPageCount></maxPageCount>
-        <refreshRate></refreshRate>
-        <nameRegExp>class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;</nameRegExp>
-        <NodeList>
-            <name></name>
-            <url></url>
-            <urlRegExp>&lt;a class=&quot;f3348&quot; href=&quot;([^&quot;]*)&quot;</urlRegExp>
-            <nextPageRegExp>&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页</nextPageRegExp>
+        <node>
+            <name>zhengfugonggao</name>
+            <url>http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm</url>
+            <urlRegExp>&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'</urlRegExp>
+            <nextPageRegExp></nextPageRegExp>
             <maxPageCount></maxPageCount>
             <refreshRate></refreshRate>
-            <nameRegExp>&lt;a class=&quot;f3348&quot;.*title=&quot;([^&quot;]*)&quot;</nameRegExp>
-            <NodeList/>
-        </NodeList>
+            <nameRegExp>class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;</nameRegExp>
+            <NodeList>
+                <node>
+                    <name></name>
+                    <url></url>
+                    <urlRegExp>&lt;a class=&quot;f3348&quot; href=&quot;([^&quot;]*)&quot;</urlRegExp>
+                    <nextPageRegExp>&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页</nextPageRegExp>
+                    <maxPageCount></maxPageCount>
+                    <refreshRate></refreshRate>
+                    <nameRegExp>&lt;a class=&quot;f3348&quot;.*title=&quot;([^&quot;]*)&quot;</nameRegExp>
+                    <NodeList/>
+                </node>
+            </NodeList>
+        </node>
     </NodeList>
     </website>
+
+
 
   
