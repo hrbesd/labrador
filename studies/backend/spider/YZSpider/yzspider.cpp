@@ -83,7 +83,6 @@ void YZSpider::webpageDownloadScheduler()
 
 void YZSpider::ruleRequestScheduler()
 {
-    qDebug()<<m_ruleRequestTask.size()<<m_ruleRequestThreadNum;
     while(m_ruleRequestThreadNum>0&&m_ruleRequestTask.isEmpty()==false)
     {
         RuleRequest ruleRequest = m_ruleRequestTask.takeFirst();
@@ -135,8 +134,19 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
         nodeItem.name = titleRegExp.cap(1);
         nodeItem.url = baseUrl.resolved(urlRegExp.cap(1)).toString();
         ruleItem->nodeList.append(nodeItem);
-        qDebug()<<nodeItem.name<<":"<<nodeItem.url;
+        YZLogger::Logger()->log(nodeItem.name+":"+nodeItem.url);
      }
+    if(!ruleItem->nextPageRegExp.isEmpty())
+    {
+        QRegExp nextPageRegExp(ruleItem->nextPageRegExp);
+        if(nextPageRegExp.indexIn(strData)!=-1)
+        {
+           RuleRequest ruleRequest;
+           ruleRequest.url = baseUrl.resolved(nextPageRegExp.cap(1)).toString();
+           ruleRequest.rule = ruleItem;
+           parseNextPage(ruleRequest);
+        }
+    }
 }
 
 void YZSpider::parseConfigFile(QString configFile)
@@ -368,4 +378,10 @@ void YZSpider::parseNodeListData(Rule *ruleItem)
     {
         parseNodeData(nodeItem);
     }
+}
+
+void YZSpider::parseNextPage(RuleRequest ruleRequest)
+{
+    m_ruleRequestTask.append(ruleRequest);
+    ruleRequestScheduler();
 }
