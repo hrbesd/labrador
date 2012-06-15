@@ -4,6 +4,12 @@
 #include <QList>
 
 struct Node;
+struct Rule;
+struct RuleRequest
+{
+    Rule* rule;
+    QString url;
+};
 
 struct Rule
 {
