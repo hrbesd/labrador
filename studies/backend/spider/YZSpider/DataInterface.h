@@ -3,16 +3,25 @@
 #include <QString>
 #include <QList>
 
+struct Node;
+
+struct Rule
+{
+    Rule() { childRule=NULL; }
+    QString urlRegExp;
+    QString nextPageRegExp;
+    QString maxPageCount;
+    QString nameRegExp;
+    QList<Node> nodeList;
+    Rule* childRule;
+};
+
 struct Node
 {
     QString url;
     QString name;
-    QString urlRegExp;
-    QString nextPageRegExp;
-    QString maxPageCount;
     QString refreshRate;
-    QString nameRegExp;
-    QList<Node> nodeList;
+    QList<Rule*> ruleList;
 };
 
 struct WebSite
