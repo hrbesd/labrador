@@ -60,3 +60,22 @@ speaker.sayWord = function (audioURL) {
         soundPlayer.play();
     }    
 }
+
+// 从cookie中加载语音播放选项
+speaker.loadSpeakerStatus = function() {
+    // toggle read
+    if (storage.getCookie('read_the_words') == 1) {
+        speaker.read_enabled = true;
+    } else {
+        speaker.read_enabled = false;
+    }
+}
+
+// 根据语音播放选项决定语音播放状态
+speaker.updateSpeakerStatus = function() {
+    if(speaker.read_enabled) {
+        storage.setCookie('read_the_words', 1, 360);
+    } else {
+        storage.eraseCookie('read_the_words');
+    }
+}
