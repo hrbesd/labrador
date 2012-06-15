@@ -44,6 +44,8 @@ private:
     void parseWebsiteXml(QXmlStreamReader &reader);
     void parseNodeXml(QXmlStreamReader &reader, Node &node);
     void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& parentNodeList);
+    void parseRuleListXml(QXmlStreamReader &reader, QList<Rule*>& parentRuleList);
+    void parseRuleXml(QXmlStreamReader &reader, Rule *rule);
     void parseWebsiteData();
     void parseNodeData();
     QNetworkAccessManager *m_networkAccessManager;
