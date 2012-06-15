@@ -34,6 +34,7 @@
 - guidelines.md ： 参考文献及无障碍技术规范
 - index.md ： Labrador 文档索引
 - naming.md ：产品命名
+- page_structure.md : 页面内容与结构的说明文档，供前端人员参考
 - process.md ：项目开发流程
 - tech_spec.md ： Labrador项目快速原型技术说明书
 - tts_spec.md ： TTS Web Service技术规范
