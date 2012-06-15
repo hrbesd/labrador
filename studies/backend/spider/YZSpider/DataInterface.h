@@ -20,6 +20,7 @@ struct Node
 {
     QString url;
     QString name;
+    QString hashName;
     QString refreshRate;
     QList<Rule*> ruleList;
 };
