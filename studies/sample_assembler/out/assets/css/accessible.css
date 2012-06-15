@@ -1,29 +1,6 @@
 /**
- * accessible tools 
+ * 辅助线相关的界面表现
  */
-#acctoolbar {
-	width:964px;
-	position:fixed;
-	z-index:10000;
-	height:30px;
-	padding-top:1px;
-	top:0;
-}
-#acctoolbar button {
-	height:28px;
-	border:none;
-	background:none;
-	width:100px;
-	border-right:1px solid #FFFFFF;
-	border-left:1px solid #a0c880;
-} 
-#acctoolbar .first {
-	width:120px;
-	border-left:none;
-}
-#acctoolbar .last {
-	border-right:none;
-}
 #guides_horiz {
 	position:absolute;
 	top:0;

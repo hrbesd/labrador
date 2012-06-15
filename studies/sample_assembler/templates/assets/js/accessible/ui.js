@@ -26,8 +26,7 @@ ui.seperateLayer = function(startX, startY, width, height, innerHTML) {
 	    + ";height:" + height 
 	    + ";background-color:" + shelterColor 
 	    + ";filter:alpha(opacity=" + shelterAlp 
-	    + ");position:absolute;left:0;top:0;right:100%;bottom:100%;'></div>";   
-alert(layerDiv);
+	    + ");position:absolute;left:0;top:0;right:100%;bottom:100%;'></div>";
     $("body").append(layerDiv);
     
     var contentDiv = "<div id='layer_content' style='border:solid 25px white;position:absolute;left:" + startX 
