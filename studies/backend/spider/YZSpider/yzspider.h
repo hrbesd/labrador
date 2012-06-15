@@ -9,6 +9,7 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QCryptographicHash>
 #include <QSet>
+#include "yzlogger.h"
 #include <QUrl>
 #include <QXmlStreamReader>
 #include <QDateTime>
@@ -26,7 +27,6 @@ class YZSpider : public QObject
     Q_OBJECT
 public:
     explicit YZSpider(QObject *parent = 0);
-    void downloadWebPage(Node* node);
     void parseConfigFile(QString configFile);
 signals:
     
@@ -36,8 +36,11 @@ protected slots:
 
     void ruleRequestReply();
 private:
+    //download
+    void downloadWebPage(Node* node);
     void downloadRule(RuleRequest ruleRequest);
 
+    //scheduler
     void webpageDownloadScheduler();
     void ruleRequestScheduler();
     //read xml file
@@ -54,7 +57,7 @@ private:
 
     //parse rule reply
     void parseRuleReply(Rule* ruleItem,QByteArray& data, QUrl &baseUrl);
-
+    void parseNextPage(RuleRequest ruleRequest);
     QNetworkAccessManager *m_networkAccessManager;
     QMap<QNetworkReply*,Node*> m_webPageDownloadingTask;
     QLinkedList<Node*> m_webPageRequestTask;

@@ -16,8 +16,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    yzspider.cpp
+    yzspider.cpp \
+    yzlogger.cpp
 
 HEADERS += \
     yzspider.h \
-    DataInterface.h
+    DataInterface.h \
+    yzlogger.h
