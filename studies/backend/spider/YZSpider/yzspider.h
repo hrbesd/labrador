@@ -12,6 +12,7 @@
 #include <QUrl>
 #include <QXmlStreamReader>
 #include <QDateTime>
+#include <QLinkedList>
 #include "DataInterface.h"
 #include <QMap>
 /**************************************************
@@ -25,21 +26,20 @@ class YZSpider : public QObject
     Q_OBJECT
 public:
     explicit YZSpider(QObject *parent = 0);
-    void downloadWebPage(QString url);
-    void parseLinks(QString url);
+    void downloadWebPage(Node* node);
     void parseConfigFile(QString configFile);
 signals:
     
 protected slots:
     void webPageDownloaded();
-    void parseLinksReply();
     void networkError(QNetworkReply::NetworkError error);
 
     void ruleRequestReply();
 private:
-    void downloadScheduler();
-    QString getSubUrl(QByteArray &data, int index);
-    QByteArray getTitle(QByteArray &data, int index);
+    void downloadRule(RuleRequest ruleRequest);
+
+    void webpageDownloadScheduler();
+    void ruleRequestScheduler();
     //read xml file
     void parseWebsiteXml(QXmlStreamReader &reader);
     void parseNodeXml(QXmlStreamReader &reader, Node &node);
@@ -56,16 +56,19 @@ private:
     void parseRuleReply(Rule* ruleItem,QByteArray& data, QUrl &baseUrl);
 
     QNetworkAccessManager *m_networkAccessManager;
-    QSet<QString> m_innerLinks; //站内链接
-    QSet<QString> m_outerLinks; //站外链接
-    QMap<QString, QByteArray> m_titleLinkMap;
+    QMap<QNetworkReply*,Node*> m_webPageDownloadingTask;
+    QLinkedList<Node*> m_webPageRequestTask;
+    QMap<QNetworkReply*,RuleRequest> m_ruleDownloadingTask;
+    QLinkedList<RuleRequest> m_ruleRequestTask;
 
-    QMap<QNetworkReply*,Rule*> m_ruleRequestTask;
-
-    int m_threadLimit;
+    int m_webpageRequestThreadNum;
+    int m_ruleRequestThreadNum;
     quint32 m_webPageCount;
     WebSite m_website;
-    bool m_finishParseWebsiteRules;
+    bool m_finishParseRules;
+
+    static const int m_maxWebPageRequestThreadNum = 20;
+    static const int m_maxRuleRequestThreadNum = 20;
 };
 
 #endif // YZSPIDER_H

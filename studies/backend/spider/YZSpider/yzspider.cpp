@@ -7,29 +7,45 @@
 YZSpider::YZSpider(QObject *parent) :
     QObject(parent)
 {
-    m_threadLimit = 10;
+    m_webpageRequestThreadNum = m_maxWebPageRequestThreadNum;
+    m_ruleRequestThreadNum = m_maxRuleRequestThreadNum;
     m_webPageCount = 0;
-    m_finishParseWebsiteRules = false;
+    m_finishParseRules = false;
     m_networkAccessManager = new QNetworkAccessManager(this);
 }
 
-void YZSpider::downloadWebPage(QString url)
+void YZSpider::downloadWebPage(Node *node)
 {
-    m_threadLimit--;
+    m_webpageRequestThreadNum--;
     QNetworkRequest request;
     QNetworkReply *reply;
-    request.setUrl(QUrl(url));
+    request.setUrl(QUrl(node->url));
     reply = m_networkAccessManager->get(request);
+    m_webPageDownloadingTask.insert(reply,node);
     connect(reply,SIGNAL(finished()),this,SLOT(webPageDownloaded()));
     connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
 }
 
+void YZSpider::downloadRule(RuleRequest ruleRequest)
+{
+    m_ruleRequestThreadNum--;
+    QNetworkRequest request;
+    QNetworkReply *reply;
+    request.setUrl(QUrl(ruleRequest.url));
+    reply = m_networkAccessManager->get(request);
+    m_ruleDownloadingTask.insert(reply,ruleRequest);
+    connect(reply,SIGNAL(finished()),this,SLOT(ruleRequestReply()));
+    connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
+
+}
+
 void YZSpider::webPageDownloaded()
 {
-    m_threadLimit++;
+    m_webpageRequestThreadNum++;
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
     QByteArray result = reply->readAll();
-    QString fileName = QCryptographicHash::hash(QByteArray(reply->url().toString().toUtf8()),QCryptographicHash::Md5).toHex();
+    Node *nodeItem = m_webPageDownloadingTask.take(reply);
+    QString fileName = nodeItem->hashName;//QCryptographicHash::hash(QByteArray(reply->url().toString().toUtf8()),QCryptographicHash::Md5).toHex();
     QDir folderDir;
     folderDir.mkpath(QDir::currentPath()+"/webpage/originalFiles");
     folderDir.cd("webpage/originalFiles");
@@ -40,7 +56,7 @@ void YZSpider::webPageDownloaded()
         return;
     }
     file.write((QString::number(reply->header(QNetworkRequest::LastModifiedHeader).toDateTime().toMSecsSinceEpoch())+"\n").toAscii());
-    file.write(QTextCodec::codecForHtml(result)->toUnicode(m_titleLinkMap.value(reply->url().toString())).toUtf8());
+    file.write(nodeItem->name.toUtf8());
     file.write("\n");
     file.write(reply->url().toString().toUtf8());
     file.write("\n");
@@ -48,7 +64,36 @@ void YZSpider::webPageDownloaded()
     qDebug()<<QString::number(m_webPageCount++)+ " web page downloaded";
     file.close();
     reply->deleteLater();
-    downloadScheduler();
+    webpageDownloadScheduler();
+}
+
+void YZSpider::webpageDownloadScheduler()
+{
+    while(m_webpageRequestThreadNum>0&&m_webPageRequestTask.isEmpty()==false)
+    {
+        Node *nodeItem = m_webPageRequestTask.takeFirst();
+        downloadWebPage(nodeItem);
+    }
+    if(m_webPageRequestTask.isEmpty()&&m_webpageRequestThreadNum==m_maxWebPageRequestThreadNum&& m_finishParseRules == true)
+    {
+        qDebug()<<"finish download webpages";
+        qApp->exit();
+    }
+}
+
+void YZSpider::ruleRequestScheduler()
+{
+    qDebug()<<m_ruleRequestTask.size()<<m_ruleRequestThreadNum;
+    while(m_ruleRequestThreadNum>0&&m_ruleRequestTask.isEmpty()==false)
+    {
+        RuleRequest ruleRequest = m_ruleRequestTask.takeFirst();
+        downloadRule(ruleRequest);
+    }
+    if(m_ruleRequestTask.isEmpty()&&m_ruleRequestThreadNum==m_maxRuleRequestThreadNum)
+    {
+        qDebug()<<"finish parse rules";
+        m_finishParseRules = true;
+    }
 }
 
 void YZSpider::networkError(QNetworkReply::NetworkError error)
@@ -56,29 +101,17 @@ void YZSpider::networkError(QNetworkReply::NetworkError error)
     qDebug()<<"error:"+error;
 }
 
-void YZSpider::parseLinks(QString url)
-{
-    QNetworkRequest request;
-    QNetworkReply *reply;
-    request.setUrl(QUrl(url));
-    reply = m_networkAccessManager->get(request);
-    connect(reply,SIGNAL(finished()),this,SLOT(parseLinksReply()));
-    connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
-}
-
 void YZSpider::ruleRequestReply()
 {
+    m_ruleRequestThreadNum++;
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
     QByteArray result = reply->readAll();
     QUrl baseUrl = reply->url();
-    Rule *ruleItem = m_ruleRequestTask.take(reply);
-    parseRuleReply(ruleItem,result,baseUrl);
-    parseNodeListData(ruleItem);
-    if(m_ruleRequestTask.isEmpty()&&m_finishParseWebsiteRules)
-    {
-        qDebug()<<"finish parse website rules";
-    }
+    RuleRequest ruleRequest = m_ruleDownloadingTask.take(reply);
+    parseRuleReply(ruleRequest.rule,result,baseUrl);
+    parseNodeListData(ruleRequest.rule);
     reply->deleteLater();
+    ruleRequestScheduler();
 }
 //to do ... for now ,every rule has title regexp
 void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
@@ -106,76 +139,6 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
      }
 }
 
-void YZSpider::parseLinksReply()
-{
-    QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
-    QByteArray result = reply->readAll();
-    QUrl baseUrl = reply->url();
-    int index = -1;
-    while(1)
-    {
-        index = result.indexOf("<a class=\"f3348\"",index+1);
-        if(index==-1)
-        {
-            break;
-        }
-        QUrl subUrl = getSubUrl(result,index);
-        QByteArray title = getTitle(result,index);
-        if(subUrl.isRelative())
-        {
-            m_innerLinks.insert(baseUrl.resolved(subUrl).toString());
-            m_titleLinkMap.insert(baseUrl.resolved(subUrl).toString(),title);
-        }
-        else
-        {
-            m_outerLinks.insert(subUrl.toString());
-            m_titleLinkMap.insert(subUrl.toString(),title);
-        }
-    }
-
-    index = result.indexOf("class=\"Next\">");
-    if(index==-1)
-    {
-        downloadScheduler();
-    }
-    else
-    {
-        index = result.lastIndexOf("<a",index);
-        parseLinks(baseUrl.resolved(QUrl(getSubUrl(result,index))).toString());
-    }
-
-    reply->deleteLater();
-}
-
-QString YZSpider::getSubUrl(QByteArray &data, int index)
-{
-    int startIndex = data.indexOf("href=",index)+6;
-    int endIndex = data.indexOf("\"",startIndex);
-    return QString(data.mid(startIndex,endIndex - startIndex));
-}
-
-QByteArray YZSpider::getTitle(QByteArray &data, int index)
-{
-    int startIndex = data.indexOf("title=",index)+7;
-    int endIndex = data.indexOf("\"",startIndex);
-    return data.mid(startIndex,endIndex - startIndex);
-}
-
-void YZSpider::downloadScheduler()
-{
-    while(m_threadLimit>=0&&m_innerLinks.isEmpty()==false)
-    {
-        QString url = *(m_innerLinks.begin());
-        m_innerLinks.erase(m_innerLinks.begin());
-        downloadWebPage(url);
-    }
-    if(m_innerLinks.isEmpty()&&m_threadLimit==10)
-    {
-        qDebug()<<"finish";
-        qApp->exit();
-    }
-}
-
 void YZSpider::parseConfigFile(QString configFile)
 {
     QFile file(configFile);
@@ -198,7 +161,6 @@ void YZSpider::parseConfigFile(QString configFile)
         xmlReader.readNext();
     }
     file.close();
-    qDebug()<<"finish";
     parseWebsiteData();
 }
 
@@ -367,7 +329,7 @@ void YZSpider::parseRuleXml(QXmlStreamReader &reader, Rule *rule)
 void YZSpider::parseWebsiteData()
 {
     parseNodeData(m_website.node);
-    m_finishParseWebsiteRules = true;
+    ruleRequestScheduler();
 }
 
 void YZSpider::parseNodeData(Node &nodeItem)
@@ -386,13 +348,10 @@ void YZSpider::parseRuleData(Rule *ruleItem, Node &parentNode)
     }
     else
     {
-        QNetworkRequest request;
-        QNetworkReply *reply;
-        request.setUrl(QUrl(parentNode.url));
-        reply = m_networkAccessManager->get(request);
-        m_ruleRequestTask.insert(reply,ruleItem);
-        connect(reply,SIGNAL(finished()),this,SLOT(ruleRequestReply()));
-        connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
+        RuleRequest ruleRequest;
+        ruleRequest.rule = ruleItem;
+        ruleRequest.url = parentNode.url;
+        m_ruleRequestTask.append(ruleRequest);
     }
 }
 
@@ -409,5 +368,4 @@ void YZSpider::parseNodeListData(Rule *ruleItem)
     {
         parseNodeData(nodeItem);
     }
-    qDebug()<<"parse node list";
 }
