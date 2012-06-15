@@ -9,12 +9,7 @@ YZSpider::YZSpider(QObject *parent) :
 {
     m_threadLimit = 10;
     m_webPageCount = 0;
-    m_networkAccessManager = new QNetworkAccessManager(this);
-}
-
-YZSpider::YZSpider(QString whiteListFileName, QObject *parent)
-{
-    m_threadLimit = 10;
+    m_finishParseWebsiteRules = false;
     m_networkAccessManager = new QNetworkAccessManager(this);
 }
 
@@ -71,13 +66,44 @@ void YZSpider::parseLinks(QString url)
     connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
 }
 
-void YZSpider::nodeRequestReply()
+void YZSpider::ruleRequestReply()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
     QByteArray result = reply->readAll();
     QUrl baseUrl = reply->url();
-
+    Rule *ruleItem = m_ruleRequestTask.take(reply);
+    parseRuleReply(ruleItem,result,baseUrl);
+    parseNodeListData(ruleItem);
+    if(m_ruleRequestTask.isEmpty()&&m_finishParseWebsiteRules)
+    {
+        qDebug()<<"finish parse website rules";
+    }
     reply->deleteLater();
+}
+//to do ... for now ,every rule has title regexp
+void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
+{
+    QString strData = QString::fromUtf8(QTextCodec::codecForHtml(data)->toUnicode(data).toUtf8().data());
+    int posUrl = 0;
+    int posTitle = 0;
+    QRegExp urlRegExp(ruleItem->urlRegExp);
+    QRegExp titleRegExp(ruleItem->nameRegExp);
+    urlRegExp.setMinimal(true);
+    titleRegExp.setMinimal(true);
+
+    while ((posUrl = urlRegExp.indexIn(strData, posUrl)) != -1) {
+        posUrl+=urlRegExp.matchedLength();
+        if((posTitle = titleRegExp.indexIn(strData,posTitle)) ==-1)
+        {
+            qWarning()<<"rule error: url reg doesn't match title reg";
+        }
+        posTitle+=titleRegExp.matchedLength();
+        Node nodeItem;
+        nodeItem.name = titleRegExp.cap(1);
+        nodeItem.url = baseUrl.resolved(urlRegExp.cap(1)).toString();
+        ruleItem->nodeList.append(nodeItem);
+        qDebug()<<nodeItem.name<<":"<<nodeItem.url;
+     }
 }
 
 void YZSpider::parseLinksReply()
@@ -340,10 +366,48 @@ void YZSpider::parseRuleXml(QXmlStreamReader &reader, Rule *rule)
 
 void YZSpider::parseWebsiteData()
 {
-
+    parseNodeData(m_website.node);
+    m_finishParseWebsiteRules = true;
 }
 
-void YZSpider::parseNodeData()
+void YZSpider::parseNodeData(Node &nodeItem)
 {
+    foreach(Rule *ruleItem,nodeItem.ruleList)
+    {
+        parseRuleData(ruleItem,nodeItem);
+    }
+}
 
+void YZSpider::parseRuleData(Rule *ruleItem, Node &parentNode)
+{
+    if(ruleItem->urlRegExp.isEmpty())
+    {
+        parseNodeListData(ruleItem);
+    }
+    else
+    {
+        QNetworkRequest request;
+        QNetworkReply *reply;
+        request.setUrl(QUrl(parentNode.url));
+        reply = m_networkAccessManager->get(request);
+        m_ruleRequestTask.insert(reply,ruleItem);
+        connect(reply,SIGNAL(finished()),this,SLOT(ruleRequestReply()));
+        connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
+    }
+}
+
+void YZSpider::parseNodeListData(Rule *ruleItem)
+{
+    if(ruleItem->childRule!=NULL)
+    {
+        for(int i=0;i<ruleItem->nodeList.size();i++)
+        {
+            ruleItem->nodeList[i].ruleList.append(ruleItem->childRule);
+        }
+    }
+    foreach(Node nodeItem, ruleItem->nodeList)
+    {
+        parseNodeData(nodeItem);
+    }
+    qDebug()<<"parse node list";
 }

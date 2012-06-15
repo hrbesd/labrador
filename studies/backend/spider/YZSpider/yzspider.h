@@ -19,12 +19,12 @@
  * to UTF-8
  *
  ************************************************/
+
 class YZSpider : public QObject
 {
     Q_OBJECT
 public:
     explicit YZSpider(QObject *parent = 0);
-    YZSpider(QString whiteListFileName, QObject *parent = 0);
     void downloadWebPage(QString url);
     void parseLinks(QString url);
     void parseConfigFile(QString configFile);
@@ -35,28 +35,37 @@ protected slots:
     void parseLinksReply();
     void networkError(QNetworkReply::NetworkError error);
 
-    void nodeRequestReply();
+    void ruleRequestReply();
 private:
     void downloadScheduler();
     QString getSubUrl(QByteArray &data, int index);
     QByteArray getTitle(QByteArray &data, int index);
-
+    //read xml file
     void parseWebsiteXml(QXmlStreamReader &reader);
     void parseNodeXml(QXmlStreamReader &reader, Node &node);
     void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& parentNodeList);
     void parseRuleListXml(QXmlStreamReader &reader, QList<Rule*>& parentRuleList);
     void parseRuleXml(QXmlStreamReader &reader, Rule *rule);
+    //parse website data
     void parseWebsiteData();
-    void parseNodeData();
+    void parseNodeData(Node &nodeItem);
+    void parseRuleData(Rule* ruleItem, Node &parentNode);
+    void parseNodeListData(Rule* ruleItem);
+
+    //parse rule reply
+    void parseRuleReply(Rule* ruleItem,QByteArray& data, QUrl &baseUrl);
+
     QNetworkAccessManager *m_networkAccessManager;
     QSet<QString> m_innerLinks; //站内链接
     QSet<QString> m_outerLinks; //站外链接
     QMap<QString, QByteArray> m_titleLinkMap;
-    QMap<QString, Node*> m_nodeRequestMap;
+
+    QMap<QNetworkReply*,Rule*> m_ruleRequestTask;
 
     int m_threadLimit;
     quint32 m_webPageCount;
     WebSite m_website;
+    bool m_finishParseWebsiteRules;
 };
 
 #endif // YZSPIDER_H
