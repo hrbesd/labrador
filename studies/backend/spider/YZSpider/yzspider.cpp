@@ -36,7 +36,6 @@ void YZSpider::downloadRule(RuleRequest ruleRequest)
     m_ruleDownloadingTask.insert(reply,ruleRequest);
     connect(reply,SIGNAL(finished()),this,SLOT(ruleRequestReply()));
     connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
-
 }
 
 void YZSpider::webPageDownloaded()
@@ -45,7 +44,7 @@ void YZSpider::webPageDownloaded()
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
     QByteArray result = reply->readAll();
     Node *nodeItem = m_webPageDownloadingTask.take(reply);
-    QString fileName = nodeItem->hashName;//QCryptographicHash::hash(QByteArray(reply->url().toString().toUtf8()),QCryptographicHash::Md5).toHex();
+    QString fileName = nodeItem->hashName;
     QDir folderDir;
     folderDir.mkpath(QDir::currentPath()+"/webpage/originalFiles");
     folderDir.cd("webpage/originalFiles");
@@ -92,6 +91,7 @@ void YZSpider::ruleRequestScheduler()
     {
         qDebug()<<"finish parse rules";
         m_finishParseRules = true;
+        webpageDownloadScheduler();
     }
 }
 
@@ -135,16 +135,16 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
         nodeItem.url = baseUrl.resolved(urlRegExp.cap(1)).toString();
         ruleItem->nodeList.append(nodeItem);
         YZLogger::Logger()->log(nodeItem.name+":"+nodeItem.url);
-     }
+    }
     if(!ruleItem->nextPageRegExp.isEmpty())
     {
         QRegExp nextPageRegExp(ruleItem->nextPageRegExp);
         if(nextPageRegExp.indexIn(strData)!=-1)
         {
-           RuleRequest ruleRequest;
-           ruleRequest.url = baseUrl.resolved(nextPageRegExp.cap(1)).toString();
-           ruleRequest.rule = ruleItem;
-           parseNextPage(ruleRequest);
+            RuleRequest ruleRequest;
+            ruleRequest.url = baseUrl.resolved(nextPageRegExp.cap(1)).toString();
+            ruleRequest.rule = ruleItem;
+            parseNextPage(ruleRequest);
         }
     }
 }
@@ -344,6 +344,7 @@ void YZSpider::parseWebsiteData()
 
 void YZSpider::parseNodeData(Node &nodeItem)
 {
+
     foreach(Rule *ruleItem,nodeItem.ruleList)
     {
         parseRuleData(ruleItem,nodeItem);
@@ -371,7 +372,13 @@ void YZSpider::parseNodeListData(Rule *ruleItem)
     {
         for(int i=0;i<ruleItem->nodeList.size();i++)
         {
-            ruleItem->nodeList[i].ruleList.append(ruleItem->childRule);
+            Rule *newRule = new Rule;
+            newRule->childRule = ruleItem->childRule->childRule;
+            newRule->maxPageCount = ruleItem->childRule->maxPageCount;
+            newRule->nameRegExp = ruleItem->childRule->nameRegExp;
+            newRule->nextPageRegExp = ruleItem->childRule->nextPageRegExp;
+            newRule->urlRegExp = ruleItem->childRule->urlRegExp;
+            ruleItem->nodeList[i].ruleList.append(newRule);
         }
     }
     foreach(Node nodeItem, ruleItem->nodeList)
