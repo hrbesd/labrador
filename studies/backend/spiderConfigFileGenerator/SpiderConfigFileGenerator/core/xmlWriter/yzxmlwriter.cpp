@@ -33,13 +33,31 @@ void YZXmlWriter::writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter &writer)
     writer.writeStartElement("node");
     writer.writeTextElement("name",nodeItem.name);
     writer.writeTextElement("url",nodeItem.url);
-    writer.writeTextElement("urlRegExp",nodeItem.urlRegExp);
-    writer.writeTextElement("nextPageRegExp",nodeItem.nextPageRegExp);
-    writer.writeTextElement("maxPageCount",nodeItem.maxPageCount);
     writer.writeTextElement("refreshRate",nodeItem.refreshRate);
-    writer.writeTextElement("nameRegExp",nodeItem.nameRegExp);
-    writer.writeStartElement("NodeList");
-    foreach(Node nodeItem, nodeItem.nodeList)
+    writer.writeStartElement("ruleList");
+    foreach(Rule * ruleItem, nodeItem.ruleList)
+    {
+        writeRuleItemToXml(ruleItem,writer);
+    }
+    writer.writeEndElement();
+    writer.writeEndElement();
+}
+
+void YZXmlWriter::writeRuleItemToXml(const Rule *ruleItem, QXmlStreamWriter &writer)
+{
+    writer.writeStartElement("rule");
+    writer.writeTextElement("urlRegExp",ruleItem->urlRegExp);
+    writer.writeTextElement("nextPageRegExp",ruleItem->nextPageRegExp);
+    writer.writeTextElement("maxPageCount",ruleItem->maxPageCount);
+    writer.writeTextElement("nameRegExp",ruleItem->nameRegExp);
+    writer.writeStartElement("childRule");
+    if(ruleItem->childRule!=NULL)
+    {
+        writeRuleItemToXml(ruleItem->childRule,writer);
+    }
+    writer.writeEndElement();
+    writer.writeStartElement("nodeList");
+    foreach(Node nodeItem, ruleItem->nodeList)
     {
         writeNodeItemToXml(nodeItem,writer);
     }
