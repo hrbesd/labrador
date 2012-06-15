@@ -20,6 +20,7 @@ public:
     static void writeWebsiteItemToXml(WebSite &websiteItem, QString fileName);
 private:
     static void writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter& writer);
+    static void writeRuleItemToXml(const Rule *ruleItem, QXmlStreamWriter& writer);
 signals:
     
 public slots:
