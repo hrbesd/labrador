@@ -11,7 +11,7 @@
 
 - backend_spec.md ：后端整体的设计方案
 - parser_spec.md ：网页架构分析器技术规范
-- reactor_spec.md : Reactor模块技术说明
+- reactor_spec.md : Reactor模块技术说明，主要用来改造页面
 - spiderConfigFileGenerator_spec.md ： 网站配置文件生成器技术规范
 - spider_config_spec.md ：爬虫配置文件设计文档
 - spider_spec.md ：爬虫设计的技术规范
