@@ -64,6 +64,8 @@ private:
     QMap<QNetworkReply*,RuleRequest> m_ruleDownloadingTask;
     QLinkedList<RuleRequest> m_ruleRequestTask;
 
+    QSet<QString> m_nodeUrlSet;
+
     int m_webpageRequestThreadNum;
     int m_ruleRequestThreadNum;
     quint32 m_webPageCount;
