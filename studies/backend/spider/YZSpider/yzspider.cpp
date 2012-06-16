@@ -130,11 +130,16 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
             qWarning()<<"rule error: url reg doesn't match title reg";
         }
         posTitle+=titleRegExp.matchedLength();
-        Node nodeItem;
-        nodeItem.name = titleRegExp.cap(1);
-        nodeItem.url = baseUrl.resolved(urlRegExp.cap(1)).toString();
-        ruleItem->nodeList.append(nodeItem);
-        YZLogger::Logger()->log(nodeItem.name+":"+nodeItem.url);
+        QString url = baseUrl.resolved(urlRegExp.cap(1)).toString();
+        if(!m_nodeUrlSet.contains(url))
+        {
+            Node nodeItem;
+            nodeItem.name = titleRegExp.cap(1);
+            nodeItem.url = url;
+            ruleItem->nodeList.append(nodeItem);
+            m_nodeUrlSet.insert(url);
+            YZLogger::Logger()->log(nodeItem.name+":"+nodeItem.url);
+        }
     }
     if(!ruleItem->nextPageRegExp.isEmpty())
     {
