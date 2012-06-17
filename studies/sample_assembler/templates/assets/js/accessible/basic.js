@@ -142,3 +142,54 @@ basic.guides.toggleGuides = function() {
         basic.guides.showGuides();
     }
 }
+
+/**
+ * 
+ * 放大镜开关
+ *
+ */
+basic.magnifier = {};
+// 显示放大镜
+basic.magnifier.showMagnifier = function() {
+	$('.magnifier').css('visibility', 'visible');
+	$('body').css('padding-bottom', '200px');
+
+	storage.setCookie('magnifier_status', 1, 360);
+}
+// 隐藏放大镜
+basic.magnifier.hideMagnifier = function() {
+	$('.magnifier').css('visibility', 'hidden');
+	$('body').css('padding-bottom', '20px');
+
+	storage.eraseCookie('magnifier_status');
+}
+// 使用放大镜放大文字
+basic.magnifier.magnifyIt = function(argument) {
+	$('#magnified').html(argument);
+}
+// 载入之前的设置
+basic.magnifier.loadMagnifierStatus = function() {
+	var status = storage.getCookie('magnifier_status');
+	if(status == 1) {
+		basic.magnifier.showMagnifier();
+	} else {
+		basic.magnifier.hideMagnifier();
+	}
+}
+
+/**
+ *
+ * 帮助界面
+ *
+ */
+basic.help = {};
+// 显示放大镜
+basic.help.showHelp = function() {
+	$('#help_layer').css('visibility', 'visible');
+	$('#help_layer_bg').css('visibility', 'visible');
+}
+// 关闭放大镜
+basic.help.hideHelp = function() {
+	$('#help_layer').css('visibility', 'hidden');
+	$('#help_layer_bg').css('visibility', 'hidden');
+}
