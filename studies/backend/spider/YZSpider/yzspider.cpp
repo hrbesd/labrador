@@ -98,7 +98,8 @@ void YZSpider::ruleRequestScheduler()
 
 void YZSpider::networkError(QNetworkReply::NetworkError error)
 {
-    qDebug()<<"error:"+error;
+    QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
+    YZLogger::Logger()->log(QString("error:")+reply->errorString()+reply->url().toString());
 }
 
 void YZSpider::ruleRequestReply()
@@ -139,7 +140,6 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
             nodeItem.name = titleRegExp.cap(1);
             nodeItem.url = url;
             ruleItem->nodeList.append(nodeItem);
-            YZLogger::Logger()->log(nodeItem.name+":"+nodeItem.url);
         }
     }
 
@@ -345,6 +345,7 @@ void YZSpider::parseRuleXml(QXmlStreamReader &reader, Rule *rule)
 
 void YZSpider::parseWebsiteData()
 {
+    m_websiteUrl.setUrl(m_website.node.url);
     parseNodeData(m_website.node);
     ruleRequestScheduler();
 }
@@ -353,16 +354,20 @@ void YZSpider::parseNodeData(Node &nodeItem)
 {
     if(!m_resolvedNodes.contains(nodeItem.url))
     {
+        if(!m_websiteUrl.isParentOf(QUrl(nodeItem.url)))
+        {
+            YZLogger::Logger()->log(QString("outside link:")+nodeItem.url);
+        }
         if(nodeItem.ruleList.isEmpty())
         {
             nodeItem.hashName = QCryptographicHash::hash(QByteArray(nodeItem.url.toUtf8()),QCryptographicHash::Md5).toHex();
             m_webPageRequestTask.append(&nodeItem);
-            m_resolvedNodes.insert(nodeItem.url);
         }
         foreach(Rule *ruleItem,nodeItem.ruleList)
         {
             parseRuleData(ruleItem,nodeItem);
         }
+        m_resolvedNodes.insert(nodeItem.url);
     }
 }
 // to do...
