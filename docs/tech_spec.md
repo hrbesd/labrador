@@ -45,8 +45,9 @@
   
 ## 开发语言和工具 
 - 开发语言
-  * Labrador Spider：C++ （or Python）
-  * Labrador Analyzer: C++ （or Python）
+  * Labrador Spider：C++ 
+  * Labrador Parser: C++
+  * Labrador Reactor: Python
   * Labrador Assembler: Python
   * Labrador Toolbar: Javascript
   * Labrador TTS Engine: C++
