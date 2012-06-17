@@ -48,3 +48,19 @@ action.decreaseLineHeight = function() {
 action.toggleGuides = function() {
 	basic.guides.toggleGuides();
 }
+
+action.showMagnifier = function() {
+	basic.magnifier.showMagnifier();
+}
+
+action.hideMagnifier = function() {
+	basic.magnifier.hideMagnifier();
+}
+
+action.showHelp = function() {
+	basic.help.showHelp();
+}
+
+action.hideHelp = function() {
+	basic.help.hideHelp();
+}
