@@ -76,9 +76,10 @@ private:
     quint32 m_webPageCount;
     WebSite m_website;
     bool m_finishParseRules;
+    QUrl m_websiteUrl;
 
-    static const int m_maxWebPageRequestThreadNum = 20;
-    static const int m_maxRuleRequestThreadNum = 20;
+    static const int m_maxWebPageRequestThreadNum = 10;
+    static const int m_maxRuleRequestThreadNum = 10;
 };
 
 #endif // YZSPIDER_H
