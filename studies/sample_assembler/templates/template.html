@@ -13,6 +13,7 @@
     -->
     <link href="assets/css/accessible.css" rel="stylesheet">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/popup_layer.css" rel="stylesheet">
 
 
     <!--[if lt IE 9]>
@@ -44,13 +45,17 @@
         </ul>
       </div>
     </div>
-
     <div class="navbar-fixed-bottom">
       <div class="magnifier">
-        <button class="close" onclick="hideMagnifier();">&times;</button>
+        <button id="close_magnifier" class="close">&times;</button>
         <p id="magnified"></p>
       </div>
     </div>
+    <div id="help_layer" class="popup">
+      <button id="close_help_layer" class="close">&times;</button>
+      <div>欢迎使用辅助系统<br/>辅助系统提供一系列服务，为您提供便利服务<br/></div>
+    </div>
+    <div id="help_layer_bg" class="layer_bg"></div>
 
     <div class="row-fluid">
         <div class="span2">

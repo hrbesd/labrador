@@ -41,12 +41,19 @@ var bindActions = function() {
     $('#text_out').click(action.decreaseFontSize);
     $('#line_height_in').click(action.increaseLineHeight);
     $('#line_height_out').click(action.decreaseLineHeight);
+    $('#guides').click(action.toggleGuides);
+    $('#show_magnifier').click(action.showMagnifier);
+    $('#close_magnifier').click(action.hideMagnifier);
 
-    $('#show_help').click(function() {
-        ui.seperateLayer(100, 200, 800, 600, "<h1>测试弹出层</h1>");
+    // 为所有span绑定放大镜设置
+    $('span').each(function() {
+        $(this).bind("mouseover", function() {
+            basic.magnifier.magnifyIt(this.innerHTML);  
+        });
     });
 
-    $('#guides').click(action.toggleGuides);
+    $('#show_help').click(action.showHelp);
+    $('#close_help_layer').click(action.hideHelp);
 };
 
 // change active style sheet
