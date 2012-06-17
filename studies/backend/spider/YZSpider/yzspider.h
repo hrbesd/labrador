@@ -16,6 +16,7 @@
 #include <QLinkedList>
 #include "DataInterface.h"
 #include <QMap>
+#include "core/xmlWriter/yzxmlwriter.h"
 /**************************************************
  * download webpage in whitelist and convert text codec
  * to UTF-8
@@ -58,6 +59,9 @@ private:
     //parse rule reply
     void parseRuleReply(Rule* ruleItem,QByteArray& data, QUrl &baseUrl);
     void parseNextPage(RuleRequest ruleRequest);
+
+    //output xml dir and download webpages
+    void outputWebsite(QString fileName);
     QNetworkAccessManager *m_networkAccessManager;
     QMap<QNetworkReply*,Node*> m_webPageDownloadingTask;
     QLinkedList<Node*> m_webPageRequestTask;
@@ -65,6 +69,7 @@ private:
     QLinkedList<RuleRequest> m_ruleRequestTask;
 
     QSet<QString> m_nodeUrlSet;
+    QSet<QString> m_resolvedNodes;
 
     int m_webpageRequestThreadNum;
     int m_ruleRequestThreadNum;

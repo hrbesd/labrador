@@ -139,7 +139,6 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
             nodeItem.name = titleRegExp.cap(1);
             nodeItem.url = url;
             ruleItem->nodeList.append(nodeItem);
-            YZLogger::Logger()->log(nodeItem.name+":"+nodeItem.url);
         }
     }
 
