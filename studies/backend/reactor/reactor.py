@@ -39,7 +39,7 @@ class Reactor:
 			print "Error: Input folder does not exists."
 			return
 		self.ensureOutputFolderExists()
-		self.processFilesRecursively(self.in_folder_path, ".html", self.doWork)
+		self.processFilesRecursively(self.in_folder_path, self.doWork)
 
 		return
 
@@ -52,12 +52,10 @@ class Reactor:
 			os.makedirs(self.out_folder_path)
 
 	# 递归处理文件
-	def processFilesRecursively(self, topPath, targetPostfix, processFunction):
+	def processFilesRecursively(self, topPath, processFunction):
 		for root, dirs, files in os.walk(topPath):
 			for fileName in files:
-				# 只处理对应的后缀
-				if fileName.strip().endswith(targetPostfix):
-					processFunction(root, fileName)
+				processFunction(root, fileName)
 
 	def doWork(self, root, fileName):
 		srcFile = root + "/" + fileName
@@ -116,7 +114,7 @@ class Reactor:
 		if not os.path.exists(resultFileDir):
 			os.makedirs(resultFileDir)
 
-		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
+		resultFile = codecs.open(resultFilePath, 'w')
 		resultFile.write(soup.prettify())
 		resultFile.close()
 
