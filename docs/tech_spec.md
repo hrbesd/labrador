@@ -29,10 +29,15 @@
 
 ## 技术架构 
 
+
+
 整个项目根据规划包括如下六部分的内容，其中Labrador Admin Console部分在快速原型阶段暂不实现，其他部分根据快速原型要求做不同程度的实现。
 
+![image] (http://footoo.org/wp-content/uploads/2012/06/labrator_workflow.jpeg)
+
   * Labrador Spider：根据User或者System Admin提供的Site_URL_List，分析并下载网页，保存在Labrador Storage中
-  * Labrador Analyzer: 分析下载的网页，并对网页进行分析，根据要求去除无关元素，保留正文，并保存为XML格式
+  * Labrador Reactor: 完成下载页面的改造
+  * Labrador Parser: 分析下载的网页，并对网页进行分析，根据要求去除无关元素，保留正文，并保存为XML格式
   * Labrador Assembler: 将Analyzer处理过的XML文件，与定制的CSS组合，提供给用户浏览。
   * Labrador Toolbar: 在用户浏览页面中嵌入的工具条，提供放大、缩小、调整对比度、更换CSS等功能。
   * Labrador TTS Engine: 利用现有的TTS的接口，提供段落或全文的TTS服务。
