@@ -17,9 +17,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     yzspider.cpp \
-    yzlogger.cpp
+    yzlogger.cpp \
+    core/xmlWriter/yzxmlwriter.cpp
 
 HEADERS += \
     yzspider.h \
     DataInterface.h \
-    yzlogger.h
+    yzlogger.h \
+    core/xmlWriter/yzxmlwriter.h
