@@ -1,0 +1,230 @@
+
+#**************************************
+# constants
+#***************************************
+
+DOCTYPES = {
+	'strict': 'HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" \
+"http://www.w3.org/TR/REC-html40/strict.dtd"',
+	
+	'loose': 'HTML PUBLIC \
+"-//W3C//DTD HTML 4.0 Transitional//EN" \
+"http://www.w3.org/TR/REC-html40/loose.dtd"',
+	
+	'frameset': 'HTML PUBLIC \
+"-//W3C//DTD HTML 4.0 Frameset//EN" \
+"http://www.w3.org/TR/REC-html40/frameset.dtd"',
+	}
+
+CORE_ATTRIBUTES = ['id', 'class', 'style', 'title']
+INTERNAT_ATTRIBUTES = ['lang', 'dir']
+COMMON_ATTRIBUTES = CORE_ATTRIBUTES + INTERNAT_ATTRIBUTES
+
+COMMON_EVENTS = ['onclick', 'ondblclick', 'onmousedown', 'onmouseup',
+									'onmouseover', 'onmousemove', 'onmouseout',
+									'onkeypress', 'onkeydown', 'onkeyup']
+
+
+TT_A = 1
+TT_ABBR = 2
+TT_ACRONYM = 3
+TT_ADDRESS = 4
+TT_APPLET = 5
+TT_AREA = 6
+TT_B = 7
+TT_BASE = 8
+TT_BASEFONT = 9
+TT_BDO = 10
+TT_BIG = 11
+TT_BLOCKQUOTE = 12
+TT_BODY = 13
+TT_BR = 14
+TT_BUTTON = 15
+TT_CAPTION = 16
+TT_CENTER = 17
+TT_CITE = 18
+TT_CODE = 19
+TT_COL = 20
+TT_COLGROUP = 21
+TT_DD = 22
+TT_DEL = 23
+TT_DFN = 24
+TT_DIR = 25
+TT_DIV = 26
+TT_DL = 27
+TT_DT = 28
+TT_EM = 29
+TT_FIELDSET = 30
+TT_FONT = 31
+TT_FORM = 32
+TT_FRAME = 33
+TT_FRAMESET = 34
+TT_H1 = 35
+TT_H2 = 36
+TT_H3 = 37
+TT_H4 = 38
+TT_H5 = 39
+TT_H6 = 40
+TT_HEAD = 41
+TT_HR = 42
+TT_HTML = 43
+TT_I = 44
+TT_IFRAME = 45
+TT_IMG = 46
+TT_INPUT = 47
+TT_INS = 48
+TT_ISINDEX = 49
+TT_KBD = 50
+TT_LABEL = 51
+TT_LEGEND = 52
+TT_LI = 53
+TT_LINK = 54
+TT_MAP = 55
+TT_MENU = 56
+TT_META = 57
+TT_NOFRAMES = 58
+TT_NOSCRIPT = 59
+TT_OBJECT = 60
+TT_OL = 61
+TT_OPTGROUP = 62
+TT_OPTION = 63
+TT_P = 64
+TT_PARAM = 65
+TT_PRE = 66
+TT_Q = 67
+TT_S = 68
+TT_SAMP = 69
+TT_SCRIPT = 70
+TT_SELECT = 71
+TT_SMALL = 72
+TT_SPAN = 73
+TT_STRIKE = 74
+TT_STRONG = 75
+TT_STYLE = 76
+TT_SUB = 77
+TT_SUP = 78
+TT_TABLE = 79
+TT_TBODY = 80
+TT_TD = 81
+TT_TEXTAREA = 82
+TT_TFOOT = 83
+TT_TH = 84
+TT_THEAD = 85
+TT_TITLE = 86
+TT_TR = 87
+TT_TT = 88
+TT_U = 89
+TT_UL = 90
+TT_VAR = 91
+
+
+
+TT_GEN = 200
+
+TT_GEN_RAW = 201
+TT_GEN_TEXT = 202
+TT_GEN_COMMENT = 203
+TT_GEN_SGMLDECL = 204
+TT_GEN_DOCTYPE = 205
+TT_GEN_PI = 206
+TT_GEN_PHP = 207
+
+TT_GEN_HTML_FILE = 300
+
+TT_MAX = TT_GEN_HTML_FILE
+
+
+ANY = -1
+
+# maping TT_* --> tag-name
+TAG_NAMES = {}
+for (name, value) in locals().items():
+	if value < TT_GEN:
+		if name.startswith('TT_'):
+			TAG_NAMES[value] = name[3: ].lower()
+# mannually add TT_GEN_*
+TAG_NAMES[TT_GEN_RAW] = "raw()"
+TAG_NAMES[TT_GEN_TEXT] = "text()"
+TAG_NAMES[TT_GEN_COMMENT] = "comment()"
+TAG_NAMES[TT_GEN_SGMLDECL] = "sgml-declaration()"
+TAG_NAMES[TT_GEN_DOCTYPE] = "doctype()"
+TAG_NAMES[TT_GEN_PI] = "processing-instruction()"
+TAG_NAMES[TT_GEN_PHP] = "php()"
+TAG_NAMES[TT_GEN_HTML_FILE] = "html-file()"
+
+
+def new_tag_type(name):
+	"""registers a tags name and returns new tag.type const"""
+	global TT_MAX
+	TT_MAX += 1
+	TAG_NAMES[TT_MAX] = name
+	return TT_MAX
+
+
+
+GENERIC_ELEMENTS = [
+	TT_GEN_TEXT, TT_GEN_COMMENT, TT_GEN_SGMLDECL, TT_GEN_DOCTYPE,
+	TT_GEN_PI, 	TT_GEN_PHP, TT_GEN_RAW, TT_GEN_HTML_FILE
+	]
+TOP_LEVEL_ELEMENTS = [
+	TT_HTML, TT_HEAD, TT_BODY, TT_FRAMESET
+	]
+HEAD_ELEMENTS = [
+	TT_BASE, TT_ISINDEX, TT_LINK, TT_META, TT_SCRIPT, TT_STYLE, 
+	TT_TITLE
+	]
+GENERIC_BLOCK_LEVEL_ELEMENTS = [
+	TT_ADDRESS, TT_BLOCKQUOTE, TT_CENTER, TT_DEL, TT_DIV, TT_H1, 
+	TT_H2, TT_H3, TT_H4, TT_H5, TT_H6, TT_INS, TT_ISINDEX, TT_NOSCRIPT, 
+	TT_P, TT_PRE
+	]
+LISTS = [
+	TT_DIR, TT_DL, TT_DD, TT_LI, TT_MENU, TT_OL, TT_UL
+	]
+TABLES = [
+	TT_TABLE, TT_CAPTION, TT_COLGROUP, TT_COL, TT_HEAD, TT_TFOOT, 
+	TT_TBODY, TT_TR, TT_TD, TT_TH
+	]
+FORMS = [
+	TT_FORM, TT_BUTTON, TT_FIELDSET, TT_LEGEND, TT_INPUT, TT_LABEL, 
+	TT_SELECT, TT_OPTGROUP, TT_OPTION, TT_TEXTAREA
+	]
+SPECIAL_INLINE_ELEMENTS = [
+	TT_A, TT_APPLET, TT_BASEFONT, TT_BDO, TT_BR, TT_FONT, TT_IFRAME, 
+	TT_IMG, TT_MAP, TT_AREA, TT_OBJECT, TT_PARAM, TT_Q, TT_SCRIPT, 
+	TT_SPAN, TT_SUB, TT_SUP
+	]
+PHRASE_ELEMENTS = [
+	TT_ABBR, TT_ACRONYM, TT_CITE, TT_CODE, TT_DEL, TT_DFN, TT_EM, 
+	TT_INS, TT_KBD, TT_SAMP, TT_STRONG, TT_VAR
+	]
+FONT_STYLE_ELEMENTS = [
+	TT_B, TT_BIG, TT_I, TT_S, TT_SMALL, TT_STRIKE, TT_TT, TT_U
+	]
+FRAMES = [
+	TT_FRAME, TT_FRAMESET, TT_NOFRAMES
+	]
+INLINE_ELEMENTS = [
+	TT_A, TT_ABBR, TT_ACRONYM, TT_B, TT_BASEFONT, TT_BDO, TT_BIG, 
+	TT_BR, TT_CITE, TT_CODE, TT_DFN, TT_EM, TT_FONT, TT_I, TT_IMG, 
+	TT_INPUT, TT_KBD, TT_LABEL, TT_Q, TT_S, TT_SAMP, TT_SELECT, 
+	TT_SMALL, TT_SPAN, TT_STRIKE, TT_STRONG, TT_SUB, TT_SUP, 
+	TT_TEXTAREA, TT_TT, TT_U, TT_VAR,
+	## either inline or blocklevel
+	TT_APPLET, TT_BUTTON, TT_DEL, TT_IFRAME, TT_INS, TT_MAP, 
+	TT_OBJECT, TT_SCRIPT,
+	##
+	TT_GEN_TEXT, TT_GEN_RAW
+	
+	]
+BLOCKLEVEL_ELEMENTS = [
+	TT_ADDRESS, TT_BLOCKQUOTE, TT_CENTER, TT_DIR, TT_DIV, TT_DL, 
+	TT_FIELDSET, TT_FORM, TT_H1, TT_H2, TT_H3, TT_H4, TT_H5, TT_H6, 
+	TT_HR, TT_ISINDEX, TT_MENU, TT_NOFRAMES, TT_NOSCRIPT, TT_OL, 
+	TT_P, TT_PRE, TT_TABLE, TT_UL,
+	## either inline or blocklevel
+	TT_APPLET, TT_BUTTON, TT_DEL, TT_IFRAME, TT_INS, TT_MAP, 
+	TT_OBJECT, TT_SCRIPT,
+	]
+
+
