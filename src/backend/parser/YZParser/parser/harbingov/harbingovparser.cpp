@@ -7,7 +7,7 @@
 HarbinGovParser::HarbinGovParser(QObject *parent) :
     YZParser(parent)
 {
-    parseFolder("webpage/original");
+    parseFolder("webpage/spider");
 }
 
 int HarbinGovParser::parseFile(QString fileName)
@@ -32,6 +32,12 @@ int HarbinGovParser::parseFile(QString fileName)
     startIndex = webData.indexOf("<div",startIndex);
     int endIndex = webData.indexOf("</div>",startIndex)+6;
     body = webData.mid(startIndex,endIndex - startIndex);
+    if(body=="<!DOC")
+    {
+        startIndex = webData.lastIndexOf("<div id=\"zoom\" class=\"detail_zw\" align=\"left\">");
+        endIndex = webData.indexOf("</div>",startIndex)+6;
+        body = webData.mid(startIndex,endIndex - startIndex);
+    }
     int authorStartIndex = webData.lastIndexOf("detail_ly");
     if(authorStartIndex!=-1)
     {
@@ -43,14 +49,16 @@ int HarbinGovParser::parseFile(QString fileName)
     articleInterface.title = QString::fromUtf8(title.data());
     articleInterface.author = QString::fromUtf8(author.data());
     articleInterface.bodyData = QString::fromUtf8(body.data());
+    articleInterface.url = QString::fromUtf8((baseUrl.data()));
 
     parseImageFromBody(articleInterface.bodyData,QString(baseUrl),articleInterface);
     cleanBodyData(articleInterface.bodyData);
     QFileInfo fileInfo(file);
     QDir fileDir = fileInfo.absoluteDir();
-    fileDir.cd("../result");
+    fileDir.cd("../parser");
     YZXmlWriter::writeArticleToXml(articleInterface,fileDir.absolutePath()+"/"+fileInfo.baseName()+".xml");
-    qDebug()<<"done";
+    static int webpageCount = 0;
+    qDebug()<<(webpageCount++)<<" done";
     file.close();
     return 0;
 }
@@ -63,7 +71,7 @@ void HarbinGovParser::parseFolder(QString folder)
         qWarning()<<"can't find parse folder";
         return;
     }
-    dir.mkpath("../result");
+    dir.mkpath("../parser");
 
     QFileInfoList fileInfolists= dir.entryInfoList(QDir::Files);
     foreach(QFileInfo fileInfo, fileInfolists)
@@ -97,7 +105,8 @@ void HarbinGovParser::parseImageFromBody(const QString &dataString, QString base
             url = subUrl;
         }
         HashNode node;
-        node.url = url.toString();
+        node.absoluteUrl = url.toString();
+        node.originalUrl = subUrl.toString();
         node.hash = QCryptographicHash::hash(url.toString().toUtf8(),QCryptographicHash::Md5).toHex();
         articleInterface.hashData.append(node);
     }

@@ -4,7 +4,8 @@
 
 struct HashNode
 {
-    QString url;
+    QString absoluteUrl;
+    QString originalUrl;
     QString hash;
 };
 
@@ -18,6 +19,7 @@ struct ArticleInterface
     QString author;
     QString lastModified; //mseconds since Epoch
     QString bodyData;
+    QString url;
     QList<HashNode> hashData;
 };
 #endif // DATAINTERFACE_H
