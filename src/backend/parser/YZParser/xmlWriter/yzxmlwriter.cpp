@@ -20,6 +20,7 @@ void YZXmlWriter::writeArticleToXml(ArticleInterface &data, QString fileName)
     writer.writeStartDocument();
     writer.writeStartElement("article");
     writer.writeTextElement("title", data.title);
+    writer.writeTextElement("url", data.url);
     writer.writeTextElement("author",data.author);
     writer.writeTextElement("lastModified",data.lastModified);
     writer.writeTextElement("bodyData",data.bodyData);
@@ -30,7 +31,8 @@ void YZXmlWriter::writeArticleToXml(ArticleInterface &data, QString fileName)
         {
             writer.writeStartElement("hashNode");
             writer.writeTextElement("hash",node.hash);
-            writer.writeTextElement("url",node.url);
+            writer.writeTextElement("absoluteUrl",node.absoluteUrl);
+            writer.writeTextElement("originalUrl",node.originalUrl);
             writer.writeEndElement();
         }
         writer.writeEndElement();
