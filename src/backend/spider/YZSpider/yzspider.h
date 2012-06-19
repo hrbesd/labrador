@@ -78,6 +78,8 @@ private:
     bool m_finishParseRules;
     QUrl m_websiteUrl;
 
+    QXmlStreamReader xmlReader;
+
     static const int m_maxWebPageRequestThreadNum = 10;
     static const int m_maxRuleRequestThreadNum = 10;
 };
