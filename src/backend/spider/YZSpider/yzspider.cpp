@@ -46,8 +46,8 @@ void YZSpider::webPageDownloaded()
     Node *nodeItem = m_webPageDownloadingTask.take(reply);
     QString fileName = nodeItem->hashName;
     QDir folderDir;
-    folderDir.mkpath(QDir::currentPath()+"/webpage/originalFiles");
-    folderDir.cd("webpage/originalFiles");
+    folderDir.mkpath(QDir::currentPath()+"/webpage/spider");
+    folderDir.cd("webpage/spider");
     QFile file(folderDir.absolutePath() + "/"+ fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -164,7 +164,7 @@ void YZSpider::parseConfigFile(QString configFile)
         qWarning("can't open config File");
         return;
     }
-    QXmlStreamReader xmlReader(&file);
+    xmlReader.setDevice(&file);
     while (!xmlReader.atEnd()) {
         if(xmlReader.isStartElement())
         {
@@ -186,8 +186,9 @@ void YZSpider::parseWebsiteXml(QXmlStreamReader &reader)
     reader.readNext();
     while(!reader.atEnd())
     {
-        if(reader.isEndElement()&&reader.name()=="website")
+        if(reader.isEndElement())
         {
+            reader.readNext();
             return;
         }
         else if(reader.isStartElement())
@@ -215,8 +216,9 @@ void YZSpider::parseNodeXml(QXmlStreamReader &reader, Node &node)
     reader.readNext();
     while(!reader.atEnd())
     {
-        if(reader.isEndElement()&&reader.name()=="node")
+        if(reader.isEndElement())
         {
+            reader.readNext();
             return;
         }
         else if(reader.isStartElement())
@@ -247,8 +249,9 @@ void YZSpider::parseNodeListXml(QXmlStreamReader &reader, QList<Node> &parentNod
     reader.readNext();
     while(!reader.atEnd())
     {
-        if(reader.isEndElement()&&reader.name()=="NodeList")
+        if(reader.isEndElement())
         {
+            reader.readNext();
             return;
         }
         else if(reader.isStartElement())
@@ -269,8 +272,9 @@ void YZSpider::parseRuleListXml(QXmlStreamReader &reader, QList<Rule *> &parentR
     reader.readNext();
     while(!reader.atEnd())
     {
-        if(reader.isEndElement()&&reader.name()=="ruleList")
+        if(reader.isEndElement())
         {
+            reader.readNext();
             return;
         }
         else if(reader.isStartElement())
@@ -286,13 +290,15 @@ void YZSpider::parseRuleListXml(QXmlStreamReader &reader, QList<Rule *> &parentR
     }
 }
 
+
 void YZSpider::parseRuleXml(QXmlStreamReader &reader, Rule *rule)
 {
     reader.readNext();
     while(!reader.atEnd())
     {
-        if(reader.isEndElement()&&reader.name()=="rule")
+        if(reader.isEndElement())
         {
+            reader.readNext();
             return;
         }
         else if(reader.isStartElement())
@@ -318,8 +324,9 @@ void YZSpider::parseRuleXml(QXmlStreamReader &reader, Rule *rule)
                 reader.readNext();
                 while(!reader.atEnd())
                 {
-                    if(reader.isEndElement()&&reader.name()=="childRule")
+                    if(reader.isEndElement())
                     {
+                        reader.readNext();
                         break;
                     }
                     else if(reader.isStartElement())
