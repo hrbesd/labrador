@@ -55,7 +55,7 @@
 
 - Reactor基于配置文件来为网站设定过滤规则
 
-  具体设计参考 [Reactor技术说明书](https://github.com/zhf/labrador/blob/master/docs/backend/reactor_spec.md) 规则部分
+  具体设计参考 [Parser技术说明书](https://github.com/zhf/labrador/blob/master/docs/backend/parser_spec.md) 
 
 
 
