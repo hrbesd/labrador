@@ -4,7 +4,7 @@
 # 把in中的xml文件，结合templates文件夹下的template.html文件以及对应的css、js文件，自动生成一个符合标准的网页
 # 使用方法：python assembler.py in_folder_path out_folder_path
 # 参数说明：
-#          in_folder_path: 原始xml文件所在的目录（根目录即可）
+#          in_folder_path: 所有文件所在的目录，这个目录结构应该包括一个整个站点的描述xml文件，然后三个子目录，分别是spider、parser和reactor，而对assembler来说，它要求reactor文件夹必须存在
 #          out_folder_path: 生成之后的没文件的目标路径
 # 依赖条件：此python文件与templates文件夹相对位置固定（../templates），保证文件可以复制过来
 import sys, os, shutil, re, codecs, datetime
@@ -20,17 +20,12 @@ class Assembler:
 		return self.in_folder_path + "  " + self.out_folder_path
 
 	def doAssembleWork(self):
-		print 'Step 1: Making sure the folder exists'
 		if not self.ensureInputFolderExists():
 			print "Error: Input folder does not exists."
 			return
 
 		self.ensureOutputFolderExists()
-
-		print 'Step 2: Copying template resources'
 		self.copyResourceFiles()
-
-		print 'Step 3: For every xml data file, generate the html file using given template'
 		self.processFilesRecursively(self.in_folder_path, ".xml", self.genHtml)
 
 		print 'Done!'
@@ -56,17 +51,40 @@ class Assembler:
 		shutil.copytree(srcPath, targetPath)
 
 	def processFilesRecursively(self, topPath, targetPostfix, processFunction):
+		self.genIndex(topPath)
+		topPath = topPath + "/reactor" # 
 		for root, dirs, files in os.walk(topPath):
 			for fileName in files:
 				# 只处理对应的后缀
 				if fileName.strip().endswith(targetPostfix):
 					processFunction(root, fileName)
 
+	def genIndex(self, topPath):
+		indexFilePath = self.out_folder_path + "/index.html"
+		dataFile = open(topPath + "/website.xml", 'r')
+		domString = dataFile.read()
+		dataFile.close()
+
+		resultString = u"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex" /><title>页面信息</title></head><body>"""
+		indexDom = parseString(domString)
+		nodes = indexDom.getElementsByTagName('node')
+		for node in nodes:
+			hashNode = node.getElementsByTagName('hashName')[0].toprettyxml()[10:-12].strip()
+			if hashNode != "":
+				pageName = node.getElementsByTagName('name')[0].toprettyxml()[6:-8].strip()
+				resultString += '<p><a href="pages/' + hashNode + '.html">' + pageName + '</a></p>'
+
+		resultString += u"</body></html>"
+		resultFile = codecs.open(indexFilePath, 'w', 'utf-8')
+		resultFile.write(resultString)
+		resultFile.close()
+
 	# 生成html代码
 	def genHtml(self, root, fileName):
 		srcFile = root + "/" + fileName
-		resultFileDir = self.out_folder_path + root[len(self.in_folder_path):] + "/"
+		resultFileDir = self.out_folder_path + "/pages/"
 		resultFilePath = resultFileDir + fileName.replace('.xml', '.html')
+
 		# 首先，解析对应的xml文件
 		xmlFile = open(srcFile, 'r')
 		domString = xmlFile.read()
@@ -75,7 +93,11 @@ class Assembler:
 		domString = domString.replace("BR" , "BR/")
 		domString = domString.replace("&nbsp;", " ")
 
-		self.dom = parseString(domString)
+		try:
+			self.dom = parseString(domString)
+		except Exception as e:
+			print e
+			return
 
 		# 接着加载template文件
 		templateFile = codecs.open('../templates/template.html', 'r', 'utf-8')
@@ -98,19 +120,23 @@ class Assembler:
 	def templateString(self, match):
 		value = match.group()
 		value = value[2:-1]
+
 		result = self.dom.getElementsByTagName(unicode(value))[0].toxml()
 		# 去掉开头和结尾的xml标签
 		result = result[result.find('>') + 1:result.rfind('<')]
 
-		# 同时，对html进行一次返解码
+		# 同时，对html进行一次反解码
 		result = html.unescape_string(result)
 
-		# 针对lastModified做特殊处理
-		# 因为lastModified是以long的形式呈现的，这里需要转换为Date的字符串表示
-		if value == 'lastModified':
-			modifiedDate = datetime.datetime.fromtimestamp(long(result) / 1000)
-			dateStr = modifiedDate.strftime(u'%Y年%m月%d日'.encode('utf-8'))
-			result = dateStr.decode('utf-8')
+		# 针对lastmodified做特殊处理
+		# 因为lastmodified是以long的形式呈现的，这里需要转换为Date的字符串表示
+		if value == 'lastmodified':
+			try:
+				modifiedDate = datetime.datetime.fromtimestamp(long(result) / 1000)
+				dateStr = modifiedDate.strftime(u'%Y年%m月%d日'.encode('utf-8'))
+				result = dateStr.decode('utf-8')
+			except:
+				result = u"未知"
 
 		return result
 		

@@ -2,12 +2,14 @@
 # -*- encoding: utf-8 -*-
 
 from BeautifulSoup import BeautifulSoup, Comment, Tag
-import re, sys, os, codecs
+from xml.dom.minidom import parseString
+import re, sys, os, codecs, html
 
 class Reactor:
 	def __init__(self, in_folder_path, out_folder_path):
 		self.in_folder_path = in_folder_path
 		self.out_folder_path = out_folder_path
+		self.initConfig()
 
 	def __str__(self):
 		return self.in_folder_path + "  " + self.out_folder_path
@@ -33,6 +35,16 @@ class Reactor:
 		's' : 'del', 
 		'i' : 'em', 
 	}
+
+	alt_dict = {
+	}
+
+	def initConfig(self):
+		configFile = codecs.open('img_alt.config', 'r', 'utf-8')
+		for line in configFile.readlines():
+			hashKey, alt = line.split(" ")
+			self.alt_dict[hashKey] = alt
+		configFile.close()
 
 	def doReactorWork(self):
 		if not self.ensureInputFolderExists():
@@ -62,8 +74,27 @@ class Reactor:
 		resultFileDir = self.out_folder_path + root[len(self.in_folder_path):] + "/"
 		resultFilePath = resultFileDir + fileName
 
-		soup = BeautifulSoup(open(srcFile))
+		xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
+		xmlData = xmlDataFile.read()
+		xmlDataFile.close()
+
+		xmlData = html.unescape_string(xmlData)
+
+		soup = BeautifulSoup(xmlData)
 		soup = BeautifulSoup(soup.prettify())
+
+		# 建立originUrl为key，[hash, absoluteUrl]为value的字典
+		hashNodeRecords = {}
+		try:
+			dom = parseString(soup.prettify())
+			hashNodes = dom.getElementsByTagName('hashnode')
+			for hashNode in hashNodes:
+				hashValue = (hashNode.getElementsByTagName('hash')[0]).toprettyxml()[7:-8].strip()
+				absolute = (hashNode.getElementsByTagName('absoluteurl')[0]).toprettyxml()[13:-15].strip()
+				origin = (hashNode.getElementsByTagName('originalurl')[0]).toprettyxml()[13:-15].strip()
+				hashNodeRecords[origin] = [hashValue, absolute]
+		except:
+			pass
 
 		# 去掉多余标签内容
 		for removable_element in self.basic_removable_element_list:
@@ -76,8 +107,18 @@ class Reactor:
 
 		# 去掉缺失alt属性的img标签
 		for img_element in soup.findAll('img'):
-			if not img_element.has_key('alt'):
-				img_element.extract()
+			if img_element.has_key('src'):
+				originUrl = img_element['src']
+				if hashNodeRecords[originUrl]:
+					img_element['src'] = hashNodeRecords[originUrl][1]
+					imgHash = hashNodeRecords[originUrl][0]
+					if not img_element.has_key('alt'):
+						# 判断配置文件里面是否有配置
+						if self.alt_dict.has_key(imgHash):
+							img_element['alt'] = self.alt_dict[imgHash]
+						else:
+							#img_element.extract()
+							pass
 
 		# 去掉属性为type是audio或video的embed标签
 		for embed_element in soup.findAll('embed'):
@@ -114,8 +155,9 @@ class Reactor:
 		if not os.path.exists(resultFileDir):
 			os.makedirs(resultFileDir)
 
-		resultFile = codecs.open(resultFilePath, 'w')
-		resultFile.write(soup.prettify())
+		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
+		resultData = soup.prettify().decode('utf-8')
+		resultFile.write(resultData)
 		resultFile.close()
 
 def main():
