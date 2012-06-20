@@ -1,0 +1,110 @@
+# reactor规则DSL的示例文件
+
+applet
+	=> remove
+	==> warning | 盲人不可使用applet标签，请替换
+===
+
+# img标签的alt属性
+img alt
+	=> fill(img_alt.config)
+===
+
+video track
+	=> fill(video_alt.config)
+===
+
+audio track
+	=> fill(audio_alt.config)
+===
+
+img
+	-> - alt
+	=> remove
+===
+
+area
+	=> remove
+===
+
+map
+	=> remove
+===
+
+iframe
+    => remove
+===
+
+script
+	=> remove
+===
+
+style
+	=> remove
+===
+
+object
+	=> remove
+===
+
+audio
+	-> - track
+	=> remove
+===
+
+video
+	-> - track
+	=> remove
+===
+
+embed
+	-> type = audio
+	-> type = video
+	=> remove
+===
+
+form
+	-> + action
+	=> remove
+===
+
+canvas
+	-> - contents
+	=> remove
+===
+
+table
+	-> - summary
+	==> warning | 表格缺少描述信息
+===
+
+textarea
+	-> rows <= 3
+	-> cols <= 20
+	==> warning | 文本区域太小
+===
+
+figure
+	==> warning | 图片可能无法被识别
+===
+
+bb
+	==> warning | 我也不知道这是什么标签
+===
+
+a target
+	-> _blank
+	=> replace(_self)
+===
+
+a title
+	-> - values
+	-> insideSite(src)
+	=> set(pageTitle(src))
+===
+
+a title
+	-> - values
+	-> outsideSite(src)
+	=> set(点击此连接将转出本网站)
+===
