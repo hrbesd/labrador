@@ -7,6 +7,13 @@
 HarbinGovParser::HarbinGovParser(QObject *parent) :
     YZParser(parent)
 {
+    QDir dir("webpage/spider");
+    if(!dir.exists())
+    {
+        qWarning()<<"can't find parse folder";
+        return;
+    }
+    dir.mkpath("../parser");
     parseFolder("webpage/spider");
 }
 
@@ -52,10 +59,11 @@ int HarbinGovParser::parseFile(QString fileName)
     articleInterface.url = QString::fromUtf8((baseUrl.data()));
 
     parseImageFromBody(articleInterface.bodyData,QString(baseUrl),articleInterface);
-    cleanBodyData(articleInterface.bodyData);
     QFileInfo fileInfo(file);
     QDir fileDir = fileInfo.absoluteDir();
-    fileDir.cd("../parser");
+    QString newPath = fileDir.absolutePath().replace("/spider/","/parser/");
+    fileDir.mkpath(newPath);
+    fileDir.cd(newPath);
     YZXmlWriter::writeArticleToXml(articleInterface,fileDir.absolutePath()+"/"+fileInfo.baseName()+".xml");
     static int webpageCount = 0;
     qDebug()<<(webpageCount++)<<" done";
@@ -71,11 +79,19 @@ void HarbinGovParser::parseFolder(QString folder)
         qWarning()<<"can't find parse folder";
         return;
     }
-    dir.mkpath("../parser");
 
-    QFileInfoList fileInfolists= dir.entryInfoList(QDir::Files);
+    QFileInfoList fileInfolists= dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
     foreach(QFileInfo fileInfo, fileInfolists)
-        parseFile(fileInfo.absoluteFilePath());
+    {
+        if(fileInfo.isFile())
+        {
+            parseFile(fileInfo.absoluteFilePath());
+        }
+        else
+        {
+            parseFolder(fileInfo.absoluteFilePath());
+        }
+    }
     qDebug()<<"finish";
 
 }
@@ -110,36 +126,4 @@ void HarbinGovParser::parseImageFromBody(const QString &dataString, QString base
         node.hash = QCryptographicHash::hash(url.toString().toUtf8(),QCryptographicHash::Md5).toHex();
         articleInterface.hashData.append(node);
     }
-}
-
-void HarbinGovParser::cleanBodyData(QString &bodyData)
-{
-    QList<QString> tagList;
-    tagList<<QString("div");
-    tagList<<QString("font");
-    tagList<<QString("br");
-    removeTags(bodyData,tagList);
-    removeBlankCharacter(bodyData);
-}
-
-void HarbinGovParser::removeTags(QString &bodyData, QList<QString> tagList)
-{
-    foreach(QString tag, tagList)
-    {
-        removeTag(bodyData,tag);
-    }
-}
-
-void HarbinGovParser::removeTag(QString &bodyData, QString tag)
-{
-    QRegExp startRx("<"+tag+"[^>]*>",Qt::CaseInsensitive);
-    QRegExp endRx("</"+tag+">",Qt::CaseInsensitive);
-    bodyData.replace(startRx,"");
-    bodyData.replace(endRx,"");
-
-}
-
-void HarbinGovParser::removeBlankCharacter(QString &bodyData)
-{
-
 }

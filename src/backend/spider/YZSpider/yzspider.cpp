@@ -48,7 +48,8 @@ void YZSpider::webPageDownloaded()
     QDir folderDir;
     folderDir.mkpath(QDir::currentPath()+"/webpage/spider");
     folderDir.cd("webpage/spider");
-    QFile file(folderDir.absolutePath() + "/"+ fileName);
+    folderDir.mkpath(folderDir.absolutePath() + "/"+fileName.left(2));
+    QFile file(folderDir.absolutePath() + "/"+fileName.left(2)+"/"+ fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         qWarning("can't save webpage");

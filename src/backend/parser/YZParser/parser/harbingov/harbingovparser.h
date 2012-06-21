@@ -11,10 +11,6 @@ public:
     virtual int parseFile(QString fileName);
     void parseFolder(QString folder);
     void parseImageFromBody(const QString& dataString,QString base, ArticleInterface& articleInterface);
-    void cleanBodyData(QString& bodyData);
-    void removeTags(QString& bodyData, QList<QString> tagList);
-    void removeTag(QString& bodyData, QString tag);
-    void removeBlankCharacter(QString& bodyData);
 signals:
     
 public slots:
