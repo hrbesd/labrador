@@ -7,6 +7,8 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     WebSite websiteItem;
     websiteItem.editor = "genghailong";
     websiteItem.info = "zhong guo haerbin";
+    websiteItem.crawlTime = "";
+    websiteItem.threadLimit = "10";
     websiteItem.node.url = "http://www.harbin.gov.cn/";
     websiteItem.node.name = "chinese harbin";
     /****************************************
