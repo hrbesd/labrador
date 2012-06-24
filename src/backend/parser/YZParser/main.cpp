@@ -1,8 +1,8 @@
 #include <QCoreApplication>
-#include "./parser/harbingov/harbingovparser.h"
+#include "./parser/yzparser.h"
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    HarbinGovParser parser;
+    YZParser parser;
     return a.exec();
 }

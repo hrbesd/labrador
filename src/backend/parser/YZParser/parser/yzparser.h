@@ -8,12 +8,9 @@
 #include <QDir>
 #include "DataInterface.h"
 #include "../xmlWriter/yzxmlwriter.h"
+#include <QtScript>
+#include <QTextStream>
 
-/*********************************************
- *          parser interface class
- *
- *
- *********************************************/
 class YZParser : public QObject
 {
     Q_OBJECT
@@ -21,11 +18,18 @@ class YZParser : public QObject
 public:
     explicit YZParser(QObject *parent = 0);
     //success return 0, else return -1
-    virtual int parseFile(QString fileName) = 0;
+    int parseFile(QString fileName);
+    void parseFolder(QString folder);
+    void parseImageFromBody(const QString& dataString,QString base, ArticleInterface& articleInterface);
+
 signals:
     
 public slots:
 protected:
+private:
+    QScriptEngine m_engine;
+    QScriptValue m_globalValue;
+    QScriptValue m_parserValue;
 };
 
 #endif // YZPARSER_H
