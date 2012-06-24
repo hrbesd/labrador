@@ -202,6 +202,14 @@ void YZSpider::parseWebsiteXml(QXmlStreamReader &reader)
             {
                 m_website.info = reader.readElementText();
             }
+            else if(reader.name()=="crawlTime")
+            {
+                m_website.crawlTime = reader.readElementText();
+            }
+            else if(reader.name()=="threadLimit")
+            {
+                m_website.threadLimit = reader.readElementText();
+            }
             else if(reader.name()=="node")
             {
                 parseNodeXml(reader,m_website.node);
