@@ -36,6 +36,8 @@ struct WebSite
     Node node;
     QString info;
     QString editor;
+    QString crawlTime;
+    QString threadLimit;
 };
 
 #endif // DATAINTERFACE_H
