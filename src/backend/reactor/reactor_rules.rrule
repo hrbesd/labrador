@@ -1,0 +1,107 @@
+applet
+	=> remove
+	==> warning | Please remove applet element
+===
+
+img alt
+	=> fill(img_alt.config)
+===
+
+video track
+	=> fill(video_alt.config)
+===
+
+audio track
+	=> fill(audio_alt.config)
+===
+
+img
+	-> - alt
+	=> remove
+===
+
+area
+	=> remove
+===
+
+map
+	=> remove
+===
+
+iframe
+    => remove
+===
+
+script
+	=> remove
+===
+
+style
+	=> remove
+===
+
+object
+	=> remove
+===
+
+audio
+	-> - track
+	=> remove
+===
+
+video
+	-> - track
+	=> remove
+===
+
+embed
+	-> type=audio
+	-> type=video
+	=> remove
+===
+
+form
+	-> + action
+	=> remove
+===
+
+canvas
+	-> - contents
+	=> remove
+===
+
+table
+	-> - summary
+	==> warning | missing table summary
+===
+
+textarea
+	-> rows <= 3
+	-> cols <= 20
+	==> warning | size of textarea is too small
+===
+
+figure
+	==> warning | image may not be identified
+===
+
+bb
+	==> warning | no idea what this is
+===
+
+a target
+	-> target=_blank
+	=> replace(_self)
+===
+
+a
+	-> - title
+	-> insideSite(src)
+	=> set(pageTitle(src))
+===
+
+a
+	-> - title
+	-> outsideSite(src)
+	=> set("leaving")
+===
