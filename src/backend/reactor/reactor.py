@@ -3,48 +3,24 @@
 
 from BeautifulSoup import BeautifulSoup, Comment, Tag
 from xml.dom.minidom import parseString
+from reactor_rule_parser import *
+from rule_item import *
 import re, sys, os, codecs, html
 
 class Reactor:
-	def __init__(self, in_folder_path, out_folder_path):
+	def __init__(self, rule_file_path, in_folder_path, out_folder_path):
+		self.rule_file_path = rule_file_path
 		self.in_folder_path = in_folder_path
 		self.out_folder_path = out_folder_path
-		self.initConfig()
+		self.rule_list = []
+		self.buildRules()
 
 	def __str__(self):
-		return self.in_folder_path + "  " + self.out_folder_path
+		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path + '", using rule file "' + self.rule_file_path + '"'
 
-	basic_removable_element_list = ['applet', 
-		'area', 
-		'map', 
-		'iframe', 
-		'script', 
-		'style', 
-		'object', 
-		'audio', 
-		'video',
-		'font', 
-		'big', 
-		'basefont', 
-		'link'
-	]
-
-	replacable_element_list = {
-		'u' : 'ins', 
-		'b' : 'strong', 
-		's' : 'del', 
-		'i' : 'em', 
-	}
-
-	alt_dict = {
-	}
-
-	def initConfig(self):
-		configFile = codecs.open('img_alt.config', 'r', 'utf-8')
-		for line in configFile.readlines():
-			hashKey, alt = line.split(" ")
-			self.alt_dict[hashKey] = alt
-		configFile.close()
+	def buildRules(self):
+		parser = RuleParser()
+		self.rule_list = parser.parseFile(self.rule_file_path)
 
 	def doReactorWork(self):
 		if not self.ensureInputFolderExists():
@@ -96,15 +72,18 @@ class Reactor:
 		except:
 			pass
 
-		# 去掉多余标签内容
-		for removable_element in self.basic_removable_element_list:
-			for script_code in soup.findAll(removable_element):
-				script_code.extract()
-
 		# 去掉注释
 		comments = soup.findAll(text=(lambda text:isinstance(text, Comment)))
 		[comment.extract() for comment in comments]
 
+		# 根据rrule文件做处理，需要设计单独的执行命令的类
+		for rule in self.rule_list:
+			for script_code in soup.findAll(rule.target.split(' ')[0]):
+				if len(rule.condition) > 0:
+					for condition in rule.condition:
+						if condition == '-':
+							pass
+		"""
 		# 去掉缺失alt属性的img标签
 		for img_element in soup.findAll('img'):
 			if img_element.has_key('src'):
@@ -151,7 +130,7 @@ class Reactor:
 				target_tag = Tag(soup, self.replacable_element_list[tag_name])
 				target_tag.contents = contents
 				sub_element.replaceWith(target_tag)
-
+"""
 		if not os.path.exists(resultFileDir):
 			os.makedirs(resultFileDir)
 
@@ -161,18 +140,19 @@ class Reactor:
 		resultFile.close()
 
 def main():
-	if len(sys.argv) < 2:
-		print "usage: python reactor.py in_folder_path out_folder_path"
+	if len(sys.argv) < 3:
+		print "usage: python reactor.py rule_file in_folder_path out_folder_path"
 		return
 
-	in_folder_path = sys.argv[1]
+	rule_file_path = sys.argv[1]
+	in_folder_path = sys.argv[2]
 
-	if len(sys.argv) == 2:
-		out_folder_path = "out"
+	if len(sys.argv) == 3:
+		out_folder_path = sys.argv[2] + "/out"
 	else:
-		out_folder_path = sys.argv[2]
+		out_folder_path = sys.argv[3]
 
-	reactor = Reactor(in_folder_path, out_folder_path)
+	reactor = Reactor(rule_file_path, in_folder_path, out_folder_path)
 	reactor.doReactorWork()
 
 if __name__ == '__main__':
