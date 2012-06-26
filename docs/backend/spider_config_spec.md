@@ -4,7 +4,7 @@
 
 ##配置文件说明
 每个网站保存一个配置文件，Spider根据网站的配置文件进行爬行分析。运营方负责维护和构建网站的配置文件，
-网站的配置文件全部手动生成和修改，爬虫不会修改配置文件。配置文件中有手动规则和自动规则，nodeList保存所有手动添加的节点，
+网站的配置文件全部手动生成和修改，爬虫不会修改配置文件。配置文件中有手动规则和自动规则，nodeList保存所有手动添加的节点，Rule记录所有的动态规则。
 正则表达式负责自动获取节点信息，手动添加的节点和自动添加的节点合并为最后要分析的节点。后期会为配置文件生成器开发图形界面。
 ##数据结构定义
 <pre><code>
@@ -35,8 +35,9 @@ struct WebSite
     String threadLimit;
 };
 </code></pre>
+
 ##数据属性说明
-Website结构负责保存整个网站的信息，Node用来递归的定义栏目的描述信息
+Website结构负责保存整个网站的信息，Node用来递归的定义栏目的描述信息,Rule用来定义向下扩展的规则
 
 - WebSite描述一个网站的整体信息
 
@@ -59,7 +60,11 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
     * nameRegExp： 用来匹配链接标题的正则表达式
     * nodeList： 用来手工添加子栏目节点
     * childRule： 应用于下层节点的规则
+
 ##XML示例
+	
+分析[中国哈尔滨](http://www.harbin.gov.cn/)的政府公告栏目和部门动态栏目
+
 <pre><code>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;website&gt;
@@ -81,7 +86,7 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
                 &lt;nodeList&gt;
                     &lt;node&gt;
                         &lt;name&gt;zhengfugonggao&lt;/name&gt;
-                        &lt;url&gt;http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm&lt;/url&gt;
+                        &lt;url&gt;http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm#&lt;/url&gt;
                         &lt;refreshRate&gt;&lt;/refreshRate&gt;
                         &lt;ruleList&gt;
                             &lt;rule&gt;
@@ -143,8 +148,12 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
 &lt;/website&gt;
 </code></pre>
 
+##已知问题和解决办法
 
-
+- 没有专门的栏目首页
+	* 例子：中国哈尔滨[政府公告](http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm), 栏目URL与子栏目URL一样
+	* 产生问题的原因： 在爬行的过程中为了避免出现环状URL无法跳出，或者多个页面链向同一个页面造成多次访问同一页面资源浪费，在本地保存了已访问的URL集合，如果URL已经被访问过就直接跳过。所以如果子栏目和父栏目有同样的URL就无法进入子栏目链接并应用子栏目的规则
+	* 解决办法： 在父栏目URL后面加入#（页内定位符）来与子栏目URL进行区分
 
 
   

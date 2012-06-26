@@ -21,7 +21,7 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
 
     Node gongGaoNodeItem;
     gongGaoNodeItem.name = "zhengfugonggao";
-    gongGaoNodeItem.url = "http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm";
+    gongGaoNodeItem.url = "http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm#";
     gongGaoNodeItem.ruleList.append(gongGaoChildRule);
 
     gongGaoRule->nodeList.append(gongGaoNodeItem);
