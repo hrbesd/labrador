@@ -2,11 +2,6 @@
 
 # This script is supposed to run on an ubuntu server
 
-# Re-write public key
-# Cliff Woo's Public Key
-echo 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA1HorRRq7OGM5iK4jnP09X/WsPm6JXSfjhRH5kR1yWOOe3W4B28xoDc6g2xy+lSrXRaVMrfy3WQSKQhGgnEnNEvW2noAR2t/Yhd0rBnGONvB02uujmlhFl6J9HJfvO3LagQi5kjMt3Y62AjGUROkMmeAwHwM3gYNbWDGgS99OSWdXoyhIArZIDTsFXfx3Yt+TZnLPeXb8WFFPNlEnNJfmWQj4CFCdBjEsh+PFPBUiLCWkjDpE0/bqZr+r/o2P8qAdM99ryBIup+zMJJ0UPuGQBgbnTp+aEwGf94US7yAL29SY1YC8Uwr5eh0s/NE0Y2pWC0HyKDf9jY94B40sISfQHw== id_rsa.pub' >/root/.ssh/authorized_keys
-chmod 600 /root/.ssh/authorized_keys
-
 function nag
 {
 	echo " * `basename $0`: $1"
@@ -15,6 +10,11 @@ function nag
 # In case of no ssh, Installing openssh
 nag 'Installing openssh'
 apt-get -y install openssh-server openssh-client
+
+# Re-write public key
+# Cliff Woo's Public Key
+echo 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA1HorRRq7OGM5iK4jnP09X/WsPm6JXSfjhRH5kR1yWOOe3W4B28xoDc6g2xy+lSrXRaVMrfy3WQSKQhGgnEnNEvW2noAR2t/Yhd0rBnGONvB02uujmlhFl6J9HJfvO3LagQi5kjMt3Y62AjGUROkMmeAwHwM3gYNbWDGgS99OSWdXoyhIArZIDTsFXfx3Yt+TZnLPeXb8WFFPNlEnNJfmWQj4CFCdBjEsh+PFPBUiLCWkjDpE0/bqZr+r/o2P8qAdM99ryBIup+zMJJ0UPuGQBgbnTp+aEwGf94US7yAL29SY1YC8Uwr5eh0s/NE0Y2pWC0HyKDf9jY94B40sISfQHw== id_rsa.pub' >/root/.ssh/authorized_keys
+chmod 600 /root/.ssh/authorized_keys
 
 SSHD_CONFIG_FILE=/etc/ssh/sshd_config
 
