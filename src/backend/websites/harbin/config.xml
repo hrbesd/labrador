@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<website>
+    <editor>genghailong</editor>
+    <info>zhong guo haerbin</info>
+    <crawlTime></crawlTime>
+    <threadLimit>10</threadLimit>
+    <node>
+        <name>chinese harbin</name>
+        <url>http://www.harbin.gov.cn/</url>
+        <refreshRate></refreshRate>
+        <ruleList>
+            <rule>
+                <urlRegExp></urlRegExp>
+                <nextPageRegExp></nextPageRegExp>
+                <maxPageCount></maxPageCount>
+                <nameRegExp></nameRegExp>
+                <childRule/>
+                <nodeList>
+                    <node>
+                        <name>zhengfugonggao</name>
+                        <url>http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm#</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <urlRegExp>&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'</urlRegExp>
+                                <nextPageRegExp></nextPageRegExp>
+                                <maxPageCount></maxPageCount>
+                                <nameRegExp>class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;</nameRegExp>
+                                <childRule>
+                                    <rule>
+                                        <urlRegExp>&lt;a class=&quot;f3348&quot; href=&quot;([^&quot;]*)&quot;</urlRegExp>
+                                        <nextPageRegExp>&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页</nextPageRegExp>
+                                        <maxPageCount></maxPageCount>
+                                        <nameRegExp>&lt;a class=&quot;f3348&quot;.*title=&quot;([^&quot;]*)&quot;</nameRegExp>
+                                        <childRule/>
+                                        <nodeList/>
+                                    </rule>
+                                </childRule>
+                                <nodeList/>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+            <rule>
+                <urlRegExp></urlRegExp>
+                <nextPageRegExp></nextPageRegExp>
+                <maxPageCount></maxPageCount>
+                <nameRegExp></nameRegExp>
+                <childRule/>
+                <nodeList>
+                    <node>
+                        <name>bumendongtai</name>
+                        <url>http://www.harbin.gov.cn/zwxxgk/bmdt.htm</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <urlRegExp>&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;hei14&quot;&gt;</urlRegExp>
+                                <nextPageRegExp></nextPageRegExp>
+                                <maxPageCount></maxPageCount>
+                                <nameRegExp>&lt;FONT class=&quot;hei12&quot;&gt;(.*)&lt;/font&gt;</nameRegExp>
+                                <childRule>
+                                    <rule>
+                                        <urlRegExp> &lt;a class=&quot;f3665&quot; href=&quot;([^&quot;]*)&quot;</urlRegExp>
+                                        <nextPageRegExp>&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页</nextPageRegExp>
+                                        <maxPageCount></maxPageCount>
+                                        <nameRegExp>class=&quot;f3665&quot; title=&quot;([^&quot;]*)&quot;</nameRegExp>
+                                        <childRule/>
+                                        <nodeList/>
+                                    </rule>
+                                </childRule>
+                                <nodeList/>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+        </ruleList>
+    </node>
+</website>
