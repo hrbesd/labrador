@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR=`basedir $0`
+DIR=`dirname $0`
 source $DIR/*.conf
 test -z "$LABRADOR_ROOT" && echo "Bad config file." && exit 1
 
