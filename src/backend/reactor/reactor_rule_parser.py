@@ -10,9 +10,11 @@ class RuleParser:
 	logOperator = Suppress('==>')
 	logSeperator = Suppress('|')
 	endConfig = Suppress('===')
+	startArg = Suppress('(')
+	endArg = Suppress(')')
 
 	# 字母表
-	legalPathDict = alphanums + '_./\\:()"'
+	legalPathDict = alphanums + '_./\\:"'
 	htmlContent = alphanums + '_'
 
 	def __init__(self):
@@ -20,19 +22,11 @@ class RuleParser:
 		attribute = Word(self.htmlContent)
 		target = Group(element + Optional(attribute)).setResultsName('target')
 
-		firstArg = Word(self.htmlContent)
-		secondArg = Word(self.htmlContent)
-		exprOp = oneOf('= != > < >= <=')
-		expr = firstArg + exprOp + secondArg
-
-		missingCon = '-' + Word(self.htmlContent)
-		havingCon = '+' + Word(self.htmlContent)
-
 		opName = Word(self.htmlContent)
 		arg = Word(self.legalPathDict)
-		actExpr = opName + Optional(arg)
+		actExpr = opName + Optional(self.startArg + arg + self.endArg)
 
-		conExpr = Group(Or([havingCon, missingCon, expr, actExpr]))
+		conExpr = Group(actExpr)
 		condition = self.conOperator + conExpr
 
 		logLevel = oneOf('info warning error debug')
@@ -67,4 +61,5 @@ class RuleParser:
 			if len(item.log) > 1:
 				newRule.setLog(item.log[0], ' '.join(item.log[1:-1]))
 			rules.append(newRule)
+
 		return rules

@@ -16,8 +16,9 @@ audio track
 ===
 
 img
-	-> - alt
+	-> missing(alt)
 	=> remove
+	==> warning | missing alt
 ===
 
 area
@@ -45,39 +46,39 @@ object
 ===
 
 audio
-	-> - track
+	-> missing(track)
 	=> remove
 ===
 
 video
-	-> - track
+	-> missing(track)
 	=> remove
 ===
 
 embed
-	-> type=audio
-	-> type=video
+	-> equal(type, audio)
+	-> equal(type, video)
 	=> remove
 ===
 
 form
-	-> + action
+	-> has(action)
 	=> remove
 ===
 
 canvas
-	-> - contents
+	-> has(contents)
 	=> remove
 ===
 
 table
-	-> - summary
+	-> missing(summary)
 	==> warning | missing table summary
 ===
 
 textarea
-	-> rows <= 3
-	-> cols <= 20
+	-> let(rows, 3)
+	-> let(cols, 20)
 	==> warning | size of textarea is too small
 ===
 
@@ -90,18 +91,18 @@ bb
 ===
 
 a target
-	-> target=_blank
+	-> equal(target, _blank)
 	=> replace(_self)
 ===
 
 a
-	-> - title
+	-> missing(title)
 	-> insideSite(src)
-	=> set(pageTitle(src))
+	=> set(title, pageTitle(src))
 ===
 
 a
-	-> - title
+	-> missing(title)
 	-> outsideSite(src)
-	=> set("leaving")
+	=> set(title, leaving)
 ===
