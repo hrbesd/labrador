@@ -4,6 +4,7 @@
 from BeautifulSoup import BeautifulSoup, Comment, Tag
 from xml.dom.minidom import parseString
 from reactor_rule_parser import *
+from executor import Executor
 from rule_item import *
 import re, sys, os, codecs, html
 
@@ -14,6 +15,7 @@ class Reactor:
 		self.out_folder_path = out_folder_path
 		self.rule_list = []
 		self.buildRules()
+		self.executor = Executor()
 
 	def __str__(self):
 		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path + '", using rule file "' + self.rule_file_path + '"'
@@ -28,6 +30,7 @@ class Reactor:
 			return
 		self.ensureOutputFolderExists()
 		self.processFilesRecursively(self.in_folder_path, self.doWork)
+		self.executor.finished()
 
 		return
 
@@ -69,68 +72,45 @@ class Reactor:
 				absolute = (hashNode.getElementsByTagName('absoluteurl')[0]).toprettyxml()[13:-15].strip()
 				origin = (hashNode.getElementsByTagName('originalurl')[0]).toprettyxml()[13:-15].strip()
 				hashNodeRecords[origin] = [hashValue, absolute]
-		except:
+		except Exception as e:
 			pass
+
+		# 将相对URL替换为绝对URL，并添加hash属性
+		for img_element in soup.findAll('img'):
+			if img_element.has_key('src'):
+				originUrl = img_element['src']
+				if hashNodeRecords.has_key(originUrl) and hashNodeRecords[originUrl]:
+					img_element['src'] = hashNodeRecords[originUrl][1]
+					img_element['hash'] = hashNodeRecords[originUrl][0]
 
 		# 去掉注释
 		comments = soup.findAll(text=(lambda text:isinstance(text, Comment)))
 		[comment.extract() for comment in comments]
 
-		# 根据rrule文件做处理，需要设计单独的执行命令的类
+		# 利用反射机制，动态调用方法，所有方法的实现都在executor.Executor类中
 		for rule in self.rule_list:
 			for script_code in soup.findAll(rule.target.split(' ')[0]):
-				if len(rule.condition) > 0:
-					for condition in rule.condition:
-						if condition == '-':
-							pass
-		"""
-		# 去掉缺失alt属性的img标签
-		for img_element in soup.findAll('img'):
-			if img_element.has_key('src'):
-				originUrl = img_element['src']
-				if hashNodeRecords[originUrl]:
-					img_element['src'] = hashNodeRecords[originUrl][1]
-					imgHash = hashNodeRecords[originUrl][0]
-					if not img_element.has_key('alt'):
-						# 判断配置文件里面是否有配置
-						if self.alt_dict.has_key(imgHash):
-							img_element['alt'] = self.alt_dict[imgHash]
+				# 默认所有对象都需要处理
+				# 当指定条件的对象不能满足的时候，再跳过处理过程
+				needToProcess = True
+				for condition in rule.condition:
+					conMethod = getattr(Executor, condition[0])
+					if not conMethod(self.executor, script_code, condition[1:]):
+						needToProcess = False # 条件不满足，跳过
+						break
+
+				if needToProcess:
+					for act in rule.action:
+						actMethod = getattr(Executor, act[0])
+						if len(act) == 1:
+							actMethod(self.executor, script_code)
 						else:
-							#img_element.extract()
-							pass
+							args = [rule.target] + act[1:]
+							actMethod(self.executor, script_code, args)
 
-		# 去掉属性为type是audio或video的embed标签
-		for embed_element in soup.findAll('embed'):
-			if embed_element.has_key('type') and (embed_element['type'] == 'audio' or embed_element['type'] == 'video'):
-				embed_element.extract()
+					if len(rule.logLevel.strip()) > 0 and len(rule.logMsg.strip()) > 0:
+						self.executor.doLog(rule.logLevel, resultFilePath, rule.logMsg)
 
-		# 去掉带有action属性的form
-		for form_element in soup.findAll('form'):
-			if form_element.has_key('action'):
-				form_element.extract()
-
-		# 内容空白的canvas
-		for canvas_element in soup.findAll('canvas'):
-			has_content = False
-			for content in canvas_element.contents:
-				if not content.strip() == '':
-					has_content = True
-			if not has_content:
-				canvas_element.extract()
-
-		# 如果<a>的target属性是_blank，改为_self
-		for a_element in soup.findAll('a'):
-			if a_element.has_key('target') and a_element['target'] == '_blank':
-				a_element['target'] = '_self'
-
-		# 替换标签
-		for tag_name in self.replacable_element_list:
-			for sub_element in soup.findAll(tag_name):
-				contents = sub_element.contents
-				target_tag = Tag(soup, self.replacable_element_list[tag_name])
-				target_tag.contents = contents
-				sub_element.replaceWith(target_tag)
-"""
 		if not os.path.exists(resultFileDir):
 			os.makedirs(resultFileDir)
 
