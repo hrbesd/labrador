@@ -2,13 +2,13 @@
 
 DIR=`basedir $0`
 source $DIR/*.conf
-test -z "$LABRADOR" && echo "Bad config file." && exit 1
+test -z "$LABRADOR_ROOT" && echo "Bad config file." && exit 1
 
 test -d $LABRADOR_ROOT || mkdir $LABRADOR_ROOT && echo "Created root directory at $LABRADOR_ROOT."
 
-echo "Updating executables..."
-test -d $BIN_DIR || mkdir $BIN_DIR && echo "Created $BIN_DIR."
-rsync -av --copy-links $DEV_SERVER_URL/bin $BIN_DIR
+echo "Updating bin..."
+test -d $LABRADOR_BIN || mkdir $LABRADOR_BIN && echo "Created $LABRADOR_BIN."
+rsync -av --copy-links $DEV_SERVER_URL/bin $LABRADOR_BIN
 if $? -eq 0; then
 	echo "Successfully done."
 else
@@ -16,20 +16,24 @@ else
 fi
 
 # Ensure bin inside path
-grep $BIN_DIR ~/.profile >/dev/null
-test $? -eq 0 || echo "$PATH=$BIN_DIR:$PATH" >>~/.profile && echo "Updated .profile!"
+grep $LABRADOR_BIN ~/.profile >/dev/null
+test $? -eq 0 || echo "$PATH=$LABRADOR_BIN:$PATH" >>~/.profile && echo "Updated .profile!"
 
-# Config
-test -d $ETC_DIR || mkdir $ETC_DIR && echo "Created $ETC_DIR."
-cp $DIR/*.conf $ETC_DIR/
-# Templets
-test -d $TEMPLET_DIR || mkdir $TEMPLET_DIR && echo "Created $TEMPLET_DIR."
+# etc
+test -d $LABRADOR_ETC || mkdir $LABRADOR_ETC && echo "Created $LABRADOR_ETC."
+test -d $LABRADOR_TEMPLETS || mkdir $LABRADOR_TEMPLETS && echo "Created $LABRADOR_TEMPLETS."
 
-echo "Updating templets..."
-rsync -av --copy-links $DEV_SERVER_URL/templets $TEMPLET_DIR
+echo "Updating etc..."
+rsync -av -r --copy-links $DEV_SERVER_URL/etc $LABRADOR_ETC
 test $? -eq 0 && echo "Sucessfully done." || echo "Failed!"
 
-test -d $LOG_DIR || mkdir $LOG_DIR && echo "Created $LOG_DIR."
+test -d $LABRADOR_LOG || mkdir $LABRADOR_LOG && echo "Created $LABRADOR_LOG."
+test -d $LABRADOR_SITES || mkdir $LABRADOR_SITES && echo "Created $LABRADOR_SITES."
+test -d $LABRADOR_BUTTS || mkdir $LABRADOR_BUTTS && echo "Created $LABRADOR_BUTTS."
+
+echo "Updating butts..."
+rsync -av -r --copy-links $DEV_SERVER_URL/BUTTS $LABRADOR_SCRIPTS
+test $? -eq 0 && echo "Sucessfully done." || echo "Failed!"
 
 echo "Setup completed."
 echo
