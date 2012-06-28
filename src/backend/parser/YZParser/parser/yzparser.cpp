@@ -43,23 +43,6 @@ int YZParser::parseFile(QString fileName)
     QScriptValue article = m_parserValue.call(QScriptValue(),args);
     QVariant articleItem = article.toVariant();
 
-//    int startIndex = webData.lastIndexOf("detail_zw");
-//    startIndex = webData.indexOf("<div",startIndex);
-//    int endIndex = webData.indexOf("</div>",startIndex)+6;
-//    body = webData.mid(startIndex,endIndex - startIndex);
-//    if(body=="<!DOC")
-//    {
-//        startIndex = webData.lastIndexOf("<div id=\"zoom\" class=\"detail_zw\" align=\"left\">");
-//        endIndex = webData.indexOf("</div>",startIndex)+6;
-//        body = webData.mid(startIndex,endIndex - startIndex);
-//    }
-//    int authorStartIndex = webData.lastIndexOf("detail_ly");
-//    if(authorStartIndex!=-1)
-//    {
-//        authorStartIndex = webData.indexOf(">",authorStartIndex)+1;
-//        int authorEndIndex = webData.indexOf("<",authorStartIndex);
-//        author = webData.mid(authorStartIndex,authorEndIndex - authorStartIndex);
-//    }
     articleInterface.lastModified = QString::fromUtf8(lastModifiedTime.trimmed().data());
     articleInterface.title = QString::fromUtf8(title.data());
     articleInterface.author = QString::fromUtf8(articleItem.toMap()["author"].toByteArray().data());

@@ -17,11 +17,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     parser/yzparser.cpp \
-    parser/harbingov/harbingovparser.cpp \
     xmlWriter/yzxmlwriter.cpp
 
 HEADERS += \
     parser/yzparser.h \
     DataInterface.h \
-    parser/harbingov/harbingovparser.h \
     xmlWriter/yzxmlwriter.h
