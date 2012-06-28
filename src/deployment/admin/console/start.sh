@@ -1,2 +1,0 @@
-# Installing scheduler into cron
-
