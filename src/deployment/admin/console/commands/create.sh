@@ -1,11 +1,16 @@
-source `basedir $0`/utils/common.sh
-
-usage()
+err()
 {
-	echo "$0: <id> <host>" >&2
+	echo "$0: required arguments not found." >&2
 	exit 1	
 }
 
-test -n "$1" || test -n "$2" && usage
+test -z "$1" || test -z "$2" && err
 
 cp -r $LABRADOR_TEMPLETS $LABRADOR_SITES/$1
+# Updating config
+SITE_CONFIG=$LABRADOR_SITES/$1/config/site.conf
+sed -e "s/^ID=.*/ID=$1/" -i $SITE_CONFIG
+sed -e "s/^HOST=.*/HOST=$2/" -i $SITE_CONFIG
+
+echo "Site '$1' created."
+echo "TODO: Add DNS record in DNSPOD and modify config of Apache."
