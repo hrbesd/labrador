@@ -7,7 +7,13 @@ log()
 	printf "`date '+%Y-%m-%d %H:%M:%S'`\t$*\n" >>$LABRADOR_LOG/scheduler.log
 }
 
-for SITE in `ls $LABRADOR_SITES`
+if test -z "$*"; then
+	SITES=`ls $LABRADOR_SITES`
+else
+	SITES=$*
+fi
+
+for SITE in ${#SITES[@]}; 
 do
 	SITE_ROOT=$LABRADOR_SITES/$SITE
 	SITE_CONF=$SITE_ROOT/config/site.conf
