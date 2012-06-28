@@ -1,5 +1,16 @@
-DIR=`dirname $0`
-DEFAULT_COMMAND="stat"
+#!/bin/bash
+
+# Finding the real script thru links
+SELF=$0
+while true; do
+	DIR=`dirname $SELF`
+	SELF=`readlink $SELF`
+	test -z "$SELF" && break
+done
+
+source $DIR/utils/common.sh
+
+DEFAULT_COMMAND="info"
 
 function usage
 {
@@ -44,7 +55,7 @@ fi
 case $MODE in
 	"EDIT") $EDITOR $COMMAND_SCRIPT ;;
 	"LIST") for i in `ls $DIR/commands/*.sh`; do printf "`basename $i .sh`\n"; done ;;
-	"EXEC") $COMMAND_SCRIPT $* ;;
+	"EXEC") source $COMMAND_SCRIPT $* ;;
 	?)		usage ;;
 esac
 
