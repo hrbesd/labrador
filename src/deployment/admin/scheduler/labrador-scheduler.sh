@@ -36,7 +36,7 @@ do
 		--log-file=$SITE_ROOT/logs/reactor.log
 
 	log "Launch Assembler"
-	$ASSEMBLE_PATH --site-config=$SITE_CONF \
+	$ASSEMBLER_PATH --site-config=$SITE_CONF \
 		--worker-dir=$SITE_ROOT/workers/assembler \
 		--shared-dir=$SITE_ROOT/workers/shared \
 		--rule-dir=$SITE_ROOT/rules/assembler \
