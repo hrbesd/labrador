@@ -1,0 +1,5 @@
+usage()
+{
+	
+}
+test -n "$*" && usage
