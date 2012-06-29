@@ -28,20 +28,13 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     gongGaoNodeItem.ruleList.append(gongGaoChildRule);
 
     gongGaoRule->nodeList.append(gongGaoNodeItem);
-
-    gongGaoChildRule->expressionList
-            <<Expression("url"
-                         ,"<a .*href=\"([^\"]*)\" class=\"bgc1\" onmouseover=\"this.className=\'bgc2\'\" onmouseout=\"this.className=\'bgc1\'")
-           <<Expression("title"
-                        ,"class=\"bgc1\" onmouseover=\"this.className='bgc2'\" .*<span>(.*)</span>");
+    gongGaoChildRule->urlExpression.value = "<a .*href=\"([^\"]*)\" class=\"bgc1\" onmouseover=\"this.className=\'bgc2\'\" onmouseout=\"this.className=\'bgc1\'";
+    gongGaoChildRule->titleExpression.value = "class=\"bgc1\" onmouseover=\"this.className='bgc2'\" .*<span>(.*)</span>";
 
     gongGaoArticleRule->nextPageExpression.value = "<a href=\"([^\"]*)\" class=\"Next\">下页";
+    gongGaoArticleRule->urlExpression.value = "<a class=\"f3348\" href=\"([^\"]*)\"";
+    gongGaoArticleRule->titleExpression.value = "<a class=\"f3348\".*title=\"([^\"]*)\"";
 
-    gongGaoArticleRule->expressionList
-            <<Expression("url"
-                         ,"<a class=\"f3348\" href=\"([^\"]*)\"")
-           <<Expression("title"
-                        ,"<a class=\"f3348\".*title=\"([^\"]*)\"");
     gongGaoChildRule->childRule = gongGaoArticleRule;
     websiteItem.node.ruleList.append(gongGaoRule);
 
@@ -59,20 +52,13 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     buMenDongTaiNodeItem.ruleList.append(buMenDongTaiChildRule);
 
     buMenDongTaiRule->nodeList.append(buMenDongTaiNodeItem);
-    Expression buMenDongTaiChildUrlExpression;
-    Expression buMenDongTaiChildTitleExpression;
-    buMenDongTaiChildUrlExpression.label = "url";
-    buMenDongTaiChildUrlExpression.value = "<a .*href=\"([^\"]*)\" class=\"hei14\">";
-    buMenDongTaiChildTitleExpression.label = "title";
-    buMenDongTaiChildTitleExpression.value = "<FONT class=\"hei12\">(.*)</font>";
-    buMenDongTaiChildRule->expressionList<<buMenDongTaiChildUrlExpression<<buMenDongTaiChildTitleExpression;
+
+    buMenDongTaiChildRule->urlExpression.value = "<a .*href=\"([^\"]*)\" class=\"hei14\">";
+    buMenDongTaiChildRule->titleExpression.value = "<FONT class=\"hei12\">(.*)</font>";
 
     buMenDongTaiArticleRule->nextPageExpression.value="<a href=\"([^\"]*)\" class=\"Next\">下页";
-    buMenDongTaiArticleRule->expressionList
-            <<Expression("url"
-                         ," <a class=\"f3665\" href=\"([^\"]*)\"")
-           <<Expression("title"
-                        ,"class=\"f3665\" title=\"([^\"]*)\"");
+    buMenDongTaiArticleRule->urlExpression.value = " <a class=\"f3665\" href=\"([^\"]*)\"";
+    buMenDongTaiArticleRule->titleExpression.value = "class=\"f3665\" title=\"([^\"]*)\"";
     buMenDongTaiChildRule->childRule = buMenDongTaiArticleRule;
 
     websiteItem.node.ruleList.append(buMenDongTaiRule);

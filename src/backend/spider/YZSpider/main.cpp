@@ -6,6 +6,6 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     YZSpider spider;
-    spider.parseConfigFile("config.xml");
+    spider.parseWebsiteConfigFile("config.xml");
     return a.exec();
 }
