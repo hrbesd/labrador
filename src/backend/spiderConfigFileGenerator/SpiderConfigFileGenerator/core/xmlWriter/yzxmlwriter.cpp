@@ -48,10 +48,14 @@ void YZXmlWriter::writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter &writer)
 void YZXmlWriter::writeRuleItemToXml(const Rule *ruleItem, QXmlStreamWriter &writer)
 {
     writer.writeStartElement("rule");
-    writer.writeTextElement("urlRegExp",ruleItem->urlRegExp);
-    writer.writeTextElement("nextPageRegExp",ruleItem->nextPageRegExp);
+    writer.writeStartElement("expressionList");
+    writeExpressionItemToXml(ruleItem->nextPageExpression,writer);
+    foreach(Expression expressionItem, ruleItem->expressionList)
+    {
+        writeExpressionItemToXml(expressionItem,writer);
+    }
+    writer.writeEndElement();
     writer.writeTextElement("maxPageCount",ruleItem->maxPageCount);
-    writer.writeTextElement("nameRegExp",ruleItem->nameRegExp);
     writer.writeStartElement("childRule");
     if(ruleItem->childRule!=NULL)
     {
@@ -65,4 +69,13 @@ void YZXmlWriter::writeRuleItemToXml(const Rule *ruleItem, QXmlStreamWriter &wri
     }
     writer.writeEndElement();
     writer.writeEndElement();
+}
+
+void YZXmlWriter::writeExpressionItemToXml(const Expression &expressionItem, QXmlStreamWriter &writer)
+{
+    writer.writeEmptyElement("expression");
+    writer.writeAttribute("type",expressionItem.type);
+    writer.writeAttribute("executeOnlyOnce",expressionItem.executeOnlyOnce);
+    writer.writeAttribute("label",expressionItem.label);
+    writer.writeAttribute("value",expressionItem.value);
 }
