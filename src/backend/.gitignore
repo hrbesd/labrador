@@ -7,3 +7,6 @@
 /spiderConfigFileGenerator/*
 !/spiderConfigFileGenerator/SpiderConfigFileGenerator
 /spiderConfigFileGenerator/SpiderConfigFileGenerator/SpiderConfigFileGenerator.pro.user
+/parserConfigFileGenerator/*
+!/parserConfigFileGenerator/parserConfigFileGenerator
+/parserConfigFileGenerator/parserConfigFileGenerator/parserConfigFileGenerator.pro.user
