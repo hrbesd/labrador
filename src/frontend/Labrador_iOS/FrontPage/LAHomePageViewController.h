@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LACategoryView.h"
 
 @class BHTabsViewController;
-@class LACategoryView;
 @class LAHeadlinesView;
 @class LAHighlightsView;
 
-@interface LAHomePageViewController : UIViewController
+@interface LAHomePageViewController : UIViewController <LACategoryViewDelegae>
 
 @property (strong, nonatomic) BHTabsViewController *tabVC;
 @property (strong, nonatomic) LACategoryView *categoryView;

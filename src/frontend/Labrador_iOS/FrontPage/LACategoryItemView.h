@@ -10,11 +10,22 @@
 
 @class LACategoryItem;
 
+@protocol LACategoryItemViewDelegate;
+
 @interface LACategoryItemView : UIView
 
+@property (weak, nonatomic) id<LACategoryItemViewDelegate> delegate;
 @property (strong, nonatomic) UIButton *button;
 @property (strong, nonatomic) UILabel *textLabel;
 
 - (id)initWithFrame:(CGRect)frame item:(LACategoryItem *)item;
+
+@end
+
+@protocol LACategoryItemViewDelegate <NSObject>
+
+@optional
+
+- (void)categoryItemViewSelected:(LACategoryItemView *)itemView;
 
 @end

@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "LAHomePageViewController.h"
+#import "UIImageView+WebStorage.h"
+#import "UIButton+WebStorage.h"
 
 @implementation AppDelegate
 
@@ -20,8 +22,6 @@
     
     LAHomePageViewController *homePageVC = [[LAHomePageViewController alloc] init];
     self.navController = [[UINavigationController alloc] initWithRootViewController:homePageVC];
-    
-    
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window setRootViewController:_navController];

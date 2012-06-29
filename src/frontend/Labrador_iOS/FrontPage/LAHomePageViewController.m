@@ -34,6 +34,7 @@
         self.headlinesView = [[LAHeadlinesView alloc] initWithFrame:CGRectZero];
         self.highlightsView = [[LAHighlightsView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
         self.categoryView = [[LACategoryView alloc] initWithItems:testItems];
+        [_categoryView setDelegate:self];
         
         NSArray *tabViews = [NSArray arrayWithObjects:_categoryView, _headlinesView, nil];
         NSArray *tabTitles = [NSArray arrayWithObjects:@"分类", @"头条", nil];
@@ -64,6 +65,12 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - LACategoryView Delegate
+
+- (void)categoryView:(LACategoryView *)categoryView selectedItemAtIndex:(NSUInteger)index {
+    DLog(@"%d selected", index);
 }
 
 @end
