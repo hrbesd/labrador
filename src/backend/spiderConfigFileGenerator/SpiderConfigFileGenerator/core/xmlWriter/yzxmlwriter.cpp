@@ -50,6 +50,8 @@ void YZXmlWriter::writeRuleItemToXml(const Rule *ruleItem, QXmlStreamWriter &wri
     writer.writeStartElement("rule");
     writer.writeStartElement("expressionList");
     writeExpressionItemToXml(ruleItem->nextPageExpression,writer);
+    writeExpressionItemToXml(ruleItem->urlExpression,writer);
+    writeExpressionItemToXml(ruleItem->titleExpression,writer);
     foreach(Expression expressionItem, ruleItem->expressionList)
     {
         writeExpressionItemToXml(expressionItem,writer);

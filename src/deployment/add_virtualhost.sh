@@ -11,7 +11,9 @@ ERROR_HOSTEXIST='该主机已存在，请重新选择主机'
 ERROR_WEBROOTEXIST='该网站目录已存在，请重新确认'
 ERROR_CREATEHOST='创建主机文件错误'
 ERROR_ADDHOST='添加虚拟主机错误'
+ERROR_ARGS='缺少参数'
 
+INFO_USAGE='Usage:add_virtualhost.sh hostname webroot'
 INFO_HOSTNAME='请输入该网站的名称:(例如 harbin,该名称将作为目录名)'
 INFO_WEBROOT='请输入网站所在目录'
 INFO_CREATEHOST='成功创建主机文件'
@@ -19,17 +21,23 @@ INFO_ADDHOST='成功添加虚拟主机!'
 INFO_CREATESITE='成功创建虚拟主机'
 
 # Check the  privilillge
+
 if [ "$(whoami)" != 'root' ]; then
         echo $ERROR_NOPERMISSION
         exit 1;
 fi
 
-echo -e $INFO_HOSTNAME
-read hostname
-echo -e $INFO_WEBROOT
-read webroot
+hostname=$1
+webroot=$2
+echo $hostname
+# Get hostname & webroot from args
+if [ $# -lt 2 ];then
+	echo $ERROR_ARGS
+	echo $INFO_USAGE
+	exit 1
+fi
 
-# Check hostname & webroot 
+
 if [ "$hostname" = "" ]
 then
     echo $ERROR_NOHOST
