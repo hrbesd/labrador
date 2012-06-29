@@ -4,13 +4,29 @@
 #include <QList>
 struct Node;
 
+struct Expression
+{
+    Expression(QString labelPara = "",QString valuePara = "") {
+        type = "RegExp";
+        executeOnlyOnce = "false";
+        label =  labelPara;
+        value = valuePara;
+    }
+    QString type;         //value type: {RegExp, JavaScript}
+    QString executeOnlyOnce;     //execute only once flag : {true,false}
+    QString label;     // used as key
+    QString value;     // used as value
+};
+
 struct Rule
 {
-    Rule() { childRule=NULL; }
-    QString urlRegExp;
-    QString nextPageRegExp;
+    Rule() {
+        childRule=NULL;
+        nextPageExpression.label = "nextPage";
+    }
+    QList<Expression> expressionList;
+    Expression nextPageExpression;
     QString maxPageCount;
-    QString nameRegExp;
     QList<Node> nodeList;
     Rule* childRule;
 };
