@@ -6,11 +6,11 @@ struct Node;
 
 struct Expression
 {
-    Expression() {
+    Expression(QString labelPara = "",QString valuePara = "") {
         type = "RegExp";
         executeOnlyOnce = "false";
-        value = "";
-        label = "";
+        label =  labelPara;
+        value = valuePara;
     }
     QString type;         //value type: {RegExp, JavaScript}
     QString executeOnlyOnce;     //execute only once flag : {true,false}
