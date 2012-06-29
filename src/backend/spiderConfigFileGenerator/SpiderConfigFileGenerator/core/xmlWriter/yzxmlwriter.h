@@ -21,6 +21,7 @@ public:
 private:
     static void writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter& writer);
     static void writeRuleItemToXml(const Rule *ruleItem, QXmlStreamWriter& writer);
+    static void writeExpressionItemToXml(const Expression& expressionItem, QXmlStreamWriter& writer);
 signals:
     
 public slots:
