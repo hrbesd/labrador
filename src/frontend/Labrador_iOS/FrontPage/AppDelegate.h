@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  Labrador
+//  FrontPage
 //
-//  Created by 鑫容 郭 on 12-6-25.
+//  Created by 鑫容 郭 on 12-6-28.
 //  Copyright (c) 2012年 FoOTOo. All rights reserved.
 //
 
@@ -11,7 +11,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) UINavigationController *navigationController;
+@property (strong, nonatomic) UINavigationController *navController;
 
 @end
