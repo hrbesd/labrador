@@ -1,11 +1,17 @@
-source ~/.profile
-
-source $LABRADOR_CONFIG
+FLAG=/tmp/LABRADOR_SCHEDULER_RUNNING
 
 log()
 {
 	printf "`date '+%Y-%m-%d %H:%M:%S'`\t$*\n" >>$LABRADOR_LOG/scheduler.log
 }
+
+test -f $FLAG && log "Previous scheduler still running or crashed." && exit 2
+
+touch $FLAG
+
+source ~/.profile
+
+source $LABRADOR_CONFIG
 
 if test -z "$*"; then
 	SITES=`ls $LABRADOR_SITES`
@@ -31,7 +37,7 @@ do
 
 	log "Launch Parser"
 	$PARSER_PATH --site-config=$SITE_CONF \
-		--source-dir=$CONF_ROOT/workers/spider \
+		--source-dir=$SITE_ROOT/workers/spider \
 		--worker-dir=$SITE_ROOT/workers/parser \
 		--shared-dir=$SITE_ROOT/workers/shared \
 		--config-dir=$CONF_DIR/parser \
@@ -40,7 +46,7 @@ do
 
 	log "Launch Reactor"
 	$REACTOR_PATH --site-config=$SITE_CONF \
-		--source-dir=$CONF_ROOT/workers/parser \
+		--source-dir=$SITE_ROOT/workers/parser \
 		--worker-dir=$SITE_ROOT/workers/reactor \
 		--shared-dir=$SITE_ROOT/workers/shared \
 		--config-dir=$CONF_DIR/reactor \
@@ -49,7 +55,7 @@ do
 
 	log "Launch Assembler"
 	$ASSEMBLER_PATH --site-config=$SITE_CONF \
-		--source-dir=$CONF_ROOT/workers/reactor \
+		--source-dir=$SITE_ROOT/workers/reactor \
 		--worker-dir=$SITE_ROOT/workers/assembler \
 		--shared-dir=$SITE_ROOT/workers/shared \
 		--webroot-dir=$SITE_ROOT/webroot \
@@ -59,5 +65,7 @@ do
 
 	log "End processing site $SITE"
 done
+
+rm $FLAG
 
 # Known bug: if a site is deleted while running scheduler, error may occurs.
