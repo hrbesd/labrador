@@ -118,3 +118,8 @@ void YZParser::parseImageFromBody(const QString &dataString, QString base, Artic
         articleInterface.hashData.append(node);
     }
 }
+
+void YZParser::parseConfigFile(QString parserConfigFileUrl)
+{
+
+}

@@ -50,6 +50,7 @@ private:
     void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& parentNodeList);
     void parseRuleListXml(QXmlStreamReader &reader, QList<Rule*>& parentRuleList);
     void parseRuleXml(QXmlStreamReader &reader, Rule *rule);
+    void parseChildRuleXml(QXmlStreamReader &reader, Rule *rule);
     //parse website data
     void parseWebsiteData();
     void parseNodeData(Node &nodeItem);
