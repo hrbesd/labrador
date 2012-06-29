@@ -1,30 +1,30 @@
 //
 //  AppDelegate.m
-//  Labrador
+//  FrontPage
 //
-//  Created by 鑫容 郭 on 12-6-25.
+//  Created by 鑫容 郭 on 12-6-28.
 //  Copyright (c) 2012年 FoOTOo. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "LAListViewController.h"
-#import "NSString+URL.h"
+#import "LAHomePageViewController.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize navigationController = _navigationController;
+@synthesize navController = _navController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    LAListViewController *listVC = [[LAListViewController alloc] initWithStyle:UITableViewStylePlain url:[NSString URLWithPath:@"index.xml"]];
-    [listVC setTitle:NSLocalizedString(@"首页", @"首页")];
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:listVC];
+    LAHomePageViewController *homePageVC = [[LAHomePageViewController alloc] init];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:homePageVC];
+    
+    
     
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = self.navigationController;
+    [self.window setRootViewController:_navController];
     [self.window makeKeyAndVisible];
     return YES;
 }
