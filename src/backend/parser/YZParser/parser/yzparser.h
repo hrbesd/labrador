@@ -21,7 +21,7 @@ public:
     int parseFile(QString fileName);
     void parseFolder(QString folder);
     void parseImageFromBody(const QString& dataString,QString base, ArticleInterface& articleInterface);
-
+    void parseConfigFile(QString parserConfigFileUrl);
 signals:
     
 public slots:
