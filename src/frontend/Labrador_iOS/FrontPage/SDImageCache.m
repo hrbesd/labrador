@@ -14,6 +14,7 @@
 #import <mach/mach_host.h>
 
 static SDImageCache *instance;
+static SDImageCache *storageInstance;
 
 static NSInteger cacheMaxCacheAge = 60*60*24*7; // 1 week
 static natural_t minFreeMemLeft = 1024*1024*12; // reserve 12MB RAM
@@ -100,6 +101,57 @@ static natural_t get_free_memory(void)
     return self;
 }
 
+- (id)initStorage {
+    self = [super init];
+    if (self)
+    {
+        // Init the memory cache
+        memCache = [[NSMutableDictionary alloc] init];
+        
+        // Init the disk cache
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        diskCachePath = SDWIReturnRetained([[paths objectAtIndex:0] stringByAppendingPathComponent:@"Images"]);
+        
+        if (![[NSFileManager defaultManager] fileExistsAtPath:diskCachePath])
+        {
+            [[NSFileManager defaultManager] createDirectoryAtPath:diskCachePath
+                                      withIntermediateDirectories:YES
+                                                       attributes:nil
+                                                            error:NULL];
+        }
+        
+        // Init the operation queue
+        cacheInQueue = [[NSOperationQueue alloc] init];
+        cacheInQueue.maxConcurrentOperationCount = 1;
+        cacheOutQueue = [[NSOperationQueue alloc] init];
+        cacheOutQueue.maxConcurrentOperationCount = 1;
+        
+#if TARGET_OS_IPHONE
+        // Subscribe to app events
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(clearMemory)
+                                                     name:UIApplicationDidReceiveMemoryWarningNotification
+                                                   object:nil];
+        
+        
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
+        UIDevice *device = [UIDevice currentDevice];
+        if ([device respondsToSelector:@selector(isMultitaskingSupported)] && device.multitaskingSupported)
+        {
+            // When in background, clean memory in order to have less chance to be killed
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(clearMemory)
+                                                         name:UIApplicationDidEnterBackgroundNotification
+                                                       object:nil];
+        }
+#endif
+#endif
+    }
+    
+    return self;
+
+}
+
 - (void)dealloc
 {
     SDWISafeRelease(memCache);
@@ -121,6 +173,14 @@ static natural_t get_free_memory(void)
     }
 
     return instance;
+}
+
++ (SDImageCache *)sharedImageStorage {
+    if (storageInstance == nil) {
+        storageInstance = [[SDImageCache alloc] initStorage];
+    }
+    
+    return storageInstance;
 }
 
 #pragma mark SDImageCache (private)

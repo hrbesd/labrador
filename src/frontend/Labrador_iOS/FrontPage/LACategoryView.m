@@ -23,6 +23,7 @@
 
 @implementation LACategoryView
 
+@synthesize delegate = _delegate;
 @synthesize pageControl = _pageControl;
 @synthesize scrollView = _scrollView;
 @synthesize items = _items;
@@ -94,7 +95,10 @@
                 frame.size.width = itemViewWidth;
                 frame.size.height = itemViewHeight;
                 
-                LACategoryItemView *itemView = [[LACategoryItemView alloc] initWithFrame:frame];
+                LACategoryItemView *itemView = [[LACategoryItemView alloc] initWithFrame:frame item:nil];
+                [itemView setDelegate:self];
+                [itemView setTag:i + row * _numberOfCols + col];
+                
                 [_scrollView addSubview:itemView];
             }
         }
@@ -138,6 +142,15 @@
     NSUInteger page = offset.x / scrollView.frame.size.width;
     
     [_pageControl setCurrentPage:page];
+}
+
+#pragma mark - LACategoryItemView Delegate
+
+- (void)categoryItemViewSelected:(LACategoryItemView *)itemView {
+    NSUInteger index = itemView.tag;
+    if ([_delegate respondsToSelector:@selector(categoryView:selectedItemAtIndex:)]) {
+        [_delegate categoryView:self selectedItemAtIndex:index];
+    }
 }
 
 #pragma mark - public methods

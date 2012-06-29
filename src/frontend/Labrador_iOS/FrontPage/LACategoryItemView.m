@@ -7,10 +7,13 @@
 //
 
 #import "LACategoryItemView.h"
+#import "LACategoryItem.h"
+#import "UIButton+WebStorage.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation LACategoryItemView
 
+@synthesize delegate = _delegate;
 @synthesize button = _button;
 @synthesize textLabel = _textLabel;
 
@@ -21,19 +24,43 @@
         [self.layer setBorderColor:[[UIColor greenColor] CGColor]];
         [self.layer setBorderWidth:2];
         
+        CGRect buttonFrame;
+        buttonFrame.size.width = 65;
+        buttonFrame.size.height = 65;
+        buttonFrame.origin.x = frame.size.width / 2 - buttonFrame.size.width / 2;
+        buttonFrame.origin.y = 5;
+            
+        self.button = [[UIButton alloc] initWithFrame:buttonFrame];
         
+        [_button setImageWithURL:[NSURL URLWithString:item.imageURL] placeholderImage:nil];
         
+        [_button addTarget:self action:@selector(buttonTochUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_button.layer setBorderColor:[[UIColor blueColor] CGColor]];
+        [_button.layer setBorderWidth:2];
+        
+        self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(buttonFrame) + 5, frame.size.width, 15)];
+        [_textLabel setTextAlignment:UITextAlignmentCenter];
+        
+        [_textLabel setText:item.text];
+        
+        [_textLabel setText:@"123456"];
+        
+        //[_textLabel.layer setBorderColor:[[UIColor blueColor] CGColor]];
+        //[_textLabel.layer setBorderWidth:2];
+
+        
+        [self addSubview:_button];
+        [self addSubview:_textLabel];
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (void)buttonTochUpInside:(id)sender {
+    if ([_delegate respondsToSelector:@selector(categoryItemViewSelected:)]) {
+        [_delegate categoryItemViewSelected:self];
+    }
+
 }
-*/
 
 @end
