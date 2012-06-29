@@ -121,8 +121,8 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
     QString strData = QString::fromUtf8(QTextCodec::codecForHtml(data)->toUnicode(data).toUtf8().data());
     int posUrl = 0;
     int posTitle = 0;
-    QRegExp urlRegExp(ruleItem->urlRegExp);
-    QRegExp titleRegExp(ruleItem->nameRegExp);
+    QRegExp urlRegExp(ruleItem->urlExpression.value);
+    QRegExp titleRegExp(ruleItem->titleExpression.value);
     urlRegExp.setMinimal(true);
     titleRegExp.setMinimal(true);
 
@@ -144,9 +144,9 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
         }
     }
 
-    if(!ruleItem->nextPageRegExp.isEmpty())
+    if(!ruleItem->nextPageExpression.value.isEmpty())
     {
-        QRegExp nextPageRegExp(ruleItem->nextPageRegExp);
+        QRegExp nextPageRegExp(ruleItem->nextPageExpression.value);
         if(nextPageRegExp.indexIn(strData)!=-1)
         {
             RuleRequest ruleRequest;
@@ -157,7 +157,7 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
     }
 }
 
-void YZSpider::parseConfigFile(QString configFile)
+void YZSpider::parseWebsiteConfigFile(QString configFile)
 {
     QFile file(configFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -312,21 +312,9 @@ void YZSpider::parseRuleXml(QXmlStreamReader &reader, Rule *rule)
         }
         else if(reader.isStartElement())
         {
-            if(reader.name()=="urlRegExp")
-            {
-                rule->urlRegExp = reader.readElementText();
-            }
-            else if(reader.name()=="nextPageRegExp")
-            {
-                rule->nextPageRegExp = reader.readElementText();
-            }
-            else if(reader.name()=="maxPageCount")
+            if(reader.name()=="maxPageCount")
             {
                 rule->maxPageCount = reader.readElementText();
-            }
-            else if(reader.name()=="nameRegExp")
-            {
-                rule->nameRegExp = reader.readElementText();
             }
             else if(reader.name()=="childRule")
             {
@@ -335,6 +323,51 @@ void YZSpider::parseRuleXml(QXmlStreamReader &reader, Rule *rule)
             else if(reader.name()=="nodeList")
             {
                 parseNodeListXml(reader,rule->nodeList);
+            }
+            else if(reader.name()=="expressionList")
+            {
+                parseExpressionListXml(reader,rule);
+            }
+        }
+        reader.readNext();
+    }
+}
+
+void YZSpider::parseExpressionListXml(QXmlStreamReader &reader, Rule *rule)
+{
+    reader.readNext();
+    while(!reader.atEnd())
+    {
+        if(reader.isEndElement()&&reader.name()=="expressionList")
+        {
+            reader.readNext();
+            return;
+        }
+        else if(reader.isStartElement())
+        {
+            if(reader.name()=="expression")
+            {
+                Expression newExpression;
+                newExpression.executeOnlyOnce.append(reader.attributes().value("executeOnlyOnce"));
+                newExpression.label.append(reader.attributes().value("label"));
+                newExpression.value.append(reader.attributes().value("value"));
+                newExpression.type.append(reader.attributes().value("type"));
+                if(newExpression.label=="title")
+                {
+                    rule->titleExpression.copyFromExpression(newExpression);
+                }
+                else if(newExpression.label=="url")
+                {
+                    rule->urlExpression.copyFromExpression(newExpression);
+                }
+                else if(newExpression.label=="nextPage")
+                {
+                    rule->nextPageExpression.copyFromExpression(newExpression);
+                }
+                else
+                {
+                    rule->expressionList<<newExpression;
+                }
             }
         }
         reader.readNext();
@@ -394,7 +427,7 @@ void YZSpider::parseNodeData(Node &nodeItem)
 // to do...
 void YZSpider::parseRuleData(Rule *ruleItem, Node &parentNode)
 {
-    if(ruleItem->urlRegExp.isEmpty())
+    if(ruleItem->urlExpression.value.isEmpty())
     {
         parseNodeListData(ruleItem);
     }
@@ -417,9 +450,9 @@ void YZSpider::parseNodeListData(Rule *ruleItem)
             Rule *newRule = new Rule;
             newRule->childRule = ruleItem->childRule->childRule;
             newRule->maxPageCount = ruleItem->childRule->maxPageCount;
-            newRule->nameRegExp = ruleItem->childRule->nameRegExp;
-            newRule->nextPageRegExp = ruleItem->childRule->nextPageRegExp;
-            newRule->urlRegExp = ruleItem->childRule->urlRegExp;
+            newRule->titleExpression.copyFromExpression(ruleItem->childRule->titleExpression);
+            newRule->nextPageExpression.copyFromExpression(ruleItem->childRule->nextPageExpression);
+            newRule->urlExpression.copyFromExpression(ruleItem->childRule->urlExpression);
             ruleItem->nodeList[i].ruleList.append(newRule);
         }
     }

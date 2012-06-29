@@ -12,6 +12,13 @@ struct Expression
         label =  labelPara;
         value = valuePara;
     }
+    void copyFromExpression(const Expression& otherExpression)
+    {
+        this->type = otherExpression.type;
+        this->label = otherExpression.label;
+        this->value = otherExpression.value;
+        this->executeOnlyOnce = otherExpression.executeOnlyOnce;
+    }
     QString type;         //value type: {RegExp, JavaScript}
     QString executeOnlyOnce;     //execute only once flag : {true,false}
     QString label;     // used as key
@@ -23,9 +30,13 @@ struct Rule
     Rule() {
         childRule=NULL;
         nextPageExpression.label = "nextPage";
+        urlExpression.label = "url";
+        titleExpression.label = "title";
     }
     QList<Expression> expressionList;
     Expression nextPageExpression;
+    Expression urlExpression;
+    Expression titleExpression;
     QString maxPageCount;
     QList<Node> nodeList;
     Rule* childRule;

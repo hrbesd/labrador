@@ -28,7 +28,7 @@ class YZSpider : public QObject
     Q_OBJECT
 public:
     explicit YZSpider(QObject *parent = 0);
-    void parseConfigFile(QString configFile);
+    void parseWebsiteConfigFile(QString configFile);
 signals:
     
 protected slots:
@@ -51,6 +51,7 @@ private:
     void parseRuleListXml(QXmlStreamReader &reader, QList<Rule*>& parentRuleList);
     void parseRuleXml(QXmlStreamReader &reader, Rule *rule);
     void parseChildRuleXml(QXmlStreamReader &reader, Rule *rule);
+    void parseExpressionListXml(QXmlStreamReader &reader, Rule *rule);
     //parse website data
     void parseWebsiteData();
     void parseNodeData(Node &nodeItem);
