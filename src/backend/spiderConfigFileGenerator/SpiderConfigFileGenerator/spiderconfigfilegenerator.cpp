@@ -4,118 +4,126 @@
 SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     QObject(parent)
 {   
-    /*********************************************
-     * harbin config file
-     ********************************************/
-    WebSite websiteItem;
-    websiteItem.editor = "genghailong";
-    websiteItem.info = "zhong guo haerbin";
-    websiteItem.crawlTime = "";
-    websiteItem.threadLimit = "10";
-    websiteItem.node.url = "http://www.harbin.gov.cn/";
-    websiteItem.node.name = "chinese harbin";
-    /****************************************
-     *公告页面规则
-     *
-     ****************************************/
-    Rule* gongGaoRule = new Rule;  //公告总页面
-    Rule* gongGaoChildRule = new Rule;  //公告年份分页面
-    Rule* gongGaoArticleRule = new Rule;    //公告正文页面
+    //    /*********************************************
+    //     * harbin config file
+    //     ********************************************/
+    //    WebSite websiteItem;
+    //    websiteItem.editor = "genghailong";
+    //    websiteItem.info = "zhong guo haerbin";
+    //    websiteItem.crawlTime = "";
+    //    websiteItem.threadLimit = "10";
+    //    websiteItem.node.url = "http://www.harbin.gov.cn/";
+    //    websiteItem.node.name = "chinese harbin";
+    //    /****************************************
+    //     *公告页面规则
+    //     *
+    //     ****************************************/
+    //    Rule* gongGaoRule = new Rule;  //公告总页面
+    //    Rule* gongGaoChildRule = new Rule;  //公告年份分页面
+    //    Rule* gongGaoArticleRule = new Rule;    //公告正文页面
 
-    Node gongGaoNodeItem;
-    gongGaoNodeItem.name = "zhengfugonggao";
-    gongGaoNodeItem.url = "http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm#";
-    gongGaoNodeItem.ruleList.append(gongGaoChildRule);
+    //    Node gongGaoNodeItem;
+    //    gongGaoNodeItem.name = "zhengfugonggao";
+    //    gongGaoNodeItem.url = "http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm#";
+    //    gongGaoNodeItem.ruleList.append(gongGaoChildRule);
 
-    gongGaoRule->nodeList.append(gongGaoNodeItem);
-    gongGaoChildRule->urlExpression.value = "<a .*href=\"([^\"]*)\" class=\"bgc1\" onmouseover=\"this.className=\'bgc2\'\" onmouseout=\"this.className=\'bgc1\'";
-    gongGaoChildRule->titleExpression.value = "class=\"bgc1\" onmouseover=\"this.className='bgc2'\" .*<span>(.*)</span>";
+    //    gongGaoRule->nodeList.append(gongGaoNodeItem);
+    //    gongGaoChildRule->urlExpression.value = "<a .*href=\"([^\"]*)\" class=\"bgc1\" onmouseover=\"this.className=\'bgc2\'\" onmouseout=\"this.className=\'bgc1\'";
+    //    gongGaoChildRule->titleExpression.value = "class=\"bgc1\" onmouseover=\"this.className='bgc2'\" .*<span>(.*)</span>";
 
-    gongGaoArticleRule->nextPageExpression.value = "<a href=\"([^\"]*)\" class=\"Next\">下页";
-    gongGaoArticleRule->urlExpression.value = "<a class=\"f3348\" href=\"([^\"]*)\"";
-    gongGaoArticleRule->titleExpression.value = "<a class=\"f3348\".*title=\"([^\"]*)\"";
+    //    gongGaoArticleRule->nextPageExpression.value = "<a href=\"([^\"]*)\" class=\"Next\">下页";
+    //    gongGaoArticleRule->urlExpression.value = "<a class=\"f3348\" href=\"([^\"]*)\"";
+    //    gongGaoArticleRule->titleExpression.value = "<a class=\"f3348\".*title=\"([^\"]*)\"";
 
-    gongGaoChildRule->childRule = gongGaoArticleRule;
-    websiteItem.node.ruleList.append(gongGaoRule);
+    //    gongGaoChildRule->childRule = gongGaoArticleRule;
+    //    websiteItem.node.ruleList.append(gongGaoRule);
 
-    /*************************************
-     *部门动态规则
-     *
-     ************************************/
-    Rule* buMenDongTaiRule = new Rule;  //公告总页面
-    Rule* buMenDongTaiChildRule = new Rule;  //公告年份分页面
-    Rule* buMenDongTaiArticleRule = new Rule;    //公告正文页面
+    //    /*************************************
+    //     *部门动态规则
+    //     *
+    //     ************************************/
+    //    Rule* buMenDongTaiRule = new Rule;  //公告总页面
+    //    Rule* buMenDongTaiChildRule = new Rule;  //公告年份分页面
+    //    Rule* buMenDongTaiArticleRule = new Rule;    //公告正文页面
 
-    Node buMenDongTaiNodeItem;
-    buMenDongTaiNodeItem.name = "bumendongtai";
-    buMenDongTaiNodeItem.url = "http://www.harbin.gov.cn/zwxxgk/bmdt.htm";
-    buMenDongTaiNodeItem.ruleList.append(buMenDongTaiChildRule);
+    //    Node buMenDongTaiNodeItem;
+    //    buMenDongTaiNodeItem.name = "bumendongtai";
+    //    buMenDongTaiNodeItem.url = "http://www.harbin.gov.cn/zwxxgk/bmdt.htm";
+    //    buMenDongTaiNodeItem.ruleList.append(buMenDongTaiChildRule);
 
-    buMenDongTaiRule->nodeList.append(buMenDongTaiNodeItem);
+    //    buMenDongTaiRule->nodeList.append(buMenDongTaiNodeItem);
 
-    buMenDongTaiChildRule->urlExpression.value = "<a .*href=\"([^\"]*)\" class=\"hei14\">";
-    buMenDongTaiChildRule->titleExpression.value = "<FONT class=\"hei12\">(.*)</font>";
+    //    buMenDongTaiChildRule->urlExpression.value = "<a .*href=\"([^\"]*)\" class=\"hei14\">";
+    //    buMenDongTaiChildRule->titleExpression.value = "<FONT class=\"hei12\">(.*)</font>";
 
-    buMenDongTaiArticleRule->nextPageExpression.value="<a href=\"([^\"]*)\" class=\"Next\">下页";
-    buMenDongTaiArticleRule->urlExpression.value = " <a class=\"f3665\" href=\"([^\"]*)\"";
-    buMenDongTaiArticleRule->titleExpression.value = "class=\"f3665\" title=\"([^\"]*)\"";
-    buMenDongTaiChildRule->childRule = buMenDongTaiArticleRule;
+    //    buMenDongTaiArticleRule->nextPageExpression.value="<a href=\"([^\"]*)\" class=\"Next\">下页";
+    //    buMenDongTaiArticleRule->urlExpression.value = " <a class=\"f3665\" href=\"([^\"]*)\"";
+    //    buMenDongTaiArticleRule->titleExpression.value = "class=\"f3665\" title=\"([^\"]*)\"";
+    //    buMenDongTaiChildRule->childRule = buMenDongTaiArticleRule;
 
-    websiteItem.node.ruleList.append(buMenDongTaiRule);
+    //    websiteItem.node.ruleList.append(buMenDongTaiRule);
 
     /**********************************************************
      *Beijing config file
      *********************************************************/
-    //        WebSite websiteItem;
-    //        websiteItem.editor = "genghailong";
-    //        websiteItem.info = "beijing";
-    //        websiteItem.crawlTime = "";
-    //        websiteItem.threadLimit = "10";
-    //        websiteItem.node.url = "http://www.beijing.gov.cn/";
-    //        websiteItem.node.name = "chinese beijing";
-    ///********************************
-    // *热点关注
-    // *******************************/
-    //        Rule* gongGaoRule = new Rule;
-    //        Rule* gongGaoArticleRule = new Rule;
+    WebSite websiteItem;
+    websiteItem.editor = "genghailong";
+    websiteItem.info = "beijing";
+    websiteItem.crawlTime = "";
+    websiteItem.threadLimit = "10";
+    websiteItem.node.url = "http://www.beijing.gov.cn/";
+    websiteItem.node.name = "chinese beijing";
+    /********************************
+     *热点关注
+     *******************************/
+    Rule* reDianGuanZhuRule = new Rule;
+    Rule* reDianGuanZhuArticleRule = new Rule;
 
-    //        Node gongGaoNodeItem;
-    //        gongGaoNodeItem.name = "redianguanzhu";
-    //        gongGaoNodeItem.url = "http://www.beijing.gov.cn/sy/rdgz/";
-    //        gongGaoNodeItem.ruleList.append(gongGaoArticleRule);
+    Node reDianGuanZhuNodeItem;
+    reDianGuanZhuNodeItem.name = "redianguanzhu";
+    reDianGuanZhuNodeItem.url = "http://www.beijing.gov.cn/sy/rdgz/";
+    reDianGuanZhuNodeItem.ruleList.append(reDianGuanZhuArticleRule);
 
-    //        gongGaoRule->nodeList.append(gongGaoNodeItem);
+    reDianGuanZhuRule->nodeList.append(reDianGuanZhuNodeItem);
 
-    //        gongGaoArticleRule->nextPageRegExp="<a href=\"([^\"]*)\" class=\"Next\">下页";
-    //        gongGaoArticleRule->urlRegExp = "<td class=\"font14\">·<a href=\"([^\"]*)\"";
-    //        gongGaoArticleRule->nameRegExp = "<td class=\"font14\">·<a href=\"[^\"]*\" target=\"_blank\">(.*)</a>";
+    reDianGuanZhuArticleRule->nextPageExpression.value="function getYZSpiderResult() {"
+            "var result = new Array();"
+            "var i = 1;"
+            "for (i = 1; i <= 49; i++)"
+            "{ result.push(\"http://www.beijing.gov.cn/sy/rdgz/default_\"+i+\".htm\"); }"
+            "return result;"
+            "}";
+    reDianGuanZhuArticleRule->nextPageExpression.type="JavaScript";
+    reDianGuanZhuArticleRule->nextPageExpression.executeOnlyOnce = "true";
+    reDianGuanZhuArticleRule->urlExpression.value = "<td class=\"font14\">·<a href=\"([^\"]*)\"";
+    reDianGuanZhuArticleRule->titleExpression.value = "<td class=\"font14\">·<a href=\"[^\"]*\" target=\"_blank\">(.*)</a>";
 
-    //        /*************************************
-    //         *部门动态规则
-    //         *
-    //         ************************************/
-    ////        Rule* buMenDongTaiRule = new Rule;  //公告总页面
-    ////        Rule* buMenDongTaiChildRule = new Rule;  //公告年份分页面
-    ////        Rule* buMenDongTaiArticleRule = new Rule;    //公告正文页面
+    /*************************************
+    *政务直播规则
+    ************************************/
+    Rule* zhengWuZhiBoRule = new Rule;
+    Rule* zhengWuZhiBoArticleRule = new Rule;
+    Node zhengWuZhiBoNodeItem;
+    zhengWuZhiBoNodeItem.name = "zhengWuZhiBo";
+    zhengWuZhiBoNodeItem.url = "http://zhengwu.beijing.gov.cn/zwzb/";
+    zhengWuZhiBoNodeItem.ruleList.append(zhengWuZhiBoArticleRule);
 
-    ////        Node buMenDongTaiNodeItem;
-    ////        buMenDongTaiNodeItem.name = "bumendongtai";
-    ////        buMenDongTaiNodeItem.url = "http://www.harbin.gov.cn/zwxxgk/bmdt.htm";
-    ////        buMenDongTaiNodeItem.ruleList.append(buMenDongTaiChildRule);
+    zhengWuZhiBoRule->nodeList.append(zhengWuZhiBoNodeItem);
 
-    ////        buMenDongTaiRule->nodeList.append(buMenDongTaiNodeItem);
+    zhengWuZhiBoArticleRule->nextPageExpression.value="function getYZSpiderResult() {"
+            "var result = new Array();"
+            "var i = 1;"
+            "for (i = 1; i <= 7; i++)"
+            "{ result.push(\"http://zhengwu.beijing.gov.cn/zwzb/default_\"+i+\".htm\"); }"
+            "return result;"
+            "}";
+    zhengWuZhiBoArticleRule->nextPageExpression.type="JavaScript";
+    zhengWuZhiBoArticleRule->nextPageExpression.executeOnlyOnce = "true";
+    zhengWuZhiBoArticleRule->urlExpression.value = "<li><a href=\"([^\"]*)\" target=\"_blank\"";
+    zhengWuZhiBoArticleRule->titleExpression.value = "<li><a href=\"[^\"]*\" target=\"_blank\" title=\"([^\"]*)\"";
 
-    ////        buMenDongTaiChildRule->urlRegExp = "<a .*href=\"([^\"]*)\" class=\"hei14\">";
-    ////        buMenDongTaiChildRule->nameRegExp = "<FONT class=\"hei12\">(.*)</font>";
-
-    ////        buMenDongTaiArticleRule->nextPageRegExp="<a href=\"([^\"]*)\" class=\"Next\">下页";
-    ////        buMenDongTaiArticleRule->urlRegExp = " <a class=\"f3665\" href=\"([^\"]*)\"";
-    ////        buMenDongTaiArticleRule->nameRegExp = "class=\"f3665\" title=\"([^\"]*)\"";
-    ////        buMenDongTaiChildRule->childRule = buMenDongTaiArticleRule;
-
-
-    //        websiteItem.node.ruleList.append(gongGaoRule);
-    ////        websiteItem.node.ruleList.append(buMenDongTaiRule);
+    websiteItem.node.ruleList.append(reDianGuanZhuRule);
+    websiteItem.node.ruleList.append(zhengWuZhiBoRule);
     YZXmlWriter::writeWebsiteItemToXml(websiteItem,"config.xml");
     qDebug()<<"finish";
 }

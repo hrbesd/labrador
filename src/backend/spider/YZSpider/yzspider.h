@@ -9,6 +9,7 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QCryptographicHash>
 #include <QSet>
+#include <QtScript>
 #include "yzlogger.h"
 #include <QUrl>
 #include <QXmlStreamReader>
@@ -84,6 +85,10 @@ private:
 
     static const int m_maxWebPageRequestThreadNum = 10;
     static const int m_maxRuleRequestThreadNum = 10;
+
+    QScriptEngine m_engine;
+    QScriptValue m_globalValue;
+    QScriptValue m_spiderValue;
 };
 
 #endif // YZSPIDER_H
