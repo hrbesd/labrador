@@ -12,6 +12,21 @@ YZSpider::YZSpider(QObject *parent) :
     m_webPageCount = 0;
     m_finishParseRules = false;
     m_networkAccessManager = new QNetworkAccessManager(this);
+
+    //    QString fileName = "test.js";
+    //     scriptFile(fileName);
+    //    if (!scriptFile.open(QIODevice::ReadOnly))
+    //    {
+    //    }
+    //    QTextStream stream(&scriptFile);
+    //    QString contents = stream.readAll();
+    //    scriptFile.close();
+    //    m_engine.evaluate(contents);
+    //    m_globalValue = m_engine.globalObject();
+    //    m_spiderValue = m_globalValue.property("getYZSpiderResult");
+    //    QScriptValueList args;
+    //    QScriptValue result = m_spiderValue.call(QScriptValue(),args);
+    //    qDebug()<<result.toVariant().toStringList();
 }
 
 void YZSpider::downloadWebPage(Node *node)
@@ -146,13 +161,35 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
 
     if(!ruleItem->nextPageExpression.value.isEmpty())
     {
-        QRegExp nextPageRegExp(ruleItem->nextPageExpression.value);
-        if(nextPageRegExp.indexIn(strData)!=-1)
+        if(ruleItem->nextPageExpression.type=="RegExp")
         {
-            RuleRequest ruleRequest;
-            ruleRequest.url = baseUrl.resolved(nextPageRegExp.cap(1)).toString();
-            ruleRequest.rule = ruleItem;
-            parseNextPage(ruleRequest);
+            QRegExp nextPageRegExp(ruleItem->nextPageExpression.value);
+            if(nextPageRegExp.indexIn(strData)!=-1)
+            {
+                RuleRequest ruleRequest;
+                ruleRequest.url = baseUrl.resolved(nextPageRegExp.cap(1)).toString();
+                ruleRequest.rule = ruleItem;
+                parseNextPage(ruleRequest);
+            }
+        }
+        else if(ruleItem->nextPageExpression.type=="JavaScript")
+        {
+            m_engine.evaluate(ruleItem->nextPageExpression.value);
+            m_globalValue = m_engine.globalObject();
+            m_spiderValue = m_globalValue.property("getYZSpiderResult");
+            QScriptValueList args;
+            QScriptValue result = m_spiderValue.call(QScriptValue(),args);
+            if(ruleItem->nextPageExpression.executeOnlyOnce == "true")
+            {
+                ruleItem->nextPageExpression.value.clear();
+            }
+            foreach(QString str,result.toVariant().toStringList())
+            {
+                RuleRequest ruleRequest;
+                ruleRequest.url = baseUrl.resolved(str).toString();
+                ruleRequest.rule = ruleItem;
+                m_ruleRequestTask.append(ruleRequest);
+            }
         }
     }
 }
