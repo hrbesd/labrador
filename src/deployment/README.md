@@ -70,4 +70,4 @@ Development Server 和 Production Server 统一采用 Ubuntu 11.10 系统。
 
 ## 参考
 
-[Console](./console/admin/README.md)
+- [Console 文档](./admin/console/README.md)
