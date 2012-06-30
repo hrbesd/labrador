@@ -1,5 +1,9 @@
 # Labrador 服务器部署攻略
 
+*草稿*
+
+*不完整*
+
 ## 操作系统
 
 Development Server 和 Production Server 统一采用 Ubuntu 11.10 系统。
@@ -15,6 +19,11 @@ Development Server 和 Production Server 统一采用 Ubuntu 11.10 系统。
 - openssh-server
 - apache2
 - vim
+
+#### 端口开通/映射
+
+`80`
+`22`
 
 ### 用户
 
@@ -46,7 +55,19 @@ Development Server 和 Production Server 统一采用 Ubuntu 11.10 系统。
 
 通过开发方提供的指示，运行安装脚本。
 
+
+#### 端口开通/映射
+
+`80`
+`22`
+`2222`
+`22222`
+
 ### 用户
 
 - `labrador` 运营方日常工作用户
 	* 此用户通过安装脚本建立和初始化
+
+## 参考
+
+[Console](./console/admin/README.md)
