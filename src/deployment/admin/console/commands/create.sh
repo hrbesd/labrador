@@ -13,4 +13,6 @@ sed -e "s/^ID=.*/ID=$1/" -i $SITE_CONFIG
 sed -e "s/^HOST=.*/HOST=$2/" -i $SITE_CONFIG
 
 echo "Site '$1' created."
-echo "TODO: Add DNS record in DNSPOD and modify config of Apache."
+# echo "TODO: Add DNS record in DNSPOD and modify config of Apache."
+../utils/add_virtualhost.sh $1 $LABRADOR_SITES/$1/webroot
+../utils/addDNSRecord.py $1 $HOST_PUBLIC_IP
