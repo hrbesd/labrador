@@ -11,6 +11,7 @@ done
 source $DIR/utils/common.sh
 
 DEFAULT_COMMAND="info"
+CONSOLE_VERSION="Labrador Admin Console Version 0.2"
 
 function usage
 {
