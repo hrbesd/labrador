@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<website>
+    <editor>genghailong</editor>
+    <info>beijing</info>
+    <crawlTime></crawlTime>
+    <threadLimit>10</threadLimit>
+    <node>
+        <name>chinese beijing</name>
+        <url>http://www.beijing.gov.cn/</url>
+        <refreshRate></refreshRate>
+        <ruleList>
+            <rule>
+                <expressionList>
+                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                </expressionList>
+                <maxPageCount></maxPageCount>
+                <childRule/>
+                <nodeList>
+                    <node>
+                        <name>redianguanzhu</name>
+                        <url>http://www.beijing.gov.cn/sy/rdgz/</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <expressionList>
+                                    <expression type="JavaScript" executeOnlyOnce="true" label="nextPage" value="function getYZSpiderResult() {var result = new Array();var i = 1;for (i = 1; i &lt;= 49; i++){ result.push(&quot;http://www.beijing.gov.cn/sy/rdgz/default_&quot;+i+&quot;.htm&quot;); }return result;}"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td class=&quot;font14&quot;&gt;·&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td class=&quot;font14&quot;&gt;·&lt;a href=&quot;[^&quot;]*&quot; target=&quot;_blank&quot;&gt;(.*)&lt;/a&gt;"/>
+                                </expressionList>
+                                <maxPageCount></maxPageCount>
+                                <childRule/>
+                                <nodeList/>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+            <rule>
+                <expressionList>
+                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                </expressionList>
+                <maxPageCount></maxPageCount>
+                <childRule/>
+                <nodeList>
+                    <node>
+                        <name>zhengWuZhiBo</name>
+                        <url>http://zhengwu.beijing.gov.cn/zwzb/</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <expressionList>
+                                    <expression type="JavaScript" executeOnlyOnce="true" label="nextPage" value="function getYZSpiderResult() {var result = new Array();var i = 1;for (i = 1; i &lt;= 7; i++){ result.push(&quot;http://zhengwu.beijing.gov.cn/zwzb/default_&quot;+i+&quot;.htm&quot;); }return result;}"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot; target=&quot;_blank&quot;"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;li&gt;&lt;a href=&quot;[^&quot;]*&quot; target=&quot;_blank&quot; title=&quot;([^&quot;]*)&quot;"/>
+                                </expressionList>
+                                <maxPageCount></maxPageCount>
+                                <childRule/>
+                                <nodeList/>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+        </ruleList>
+    </node>
+</website>
