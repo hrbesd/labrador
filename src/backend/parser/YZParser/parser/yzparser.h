@@ -4,13 +4,18 @@
 #include <QObject>
 #include <QFile>
 #include <QUrl>
+#include <iostream>
 #include <QRegExp>
 #include <QDir>
+#include <QMap>
 #include "DataInterface.h"
 #include "../xmlWriter/yzxmlwriter.h"
 #include <QtScript>
 #include <QTextStream>
 
+#include "version.h"
+#include "yzlogger.h"
+using namespace std;
 class YZParser : public QObject
 {
     Q_OBJECT
@@ -30,6 +35,8 @@ private:
     QScriptEngine m_engine;
     QScriptValue m_globalValue;
     QScriptValue m_parserValue;
+
+    QMap<QString, QString> m_paramenters;
 };
 
 #endif // YZPARSER_H

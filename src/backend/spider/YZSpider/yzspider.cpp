@@ -7,26 +7,47 @@
 YZSpider::YZSpider(QObject *parent) :
     QObject(parent)
 {
+    QStringList parametersList = QCoreApplication::arguments();
+    foreach(QString parameter,parametersList)
+    {
+        QStringList tmpList = parameter.split('=');
+        m_paramenters.insert(tmpList[0],tmpList.size()>1?tmpList[1]:QString(""));
+    }
+
+    if(m_paramenters.contains("--version"))
+    {
+        std::cout<<"Labrador Spider Version "<<BASE_VERSION<<endl;
+    }
+    if(m_paramenters.contains("--log-file"))
+    {
+        YZLogger::logFilePath = m_paramenters.value("--log-file");
+    }
+    if(!m_paramenters.contains("--rule-dir"))
+    {
+        std::cerr<<"rule dir can't be empty, spider will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--worker-dir"))
+    {
+        std::cerr<<"worker dir can't be empty, spider will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--shared-dir"))
+    {
+        std::cerr<<"shared dir can't be empty, spider will exit now!"<<endl;
+        exit(0);
+    }
+
+    YZLogger::Logger()->log("log something to test");
+
     m_webpageRequestThreadNum = m_maxWebPageRequestThreadNum;
     m_ruleRequestThreadNum = m_maxRuleRequestThreadNum;
     m_webPageCount = 0;
     m_finishParseRules = false;
     m_networkAccessManager = new QNetworkAccessManager(this);
+    QDir dir(m_paramenters.value("--rule-dir"));
+    parseWebsiteConfigFile(dir.absolutePath()+"/"+"spider_config.xml");
 
-    //    QString fileName = "test.js";
-    //     scriptFile(fileName);
-    //    if (!scriptFile.open(QIODevice::ReadOnly))
-    //    {
-    //    }
-    //    QTextStream stream(&scriptFile);
-    //    QString contents = stream.readAll();
-    //    scriptFile.close();
-    //    m_engine.evaluate(contents);
-    //    m_globalValue = m_engine.globalObject();
-    //    m_spiderValue = m_globalValue.property("getYZSpiderResult");
-    //    QScriptValueList args;
-    //    QScriptValue result = m_spiderValue.call(QScriptValue(),args);
-    //    qDebug()<<result.toVariant().toStringList();
 }
 
 void YZSpider::downloadWebPage(Node *node)
@@ -61,8 +82,8 @@ void YZSpider::webPageDownloaded()
     Node *nodeItem = m_webPageDownloadingTask.take(reply);
     QString fileName = nodeItem->hashName;
     QDir folderDir;
-    folderDir.mkpath(QDir::currentPath()+"/webpage/spider");
-    folderDir.cd("webpage/spider");
+    folderDir.mkpath(m_paramenters.value("--worker-dir"));
+    folderDir.cd(m_paramenters.value("--worker-dir"));
     folderDir.mkpath(folderDir.absolutePath() + "/"+fileName.left(2));
     QFile file(folderDir.absolutePath() + "/"+fileName.left(2)+"/"+ fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -107,7 +128,9 @@ void YZSpider::ruleRequestScheduler()
     {
         qDebug()<<"finish parse rules";
         m_finishParseRules = true;
-        outputWebsite(m_website.node.name+"_dir.xml");
+        QDir dir(m_paramenters.value("--shared-dir"));
+
+        outputWebsite(dir.absolutePath()+"/"+m_website.node.name+"_dir.xml");
         webpageDownloadScheduler();
     }
 }
@@ -196,11 +219,12 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
 
 void YZSpider::parseWebsiteConfigFile(QString configFile)
 {
+    qDebug()<<configFile;
     QFile file(configFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qWarning("can't open config File");
-        return;
+        exit(0);
     }
     xmlReader.setDevice(&file);
     while (!xmlReader.atEnd()) {
