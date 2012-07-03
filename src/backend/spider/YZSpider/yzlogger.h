@@ -10,6 +10,7 @@ class YZLogger : public QObject
 public:
     static YZLogger* Logger();
     void log(QString str);
+    static QString logFilePath;
 private:
     static YZLogger *logger;
     explicit YZLogger(QObject *parent = 0);

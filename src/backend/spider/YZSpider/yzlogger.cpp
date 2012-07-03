@@ -1,10 +1,11 @@
 #include "yzlogger.h"
 #include <QByteArray>
 YZLogger* YZLogger::logger = NULL;
+QString YZLogger::logFilePath = "spider_log.txt";
 YZLogger::YZLogger(QObject *parent) :
     QObject(parent)
 {
-    logFile.setFileName("spider_log.txt");
+    logFile.setFileName(YZLogger::logFilePath);
     if (!logFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         qWarning("can't open log File");
@@ -24,4 +25,5 @@ void YZLogger::log(QString str)
 {
     logFile.write(str.toUtf8());
     logFile.write("\n");
+    logFile.flush();
 }
