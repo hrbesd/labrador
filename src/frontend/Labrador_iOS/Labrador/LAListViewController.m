@@ -12,6 +12,7 @@
 #import "LAListCell.h"
 #import "GDataXMLElement+List.h"
 #import "NSString+URL.h"
+#import "LAListCellBgView.h"
 
 @interface LAListViewController ()
 
@@ -26,7 +27,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // custom style
-        [self.tableView setSeparatorColor:[UIColor blackColor]];
+        //[self.tableView setSeparatorColor:[UIColor clearColor]];
         
         self.list = [[LAList alloc] initWithURL:urlStr];
         [_list setDelegate:self];
@@ -80,10 +81,6 @@
     GDataXMLElement *currentElem = [_list.listData objectAtIndex:indexPath.row];
     
     [cell.textLabel setText:currentElem.nodeName];
-    [cell.textLabel setLineBreakMode:UILineBreakModeWordWrap];
-    [cell.textLabel setNumberOfLines:0];
-    
-    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     
     return cell;
 }
@@ -96,7 +93,9 @@
     size = [currentElem.nodeName sizeWithFont:[UIFont systemFontOfSize:20.0f] constrainedToSize:CGSizeMake(280, 9999) lineBreakMode:UILineBreakModeWordWrap];
     
     //NSLog(@"%@", NSStringFromCGSize(size));
+    //NSLog(@"index:[%d] height:[%f]", indexPath.row, fmaxf(size.height + 10, 40.0f));
     
+    return 53.0f;
     return fmaxf(size.height + 10, 40.0f);
 }
 
@@ -107,6 +106,8 @@
     GDataXMLElement *currentElem = (GDataXMLElement *)[_list.listData objectAtIndex:indexPath.row];
     
     NSString *url = [NSString URLWithPath:currentElem.pageURL];
+    
+    DLog(@"%@", currentElem.pageURL);
     
     LAListViewController *listVC = [[LAListViewController alloc] initWithStyle:UITableViewStylePlain url:url];
     [listVC setTitle:currentElem.nodeName];

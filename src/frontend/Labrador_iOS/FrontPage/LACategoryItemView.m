@@ -21,8 +21,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        [self.layer setBorderColor:[[UIColor greenColor] CGColor]];
-        [self.layer setBorderWidth:2];
+        //[self.layer setBorderColor:[[UIColor greenColor] CGColor]];
+        //[self.layer setBorderWidth:2];
         
         CGRect buttonFrame;
         buttonFrame.size.width = 65;
@@ -33,18 +33,17 @@
         self.button = [[UIButton alloc] initWithFrame:buttonFrame];
         
         [_button setImageWithURL:[NSURL URLWithString:item.imageURL] placeholderImage:nil];
-        
+        //[_button setBackgroundImage:[UIImage imageNamed:@"TestIcon3.png"] forState:UIControlStateNormal];
         [_button addTarget:self action:@selector(buttonTochUpInside:) forControlEvents:UIControlEventTouchUpInside];
         
-        [_button.layer setBorderColor:[[UIColor blueColor] CGColor]];
+        [_button.layer setBorderColor:[[UIColor grayColor] CGColor]];
         [_button.layer setBorderWidth:2];
+        
         
         self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(buttonFrame) + 5, frame.size.width, 15)];
         [_textLabel setTextAlignment:UITextAlignmentCenter];
         
         [_textLabel setText:item.text];
-        
-        [_textLabel setText:@"123456"];
         
         //[_textLabel.layer setBorderColor:[[UIColor blueColor] CGColor]];
         //[_textLabel.layer setBorderWidth:2];

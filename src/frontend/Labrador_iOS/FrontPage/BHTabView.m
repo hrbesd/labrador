@@ -7,7 +7,7 @@
 // Each section is divided by a 20 x 16 grid.
 // The control points were visually laid out atop this grid.
 
-#define kHorizontalSectionCount           4
+#define kHorizontalSectionCount           8
 #define kGridWidthInSection               16
 #define kGridHeight                       20
 #define kTabHeightInGridUnits             17
