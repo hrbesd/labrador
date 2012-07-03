@@ -1,0 +1,3 @@
+
+# Programs
+ln -s $DIR/butts/reactor/reactor.py $DIR/labrador/bin/reactor.py
