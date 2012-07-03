@@ -8,6 +8,7 @@
 
 #import "LACategoryView.h"
 #import "LACategoryItemView.h"
+#import "LACategoryItem.h"
 #import "LogTools.h"
 #import "StyledPageControl.h"
 #import <QuartzCore/QuartzCore.h>
@@ -71,7 +72,7 @@
 }
 
 - (void)layoutSubviews {
-    DLog(@"%@", NSStringFromCGRect(_scrollView.frame));
+    //DLog(@"%@", NSStringFromCGRect(_scrollView.frame));
     
     // remove _scrollView's subviews
     
@@ -84,20 +85,25 @@
     CGFloat itemViewWidth = _scrollView.frame.size.width / _numberOfCols;
     CGFloat itemViewHeight = (_scrollView.frame.size.height - vPageControlHeight) / _numberOfRows;
     
-    NSUInteger page;
+    NSUInteger page = 0;
     for (int i = 0; i < [_items count]; i += _numberOfCols * _numberOfRows) {
         page = i / 6;
         for (int row = 0; row < _numberOfRows; row++) {
             for (int col = 0; col < _numberOfCols; col++) {
+                NSUInteger currentIndex = i + row * _numberOfCols + col;
+                if (currentIndex >= [_items count]) {
+                    break;
+                }
+                
                 CGRect frame;
                 frame.origin.x = page * _scrollView.frame.size.width + col * itemViewWidth;
                 frame.origin.y = row * itemViewHeight;
                 frame.size.width = itemViewWidth;
                 frame.size.height = itemViewHeight;
                 
-                LACategoryItemView *itemView = [[LACategoryItemView alloc] initWithFrame:frame item:nil];
+                LACategoryItemView *itemView = [[LACategoryItemView alloc] initWithFrame:frame item:[_items objectAtIndex:currentIndex]];
                 [itemView setDelegate:self];
-                [itemView setTag:i + row * _numberOfCols + col];
+                [itemView setTag:currentIndex];
                 
                 [_scrollView addSubview:itemView];
             }
@@ -126,7 +132,7 @@
 #pragma mark - PageControl Event
 
 - (void)pageControlValueChanged:(UIPageControl *)pageControl {
-    DLog(@"");
+    //DLog(@"");
     
     NSUInteger page = pageControl.currentPage;
     CGPoint offset = CGPointMake(page * _scrollView.frame.size.width, 0);
