@@ -24,4 +24,5 @@ HEADERS += \
     yzspider.h \
     DataInterface.h \
     yzlogger.h \
-    core/xmlWriter/yzxmlwriter.h
+    core/xmlWriter/yzxmlwriter.h \
+    version.h
