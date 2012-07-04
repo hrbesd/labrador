@@ -1,4 +1,5 @@
 #include "yzparser.h"
+#include <QCoreApplication>
 
 YZParser::YZParser(QObject *parent) :
     QObject(parent)
@@ -57,6 +58,7 @@ YZParser::YZParser(QObject *parent) :
         exit(0);
     }
     parseFolder(m_paramenters.value("--source-dir"));
+    qApp->exit(0);
 }
 
 int YZParser::parseFile(QString fileName)
@@ -86,8 +88,11 @@ int YZParser::parseFile(QString fileName)
 
     parseImageFromBody(articleInterface.bodyData,QString(baseUrl),articleInterface);
     QFileInfo fileInfo(file);
-    QDir fileDir(m_paramenters.value("--worker-dir"));
-    YZXmlWriter::writeArticleToXml(articleInterface,fileDir.absolutePath()+"/"+fileInfo.baseName()+".xml");
+    QDir fileDir;
+    fileDir.mkpath(m_paramenters.value("--worker-dir"));
+    fileDir.cd(m_paramenters.value("--worker-dir"));
+    fileDir.mkpath(fileDir.absolutePath() + "/"+fileInfo.baseName().left(2));
+    YZXmlWriter::writeArticleToXml(articleInterface,fileDir.absolutePath()+"/"+fileInfo.baseName().left(2)+"/"+fileInfo.baseName()+".xml");
     static int webpageCount = 0;
     qDebug()<<(webpageCount++)<<" done";
     file.close();
