@@ -21,7 +21,7 @@ UPDATER_ETC=etc
 UPDATER_BUTTS=butts
 UPDATER_SITES=sites
 UPDATER_LOG=log
-UPDATER_HOST=192.168.1.241 # You have to verify this!
+UPDATER_HOST=219.217.227.82 # You have to verify this!
 
 LABRADOR_ROOT=~/labrador
 LABRADOR_BIN=$LABRADOR/$UPDATER_BIN
@@ -77,7 +77,10 @@ Options
 	--sync-bin		Sync executable programs
 	--sync-etc		Sync settings
 	--modify-env	Modify environment variables
-	
+	--go-stable		Update through the stable channel
+	--go-unstable	Update through the unstable channel
+	--go-dev		Update through the dev channel
+
 	Root only:
 
 	--config-sshd	Modify the config file of sshd
