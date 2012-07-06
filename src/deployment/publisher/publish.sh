@@ -14,3 +14,6 @@ source $DIR/*.links
 rsync -av $DIR/labrador/bin/ $UPDATE_LOGIN@$UPDATE_SERVER:~/labrador/$CHANNEL/bin/
 
 rm -r $DIR/labrador
+
+# Leave the message
+ssh $UPDATE_LOGIN@$UPDATE_SERVER echo $MESSAGE >~/labrador/$CHANNEL/readme.txt
