@@ -4,11 +4,11 @@
 
 *不完整*
 
+*尚未与代码同步*
+
 ## 操作系统
 
-Development Server 和 Production Server 统一采用 Ubuntu 11.10 系统。
-
-## Development Server
+服务器统一采用 Ubuntu 11.10 系统。
 
 ### 初始化
 
@@ -25,15 +25,25 @@ Development Server 和 Production Server 统一采用 Ubuntu 11.10 系统。
 `80`
 `22`
 
-### 用户
+可能为 SSH 服务额外开通 `2222` `22222`
 
-#### GoF
+## 应用服务器类型
+
+### Development Server
+
+*“开发服务器”*
+
+- 此类型服务器可以有多个
+
+- 用户
+	* GoF **(约定用户名)**
 
 - 主要用途
 	* 开发方同步 `~/repo`
-
+	* 向 Update Server 发送更新
+	
 - 如何建立
-	* 手工建立
+	* 运营方手工建立
 	
 - 使用者
 	* 开发方
@@ -46,23 +56,30 @@ Development Server 和 Production Server 统一采用 Ubuntu 11.10 系统。
 - 可以做什么？
 	* 同步 Github repo
 	* daily-build
-	* 可以更新repo，但不推荐
+	* 特殊情况下在线开发
 	
 - 不可以做什么?
 	* 运行测试
+	
+### Update Server
 
-#### updater
+*“更新服务器”*
+
+- 此类型服务器只能有一个实例
+
+- 用户
+	* updater **(约定用户名)**
 	
 - 主要用途
-	* setup
-	* sync
+	* 通过此服务器初始化 Test Server 和 Production Server
+	* 测试主管发布更新
 
 - 如何建立
-	* 手工建立
+	* 运营方手工建立
 	
 - 使用者
-	* 开发方
-	* 运行方
+	* Test Server 和 Production Server 的脚本
+	* 除了测试主管，无需人登录
 
 - 权限
 	* 用 `labrador` 或 `esd` key 登录
@@ -77,16 +94,25 @@ Development Server 和 Production Server 统一采用 Ubuntu 11.10 系统。
 	* 运行测试
 	* Clone repo
 
-#### labrador
+### Test Server
+
+*测试服务器*
+
+- 此类型服务器可以有多个实例
+
+- 用户
+	* labrador **(约定用户名)**
 
 - 主要用途
+	* 测试软件
 	* 模拟运营
 
 - 如何建立
-	* 安装脚本建立
+	* 系统管理员通过安装脚本建立（参考相关文档）
+	* 从 Update Server 获得 ssh key-pair
 	
 - 使用者
-	* 开发方
+	* 开发方或运营方的测试者
 
 - 权限
 	* 用 `labrador` key 登录
@@ -99,48 +125,48 @@ Development Server 和 Production Server 统一采用 Ubuntu 11.10 系统。
 	* 模拟运营
 	
 - 不可以做什么?
-	* 扩大权限
+	* 扩大日常用户的权限
 
-**Note:** 尽量与 Production Server 的程序和配置一致
+### Production Server
+
+*运营服务器*
+
+- 此类型服务器可以有多个实例
+
+- 用户
+	* labrador **(约定用户名)**
+
+- 主要用途
+	* 日常运营
+
+- 如何建立
+	* 系统管理员通过安装脚本建立（参考相关文档）
+	* 从 Update Server 获得 ssh key-pair
 	
-## Production Server
+- 使用者
+	* 运营方日常操作人员
 
-### 初始化
+- 权限
+	* 用 `labrador` key 登录
+	* 禁止密码登录
+	* 非 `sudo-er`
+	
+- 可以做什么？
+	* 首次安装
+	* 日常更新与运营
+	
+- 不可以做什么?
+	* 扩大日常用户的权限
 
-#### 基本软件包
+**注意** 此类型服务器只能从 `Stable` 通道获取更新.
 
-`apt-get install …`
+### 备注
 
-- openssh-server
-- apache2
-- vim
+#### 以下服务器可以共用一个操作系统
 
-#### 端口开通/映射
-
-`80`
-`22`
-`2222`
-`22222`
-
-#### 安装配置 Labrador
-
-* 通过开发方提供的指示，运行安装脚本。
-* 当前操作用户有时需要是 `root` 或者有 `sudo` 权限
-
-满足以上条件，安装脚本会自动把新的服务器初始化成 Production Server.
-
-对于已经运营的 Production Server，参考 [Setup 文档](./admin/setup/README.md) 。
-
-#### 用户
-
-- 安装系统的 `admin` 用户
-	* 任何用户名都可以
-	* `sudo-er`
-
-- `labrador` 运营方日常工作用户
-	* 此用户通过安装脚本自动建立和初始化
-	* 禁止 `sudo`
-	* 从 `updater` 用户复制 ssh key-pair
+- Development Server 
+- Update Server
+- Test Server
 
 ## 参考
 
