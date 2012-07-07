@@ -8,20 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "LACategoryView.h"
-#import "LAList.h"
+#import "LAXMLData.h"
 
 @class BHTabsViewController;
 @class LAHeadlinesView;
 @class LAHighlightsView;
 
-@interface LAHomePageViewController : UIViewController <LACategoryViewDelegae, LAListDelegate>
+@interface LAHomePageViewController : UIViewController <LACategoryViewDelegae, LAXMLDataDelegate>
 
 @property (strong, nonatomic) BHTabsViewController *tabVC;
 @property (strong, nonatomic) LACategoryView *categoryView;
 @property (strong, nonatomic) LAHeadlinesView *headlinesView;
 @property (strong, nonatomic) LAHighlightsView *highlightsView;
 
-@property (strong, nonatomic) LAList *list;
+@property (strong, nonatomic) LAXMLData *list;
 
 - (id)initWithURL:(NSString *)urlStr;
 

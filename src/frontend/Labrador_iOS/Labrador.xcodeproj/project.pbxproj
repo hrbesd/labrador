@@ -2342,14 +2342,6 @@
 		C140FBB4159B2B6000AC0333 /* cell_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C140FBB3159B2B6000AC0333 /* cell_bg.png */; };
 		C14537D1159EE4DF00D89B72 /* LAListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB229159AD4FE00A46C6A /* LAListCell.m */; };
 		C14537D2159EE4DF00D89B72 /* LAListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10163BD159ACA9D00A8ED10 /* LAListViewController.m */; };
-		C15032A315A083760098F0C8 /* THToolbar-Popover-Button-N.png in Resources */ = {isa = PBXBuildFile; fileRef = C150329F15A083760098F0C8 /* THToolbar-Popover-Button-N.png */; };
-		C15032A415A083760098F0C8 /* THToolbar-Popover-Button-N.png in Resources */ = {isa = PBXBuildFile; fileRef = C150329F15A083760098F0C8 /* THToolbar-Popover-Button-N.png */; };
-		C15032A515A083760098F0C8 /* THToolbar-Popover-Button-N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15032A015A083760098F0C8 /* THToolbar-Popover-Button-N@2x.png */; };
-		C15032A615A083760098F0C8 /* THToolbar-Popover-Button-N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15032A015A083760098F0C8 /* THToolbar-Popover-Button-N@2x.png */; };
-		C15032A715A083760098F0C8 /* THToolbar-Popover-Button-P.png in Resources */ = {isa = PBXBuildFile; fileRef = C15032A115A083760098F0C8 /* THToolbar-Popover-Button-P.png */; };
-		C15032A815A083760098F0C8 /* THToolbar-Popover-Button-P.png in Resources */ = {isa = PBXBuildFile; fileRef = C15032A115A083760098F0C8 /* THToolbar-Popover-Button-P.png */; };
-		C15032A915A083760098F0C8 /* THToolbar-Popover-Button-P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15032A215A083760098F0C8 /* THToolbar-Popover-Button-P@2x.png */; };
-		C15032AA15A083760098F0C8 /* THToolbar-Popover-Button-P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15032A215A083760098F0C8 /* THToolbar-Popover-Button-P@2x.png */; };
 		C17BDCD1159C9F4900C3D490 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5AA4C15956210007ED9FA /* QuartzCore.framework */; };
 		C17BDCD6159D3B0C00C3D490 /* StyledPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C17BDCD5159D3B0C00C3D490 /* StyledPageControl.m */; };
 		C17BDCD7159D3B0C00C3D490 /* StyledPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C17BDCD5159D3B0C00C3D490 /* StyledPageControl.m */; };
@@ -2380,9 +2372,9 @@
 		C17BDD35159DA60A00C3D490 /* NSString+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = C11010DA159AEDD2002E2B81 /* NSString+URL.m */; };
 		C17BDD36159DA61500C3D490 /* GDataXMLElement+List.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5980B159494FF007ED9FA /* GDataXMLElement+List.m */; };
 		C17BDD37159DA61500C3D490 /* GDataXMLElement+Article.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5AA38159555FF007ED9FA /* GDataXMLElement+Article.m */; };
-		C17BDD38159DA61A00C3D490 /* LAList.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB226159AD4D800A46C6A /* LAList.m */; };
+		C17BDD38159DA61A00C3D490 /* LAXMLData.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB226159AD4D800A46C6A /* LAXMLData.m */; };
 		C19AB223159AD1B100A46C6A /* LAXMLDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB222159AD1B100A46C6A /* LAXMLDownloader.m */; };
-		C19AB227159AD4D800A46C6A /* LAList.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB226159AD4D800A46C6A /* LAList.m */; };
+		C19AB227159AD4D800A46C6A /* LAXMLData.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB226159AD4D800A46C6A /* LAXMLData.m */; };
 		C19AB22A159AD4FE00A46C6A /* LAListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB229159AD4FE00A46C6A /* LAListCell.m */; };
 		C19AB22B159AD73F00A46C6A /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E597FE1594818B007ED9FA /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C19AB22C159AD8DD00A46C6A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5AA4C15956210007ED9FA /* QuartzCore.framework */; };
@@ -2398,6 +2390,26 @@
 		C1C4B2B715A2B25E00C0B507 /* TestIcon2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C4B2B515A2B25E00C0B507 /* TestIcon2@2x.png */; };
 		C1C4B2B915A2B31F00C0B507 /* TestIcon3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C4B2B815A2B31F00C0B507 /* TestIcon3@2x.png */; };
 		C1C4B2BA15A2B31F00C0B507 /* TestIcon3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C4B2B815A2B31F00C0B507 /* TestIcon3@2x.png */; };
+		C1CABDE215A3130800F9DA3F /* LAArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CABDE115A3130800F9DA3F /* LAArticleViewController.m */; };
+		C1CABDE315A3130800F9DA3F /* LAArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CABDE115A3130800F9DA3F /* LAArticleViewController.m */; };
+		C1CABDE515A31A6F00F9DA3F /* libGRMustache4-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5AA341595554F007ED9FA /* libGRMustache4-iOS.a */; };
+		C1CABDE715A31A7200F9DA3F /* libGRMustache4-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5AA341595554F007ED9FA /* libGRMustache4-iOS.a */; };
+		C1CABDE815A31A8900F9DA3F /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5AA4F15959921007ED9FA /* NSString+HTML.m */; };
+		C1CABDE915A31A8A00F9DA3F /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5AA4F15959921007ED9FA /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C1CABDEA15A31AC300F9DA3F /* content_template2.html in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA601595B8EF007ED9FA /* content_template2.html */; };
+		C1CABDEB15A31AC300F9DA3F /* comment_topline.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3B15955B16007ED9FA /* comment_topline.png */; };
+		C1CABDEC15A31AC300F9DA3F /* comment_topline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3C15955B16007ED9FA /* comment_topline@2x.png */; };
+		C1CABDED15A31AC300F9DA3F /* content.css in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3D15955B16007ED9FA /* content.css */; };
+		C1CABDEE15A31AC300F9DA3F /* content_template.html in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3E15955B16007ED9FA /* content_template.html */; };
+		C1CABDEF15A31AC300F9DA3F /* content_template2.html in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA601595B8EF007ED9FA /* content_template2.html */; };
+		C1CABDF015A31AC300F9DA3F /* comment_topline.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3B15955B16007ED9FA /* comment_topline.png */; };
+		C1CABDF115A31AC300F9DA3F /* comment_topline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3C15955B16007ED9FA /* comment_topline@2x.png */; };
+		C1CABDF215A31AC300F9DA3F /* content.css in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3D15955B16007ED9FA /* content.css */; };
+		C1CABDF315A31AC300F9DA3F /* content_template.html in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3E15955B16007ED9FA /* content_template.html */; };
+		C1CABDF415A31BA300F9DA3F /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5AA5215959984007ED9FA /* GTMNSString+HTML.m */; };
+		C1CABDF515A31BA300F9DA3F /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5AA5215959984007ED9FA /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C1CABDF615A33AEB00F9DA3F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA311594BCF5007ED9FA /* Localizable.strings */; };
+		C1CABDF715A33AEC00F9DA3F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA311594BCF5007ED9FA /* Localizable.strings */; };
 		C1D2FA02159BF473008D3A67 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12C079F1591BB9F0083FC75 /* UIKit.framework */; };
 		C1D2FA03159BF473008D3A67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12C07A11591BB9F0083FC75 /* Foundation.framework */; };
 		C1D2FA04159BF473008D3A67 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12C07A31591BB9F0083FC75 /* CoreGraphics.framework */; };
@@ -4803,10 +4815,6 @@
 		C12C081315944ABA0083FC75 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C12C081415944ABA0083FC75 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C140FBB3159B2B6000AC0333 /* cell_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_bg.png; sourceTree = "<group>"; };
-		C150329F15A083760098F0C8 /* THToolbar-Popover-Button-N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "THToolbar-Popover-Button-N.png"; sourceTree = "<group>"; };
-		C15032A015A083760098F0C8 /* THToolbar-Popover-Button-N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "THToolbar-Popover-Button-N@2x.png"; sourceTree = "<group>"; };
-		C15032A115A083760098F0C8 /* THToolbar-Popover-Button-P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "THToolbar-Popover-Button-P.png"; sourceTree = "<group>"; };
-		C15032A215A083760098F0C8 /* THToolbar-Popover-Button-P@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "THToolbar-Popover-Button-P@2x.png"; sourceTree = "<group>"; };
 		C17BDCD4159D3B0C00C3D490 /* StyledPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyledPageControl.h; sourceTree = "<group>"; };
 		C17BDCD5159D3B0C00C3D490 /* StyledPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyledPageControl.m; sourceTree = "<group>"; };
 		C17BDCD9159D423100C3D490 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -4838,8 +4846,8 @@
 		C19AB220159AD00B00A46C6A /* LogTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogTools.h; sourceTree = "<group>"; };
 		C19AB221159AD1B100A46C6A /* LAXMLDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAXMLDownloader.h; sourceTree = "<group>"; };
 		C19AB222159AD1B100A46C6A /* LAXMLDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAXMLDownloader.m; sourceTree = "<group>"; };
-		C19AB225159AD4D800A46C6A /* LAList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAList.h; sourceTree = "<group>"; };
-		C19AB226159AD4D800A46C6A /* LAList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAList.m; sourceTree = "<group>"; };
+		C19AB225159AD4D800A46C6A /* LAXMLData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAXMLData.h; sourceTree = "<group>"; };
+		C19AB226159AD4D800A46C6A /* LAXMLData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAXMLData.m; sourceTree = "<group>"; };
 		C19AB228159AD4FE00A46C6A /* LAListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAListCell.h; sourceTree = "<group>"; };
 		C19AB229159AD4FE00A46C6A /* LAListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAListCell.m; sourceTree = "<group>"; };
 		C19AB22D159AD96100A46C6A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -4849,6 +4857,8 @@
 		C1C4B2AF15A2B0C300C0B507 /* TestIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TestIcon@2x.png"; sourceTree = "<group>"; };
 		C1C4B2B515A2B25E00C0B507 /* TestIcon2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TestIcon2@2x.png"; sourceTree = "<group>"; };
 		C1C4B2B815A2B31F00C0B507 /* TestIcon3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TestIcon3@2x.png"; sourceTree = "<group>"; };
+		C1CABDE015A3130800F9DA3F /* LAArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAArticleViewController.h; sourceTree = "<group>"; };
+		C1CABDE115A3130800F9DA3F /* LAArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAArticleViewController.m; sourceTree = "<group>"; };
 		C1D2FA00159BF473008D3A67 /* FrontPage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrontPage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1D2FA07159BF473008D3A67 /* FrontPage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FrontPage-Info.plist"; sourceTree = "<group>"; };
 		C1D2FA09159BF473008D3A67 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -4938,6 +4948,7 @@
 				C127391115989CDE002D9BD8 /* Foundation.framework in Frameworks */,
 				C127391215989CDE002D9BD8 /* CoreGraphics.framework in Frameworks */,
 				C17BDCFB159D42AA00C3D490 /* ImageIO.framework in Frameworks */,
+				C1CABDE515A31A6F00F9DA3F /* libGRMustache4-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4963,6 +4974,7 @@
 				C1D2FA04159BF473008D3A67 /* CoreGraphics.framework in Frameworks */,
 				C17BDCD1159C9F4900C3D490 /* QuartzCore.framework in Frameworks */,
 				C17BDD32159DA5D600C3D490 /* libxml2.dylib in Frameworks */,
+				C1CABDE715A31A7200F9DA3F /* libGRMustache4-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7401,10 +7413,6 @@
 				C1FC5CBD15A04563003A9832 /* UIPopoverViewGrayBackgroundArrowUpRight.png */,
 				C1FC5CBE15A04564003A9832 /* UIPopoverViewGrayBackgroundArrowUpRight@2x.png */,
 				C140FBB3159B2B6000AC0333 /* cell_bg.png */,
-				C150329F15A083760098F0C8 /* THToolbar-Popover-Button-N.png */,
-				C15032A015A083760098F0C8 /* THToolbar-Popover-Button-N@2x.png */,
-				C15032A115A083760098F0C8 /* THToolbar-Popover-Button-P.png */,
-				C15032A215A083760098F0C8 /* THToolbar-Popover-Button-P@2x.png */,
 				C1C4B2AE15A2B0C300C0B507 /* TestIcon.png */,
 				C1C4B2AF15A2B0C300C0B507 /* TestIcon@2x.png */,
 				C1C4B2B515A2B25E00C0B507 /* TestIcon2@2x.png */,
@@ -7490,14 +7498,16 @@
 		C19AB224159AD46000A46C6A /* List */ = {
 			isa = PBXGroup;
 			children = (
-				C19AB225159AD4D800A46C6A /* LAList.h */,
-				C19AB226159AD4D800A46C6A /* LAList.m */,
+				C19AB225159AD4D800A46C6A /* LAXMLData.h */,
+				C19AB226159AD4D800A46C6A /* LAXMLData.m */,
 				C1FC5CA1159FD617003A9832 /* LAListCellBgView.h */,
 				C1FC5CA2159FD617003A9832 /* LAListCellBgView.m */,
 				C19AB228159AD4FE00A46C6A /* LAListCell.h */,
 				C19AB229159AD4FE00A46C6A /* LAListCell.m */,
 				C10163BC159ACA9D00A8ED10 /* LAListViewController.h */,
 				C10163BD159ACA9D00A8ED10 /* LAListViewController.m */,
+				C1CABDE015A3130800F9DA3F /* LAArticleViewController.h */,
+				C1CABDE115A3130800F9DA3F /* LAArticleViewController.m */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -7751,14 +7761,16 @@
 				C1FC5CBA15A03F73003A9832 /* nav-bar-bg-silver@2x.png in Resources */,
 				C1FC5CBF15A04564003A9832 /* UIPopoverViewGrayBackgroundArrowUpRight.png in Resources */,
 				C1FC5CC115A04564003A9832 /* UIPopoverViewGrayBackgroundArrowUpRight@2x.png in Resources */,
-				C15032A315A083760098F0C8 /* THToolbar-Popover-Button-N.png in Resources */,
-				C15032A515A083760098F0C8 /* THToolbar-Popover-Button-N@2x.png in Resources */,
-				C15032A715A083760098F0C8 /* THToolbar-Popover-Button-P.png in Resources */,
-				C15032A915A083760098F0C8 /* THToolbar-Popover-Button-P@2x.png in Resources */,
 				C1C4B2B015A2B0C400C0B507 /* TestIcon.png in Resources */,
 				C1C4B2B215A2B0C400C0B507 /* TestIcon@2x.png in Resources */,
 				C1C4B2B615A2B25E00C0B507 /* TestIcon2@2x.png in Resources */,
 				C1C4B2B915A2B31F00C0B507 /* TestIcon3@2x.png in Resources */,
+				C1CABDEF15A31AC300F9DA3F /* content_template2.html in Resources */,
+				C1CABDF015A31AC300F9DA3F /* comment_topline.png in Resources */,
+				C1CABDF115A31AC300F9DA3F /* comment_topline@2x.png in Resources */,
+				C1CABDF215A31AC300F9DA3F /* content.css in Resources */,
+				C1CABDF315A31AC300F9DA3F /* content_template.html in Resources */,
+				C1CABDF615A33AEB00F9DA3F /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10105,14 +10117,16 @@
 				C1FC5CBB15A03F73003A9832 /* nav-bar-bg-silver@2x.png in Resources */,
 				C1FC5CC015A04564003A9832 /* UIPopoverViewGrayBackgroundArrowUpRight.png in Resources */,
 				C1FC5CC215A04564003A9832 /* UIPopoverViewGrayBackgroundArrowUpRight@2x.png in Resources */,
-				C15032A415A083760098F0C8 /* THToolbar-Popover-Button-N.png in Resources */,
-				C15032A615A083760098F0C8 /* THToolbar-Popover-Button-N@2x.png in Resources */,
-				C15032A815A083760098F0C8 /* THToolbar-Popover-Button-P.png in Resources */,
-				C15032AA15A083760098F0C8 /* THToolbar-Popover-Button-P@2x.png in Resources */,
 				C1C4B2B115A2B0C400C0B507 /* TestIcon.png in Resources */,
 				C1C4B2B315A2B0C400C0B507 /* TestIcon@2x.png in Resources */,
 				C1C4B2B715A2B25E00C0B507 /* TestIcon2@2x.png in Resources */,
 				C1C4B2BA15A2B31F00C0B507 /* TestIcon3@2x.png in Resources */,
+				C1CABDEA15A31AC300F9DA3F /* content_template2.html in Resources */,
+				C1CABDEB15A31AC300F9DA3F /* comment_topline.png in Resources */,
+				C1CABDEC15A31AC300F9DA3F /* comment_topline@2x.png in Resources */,
+				C1CABDED15A31AC300F9DA3F /* content.css in Resources */,
+				C1CABDEE15A31AC300F9DA3F /* content_template.html in Resources */,
+				C1CABDF715A33AEC00F9DA3F /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10127,7 +10141,7 @@
 				C127391E15989CDE002D9BD8 /* AppDelegate.m in Sources */,
 				C10163BE159ACA9D00A8ED10 /* LAListViewController.m in Sources */,
 				C19AB223159AD1B100A46C6A /* LAXMLDownloader.m in Sources */,
-				C19AB227159AD4D800A46C6A /* LAList.m in Sources */,
+				C19AB227159AD4D800A46C6A /* LAXMLData.m in Sources */,
 				C19AB22A159AD4FE00A46C6A /* LAListCell.m in Sources */,
 				C19AB22B159AD73F00A46C6A /* GDataXMLNode.m in Sources */,
 				C19AB22F159AE11800A46C6A /* GDataXMLElement+List.m in Sources */,
@@ -10158,6 +10172,9 @@
 				C1FC5CA3159FD617003A9832 /* LAListCellBgView.m in Sources */,
 				C1FC5CC515A0458F003A9832 /* GSPopOverView.m in Sources */,
 				C1FC5CC915A06B0F003A9832 /* GSBarButtonItemWithPopOver.m in Sources */,
+				C1CABDE215A3130800F9DA3F /* LAArticleViewController.m in Sources */,
+				C1CABDE815A31A8900F9DA3F /* NSString+HTML.m in Sources */,
+				C1CABDF415A31BA300F9DA3F /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10211,12 +10228,15 @@
 				C17BDD35159DA60A00C3D490 /* NSString+URL.m in Sources */,
 				C17BDD36159DA61500C3D490 /* GDataXMLElement+List.m in Sources */,
 				C17BDD37159DA61500C3D490 /* GDataXMLElement+Article.m in Sources */,
-				C17BDD38159DA61A00C3D490 /* LAList.m in Sources */,
+				C17BDD38159DA61A00C3D490 /* LAXMLData.m in Sources */,
 				C14537D1159EE4DF00D89B72 /* LAListCell.m in Sources */,
 				C14537D2159EE4DF00D89B72 /* LAListViewController.m in Sources */,
 				C1FC5CA4159FD617003A9832 /* LAListCellBgView.m in Sources */,
 				C1FC5CC615A0458F003A9832 /* GSPopOverView.m in Sources */,
 				C1FC5CCA15A06B0F003A9832 /* GSBarButtonItemWithPopOver.m in Sources */,
+				C1CABDE315A3130800F9DA3F /* LAArticleViewController.m in Sources */,
+				C1CABDE915A31A8A00F9DA3F /* NSString+HTML.m in Sources */,
+				C1CABDF515A31BA300F9DA3F /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10268,6 +10288,10 @@
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "Labrador/Labrador-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FirstDemo\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -10283,6 +10307,10 @@
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "Labrador/Labrador-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FirstDemo\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -10378,6 +10406,10 @@
 				GCC_PREFIX_HEADER = "FrontPage/FrontPage-Prefix.pch";
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "FrontPage/FrontPage-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FirstDemo\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -10391,6 +10423,10 @@
 				GCC_PREFIX_HEADER = "FrontPage/FrontPage-Prefix.pch";
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "FrontPage/FrontPage-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FirstDemo\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

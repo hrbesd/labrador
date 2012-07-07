@@ -8,11 +8,12 @@
 
 #import "LAListViewController.h"
 #import "LogTools.h"
-#import "LAList.h"
+#import "LAXMLData.h"
 #import "LAListCell.h"
 #import "GDataXMLElement+List.h"
 #import "NSString+URL.h"
 #import "LAListCellBgView.h"
+#import "LAArticleViewController.h"
 
 @interface LAListViewController ()
 
@@ -20,7 +21,7 @@
 
 @implementation LAListViewController
 
-@synthesize list = _list;
+@synthesize xmlData = _xmlData;
 
 - (id)initWithStyle:(UITableViewStyle)style url:(NSString *)urlStr
 {
@@ -29,8 +30,8 @@
         // custom style
         //[self.tableView setSeparatorColor:[UIColor clearColor]];
         
-        self.list = [[LAList alloc] initWithURL:urlStr];
-        [_list setDelegate:self];
+        self.xmlData = [[LAXMLData alloc] initWithURL:urlStr type:XMLDataType_List];
+        [_xmlData setDelegate:self];
     }
     return self;
 }
@@ -66,7 +67,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_list.listData count];
+    return [_xmlData.listData count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -78,7 +79,7 @@
         cell = [[LAListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    GDataXMLElement *currentElem = [_list.listData objectAtIndex:indexPath.row];
+    GDataXMLElement *currentElem = [_xmlData.listData objectAtIndex:indexPath.row];
     
     [cell.textLabel setText:currentElem.nodeName];
     
@@ -86,7 +87,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    GDataXMLElement *currentElem = (GDataXMLElement *)[_list.listData objectAtIndex:indexPath.row];
+    GDataXMLElement *currentElem = (GDataXMLElement *)[_xmlData.listData objectAtIndex:indexPath.row];
     
     CGSize size = [currentElem.nodeName sizeWithFont:[UIFont systemFontOfSize:20.0f] forWidth:280 lineBreakMode:UILineBreakModeWordWrap];
     
@@ -103,22 +104,36 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GDataXMLElement *currentElem = (GDataXMLElement *)[_list.listData objectAtIndex:indexPath.row];
+    GDataXMLElement *currentElem = (GDataXMLElement *)[_xmlData.listData objectAtIndex:indexPath.row];
     
     NSString *url = [NSString URLWithPath:currentElem.pageURL];
     
     DLog(@"%@", currentElem.pageURL);
     
-    LAListViewController *listVC = [[LAListViewController alloc] initWithStyle:UITableViewStylePlain url:url];
-    [listVC setTitle:currentElem.nodeName];
+    NSString *dir = [[currentElem.pageURL componentsSeparatedByString:@"/"] objectAtIndex:0];
     
-    [self.navigationController pushViewController:listVC animated:YES];
+    if ([dir isEqualToString:@"a"]) {
+        // this is article
+        LAArticleViewController *articleVC = [[LAArticleViewController alloc] initWithURL:url];
+        [articleVC setTitle:@"新闻"];
+        
+        [self.navigationController pushViewController:articleVC animated:YES];
+    }
+    else {
+        // this is category
+        LAListViewController *listVC = [[LAListViewController alloc] initWithStyle:UITableViewStylePlain url:url];
+        [listVC setTitle:currentElem.nodeName];
+        
+        [self.navigationController pushViewController:listVC animated:YES];
+    }
+    
+    
     
 }
 
-#pragma mark - LAListDelegate
+#pragma mark - LAXMLDataDelegate
 
-- (void)listDidFinishLoading:(LAList *)list {
+- (void)listDidFinishLoading:(LAXMLData *)list {
     // not a good 
     [self.tableView reloadData];
 }
