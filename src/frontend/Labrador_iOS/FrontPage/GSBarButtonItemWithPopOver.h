@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GSPopOverView.h"
 
-@interface GSBarButtonItemWithPopOver : UIBarButtonItem
+@interface GSBarButtonItemWithPopOver : UIBarButtonItem <GSPopOverViewDelegate>
 
 @property (strong, nonatomic) UIView *popOverView;
 @property (readonly, nonatomic) BOOL popOverShowUp;
 
 - (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style popUpBounds:(CGRect)bounds;
+
+- (void)hidePopOver;
 
 @end

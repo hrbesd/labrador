@@ -14,7 +14,7 @@
 #import "LAHeadlinesView.h"
 #import "LAHighlightsView.h"
 #import "LogTools.h"
-#import "LAList.h"
+#import "LAXMLData.h"
 #import "GDataXMLElement+List.h"
 #import "NSString+URL.h"
 #import "LAListViewController.h"
@@ -42,7 +42,7 @@
     self = [super init];
     if (self) {
         
-        self.list = [[LAList alloc] initWithURL:urlStr];
+        self.list = [[LAXMLData alloc] initWithURL:urlStr type:XMLDataType_List];
         [_list setDelegate:self];
         
         [self loadItems];
@@ -108,7 +108,7 @@
 
 #pragma mark - LAListDelegate
 
-- (void)listDidFinishLoading:(LAList *)list {
+- (void)listDidFinishLoading:(LAXMLData *)list {
     // not a good 
     [self loadItems];
     

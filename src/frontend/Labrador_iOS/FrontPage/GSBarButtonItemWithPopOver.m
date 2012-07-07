@@ -29,9 +29,11 @@
     if (self) {
         self.bounds = bounds;
         
-        self.popOverView = [[GSPopOverView alloc] initAtPoint:CGPointZero bounds:bounds];
+        self.popOverView = [[GSPopOverView alloc] initWithBounds:bounds];
+        [(GSPopOverView *)_popOverView setDelegate:self];
         
         self.popOverShowUp = NO;
+        
         
         
     }
@@ -41,8 +43,7 @@
 - (void)barButtonTouchUpInside:(id)sender event:(UIEvent *)event{
     
     if (_popOverShowUp) {
-        [_popOverView removeFromSuperview];
-        self.popOverShowUp = NO;
+        [self hidePopOver];
     }
     else {
         UIView *view = [[[event allTouches] anyObject] view];
@@ -54,6 +55,9 @@
         
         UIWindow *appWindow = [[UIApplication sharedApplication] keyWindow];
         
+        //[appWindow.layer setBorderColor:[[UIColor redColor] CGColor]];
+        //[appWindow.layer setBorderWidth:2];
+        
         CGPoint convertedPoint = [view convertPoint:point toView:appWindow];
         
         [(GSPopOverView *)_popOverView setPoint:convertedPoint];
@@ -61,7 +65,20 @@
         [appWindow addSubview:_popOverView];
         
         self.popOverShowUp = YES;
+        
+        //UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"出现浮动窗口");
     }
+}
+
+- (void)hidePopOver {
+    [_popOverView removeFromSuperview];
+    self.popOverShowUp = NO;
+}
+
+#pragma mark - GSPopOverView Delegate
+
+- (void)popOverViewTouchOutside:(GSPopOverView *)popOverView {
+    [self hidePopOver];
 }
 
 @end
