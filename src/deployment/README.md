@@ -43,7 +43,7 @@
 	* 向 Update Server 发送更新
 	
 - 如何建立
-	* 运营方手工建立
+	* 开发方手工建立
 	
 - 使用者
 	* 开发方
@@ -75,7 +75,7 @@
 	* 测试主管发布更新
 
 - 如何建立
-	* 运营方手工建立
+	* 开发方通过[脚本](./admin/setup/updater/README.md)建立
 	
 - 使用者
 	* Test Server 和 Production Server 的脚本
@@ -108,7 +108,7 @@
 	* 模拟运营
 
 - 如何建立
-	* 系统管理员通过安装脚本建立（参考相关文档）
+	* 系统管理员通过[安装脚本](./admin/setup/tester/README.md)建立（参考相关文档）
 	* 从 Update Server 获得 ssh key-pair
 	
 - 使用者
@@ -158,7 +158,7 @@
 - 不可以做什么?
 	* 扩大日常用户的权限
 
-**注意** 此类型服务器只能从 `Stable` 通道获取更新.
+**注意** 此类型服务器默认从 `Stable` 通道获取更新.
 
 ### 备注
 
@@ -171,4 +171,5 @@
 ## 参考
 
 - [Console 文档](./admin/console/README.md)
-- [Setup 文档](./admin/setup/README.md)
+- [Updater Setup 文档](./admin/setup/updater/README.md)
+- [Tester Setup 文档](./admin/setup/tester/README.md)
