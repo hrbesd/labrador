@@ -19,7 +19,7 @@ while true; do
 	test -z "$SELF" && break
 done
 
-source $DIR/../common/launch.sh
+source $DIR/../../common/launch.sh
 
 if test -z "$*"; then
 	SITES=`ls $LABRADOR_SITES`
