@@ -26,7 +26,7 @@ append_console_log()
 log() { printf "$*\n"; append_console_log "$*"}
 log_item { printf "\t * $*\n"; append_console_log " * $*"}
 log_error { printf "Error: $*\n" append_console_log "[Error]\t$*"}
-fail { printf "\nError: $*\n" >&2; ; append_console_log "$*"; exit 1 }
+fail { printf "\nError: $*\n" >&2; append_console_log "$*"; exit 1 }
 
 test -z "$EDITOR" && export EDITOR=nano # Or vi?
 
