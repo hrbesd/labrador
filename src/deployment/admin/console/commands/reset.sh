@@ -1,4 +1,4 @@
-fail_unless_in_repo
+locate_site
 # Backup site config
 cp $SITE_ROOT/config/site.conf /tmp/
 rm -rf $SITE_ROOT

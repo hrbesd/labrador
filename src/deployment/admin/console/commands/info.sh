@@ -1,4 +1,4 @@
-fail_unless_in_repo
+locate_site
 
 test -f $SITE_ROOT/SITE_DOWN && printf "\nSite is down.\n"
 printf "\nWorkers:\n"
