@@ -1,6 +1,3 @@
-SITE_ROOT=`get_siteroot`
-if test -d $LABRADOR_SITES/$1; then
-	rm $LABRADOR_SITES/$1/SITE_DOWN
-else
-	echo "Error: Site not found." >&2
-fi
+fail_unless_in_repo
+test -f $SITE_ROOT/SITE_DOWN && rm $SITE_ROOT/SITE_DOWN
+log "Update of site resumed."
