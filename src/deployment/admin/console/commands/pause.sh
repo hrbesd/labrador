@@ -1,6 +1,3 @@
-SITE_ROOT=`get_siteroot`
-if test -d $LABRADOR_SITES/$1; then
-	touch $LABRADOR_SITES/$1/SITE_DOWN
-else
-	echo "Error: Site not found." >&2
-fi
+fail_unless_in_repo
+touch $SITE_ROOT/SITE_DOWN
+log "Update of site paused."
