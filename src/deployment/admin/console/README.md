@@ -148,11 +148,11 @@ lab stop
 #### 示例
 
 ```
-lab backup
+lab backup <Dir>
 ```
 
 ```
-lab restore harbin
+lab restore harbin <Archive>
 ```
 
 ### 手动更新网站
@@ -174,6 +174,55 @@ lab restore harbin
 
 ```
 lab update
+```
+
+### 查看日志
+
+#### 子命令
+
+`log`
+
+#### 输入
+
+- `--console` 查看控制台的日志
+- `--scheduler` `--daemon` 查看自动更新的日志
+- 网站 ID
+
+#### 行为
+
+- 查看某个系统模块或网站的日志
+- 无参数时查看所有系统日志的最近20条日志
+- 使用网站名做参数时查看网站所有模块的最近20条日志
+
+#### 示例
+
+```
+lab log --console
+```
+
+```
+lab log harbin
+```
+
+### 编辑网站配置
+
+#### 子命令
+
+```
+config
+```
+
+#### 输入
+
+- `--global` 编辑全局配置
+- `ID` 网站目录之内可以省略，字符串，如`harbin`
+
+#### 显示网站列表
+
+#### 子命令
+
+```
+list
 ```
 
 ### （开发者）运行单独功能模块

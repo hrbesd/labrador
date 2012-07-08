@@ -17,21 +17,33 @@ get_siteroot()
 	test `pwd` != '/' && printf `pwd`
 }
 
-log() { printf "$*\n" }
-log_item { printf "\t * $*\n" }
-log_error { printf "Error: $*\n" }
-fail { printf "\nError: $*\n" >&2; exit 1 }
-
-SITE_ROOT=`get_siteroot`
-SITE_ID=`basename $SITE_ROOT`
-
-fail_unless_in_repo()
+CONSOLE_LOG=$LABRADOR_LOG/console.log
+append_console_log()
 {
-	test -z "$SITE_ROOT" && fail "Not in a site repository."
+	printf "`date '+%Y-%m-%d %H:%M:%S'`\t$*\n" >> $CONSOLE_LOG
 }
 
-fail_unless_site_exists()
+log() { printf "$*\n"; append_console_log "$*"}
+log_item { printf "\t * $*\n"; append_console_log " * $*"}
+log_error { printf "Error: $*\n" append_console_log "[Error]\t$*"}
+fail { printf "\nError: $*\n" >&2; ; append_console_log "$*"; exit 1 }
+
+test -z "$EDITOR" && export EDITOR=nano # Or vi?
+
+site_exists()
 {
-	local site_id=$1
-	test -d $LABRADOR_SITES/$site_id && test -f $LABRADOR_SITES/$site_id/.site_root || fail "Site not exists."
+	test -d $LABRADOR_SITES/$1 && test -f $LABRADOR_SITES/$1/.site_root
+}
+
+SITE_ID=$1
+locate_site()
+{
+	if test -n "$SITE_ID" && site_exists $SITE_ID; then
+		export SITE_ROOT=$LABRADOR_SITES/$SITE_ID
+	else
+		export SITE_ROOT=`get_siteroot`
+		test -z "$SITE_ROOT" && fail "Not in a site repository."
+		export SITE_ID=`basename $SITE_ROOT`
+	fi
+	export SITE_CONF=$SITE_ROOT/config/site.conf
 }
