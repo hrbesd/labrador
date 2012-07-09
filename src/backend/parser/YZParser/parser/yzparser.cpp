@@ -1,9 +1,46 @@
 #include "yzparser.h"
+#include <QCoreApplication>
 
 YZParser::YZParser(QObject *parent) :
     QObject(parent)
 {
-    QString fileName = "test.js";
+    QStringList parametersList = QCoreApplication::arguments();
+    foreach(QString parameter,parametersList)
+    {
+        QStringList tmpList = parameter.split('=');
+        m_paramenters.insert(tmpList[0],tmpList.size()>1?tmpList[1]:QString(""));
+    }
+
+    if(m_paramenters.contains("--version"))
+    {
+        std::cout<<"Labrador Parser Version "<<BASE_VERSION<<endl;
+    }
+    if(m_paramenters.contains("--log-file"))
+    {
+        YZLogger::logFilePath = m_paramenters.value("--log-file");
+    }
+    if(!m_paramenters.contains("--rule-dir"))
+    {
+        std::cerr<<"rule dir can't be empty, parser will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--worker-dir"))
+    {
+        std::cerr<<"worker dir can't be empty, parser will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--shared-dir"))
+    {
+        std::cerr<<"shared dir can't be empty, parser will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--source-dir"))
+    {
+        std::cerr<<"source dir can't be empty, parser will exit now!"<<endl;
+        exit(0);
+    }
+    QDir dir(m_paramenters.value("--rule-dir"));
+    QString fileName = dir.absolutePath()+"/"+"parser_config.js";
     QFile scriptFile(fileName);
     if (!scriptFile.open(QIODevice::ReadOnly))
     {
@@ -14,14 +51,14 @@ YZParser::YZParser(QObject *parent) :
     m_engine.evaluate(contents);
     m_globalValue = m_engine.globalObject();
     m_parserValue = m_globalValue.property("parseArticle");
-    QDir dir("webpage/spider");
-    if(!dir.exists())
+    QDir sourceDir(m_paramenters.value("--source-dir"));
+    if(!sourceDir.exists())
     {
-        qWarning()<<"can't find parse folder";
-        return;
+        qWarning()<<"can't open parse source folder";
+        exit(0);
     }
-    dir.mkpath("../parser");
-    parseFolder("webpage/spider");
+    parseFolder(m_paramenters.value("--source-dir"));
+    qApp->exit(0);
 }
 
 int YZParser::parseFile(QString fileName)
@@ -51,11 +88,11 @@ int YZParser::parseFile(QString fileName)
 
     parseImageFromBody(articleInterface.bodyData,QString(baseUrl),articleInterface);
     QFileInfo fileInfo(file);
-    QDir fileDir = fileInfo.absoluteDir();
-    QString newPath = fileDir.absolutePath().replace("/spider/","/parser/");
-    fileDir.mkpath(newPath);
-    fileDir.cd(newPath);
-    YZXmlWriter::writeArticleToXml(articleInterface,fileDir.absolutePath()+"/"+fileInfo.baseName()+".xml");
+    QDir fileDir;
+    fileDir.mkpath(m_paramenters.value("--worker-dir"));
+    fileDir.cd(m_paramenters.value("--worker-dir"));
+    fileDir.mkpath(fileDir.absolutePath() + "/"+fileInfo.baseName().left(2));
+    YZXmlWriter::writeArticleToXml(articleInterface,fileDir.absolutePath()+"/"+fileInfo.baseName().left(2)+"/"+fileInfo.baseName()+".xml");
     static int webpageCount = 0;
     qDebug()<<(webpageCount++)<<" done";
     file.close();

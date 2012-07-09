@@ -10,12 +10,21 @@
 #import "BHTabsViewController.h"
 #import "BHTabStyle.h"
 #import "LACategoryView.h"
+#import "LACategoryItem.h"
 #import "LAHeadlinesView.h"
 #import "LAHighlightsView.h"
 #import "LogTools.h"
+#import "LAXMLData.h"
+#import "GDataXMLElement+List.h"
+#import "NSString+URL.h"
+#import "LAListViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LAHomePageViewController ()
+
+@property (strong, nonatomic) NSMutableArray *items;
+
+- (void)loadItems;
 
 @end
 
@@ -25,15 +34,23 @@
 @synthesize categoryView = _categoryView;
 @synthesize headlinesView = _headlinesView;
 @synthesize highlightsView = _highlightsView;
+@synthesize list = _list;
 
-- (id)init {
+@synthesize items = _items;
+
+- (id)initWithURL:(NSString *)urlStr {
     self = [super init];
     if (self) {
-        NSArray *testItems = [NSArray arrayWithObjects:@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", nil];
+        
+        self.list = [[LAXMLData alloc] initWithURL:urlStr type:XMLDataType_List];
+        [_list setDelegate:self];
+        
+        [self loadItems];
         
         self.headlinesView = [[LAHeadlinesView alloc] initWithFrame:CGRectZero];
         self.highlightsView = [[LAHighlightsView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
-        self.categoryView = [[LACategoryView alloc] initWithItems:testItems];
+        self.categoryView = [[LACategoryView alloc] initWithItems:_items];
+        [_categoryView setDelegate:self];
         
         NSArray *tabViews = [NSArray arrayWithObjects:_categoryView, _headlinesView, nil];
         NSArray *tabTitles = [NSArray arrayWithObjects:@"分类", @"头条", nil];
@@ -45,25 +62,57 @@
         
         [self.view addSubview:_highlightsView];
         [self.view addSubview:_tabVC.view];
+        
+        
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+- (id)init {
+    return [self initWithURL:nil];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+- (void)loadItems {
+    NSMutableArray *itemsArr = [NSMutableArray arrayWithCapacity:[_list.listData count]];
+    
+    for (GDataXMLElement *xmlElem in _list.listData) {
+        LACategoryItem *item = [[LACategoryItem alloc] init];
+        item.text = xmlElem.nodeName;
+        [itemsArr addObject:item];
+    }
+    
+    self.items = itemsArr;
+    
+    [_categoryView updateWithItems:_items];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+#pragma mark - LACategoryView Delegate
+
+- (void)categoryView:(LACategoryView *)categoryView selectedItemAtIndex:(NSUInteger)index {
+    DLog(@"%d selected", index);
+    GDataXMLElement *currentElem = (GDataXMLElement *)[_list.listData objectAtIndex:index];
+    
+    NSString *url = [NSString URLWithPath:currentElem.pageURL];
+    
+    LAListViewController *listVC = [[LAListViewController alloc] initWithStyle:UITableViewStylePlain url:url];
+    [listVC setTitle:currentElem.nodeName];
+    
+    [self.navigationController pushViewController:listVC animated:YES];
+    
+}
+
+#pragma mark - LAListDelegate
+
+- (void)listDidFinishLoading:(LAXMLData *)list {
+    // not a good 
+    [self loadItems];
+    
+}
+
 
 @end

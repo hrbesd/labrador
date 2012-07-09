@@ -27,6 +27,12 @@
  */
 + (SDImageCache *)sharedImageCache;
 
+// added by G
+// this use document directory and does not clear the cache
++ (SDImageCache *)sharedImageStorage;
+
+- (id)initStorage;
+
 /**
  * Store an image into memory and disk cache at the given key.
  *

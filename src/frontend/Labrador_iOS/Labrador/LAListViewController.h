@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LAList.h"
+#import "LAXMLData.h"
 
-@interface LAListViewController : UITableViewController  <LAListDelegate>
+@interface LAListViewController : UITableViewController  <LAXMLDataDelegate>
 
-@property (strong, nonatomic) LAList *list;
+@property (strong, nonatomic) LAXMLData *xmlData;
 
 - (id)initWithStyle:(UITableViewStyle)style url:(NSString *)urlStr;
 

@@ -11,13 +11,16 @@
 #include <QSet>
 #include <QtScript>
 #include "yzlogger.h"
+#include <iostream>
 #include <QUrl>
 #include <QXmlStreamReader>
 #include <QDateTime>
 #include <QLinkedList>
 #include "DataInterface.h"
 #include <QMap>
+#include "version.h"
 #include "core/xmlWriter/yzxmlwriter.h"
+using namespace std;
 /**************************************************
  * download webpage in whitelist and convert text codec
  * to UTF-8
@@ -89,6 +92,8 @@ private:
     QScriptEngine m_engine;
     QScriptValue m_globalValue;
     QScriptValue m_spiderValue;
+
+    QMap<QString, QString> m_paramenters;
 };
 
 #endif // YZSPIDER_H

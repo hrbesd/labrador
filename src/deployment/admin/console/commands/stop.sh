@@ -9,3 +9,5 @@ sed -e '/'$SCRIPT_NAME'/d' -i /tmp/mycron
 #install new cron file
 crontab /tmp/mycron
 rm /tmp/mycron
+
+log "Service stopped."

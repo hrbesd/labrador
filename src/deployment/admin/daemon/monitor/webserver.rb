@@ -2,7 +2,7 @@
 
 require 'webrick'
 include WEBrick
-require 'commander'
+require '../common/commander'
 
 s = HTTPServer.new( :Port => 9000 )
 
