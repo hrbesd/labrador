@@ -17,9 +17,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     parser/yzparser.cpp \
-    xmlWriter/yzxmlwriter.cpp
+    xmlWriter/yzxmlwriter.cpp \
+    yzlogger.cpp
 
 HEADERS += \
     parser/yzparser.h \
     DataInterface.h \
-    xmlWriter/yzxmlwriter.h
+    xmlWriter/yzxmlwriter.h \
+    version.h \
+    yzlogger.h

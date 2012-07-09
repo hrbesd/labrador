@@ -11,7 +11,8 @@
 @implementation NSString (URL)
 
 + (NSString *)URLWithPath:(NSString *)path {
-    NSString *finalURL = [NSString stringWithFormat:@"http://harbin-test.yunmd.info/%@", path];
+    //NSString *finalURL = [NSString stringWithFormat:@"http://harbin-test.yunmd.info/%@", path];
+    NSString *finalURL = [NSString stringWithFormat:@"http://219.217.227.65/yunmd/gtest/nav/%@", path];
     //NSString *finalURL = [NSString stringWithFormat:@"http://localhost/nav/%@", path];
     return finalURL;
 }

@@ -8,6 +8,13 @@
 
 #import "AppDelegate.h"
 #import "LAHomePageViewController.h"
+#import "UIImageView+WebStorage.h"
+#import "UIButton+WebStorage.h"
+#import "NSString+URL.h"
+#import "LAListCellBgView.h"
+#import "GSPopOverView.h"
+#import "GSBarButtonItemWithPopOver.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AppDelegate
 
@@ -18,14 +25,35 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    LAHomePageViewController *homePageVC = [[LAHomePageViewController alloc] init];
+    LAHomePageViewController *homePageVC = [[LAHomePageViewController alloc] initWithURL:[NSString URLWithPath:@"index.xml"]];
+    [homePageVC setTitle:@"首页"];
     self.navController = [[UINavigationController alloc] initWithRootViewController:homePageVC];
+    //[_navController.navigationBar setTintColor:[UIColor blackColor]];
+    //[_navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-bar-bg-silver"] forBarMetrics:UIBarMetricsDefault];
     
+    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], UITextAttributeTextColor, [UIColor whiteColor], UITextAttributeTextShadowColor, nil];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bar-bg-silver"] forBarMetrics:UIBarMetricsDefault];
+    
+    [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithRed:228.0 / 255.0 green:228.0 / 255.0 blue:228.0 / 255.0 alpha:1.0]];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:UIControlStateHighlighted];
     
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window setRootViewController:_navController];
     [self.window makeKeyAndVisible];
+    
+    // TEST CODE
+    //LAListCellBgView *bgView = [[LAListCellBgView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) color:[UIColor colorWithRed:0 / 255.0 green:200 / 255.0 blue:200 / 255.0 alpha:1.0]];
+    //[self.window addSubview:bgView];
+    
+    //GSPopOverView *pop = [[GSPopOverView alloc] initWithFrame:CGRectMake(0, 20, 100, 100)];
+    //[self.window addSubview:pop];
+    
+    
+    // TEST END
     return YES;
 }
 

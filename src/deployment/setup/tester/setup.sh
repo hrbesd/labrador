@@ -21,7 +21,7 @@ UPDATER_ETC=etc
 UPDATER_BUTTS=butts
 UPDATER_SITES=sites
 UPDATER_LOG=log
-UPDATER_HOST=192.168.1.241 # You have to verify this!
+UPDATER_HOST=219.217.227.82 # You have to verify this!
 
 LABRADOR_ROOT=~/labrador
 LABRADOR_BIN=$LABRADOR/$UPDATER_BIN
@@ -30,7 +30,7 @@ LABRADOR_SITES=$LABRADOR/$UPDATER_ROOT
 LABRADOR_BUTTS=$LABRADOR/$UPDATER_BUTTS
 LABRADOR_LOG=$LABRADOR/$UPDATER_LOG
 
-# Resersed
+UPDATE_CHANNEL_FILE=~/.labrador-update-channel
 # Resersed
 # Resersed
 # Resersed
@@ -58,6 +58,8 @@ LABRADOR_LOG=$LABRADOR/$UPDATER_LOG
 UPDATER_URL=$UPDATER_LOGIN@$UPDATER_HOST:$UPDATER_ROOT
 #DIR=`dirname $0`
 SSHD_CONFIG_FILE=/etc/ssh/sshd_config
+UPDATE_CHANNEL="stable"
+test -f $UPDATE_CHANNEL_FILE && UPDATE_CHANNEL=`cat $UPDATE_CHANNEL_FILE`
 
 usage()
 {
@@ -77,7 +79,10 @@ Options
 	--sync-bin		Sync executable programs
 	--sync-etc		Sync settings
 	--modify-env	Modify environment variables
-	
+	--go-stable		Update through the stable channel
+	--go-unstable	Update through the unstable channel
+	--go-dev		Update through the dev channel
+
 	Root only:
 
 	--config-sshd	Modify the config file of sshd
@@ -100,16 +105,16 @@ root_or_fail()
 {
 	# Check if current user is root
 	if [[ $EUID -ne 0 ]]; then
+		printf "\nYou must be root to use option: $*\n"; exit 1 }
 	fi
-	printf "\nYou must be root to use option: $*\n"; exit 1 }
 }
 
 user_or_fail()
 {
 	# Check if current user is labrador
 	if [[ $EUID -ne 1111 ]]; then
+		printf "\nYou must be user labrador to use option: $*\n"; exit 1 }
 	fi
-	printf "\nYou must be user labrador to use option: $*\n"; exit 1 }
 }
 
 sshd_config_append()
@@ -130,7 +135,7 @@ add_sshd_port()
 		else
 			log "Port $i on remote server is already open."
 		fi
-	done		
+	done
 }
 
 add_ssh_option()
@@ -139,7 +144,6 @@ add_ssh_option()
 	sshd_config_append "$1 $2"
 	log "Updated sshd_config with option: $1 $2."
 	SSHD_CHANGED="YES"
-	echo "<= leaving add_ssh_option. status = $?" >>/root/startup.log
 }
 
 check_ssh_server()
@@ -197,6 +201,11 @@ check_rsync_version()
 	test -f /var/run/rsync.pid || log_item "\t but service not started, which is acceptable."
 }
 
+set_update_channel()
+{
+	echo "$*" >$UPDATE_CHANNEL_FILE
+}
+
 log "Begin setting up ..."
 
 # Parse CLI arguments.
@@ -216,22 +225,22 @@ do
 			check_rsync_version || failed=0
 			test $failed -eq 0 && log_error "Not all tests passed." || log_item "All tests passed. :)"
 			;;
-			
+
 		--sync-etc)
 			user_or_fail "$token"
 			log "\nUpdating settings ..."
-			rsync -av --delete --copy-links $DEV_SERVER_URL/etc/ $LABRADOR_ETC/
+			rsync -av --delete --copy-links $DEV_SERVER_URL/$UPDATE_CHANNEL/etc/ $LABRADOR_ETC/
 			test $? -eq 0 && log_item "Sucessfully done." || log_error "Failed!"
 			;;
-			
+
 		--sync-bin)
 			user_or_fail "$token"
 			log "\nUpdating programs ..."
-			rsync -av --delete --copy-links $UPDATER_URL/$UPDATER_BUTTS/ $LABRADOR_BUTTS/
-			test $? -eq 0 && rsync -av --delete $UPDATER_URL/$UPDATER_BUTTS/ $LABRADOR_BIN/
+			rsync -av --delete --copy-links $UPDATER_URL/$UPDATE_CHANNEL/$UPDATER_BUTTS/ $LABRADOR_BUTTS/
+			test $? -eq 0 && rsync -av --delete $UPDATER_URL/$UPDATE_CHANNEL/$UPDATER_BIN/ $LABRADOR_BIN/
 			test $? -eq 0 && log_item "Sucessfully done." || log_error "Update failed!"
 			;;
-			
+
 		--make-dirs)
 			user_or_fail "$token"
 			false
@@ -240,7 +249,25 @@ do
 			test -d $LABRADOR_SITES || mkdir $LABRADOR_SITES
 			test $? -eq 0 && log "Directories created."
 			;;
-			
+
+		--go-stable)
+			user_or_fail "$token"
+			UPDATE_CHANNEL="stable"
+			set_update_channel $UPDATE_CHANNEL
+			;;
+
+		--go-unstable)
+			user_or_fail "$token"
+			UPDATE_CHANNEL="unstable"
+			set_update_channel $UPDATE_CHANNEL
+			;;
+
+		--go-dev)
+			user_or_fail "$token"
+			UPDATE_CHANNEL="dev"
+			set_update_channel $UPDATE_CHANNEL
+			;;
+
 		--modify-env)
 			user_or_fail "$token"
 			# Ensure bin inside path
@@ -271,7 +298,7 @@ do
 				log_item "Done."
 			fi
 			;;
-			
+
 		--create-user)
 			root_or_fail "$token"
 			log "Creating user ..."
@@ -288,7 +315,7 @@ do
 			cp $0 /home/labrador/
 			log_item "Done."
 			;;
-			
+
 		--install-keys)
 			root_or_fail "$token"
 			# Use the same key-par as the updater
@@ -297,7 +324,7 @@ do
 			# Disable password login
 			/usr/bin/passwd -d labrador
 			;;
-			
+
 		help|usage|-h|--help|--usage)
 			usage
 			exit 0
