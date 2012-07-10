@@ -4,7 +4,7 @@ USERNAME="updater"
 SSH_KEY=~/.ssh/esd_rsa
 ADMIN_PUB_KEY=~/.ssh/labrador_rsa.pub
 
-test -n `getent passwd $USERNAME` && printf "User already exists.\n" && exit 1
+test -n "`getent passwd $USERNAME`" && printf "User already exists.\n" && exit 1
 test -f $SSH_KEY || printf "SSH key $SSH_KEY not found.\n" && exit 1
 test -f $ADMIN_PUB_KEY || printf "SSH public key $ADMIN_PUB_KEY not found.\n" && exit 1
 
