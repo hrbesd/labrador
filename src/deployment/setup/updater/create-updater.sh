@@ -14,6 +14,7 @@ useradd -g users --create-home $USERNAME
 SSH_DIR=/home/$USERNAME/.ssh
 
 mkdir $SSH_DIR
+chown updater $SSH_DIR
 chmod 700 $SSH_DIR
 cp $SSH_KEY $SSH_DIR
 cp $SSH_KEY.pub $SSH_DIR
@@ -21,6 +22,7 @@ chmod 600 $SSH_DIR/`basename $SSH_KEY`
 chmod 600 $SSH_DIR/`basename $SSH_KEY`".pub"
 cat $SSH_KEY".pub" > $SSH_DIR/authorized_keys
 cat $ADMIN_PUB_KEY >> $SSH_DIR/authorized_keys
+chown updater $SSH_DIR/*
 
 echo "User 'updater' created."
 echo "To set the password for this user now, use 'sudo passwd updater'."
