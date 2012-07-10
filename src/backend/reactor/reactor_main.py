@@ -8,7 +8,7 @@ from executor import Executor
 from rule_item import *
 import re, sys, os, codecs, html
 
-VERSION_NAME = "0.3.1"
+VERSION_NAME = "0.3.1.CLOUD"
 
 def getVersionStr():
 	return 'Labrador Reactor Version %s' % VERSION_NAME
