@@ -59,7 +59,7 @@ class RuleParser:
 			for act in item.action:
 				newRule.addAction(list(act))
 			if len(item.log) > 1:
-				newRule.setLog(item.log[0], ' '.join(item.log[1:-1]))
+				newRule.setLog(item.log[0], item.log[1:])
 			rules.append(newRule)
 
 		return rules

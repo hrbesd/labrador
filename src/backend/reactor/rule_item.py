@@ -6,7 +6,7 @@ class RuleItem:
 		self.condition = []
 		self.action = []
 		self.logLevel = ''
-		self.logMsg = ''
+		self.logMsg = []
 
 	def setTarget(self, target):
 		self.target = target
@@ -22,4 +22,4 @@ class RuleItem:
 		self.logMsg = msg
 
 	def __str__(self):
-		return self.target + "  " + str(self.condition) + "   " + str(self.action) + "  " + self.logLevel + "  " + self.logMsg
+		return self.target + "  " + str(self.condition) + "   " + str(self.action) + "  " + self.logLevel + "  " + ' '.join(self.logMsg)
