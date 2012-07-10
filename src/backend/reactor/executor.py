@@ -66,8 +66,8 @@ class Executor:
 				sub_element.replaceWith(target_tag)
 		else: # attribute
 			element, attr = parts
-			if element.has_key(attr):
-				element[attr] = ''.join(content)
+			if target.has_key(attr):
+				target[attr] = ''.join(content)
 
 	def set(self, target, args):
 		targetElement, attr, content = args
@@ -76,6 +76,12 @@ class Executor:
 			value = value[:-1]
 			getattr(Executor, methodName)
 			content = methodName(self, value)
+		elif content.find('[') != -1:
+			attrName = content[1:-1]
+			if target.has_key(attrName):
+				content = target[attrName]
+			else:
+				content = ''
 
 		target[attr] = content
 
