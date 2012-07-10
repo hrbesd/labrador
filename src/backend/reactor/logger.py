@@ -32,4 +32,4 @@ class Logger:
 		self.flushCurrentLog()
 
 	def formatLog(self, time, level, column, message):
-		return '[%s] [%s] [%s] [%s]' % (time, level, column, message)
+		return '[%s] [%s] [%s] [%s]' % (time, level, column, ' '.join(message))

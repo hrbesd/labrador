@@ -5,8 +5,8 @@ import logger
 from config_parser import ConfigParser
 
 class Executor:
-	def __init__(self):
-		self.log = logger.Logger('reactor_log.txt')
+	def __init__(self, logPath):
+		self.log = logger.Logger(logPath)
 
 	# condition
 	def missing(self, target, args):
@@ -55,8 +55,9 @@ class Executor:
 				target[attr] = alt_dict[targetHash]
 
 
-	def replace(self, target, content): 
-		parts = target.split(' ')
+	def replace(self, target, args):
+		targetElement, content = args 
+		parts = targetElement.split(' ')
 		if len(parts) == 1: # element
 			for sub_element in soup.findAll(target):
 				contents = sub_element.contents
@@ -69,7 +70,7 @@ class Executor:
 				element[attr] = ''.join(content)
 
 	def set(self, target, args):
-		attr, content = args
+		targetElement, attr, content = args
 		if content.find('(') != -1:
 			methodName, value = content.split('(')
 			value = value[:-1]
