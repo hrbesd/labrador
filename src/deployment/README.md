@@ -168,6 +168,13 @@
 - Update Server
 - Test Server
 
+## 部署顺序
+
+1. Developerment Server
+2. Update Server
+3. Test Server
+4. Production Server
+
 ## 参考
 
 - [Console 文档](./admin/console/README.md)
