@@ -1,4 +1,4 @@
-(( ! $(id -u) = 0 )) && echo "Root only. Switch to root or use 'sudo'." && exit 1
+test `id -u` -ne 0 && echo "Root only. Switch to root or use 'sudo'." && exit 1
 
 USERNAME="updater"
 SSH_KEY=~/.ssh/esd_rsa
