@@ -12,9 +12,10 @@ class RuleParser:
 	endConfig = Suppress('===')
 	startArg = Suppress('(')
 	endArg = Suppress(')')
+	argSeperator = Suppress(',')
 
 	# 字母表
-	legalPathDict = alphanums + '_./\\:"'
+	legalPathDict = alphanums + '_./\\:"[]'
 	htmlContent = alphanums + '_'
 
 	def __init__(self):
@@ -24,7 +25,8 @@ class RuleParser:
 
 		opName = Word(self.htmlContent)
 		arg = Word(self.legalPathDict)
-		actExpr = opName + Optional(self.startArg + arg + self.endArg)
+		args = arg + ZeroOrMore(self.argSeperator + arg)
+		actExpr = opName + Optional(self.startArg + args + self.endArg)
 
 		conExpr = Group(actExpr)
 		condition = self.conOperator + conExpr
