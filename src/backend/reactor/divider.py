@@ -3,6 +3,7 @@
 from tts_client import TTSClient
 
 class Divider:
-	SEPERATOR_CANDIDATE = ['.', '。', ',', '，', '!', '！', '?' , '？', '……']
+	SEPERATOR_CANDIDATE = ['。', ',', '，', '!', '！', '?' , '？', '……']
 
 	def __init__(self):
+		
