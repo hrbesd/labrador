@@ -1,6 +1,6 @@
 # -*- encoding:utf-8 -*-
 # 调用TTS服务，并获取生成的mp3的结果
-import httplib
+import urllib2, base64
 from xml.dom.minidom import parseString
 
 class TTSClient:
@@ -15,38 +15,30 @@ class TTSClient:
 
 	def sendJobRequest(self, text):
 		conDict = self.configDict
-		jobUrl = conDict['jobRequestTemplate'] % (conDict['ttsKey'], text)
-		conn = httplib.HTTPConnection(conDict['serverUrl'])
-		conn.request('GET', jobUrl)
-		jobResult = conn.getresponse().read()
-		conn.close()
+		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text))
+		jobResult = urllib2.urlopen(urlPath).read()
 		dom = parseString(jobResult)
 		jobList = dom.getElementsByTagName('jobID')
 		jobID = ""
 		for jobNode in jobList:
 			xmlData = jobNode.toxml()
 			jobID = xmlData[7:-8]
-		print jobID
 		return jobID
 
 	def getAudioPath(self, jobID):
 		conDict = self.configDict
-		requestUrl = conDict['audioPath'] % jobID
-		conn = httplib.HTTPConnection(conDict['serverUrl'])
-		conn.request('GET', requestUrl)
-		audioResult = conn.getresponse().read()
-		conn.close()
+		requestUrl = conDict['audioPath'] % (conDict['serverUrl'], jobID)
+		audioResult = urllib2.urlopen(requestUrl).read()
 		dom = parseString(audioResult)
 		urlList = dom.getElementsByTagName('url')
 		for urlNode in urlList:
 			xmlData = urlNode.toxml()
 			audioPath = xmlData[5:-6]
-			print audioPath
 			return audioPath
 
 def main():
 	client = TTSClient('reactor_config.config')
-	jobID = client.sendJobRequest('中国中国早上好')
+	jobID = client.sendJobRequest('这下终于好用啦！！哈哈哈哈哈哈哈，南京市长江大桥，中国银行行长')
 	client.getAudioPath(jobID)
 
 if __name__ == '__main__':
