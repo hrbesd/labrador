@@ -1,12 +1,19 @@
-# 建立 Updater
+# 管理 Updater 用户
 
 ## 前提
 
-- root
-- ~/.ssh/esd_rsa
-- ~/.ssh/labrador_rsa.pub
+- `root` 或可以 `sudo`
+- `~/.ssh/esd_rsa` 已存在
+- `~/.ssh/labrador_rsa.pub` 已存在
 
 ## 命令
 ```
-$ ./setup.sh
+$ ./update-server-user.sh
 ```
+
+### 可选子命令
+
+- `create`
+- `check`
+- `remove` 
+- `help`
