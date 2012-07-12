@@ -2,4 +2,4 @@
 # Programs
 # ln -s $DIR/butts/reactor/reactor.py $DIR/labrador/bin/reactor.py
 
-ln -s $DIR/butts/spider/spider $DIR/labrador/bin/spider
+ln -s ../butts/spider/spider $TMP_DIR/bin/spider
