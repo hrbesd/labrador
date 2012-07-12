@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- encoding:utf-8 -*-
 # 为reactor提供命令行参数的包装、处理
 # 不进行reactor的实际操作
@@ -17,7 +18,7 @@ def main():
 		print reactor_main.getVersionStr()
 		return
 
-	reactorObj = reactor_main.Reactor(args.rule_dir, args.source_dir, args.worker_dir, args.log_file)
+	reactorObj = reactor_main.Reactor(args.rule_dir, args.rule_dir, args.source_dir, args.worker_dir, args.log_file)
 	reactorObj.doReactorWork()
 
 

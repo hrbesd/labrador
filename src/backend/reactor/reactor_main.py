@@ -14,8 +14,9 @@ def getVersionStr():
 	return 'Labrador Reactor Version %s' % VERSION_NAME
 
 class Reactor:
-	def __init__(self, rule_file_path, in_folder_path, out_folder_path, log_file_path):
+	def __init__(self, rule_file_path, config_file_path, in_folder_path, out_folder_path, log_file_path):
 		self.rule_file_path = rule_file_path
+		self.config_file_path = config_file_path
 		self.in_folder_path = in_folder_path
 		self.out_folder_path = out_folder_path
 		self.rule_list = []
