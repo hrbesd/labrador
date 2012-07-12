@@ -10,10 +10,12 @@
         <refreshRate></refreshRate>
         <ruleList>
             <rule>
-                <urlRegExp></urlRegExp>
-                <nextPageRegExp></nextPageRegExp>
+                <expressionList>
+                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                </expressionList>
                 <maxPageCount></maxPageCount>
-                <nameRegExp></nameRegExp>
                 <childRule/>
                 <nodeList>
                     <node>
@@ -22,16 +24,20 @@
                         <refreshRate></refreshRate>
                         <ruleList>
                             <rule>
-                                <urlRegExp>&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'</urlRegExp>
-                                <nextPageRegExp></nextPageRegExp>
+                                <expressionList>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;"/>
+                                </expressionList>
                                 <maxPageCount></maxPageCount>
-                                <nameRegExp>class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;</nameRegExp>
                                 <childRule>
                                     <rule>
-                                        <urlRegExp>&lt;a class=&quot;f3348&quot; href=&quot;([^&quot;]*)&quot;</urlRegExp>
-                                        <nextPageRegExp>&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页</nextPageRegExp>
+                                        <expressionList>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页"/>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a class=&quot;f3348&quot; href=&quot;([^&quot;]*)&quot;"/>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;a class=&quot;f3348&quot;.*title=&quot;([^&quot;]*)&quot;"/>
+                                        </expressionList>
                                         <maxPageCount></maxPageCount>
-                                        <nameRegExp>&lt;a class=&quot;f3348&quot;.*title=&quot;([^&quot;]*)&quot;</nameRegExp>
                                         <childRule/>
                                         <nodeList/>
                                     </rule>
@@ -43,10 +49,12 @@
                 </nodeList>
             </rule>
             <rule>
-                <urlRegExp></urlRegExp>
-                <nextPageRegExp></nextPageRegExp>
+                <expressionList>
+                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                </expressionList>
                 <maxPageCount></maxPageCount>
-                <nameRegExp></nameRegExp>
                 <childRule/>
                 <nodeList>
                     <node>
@@ -55,16 +63,20 @@
                         <refreshRate></refreshRate>
                         <ruleList>
                             <rule>
-                                <urlRegExp>&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;hei14&quot;&gt;</urlRegExp>
-                                <nextPageRegExp></nextPageRegExp>
+                                <expressionList>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;hei14&quot;&gt;"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;FONT class=&quot;hei12&quot;&gt;(.*)&lt;/font&gt;"/>
+                                </expressionList>
                                 <maxPageCount></maxPageCount>
-                                <nameRegExp>&lt;FONT class=&quot;hei12&quot;&gt;(.*)&lt;/font&gt;</nameRegExp>
                                 <childRule>
                                     <rule>
-                                        <urlRegExp> &lt;a class=&quot;f3665&quot; href=&quot;([^&quot;]*)&quot;</urlRegExp>
-                                        <nextPageRegExp>&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页</nextPageRegExp>
+                                        <expressionList>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页"/>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value=" &lt;a class=&quot;f3665&quot; href=&quot;([^&quot;]*)&quot;"/>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="class=&quot;f3665&quot; title=&quot;([^&quot;]*)&quot;"/>
+                                        </expressionList>
                                         <maxPageCount></maxPageCount>
-                                        <nameRegExp>class=&quot;f3665&quot; title=&quot;([^&quot;]*)&quot;</nameRegExp>
                                         <childRule/>
                                         <nodeList/>
                                     </rule>
