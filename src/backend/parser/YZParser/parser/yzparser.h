@@ -35,7 +35,7 @@ private:
     QScriptEngine m_engine;
     QScriptValue m_globalValue;
     QScriptValue m_parserValue;
-
+    quint64 m_webpageCount;
     QMap<QString, QString> m_paramenters;
 };
 
