@@ -1,5 +1,13 @@
 #!/bin/bash
 
+usage()
+{
+	printf "Usage: `basename $0` <name_of_release>\n\n" >&2
+	exit 3
+}
+
+test -z "$*" && usage
+
 # Finding the real script thru links
 SELF=$0
 while true; do
@@ -8,7 +16,9 @@ while true; do
     test -z "$SELF" && break
 done
 
-DIR=$DIR/steps
+DIR=$DIR/releases/$1
+test ! -d $DIR && printf "Config dir of this release was not found:\n \t$DIR\n\n" >&2 && exit 1
+
 source $DIR/*.conf
 
 test -d $TMP_DIR && rm -r $TMP_DIR
