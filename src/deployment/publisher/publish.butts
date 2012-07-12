@@ -1,1 +1,4 @@
-ln -s $DIR/../repo/labrador/src/backend/reactor/reactor.py $DIR/labrador/butts/reactor.py
+# ln -s $DIR/../repo/labrador/src/backend/reactor/reactor.py $DIR/labrador/butts/reactor.py
+
+# Debug
+ln -s ../debug/spider $DIR/labrador/butts/spider/spider
