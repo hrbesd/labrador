@@ -1,8 +1,9 @@
 #include "yzparser.h"
+#include <QTime>
 #include <QCoreApplication>
 
 YZParser::YZParser(QObject *parent) :
-    QObject(parent)
+    QObject(parent),m_webpageCount(0)
 {
     QStringList parametersList = QCoreApplication::arguments();
     foreach(QString parameter,parametersList)
@@ -57,7 +58,12 @@ YZParser::YZParser(QObject *parent) :
         qWarning()<<"can't open parse source folder";
         exit(0);
     }
+
+    QTime time;
+    time.start();
     parseFolder(m_paramenters.value("--source-dir"));
+    qDebug()<<"finish";
+    qDebug()<<time.elapsed()<<":"<<m_webpageCount;
     qApp->exit(0);
 }
 
@@ -93,8 +99,7 @@ int YZParser::parseFile(QString fileName)
     fileDir.cd(m_paramenters.value("--worker-dir"));
     fileDir.mkpath(fileDir.absolutePath() + "/"+fileInfo.baseName().left(2));
     YZXmlWriter::writeArticleToXml(articleInterface,fileDir.absolutePath()+"/"+fileInfo.baseName().left(2)+"/"+fileInfo.baseName()+".xml");
-    static int webpageCount = 0;
-    qDebug()<<(webpageCount++)<<" done";
+    m_webpageCount++;
     file.close();
     return 0;
 }
@@ -120,8 +125,6 @@ void YZParser::parseFolder(QString folder)
             parseFolder(fileInfo.absoluteFilePath());
         }
     }
-    qDebug()<<"finish";
-
 }
 
 void YZParser::parseImageFromBody(const QString &dataString, QString base, ArticleInterface &articleInterface)
