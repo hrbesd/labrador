@@ -129,7 +129,7 @@ void YZSpider::ruleRequestScheduler()
         qDebug()<<"finish parse rules";
         m_finishParseRules = true;
         QDir dir(m_paramenters.value("--shared-dir"));
-
+        dir.mkpath(dir.absolutePath());
         outputWebsite(dir.absolutePath()+"/"+m_website.node.name+"_dir.xml");
         webpageDownloadScheduler();
     }
