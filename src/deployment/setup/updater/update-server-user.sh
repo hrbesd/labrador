@@ -4,7 +4,7 @@ USERNAME="updater"
 
 check()
 {
-	test -n "`getent passwd $USERNAME`"
+	getent passwd $USERNAME >/dev/null
 }
 
 fail()
@@ -20,19 +20,20 @@ case $1 in
 		;;
 	remove)
 		check
-		test $? || fail "User not found."
+		test $? -eq 0 || fail "User not found."
 		deluser --remove-home $USERNAME
 		test $? && echo "User sucessfully removed."
 		exit 0
 		;;
 	create)
-		test $? && fail "User already exists."
+		check
+		test $? -eq 0 && fail "User already exists."
 		echo "Adding user updater ..."
 		# and go on ...
 		;;
 	check)
 		check
-		test $? || printf "No "
+		test $? -eq 0 || printf "No "
 		printf "user exists.\n"
 		exit 0
 		;;
