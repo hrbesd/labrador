@@ -1,19 +1,46 @@
+#!/bin/bash
 
-DIR=`basedir $0`
+usage()
+{
+	printf "Usage: `basename $0` <name_of_release>\n\n" >&2
+	exit 3
+}
+
+test -z "$*" && usage
+
+# Finding the real script thru links
+SELF=$0
+while true; do
+    DIR=`dirname $SELF`
+    SELF=`readlink $SELF`
+    test -z "$SELF" && break
+done
+
+DIR=$DIR/releases/$1
+test ! -d $DIR && printf "Config dir of this release was not found:\n \t$DIR\n\n" >&2 && exit 1
+
 source $DIR/*.conf
 
+test -d $TMP_DIR && rm -r $TMP_DIR
 # Publish the entire software
-mkdir $DIR/labrador
+echo "Making temp dir for syncing ..."
+mkdir $TMP_DIR
+echo "Making dirs ..."
 source $DIR/*.dirs
+echo "Putting butts in ..."
 source $DIR/*.butts
-rsync -av --copy-links $DIR/labrador/ $UPDATE_LOGIN@$UPDATE_SERVER:~/labrador/$CHANNEL/
+echo "Kicking asses ..."
+rsync -av --copy-links --delete $TMP_DIR/ $UPDATE_LOGIN@$UPDATE_SERVER:~/labrador/$CHANNEL/
 
 # Create symbol links
-mkdir $DIR/labrador/bin
+echo "Creating links for executables ..."
+mkdir $TMP_DIR/bin
 source $DIR/*.links
-rsync -av $DIR/labrador/bin/ $UPDATE_LOGIN@$UPDATE_SERVER:~/labrador/$CHANNEL/bin/
+rsync -av --delete $TMP_DIR/bin/ $UPDATE_LOGIN@$UPDATE_SERVER:~/labrador/$CHANNEL/bin/
 
-rm -r $DIR/labrador
+# rm -r $DIR/$TMP_DIR
 
 # Leave the message
-ssh $UPDATE_LOGIN@$UPDATE_SERVER echo $MESSAGE >~/labrador/$CHANNEL/readme.txt
+echo "Leaving a message ..."
+ssh $UPDATE_LOGIN@$UPDATE_SERVER "echo $MESSAGE >/home/$UPDATE_LOGIN/labrador/$CHANNEL/readme.txt"
+echo "All done."
