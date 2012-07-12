@@ -1,6 +1,21 @@
 test `id -u` -ne 0 && echo "Root only. Switch to root or use 'sudo'." && exit 1
 
 USERNAME="updater"
+
+case $1 in
+	help|usage)
+		echo "Usage: `basename $0` --remove-user" >&2
+		exit 1
+		;;
+	--remove-user)
+		deluser --remove-home $USERNAME
+		;;
+	*)
+		echo "Try 'help'." >&2
+		exit 1
+		;;
+esac
+
 SSH_KEY=~/.ssh/esd_rsa
 ADMIN_PUB_KEY=~/.ssh/labrador_rsa.pub
 
