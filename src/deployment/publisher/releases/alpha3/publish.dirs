@@ -1,0 +1,3 @@
+
+mkdir $TMP_DIR/etc $TMP_DIR/butts $TMP_DIR/logs $TMP_DIR/sites
+mkdir $TMP_DIR/butts/spider $TMP_DIR/butts/parser $TMP_DIR/butts/reactor $TMP_DIR/butts/assembler

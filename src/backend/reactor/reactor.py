@@ -18,7 +18,7 @@ def main():
 		print reactor_main.getVersionStr()
 		return
 
-	reactorObj = reactor_main.Reactor(args.rule_dir, args.rule_dir, args.source_dir, args.worker_dir, args.log_file)
+	reactorObj = reactor_main.Reactor(args.rule_dir, args.config_dir, args.source_dir, args.worker_dir, args.log_file)
 	reactorObj.doReactorWork()
 
 

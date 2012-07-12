@@ -1,6 +1,0 @@
-cd $DIR/labrador
-mkdir etc butts logs sites
-cd butts
-mkdir spider parser reactor assembler
-cd ..
-cd ..

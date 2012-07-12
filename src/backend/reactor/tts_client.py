@@ -15,7 +15,7 @@ class TTSClient:
 
 	def sendJobRequest(self, text):
 		conDict = self.configDict
-		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text))
+		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text.encode('utf8')))
 		jobResult = urllib2.urlopen(urlPath).read()
 		dom = parseString(jobResult)
 		jobList = dom.getElementsByTagName('jobID')
@@ -36,10 +36,16 @@ class TTSClient:
 			audioPath = xmlData[5:-6]
 			return audioPath
 
+	def generateSound(self, text):
+		if len(text) == 0:
+			return False
+		print text + "   " + str(len(text))
+		jobID = self.sendJobRequest(text)
+		return self.getAudioPath(jobID)
+
 def main():
 	client = TTSClient('reactor_config.config')
-	jobID = client.sendJobRequest('这下终于好用啦！！哈哈哈哈哈哈哈，南京市长江大桥，中国银行行长')
-	client.getAudioPath(jobID)
+	print client.generateSound('<bodydata>据全国征兵工作会议和省政府有关征兵工作的要求，为圆满完成哈尔滨市今冬征兵任务，特发此令。</bodydata>')
 
 if __name__ == '__main__':
 	main()
