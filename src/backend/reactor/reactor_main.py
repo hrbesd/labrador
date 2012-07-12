@@ -5,6 +5,7 @@ from BeautifulSoup import BeautifulSoup, Comment, Tag
 from xml.dom.minidom import parseString
 from reactor_rule_parser import *
 from executor import Executor
+from divider import Divider
 from rule_item import *
 import re, sys, os, codecs, html
 
@@ -116,6 +117,10 @@ class Reactor:
 
 					if len(rule.logLevel.strip()) > 0 and len(rule.logMsg) > 0:
 						self.executor.doLog(rule.logLevel, resultFilePath, rule.logMsg)
+
+		# 最后做断句处理
+		divider = Divider(soup, self.config_file_path)
+		soup = divider.doWork()
 
 		if not os.path.exists(resultFileDir):
 			os.makedirs(resultFileDir)
