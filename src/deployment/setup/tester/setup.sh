@@ -35,8 +35,8 @@ UPDATE_CHANNEL_FILE=~/.labrador-update-channel
 # Resersed
 # Resersed
 # Resersed
-# Resersed
-# Resersed
+DEFAULT_TESTER_NAME=tester
+DEFAULT_USER_NAME=labrador
 # Resersed
 # Resersed
 # Resersed
@@ -73,7 +73,7 @@ Options
 
 	--check-env		Check environment for essential modules
 	
-	User labrador only:
+	User and tester only:
 
 	--make-dirs		Create required directories
 	--sync-bin		Sync executable programs
@@ -86,7 +86,8 @@ Options
 	Root only:
 
 	--config-sshd	Modify the config file of sshd
-	--create-user	Create the labrador user
+	--create-user	Create an operating user
+	--create-tester	Create a tester
 	--install-keys	Install ssh keys, user labrador must exist
 	
 Note
@@ -104,7 +105,7 @@ fail { printf "\nError: $*\n"; exit 1 }
 root_or_fail()
 {
 	# Check if current user is root
-	if [[ $EUID -ne 0 ]]; then
+	if test `id -u` -ne 0; then
 		printf "\nYou must be root to use option: $*\n"; exit 1 }
 	fi
 }
@@ -206,6 +207,31 @@ set_update_channel()
 	echo "$*" >$UPDATE_CHANNEL_FILE
 }
 
+create_user()
+{
+	local username=$1
+	getent passwd $username >/dev/null
+	if $? -eq 0; then
+		fail "User $username already exists."
+	else
+		if test "$username" == "$DEFAULT_USER_NAME"; then
+			/usr/sbin/useradd -m -g users labrator --uid 1111
+		else
+			/usr/sbin/useradd -m -g users $username
+		fi
+		
+		# Prepare dir for ssh
+		mkdir /home/$username/.ssh
+		chown $username:users /home/$username/.ssh
+		chmod 700 /home/$username/.ssh
+		
+		# Share this script with user
+		chmod 777 $0
+		cp $0 /home/$username/
+		log "User $username sucessfully created."
+	fi
+}
+
 log "Begin setting up ..."
 
 # Parse CLI arguments.
@@ -303,41 +329,26 @@ do
 			root_or_fail "$token"
 			log "Creating a tester ..."
 			TESTER_NAME=$1
-			if [[ "TESTER_NAME" =~ -* ]]; then
-				TESTER_NAME="tester"
+			if [[ "$TESTER_NAME" =~ -* ]]; then
+				TESTER_NAME="$DEFAULT_TESTER_NAME"
 			else
 				shift
 			fi
-			/usr/sbin/useradd -m -g users $TESTER_NAME
-			
-			# Prepare dir for ssh
-			mkdir /home/labrator/.ssh
-			chown labrator:users /home/labrator/.ssh
-			chmod 700 /home/labrator/.ssh
-			
-			# Share this script with user labrador
-			chmod 777 $0
-			cp $0 /home/labrador/
-			echo "unstable" >/home/labrador/.labrador-update-channel
-			log_item "Done."
+			create_user $TESTER_NAME
+			echo "unstable" >/home/$TESTER_NAME/.labrador-update-channel
 			;;
 
 		--create-user)
 			root_or_fail "$token"
-			log "Creating user ..."
-			# Per doc, user name and uid is hard-coded
-			/usr/sbin/useradd -m -g users labrator --uid 1111
-			
-			# Prepare dir for ssh
-			mkdir /home/labrator/.ssh
-			chown labrator:users /home/labrator/.ssh
-			chmod 700 /home/labrator/.ssh
-			
-			# Share this script with user labrador
-			chmod 777 $0
-			cp $0 /home/labrador/
-			echo "stable" >/home/labrador/.labrador-update-channel
-			log_item "Done."
+			log "Creating a user ..."
+			USER_NAME=$1
+			if [[ "$USER_NAME" =~ -* ]]; then
+				USER_NAME=$DEFAULT_USER_NAME
+			else
+				shift
+			fi
+			create_user $USER_NAME
+			echo "stable" >/home/$USER_NAME/.labrador-update-channel
 			;;
 
 		--install-keys)
