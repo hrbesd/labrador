@@ -10,3 +10,6 @@
 /parserConfigFileGenerator/*
 !/parserConfigFileGenerator/parserConfigFileGenerator
 /parserConfigFileGenerator/parserConfigFileGenerator/parserConfigFileGenerator.pro.user
+/tools/*
+!/tools/Generator
+/tools/Generator/Generator.pro.user
