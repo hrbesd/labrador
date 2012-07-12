@@ -299,6 +299,29 @@ do
 			fi
 			;;
 
+		--create-tester)
+			root_or_fail "$token"
+			log "Creating a tester ..."
+			TESTER_NAME=$1
+			if [[ "TESTER_NAME" =~ -* ]]; then
+				TESTER_NAME="tester"
+			else
+				shift
+			fi
+			/usr/sbin/useradd -m -g users $TESTER_NAME
+			
+			# Prepare dir for ssh
+			mkdir /home/labrator/.ssh
+			chown labrator:users /home/labrator/.ssh
+			chmod 700 /home/labrator/.ssh
+			
+			# Share this script with user labrador
+			chmod 777 $0
+			cp $0 /home/labrador/
+			echo "unstable" >/home/labrador/.labrador-update-channel
+			log_item "Done."
+			;;
+
 		--create-user)
 			root_or_fail "$token"
 			log "Creating user ..."
@@ -313,6 +336,7 @@ do
 			# Share this script with user labrador
 			chmod 777 $0
 			cp $0 /home/labrador/
+			echo "stable" >/home/labrador/.labrador-update-channel
 			log_item "Done."
 			;;
 
