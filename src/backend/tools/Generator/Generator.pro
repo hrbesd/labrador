@@ -16,8 +16,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    generator.cpp
+    generator.cpp \
+    yzlogger.cpp
 
 HEADERS += \
     generator.h \
-    version.h
+    version.h \
+    DataInterface.h \
+    yzlogger.h

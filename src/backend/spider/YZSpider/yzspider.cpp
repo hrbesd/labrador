@@ -473,9 +473,9 @@ void YZSpider::parseNodeData(Node &nodeItem)
         {
             YZLogger::Logger()->log(QString("outside link:")+nodeItem.url);
         }
+        nodeItem.hashName = QCryptographicHash::hash(QByteArray(nodeItem.url.toUtf8()),QCryptographicHash::Md5).toHex();
         if(nodeItem.ruleList.isEmpty())
         {
-            nodeItem.hashName = QCryptographicHash::hash(QByteArray(nodeItem.url.toUtf8()),QCryptographicHash::Md5).toHex();
             m_webPageRequestTask.append(&nodeItem);
         }
         foreach(Rule *ruleItem,nodeItem.ruleList)
