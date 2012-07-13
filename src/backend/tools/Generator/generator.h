@@ -6,17 +6,18 @@
 #include <QStringList>
 #include <iostream>
 #include <QObject>
-#include <QDomDocument>
 #include <QFile>
 #include <QDir>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include "version.h"
+#include "DataInterface.h"
 
 class Generator : public QObject
 {
     Q_OBJECT
 public:
     explicit Generator(QObject *parent = 0);
-    void parseIndexFile();
     
 signals:
     
@@ -26,10 +27,17 @@ private:
     void initParameters();
 
     //generate webroot
-    void generateIndexFile(const QDomElement &element);
+
+    //read xml files
+    void parseWebsiteIndexFile();
+    void parseWebsiteXml(QXmlStreamReader &reader);
+    void parseNodeXml(QXmlStreamReader &reader, Node& node);
+    void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& nodeList);
+
+    QXmlStreamReader xmlReader;
     QString m_indexFilePath;
     QMap<QString, QString> m_paramenters;
-
+    WebSite m_website;
     QDir m_webrootDir;
 };
 

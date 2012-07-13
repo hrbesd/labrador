@@ -20,4 +20,5 @@ SOURCES += main.cpp \
 
 HEADERS += \
     generator.h \
-    version.h
+    version.h \
+    DataInterface.h
