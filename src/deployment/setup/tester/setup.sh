@@ -15,7 +15,7 @@
 # =======================================================================================
 
 UPDATER_LOGIN=updater
-UPDATER_ROOT=/home/$UPDATER_LOGIN
+UPDATER_ROOT=/home/$UPDATER_LOGIN/labrador
 UPDATER_BIN=bin
 UPDATER_ETC=etc
 UPDATER_BUTTS=butts
@@ -26,11 +26,11 @@ UPDATER_HOST="219.217.227.82" # You have to verify this!
 LABRADOR_ROOT=~/labrador
 LABRADOR_BIN=$LABRADOR_ROOT/$UPDATER_BIN
 LABRADOR_ETC=$LABRADOR_ROOT/$UPDATER_ETC
-LABRADOR_SITES=$LABRADOR_ROOT/$UPDATER_ROOT
+LABRADOR_SITES=$LABRADOR_ROOT/$UPDATER_SITES
 LABRADOR_BUTTS=$LABRADOR_ROOT/$UPDATER_BUTTS
 LABRADOR_LOG=$LABRADOR_ROOT/$UPDATER_LOG
 
-UPDATE_CHANNEL_FILE="~/.labrador-update-channel"
+UPDATE_CHANNEL_FILE=~/.labrador-update-channel
 # Resersed
 # Resersed
 # Resersed
@@ -88,7 +88,6 @@ Options
 	--config-sshd	Modify the config file of sshd
 	--create-user	Create an operating user
 	--create-tester	Create a tester
-	--install-keys	Install ssh keys
 	
 Note
 
@@ -97,7 +96,7 @@ Note
 "
 }
 
-log() 
+log()
 {
 	printf "$*\n"
 }
@@ -114,7 +113,8 @@ log_error()
 
 fail() 
 {
-	printf "\nError: $*\n"; exit 1
+	printf "\nError: $*\n"
+	exit 1
 }
 
 root_or_fail()
@@ -128,8 +128,8 @@ root_or_fail()
 user_or_fail()
 {
 	# Check if current user is labrador
-	if test `id -u` -ne 1111; then
-		printf "\nYou must be user labrador to use option: $*\n"; exit 1 
+	if test `id -u` -eq 0; then
+		printf "\nYou must be a user to use option: $*\n"; exit 1 
 	fi
 }
 
@@ -219,7 +219,8 @@ check_rsync_version()
 
 set_update_channel()
 {
-	# echo "$*" >$UPDATE_CHANNEL_FILE
+	echo "$*" >$UPDATE_CHANNEL_FILE
+	log "Update channel changed to [$*]."
 	return 0
 }
 
@@ -231,24 +232,31 @@ create_user()
 		fail "User $username already exists."
 	else
 		if test "$username" == "$DEFAULT_USER_NAME"; then
-			/usr/sbin/useradd -m -g users labrator --uid 1111
+			/usr/sbin/useradd -m -s /bin/bash -g users labrator --uid 1111
 		else
-			/usr/sbin/useradd -m -g users $username
+			/usr/sbin/useradd -m -s /bin/bash -g users $username
 		fi
 		
-		# Prepare dir for ssh
-		mkdir /home/$username/.ssh
-		chown $username:users /home/$username/.ssh
-		chmod 700 /home/$username/.ssh
-		
 		# Share this script with user
-		chmod 777 $0
-		cp $0 /home/$username/
+		local script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+		local script_path=$script_dir"/`basename $0`"
+		chmod 755 $script_path
+		ln -s $script_path /home/$username/"`basename $0`"
 		log "User $username sucessfully created."
+
+		log "Logging on update server to continue to install keys ..."
+
+		mkdir /home/$username/.ssh
+		/usr/bin/scp $UPDATER_LOGIN@$UPDATER_HOST:~/.ssh/* /home/$username/.ssh
+		test $? -eq 0 || return 1
+		chown -R $username:users /home/$username/.ssh
+		chmod 700 /home/$username/.ssh
+		chmod 600 /home/$username/.ssh/*
+		log "SSH keys installed."
 	fi
 }
 
-log "Begin setting up ..."
+# log "Begin setting up ...\n"
 
 # Parse CLI arguments.
 while test -n "$*";
@@ -270,7 +278,7 @@ do
 		--sync-etc)
 			user_or_fail "$token"
 			log "\nUpdating settings ..."
-			rsync -av --delete --copy-links $DEV_SERVER_URL/$UPDATE_CHANNEL/etc/ $LABRADOR_ETC/
+			rsync -av --delete --copy-links $UPDATER_URL/$UPDATE_CHANNEL/etc/ $LABRADOR_ETC/
 			test $? -eq 0 && log_item "Sucessfully done." || log_error "Failed!"
 			;;
 
@@ -285,7 +293,7 @@ do
 		--make-dirs)
 			user_or_fail "$token"
 			false
-			test -d $LABRADOR || mkdir $LABRADOR
+			test -d $LABRADOR_ROOT || mkdir $LABRADOR_ROOT
 			test -d $LABRADOR_LOG || mkdir $LABRADOR_LOG
 			test -d $LABRADOR_SITES || mkdir $LABRADOR_SITES
 			test $? -eq 0 && log "Directories created."
@@ -313,8 +321,8 @@ do
 			user_or_fail "$token"
 			# Ensure bin inside path
 			log "\nModifying PATH ..."
-			grep $LABRADOR/bin ~/.profile >/dev/null
-			test $? -eq 0 && log_item "Action skipped." || ( echo 'export PATH='$LABRADOR_BIN':$PATH' >>~/.profile && log_item "Updated PATH!" )
+			grep $LABRADOR_BIN ~/.profile >/dev/null
+			test $? -eq 0 && log_item "Action skipped." || ( echo 'export PATH='$LABRADOR_BIN':$PATH' >>~/.profile && log_item "Updated PATH! To make this change take effect now, log out and log back." )
 			
 			# Add $LABRADOR_CONFIG to .profile
 			#grep "LABRADOR_CONFIG" ~/.profile >/dev/null
@@ -342,37 +350,36 @@ do
 
 		--create-tester)
 			root_or_fail "$token"
-			log "Creating a tester ..."
 			TESTER_NAME="$1"
-			if [[ "$TESTER_NAME" =~ -* ]]; then
+			if [[ "$TESTER_NAME" =~ --* ]]; then
 				TESTER_NAME="$DEFAULT_TESTER_NAME"
 			else
 				shift
 			fi
+			log "Creating tester $TESTER_NAME ..."
 			create_user $TESTER_NAME
 			echo "unstable" >/home/$TESTER_NAME/.labrador-update-channel
+			chown $TESTER_NAME:users /home/$TESTER_NAME/.labrador-update-channel
 			;;
 
 		--create-user)
 			root_or_fail "$token"
-			log "Creating a user ..."
 			USER_NAME="$1"
-			if [[ "$USER_NAME" =~ -* ]]; then
+			if [[ "$USER_NAME" =~ --* ]]; then
 				USER_NAME=$DEFAULT_USER_NAME
 			else
 				shift
 			fi
+			log "Creating user $USER_NAME..."
 			create_user $USER_NAME
-			echo "stable" >/home/$USER_NAME/.labrador-update-channel
 			;;
 
 		--install-keys)
 			root_or_fail "$token"
 			# Use the same key-par as the updater
 			# Yes, user must have updater's password
-			/usr/bin/scp $UPDATER_LOGIN@$UPDATER_HOST:~/.ssh 
 			# Disable password login
-			/usr/bin/passwd -d labrador
+			# /usr/bin/passwd -d labrador
 			;;
 
 		help|usage|-h|--help|--usage)
