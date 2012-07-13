@@ -67,12 +67,13 @@ cp $SSH_KEY.pub $SSH_DIR
 cat $SSH_KEY".pub" > $SSH_DIR/authorized_keys
 cat $ADMIN_PUB_KEY >> $SSH_DIR/authorized_keys
 echo "Host *" > $SSH_CONFIG
-echo "IdentityFile $SSH_KEY" >>$SSH_CONFIG
+echo "IdentityFile ~/.ssh/`basename $SSH_KEY`" >>$SSH_CONFIG
 echo "StrictHostKeyChecking no" >>$SSH_CONFIG
 echo "UserKnownHostsFile=/dev/null" >>$SSH_CONFIG
 
 chmod 600 $SSH_DIR/*
 chown -R updater:users /home/$USERNAME/*
+chown -R updater:users /home/$USERNAME/.ssh
 
 echo "User $USERNAME created."
 echo "To set the password for this user now, use 'sudo passwd updater'."
