@@ -6,17 +6,20 @@
 #include <QStringList>
 #include <iostream>
 #include <QObject>
-#include <QDomDocument>
 #include <QFile>
 #include <QDir>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include "version.h"
+#include "DataInterface.h"
+#include "yzlogger.h"
+#include <QStack>
 
 class Generator : public QObject
 {
     Q_OBJECT
 public:
     explicit Generator(QObject *parent = 0);
-    void parseIndexFile();
     
 signals:
     
@@ -26,11 +29,27 @@ private:
     void initParameters();
 
     //generate webroot
-    void generateIndexFile(const QDomElement &element);
+    void generateWebroot();
+    void generateIndexFile();
+    void generateColumnFile(const Node &node);
+    void generateListFile(const Node &node);
+    void generateFiles();
+    //read xml files
+    void parseWebsiteIndexFile();
+    void parseWebsiteXml(QXmlStreamReader &reader);
+    void parseNodeXml(QXmlStreamReader &reader, Node& node);
+    void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& nodeList);
+
+    //utilities
+    void writeNodeListXml(QXmlStreamWriter &writer, const QList<Node>& nodeList);
+    void writeNodeXml(QXmlStreamWriter &writer,const Node& node);
+    NodeType getNodeType(const Node& node);
+    QXmlStreamReader xmlReader;
     QString m_indexFilePath;
     QMap<QString, QString> m_paramenters;
-
+    WebSite m_website;
     QDir m_webrootDir;
+    QStack<const Node*> m_nodeStack;
 };
 
 #endif // GENERATOR_H
