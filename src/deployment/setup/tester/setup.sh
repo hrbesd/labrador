@@ -88,6 +88,7 @@ Options
 	--config-sshd	Modify the config file of sshd
 	--create-user	Create an operating user
 	--create-tester	Create a tester
+	--install-dev	Install development modules
 	
 Note
 
@@ -256,6 +257,10 @@ create_user()
 	fi
 }
 
+install_dev()
+{
+	
+}
 # log "Begin setting up ...\n"
 
 # Parse CLI arguments.
@@ -374,12 +379,21 @@ do
 			create_user $USER_NAME
 			;;
 
-		--install-keys)
+		--install-dev)
 			root_or_fail "$token"
-			# Use the same key-par as the updater
-			# Yes, user must have updater's password
-			# Disable password login
-			# /usr/bin/passwd -d labrador
+			# python2.7-dev: 
+			apt-get -y install python2.7-dev
+			# python-pip: 
+			apt-get -y install python-pip
+			# python-dateutil html5lib : 
+			easy_install python-dateutil html5lib
+			# Amara: 
+			easy_install amara
+			
+			# Ruby 1.8
+			apt-get -y install ruby1.8
+			# sinatra
+			gem install sinatra
 			;;
 
 		help|usage|-h|--help|--usage)
