@@ -63,11 +63,12 @@ mkdir $SSH_DIR
 chmod 700 $SSH_DIR
 cp $SSH_KEY $SSH_DIR
 cp $SSH_KEY.pub $SSH_DIR
-chmod 600 $SSH_DIR/`basename $SSH_KEY`
-chmod 600 $SSH_DIR/`basename $SSH_KEY`".pub"
 cat $SSH_KEY".pub" > $SSH_DIR/authorized_keys
 cat $ADMIN_PUB_KEY >> $SSH_DIR/authorized_keys
-chown -R updater:users /home/$USERNAME
+echo "Host *" > $SSH_DIR/config
+echo "IdentityFile $SSH_KEY" >>$SSH_DIR/config
+chmod 600 $SSH_DIR/*
+chown -R updater:users /home/$USERNAME/*
 
 echo "User $USERNAME created."
 echo "To set the password for this user now, use 'sudo passwd updater'."
