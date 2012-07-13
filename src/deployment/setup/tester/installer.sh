@@ -10,6 +10,7 @@ if test $? -ne 0; then
 fi
 
 cd ~
+rm setup.sh
 wget $UPDATER_HOST"/setup.sh"
 chmod +x ~/setup.sh
 echo
