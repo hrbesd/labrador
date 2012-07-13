@@ -7,6 +7,7 @@ Generator::Generator(QObject *parent) :
 {
     initParameters();
     parseWebsiteIndexFile();
+    generateWebroot();
 }
 
 void Generator::initParameters()
@@ -40,26 +41,11 @@ void Generator::initParameters()
         m_webrootDir.mkpath(m_paramenters.value("--webroot-dir"));
         m_webrootDir.cd(m_paramenters.value("--webroot-dir"));
     }
+    if(m_paramenters.contains("--log-file"))
+    {
+        YZLogger::logFilePath = m_paramenters.value("--log-file");
+    }
 }
-
-//void Generator::generateIndexFile(const QDomElement &element)
-//{
-////    QList<QDomElement&> result = parseDomNodes(element);
-////    QFile file(m_webrootDir.absolutePath()+"/index.xml");
-////    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-////    {
-////        qWarning()<<"can't open index xml file";
-////        return;
-////    }
-////    QXmlStreamWriter writer(&file);
-////    writer.setAutoFormatting(true);
-////    writer.writeStartDocument();
-////    writer.writeStartElement("website");
-////    writeNodes(writer,result);
-////    writer.writeEndElement();
-////    writer.writeEndDocument();
-////    file.close();
-//}
 
 void Generator::parseWebsiteIndexFile()
 {
@@ -169,4 +155,78 @@ void Generator::parseNodeListXml(QXmlStreamReader &reader, QList<Node> &nodeList
         }
         reader.readNext();
     }
+}
+
+void Generator::generateWebroot()
+{
+    generateIndexFile();
+}
+
+void Generator::generateIndexFile()
+{
+    QFile file(m_webrootDir.absolutePath()+"/index.xml");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        qWarning()<<"can't open index xml file";
+        return;
+    }
+    QXmlStreamWriter writer(&file);
+    writer.setAutoFormatting(true);
+    writer.writeStartDocument();
+    writer.writeStartElement("website");
+    writer.writeTextElement("editor",m_website.editor);
+    writer.writeTextElement("info",m_website.info);
+    writeNodeListXml(writer,m_website.node.nodeList);
+    writer.writeEndElement();
+    writer.writeEndDocument();
+    file.close();
+}
+
+void Generator::writeNodeXml(QXmlStreamWriter &writer, Node &node)
+{
+    writer.writeStartElement("node");
+    writer.writeTextElement("name",node.name);
+    writer.writeTextElement("url",node.url);
+    NodeType type = getNodeType(node);
+    if(type==ArticleNode)
+    {
+        writer.writeTextElement("pageUrl","../a/"+node.pageUrl.left(2)+"/"+ node.pageUrl);
+    }
+    else if(type==ListNode)
+    {
+        writer.writeTextElement("pageUrl","../l/" + node.pageUrl);
+    }
+    else
+    {
+       writer.writeTextElement("pageUrl","../c/" + node.pageUrl);
+    }
+    writer.writeEndElement();
+}
+
+void Generator::writeNodeListXml(QXmlStreamWriter &writer, QList<Node> &nodeList)
+{
+    writer.writeStartElement("nodeList");
+    foreach(Node nodeItem, nodeList)
+    {
+        writeNodeXml(writer,nodeItem);
+    }
+    writer.writeEndElement();
+}
+
+NodeType Generator::getNodeType(const Node &node)
+{
+    NodeType type;
+    if(node.nodeList.isEmpty())
+    {
+        type=ArticleNode;
+    }
+    else if(node.nodeList[0].nodeList.isEmpty())
+    {
+        type=ListNode;
+    }
+    else
+    {
+        type= ColumnNode;
+    }
+    return type;
 }

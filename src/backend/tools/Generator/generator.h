@@ -12,6 +12,7 @@
 #include <QXmlStreamWriter>
 #include "version.h"
 #include "DataInterface.h"
+#include "yzlogger.h"
 
 class Generator : public QObject
 {
@@ -27,6 +28,8 @@ private:
     void initParameters();
 
     //generate webroot
+    void generateWebroot();
+    void generateIndexFile();
 
     //read xml files
     void parseWebsiteIndexFile();
@@ -34,6 +37,10 @@ private:
     void parseNodeXml(QXmlStreamReader &reader, Node& node);
     void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& nodeList);
 
+    //utilities
+    void writeNodeListXml(QXmlStreamWriter &writer, QList<Node>& nodeList);
+    void writeNodeXml(QXmlStreamWriter &writer, Node& node);
+    NodeType getNodeType(const Node& node);
     QXmlStreamReader xmlReader;
     QString m_indexFilePath;
     QMap<QString, QString> m_paramenters;
