@@ -10,13 +10,18 @@ struct Node
     QList<Node> nodeList;
 };
 
-
-
 struct WebSite
 {
     QString info;
     QString editor;
     Node node;
+};
+
+enum NodeType
+{
+    ColumnNode,
+    ListNode,
+    ArticleNode
 };
 
 #endif // DATAINTERFACE_H
