@@ -6,7 +6,7 @@ struct Node
 {
     QString url;
     QString name;
-    QString pageUrl;
+    QString hashName;
     QList<Node> nodeList;
 };
 

@@ -13,6 +13,7 @@
 #include "version.h"
 #include "DataInterface.h"
 #include "yzlogger.h"
+#include <QStack>
 
 class Generator : public QObject
 {
@@ -30,7 +31,9 @@ private:
     //generate webroot
     void generateWebroot();
     void generateIndexFile();
-
+    void generateColumnFile(const Node &node);
+    void generateListFile(const Node &node);
+    void generateFiles();
     //read xml files
     void parseWebsiteIndexFile();
     void parseWebsiteXml(QXmlStreamReader &reader);
@@ -38,14 +41,15 @@ private:
     void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& nodeList);
 
     //utilities
-    void writeNodeListXml(QXmlStreamWriter &writer, QList<Node>& nodeList);
-    void writeNodeXml(QXmlStreamWriter &writer, Node& node);
+    void writeNodeListXml(QXmlStreamWriter &writer, const QList<Node>& nodeList);
+    void writeNodeXml(QXmlStreamWriter &writer,const Node& node);
     NodeType getNodeType(const Node& node);
     QXmlStreamReader xmlReader;
     QString m_indexFilePath;
     QMap<QString, QString> m_paramenters;
     WebSite m_website;
     QDir m_webrootDir;
+    QStack<const Node*> m_nodeStack;
 };
 
 #endif // GENERATOR_H
