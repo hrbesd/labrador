@@ -381,6 +381,10 @@ do
 
 		--install-dev)
 			root_or_fail "$token"
+			log "Refreshing apt cache ...\n\n"
+			sleep 1
+
+			apt-get update
 			# python2.7-dev: 
 			apt-get -y install python2.7-dev
 			# python-pip: 
