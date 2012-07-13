@@ -257,10 +257,6 @@ create_user()
 	fi
 }
 
-install_dev()
-{
-	
-}
 # log "Begin setting up ...\n"
 
 # Parse CLI arguments.
