@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Known bug: if the varible exists but pointing to a wrong location, it won't be updated.`
+# Known bug: if the varible exists but pointing to a wrong location, it wont be updated.
 
 # Note: this script must be run as root
 # Resersed
@@ -21,16 +21,16 @@ UPDATER_ETC=etc
 UPDATER_BUTTS=butts
 UPDATER_SITES=sites
 UPDATER_LOG=log
-UPDATER_HOST=219.217.227.82 # You have to verify this!
+UPDATER_HOST="219.217.227.82" # You have to verify this!
 
 LABRADOR_ROOT=~/labrador
-LABRADOR_BIN=$LABRADOR/$UPDATER_BIN
-LABRADOR_ETC=$LABRADOR/$UPDATER_ETC
-LABRADOR_SITES=$LABRADOR/$UPDATER_ROOT
-LABRADOR_BUTTS=$LABRADOR/$UPDATER_BUTTS
-LABRADOR_LOG=$LABRADOR/$UPDATER_LOG
+LABRADOR_BIN=$LABRADOR_ROOT/$UPDATER_BIN
+LABRADOR_ETC=$LABRADOR_ROOT/$UPDATER_ETC
+LABRADOR_SITES=$LABRADOR_ROOT/$UPDATER_ROOT
+LABRADOR_BUTTS=$LABRADOR_ROOT/$UPDATER_BUTTS
+LABRADOR_LOG=$LABRADOR_ROOT/$UPDATER_LOG
 
-UPDATE_CHANNEL_FILE=~/.labrador-update-channel
+UPDATE_CHANNEL_FILE="~/.labrador-update-channel"
 # Resersed
 # Resersed
 # Resersed
@@ -59,7 +59,7 @@ UPDATER_URL=$UPDATER_LOGIN@$UPDATER_HOST:$UPDATER_ROOT
 #DIR=`dirname $0`
 SSHD_CONFIG_FILE=/etc/ssh/sshd_config
 UPDATE_CHANNEL="stable"
-test -f $UPDATE_CHANNEL_FILE && UPDATE_CHANNEL=`cat $UPDATE_CHANNEL_FILE`
+test -f $UPDATE_CHANNEL_FILE && UPDATE_CHANNEL="`cat $UPDATE_CHANNEL_FILE`"
 
 usage()
 {
@@ -97,10 +97,25 @@ Note
 "
 }
 
-log() { printf "$*\n" }
-log_item() { printf "\t * $*\n" }
-log_error() { printf "Error: $*\n" }
-fail() { printf "\nError: $*\n"; exit 1 }
+log() 
+{
+	printf "$*\n"
+}
+
+log_item() 
+{
+	printf "\t * $*\n"
+}
+
+log_error() 
+{
+	printf "Error: $*\n"
+}
+
+fail() 
+{
+	printf "\nError: $*\n"; exit 1
+}
 
 root_or_fail()
 {
@@ -150,7 +165,7 @@ add_ssh_option()
 check_ssh_server()
 {
 	if ! test -x /usr/sbin/sshd; then
-		log_error "SSH server not installed."
+		log_error "[X] SSH server not installed."
 		return 1
 	fi
 	log_item "SSH server detected."
@@ -160,7 +175,7 @@ check_ssh_server()
 check_web_server()
 {
 	if test ! -x /usr/sbin/apache2; then
-		log_item "Web server not installed."
+		log_item "[X] Web server not installed."
 		return 1
 	fi
 	log_item "Web server detected."
@@ -170,12 +185,12 @@ check_web_server()
 check_bash_version()
 {
 	if [[ -n "${BASH_VERSION:-}" ]] &&
-	  (( 65536 * ${BASH_VERSINFO[0]} + 256 * ${BASH_VERSINFO[1]} + ${BASH_VERSINFO[2]} < 197145 ))
+		(( 65536 * ${BASH_VERSINFO[0]} + 256 * ${BASH_VERSINFO[1]} + ${BASH_VERSINFO[2]} < 197145 ))
 	then
-	  echo "BASH 3.2.25 required."
-	  return 1
+		log_item "[X] BASH 3.2.25 or higher required."
+		return 1
 	fi
-	echo "You have bash $BASH_VERSION, which is okay."
+	log_item "You have bash $BASH_VERSION, which is okay."
 }
 
 check_python_version()
@@ -186,7 +201,7 @@ check_python_version()
 	if test $? -eq 0; then
 		log_item "Your python is okay."
 	else
-		log_item "Python 2.7 required."
+		log_item "[X] Python 2.7 required."
 		return 1
 	fi
 }
@@ -195,7 +210,7 @@ check_rsync_version()
 {
 	# Do we really require rsync 3?
 	if test ! -x /usr/bin/rsync; then
-		log_item "rsync not installed."
+		log_item "[X] rsync not installed."
 		return 1
 	fi
 	log_item "rsync detected."
@@ -204,12 +219,13 @@ check_rsync_version()
 
 set_update_channel()
 {
-	echo "$*" >$UPDATE_CHANNEL_FILE
+	# echo "$*" >$UPDATE_CHANNEL_FILE
+	return 0
 }
 
 create_user()
 {
-	local username=$1
+	local username="$1"
 	getent passwd $username >/dev/null
 	if test $? -eq 0; then
 		fail "User $username already exists."
@@ -235,7 +251,7 @@ create_user()
 log "Begin setting up ..."
 
 # Parse CLI arguments.
-while (( $* > 0 ));
+while test -n "$*";
 do
 	token="$1"
 	shift
@@ -327,7 +343,7 @@ do
 		--create-tester)
 			root_or_fail "$token"
 			log "Creating a tester ..."
-			TESTER_NAME=$1
+			TESTER_NAME="$1"
 			if [[ "$TESTER_NAME" =~ -* ]]; then
 				TESTER_NAME="$DEFAULT_TESTER_NAME"
 			else
@@ -340,7 +356,7 @@ do
 		--create-user)
 			root_or_fail "$token"
 			log "Creating a user ..."
-			USER_NAME=$1
+			USER_NAME="$1"
 			if [[ "$USER_NAME" =~ -* ]]; then
 				USER_NAME=$DEFAULT_USER_NAME
 			else
