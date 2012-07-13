@@ -86,8 +86,8 @@ private:
 
     QXmlStreamReader xmlReader;
 
-    static const int m_maxWebPageRequestThreadNum = 10;
-    static const int m_maxRuleRequestThreadNum = 10;
+    int m_maxWebPageRequestThreadNum;
+    int m_maxRuleRequestThreadNum;
 
     QScriptEngine m_engine;
     QScriptValue m_globalValue;
