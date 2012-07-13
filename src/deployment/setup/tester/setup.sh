@@ -88,7 +88,7 @@ Options
 	--config-sshd	Modify the config file of sshd
 	--create-user	Create an operating user
 	--create-tester	Create a tester
-	--install-keys	Install ssh keys, user labrador must exist
+	--install-keys	Install ssh keys
 	
 Note
 
@@ -98,23 +98,23 @@ Note
 }
 
 log() { printf "$*\n" }
-log_item { printf "\t * $*\n" }
-log_error { printf "Error: $*\n" }
-fail { printf "\nError: $*\n"; exit 1 }
+log_item() { printf "\t * $*\n" }
+log_error() { printf "Error: $*\n" }
+fail() { printf "\nError: $*\n"; exit 1 }
 
 root_or_fail()
 {
 	# Check if current user is root
 	if test `id -u` -ne 0; then
-		printf "\nYou must be root to use option: $*\n"; exit 1 }
+		printf "\nYou must be root to use option: $*\n"; exit 1 
 	fi
 }
 
 user_or_fail()
 {
 	# Check if current user is labrador
-	if [[ $EUID -ne 1111 ]]; then
-		printf "\nYou must be user labrador to use option: $*\n"; exit 1 }
+	if test `id -u` -ne 1111; then
+		printf "\nYou must be user labrador to use option: $*\n"; exit 1 
 	fi
 }
 
@@ -159,7 +159,7 @@ check_ssh_server()
 
 check_web_server()
 {
-	if ! test -x /usr/sbin/apache2; then
+	if test ! -x /usr/sbin/apache2; then
 		log_item "Web server not installed."
 		return 1
 	fi
@@ -194,7 +194,7 @@ check_python_version()
 check_rsync_version()
 {
 	# Do we really require rsync 3?
-	if ! test -x /usr/bin/rsync; then
+	if test ! -x /usr/bin/rsync; then
 		log_item "rsync not installed."
 		return 1
 	fi
@@ -211,7 +211,7 @@ create_user()
 {
 	local username=$1
 	getent passwd $username >/dev/null
-	if $? -eq 0; then
+	if test $? -eq 0; then
 		fail "User $username already exists."
 	else
 		if test "$username" == "$DEFAULT_USER_NAME"; then
@@ -235,12 +235,11 @@ create_user()
 log "Begin setting up ..."
 
 # Parse CLI arguments.
-while (( $* > 0 ))
+while (( $* > 0 ));
 do
 	token="$1"
 	shift
 	case "$token" in
-
 		--check-env)
 			failed=1
 			log "\nCheck environment ..." 
@@ -373,7 +372,6 @@ do
 	esac
 done
 
-echo
+echo ""
 log "Setup completed."
-echo
-
+echo ""
