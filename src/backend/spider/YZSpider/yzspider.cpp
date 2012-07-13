@@ -5,7 +5,7 @@
 #include <QDir>
 
 YZSpider::YZSpider(QObject *parent) :
-    QObject(parent)
+    QObject(parent),m_maxRuleRequestThreadNum(10),m_maxWebPageRequestThreadNum(10)
 {
     QStringList parametersList = QCoreApplication::arguments();
     foreach(QString parameter,parametersList)
@@ -40,14 +40,15 @@ YZSpider::YZSpider(QObject *parent) :
 
     YZLogger::Logger()->log("log something to test");
 
-    m_webpageRequestThreadNum = m_maxWebPageRequestThreadNum;
-    m_ruleRequestThreadNum = m_maxRuleRequestThreadNum;
+
     m_webPageCount = 0;
     m_finishParseRules = false;
     m_networkAccessManager = new QNetworkAccessManager(this);
     QDir dir(m_paramenters.value("--rule-dir"));
     parseWebsiteConfigFile(dir.absolutePath()+"/"+"spider_config.xml");
-
+    m_webpageRequestThreadNum = m_maxWebPageRequestThreadNum;
+    m_ruleRequestThreadNum = m_maxRuleRequestThreadNum;
+    parseWebsiteData();
 }
 
 void YZSpider::downloadWebPage(Node *node)
@@ -240,7 +241,6 @@ void YZSpider::parseWebsiteConfigFile(QString configFile)
         xmlReader.readNext();
     }
     file.close();
-    parseWebsiteData();
 }
 
 void YZSpider::parseWebsiteXml(QXmlStreamReader &reader)
@@ -270,6 +270,8 @@ void YZSpider::parseWebsiteXml(QXmlStreamReader &reader)
             else if(reader.name()=="threadLimit")
             {
                 m_website.threadLimit = reader.readElementText();
+                m_maxRuleRequestThreadNum = m_website.threadLimit.toInt();
+                m_maxWebPageRequestThreadNum = m_webpageRequestThreadNum;
             }
             else if(reader.name()=="node")
             {
