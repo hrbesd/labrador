@@ -1,5 +1,10 @@
+# Always use relative path as source in this config file
 
 # Programs
 # ln -s $DIR/butts/reactor/reactor.py $DIR/labrador/bin/reactor.py
 
 ln -s ../butts/spider/spider $TMP_DIR/bin/spider
+
+# Admin
+ln -s ../butts/admin/console/lab.sh $TMP/bin/lab
+ln -s ../butts/admin/daemon/cron/labrador-scheduler.sh $TMP/bin/labrador-scheduler
