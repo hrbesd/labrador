@@ -21,7 +21,7 @@ UPDATER_ETC=etc
 UPDATER_BUTTS=butts
 UPDATER_SITES=sites
 UPDATER_LOG=log
-UPDATER_HOST="219.217.227.82" # You have to verify this!
+UPDATER_HOST="get.yunmd.info" # You have to verify this!
 
 LABRADOR_ROOT=~/labrador
 LABRADOR_BIN=$LABRADOR_ROOT/$UPDATER_BIN
