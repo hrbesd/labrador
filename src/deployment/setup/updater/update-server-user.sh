@@ -55,6 +55,7 @@ useradd -g users --create-home --shell /bin/bash $USERNAME
 
 SSH_DIR=/home/$USERNAME/.ssh
 LAB_DIR=/home/$USERNAME/labrador
+SSH_CONFIG=$SSH_DIR/config
 
 mkdir $LAB_DIR
 chmod 700 $LAB_DIR
@@ -65,8 +66,11 @@ cp $SSH_KEY $SSH_DIR
 cp $SSH_KEY.pub $SSH_DIR
 cat $SSH_KEY".pub" > $SSH_DIR/authorized_keys
 cat $ADMIN_PUB_KEY >> $SSH_DIR/authorized_keys
-echo "Host *" > $SSH_DIR/config
-echo "IdentityFile $SSH_KEY" >>$SSH_DIR/config
+echo "Host *" > $SSH_CONFIG
+echo "IdentityFile $SSH_KEY" >>$SSH_CONFIG
+echo "StrictHostKeyChecking no" >>$SSH_CONFIG
+echo "UserKnownHostsFile=/dev/null" >>$SSH_CONFIG
+
 chmod 600 $SSH_DIR/*
 chown -R updater:users /home/$USERNAME/*
 
