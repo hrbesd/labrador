@@ -23,12 +23,30 @@ append_console_log()
 	printf "`date '+%Y-%m-%d %H:%M:%S'`\t$*\n" >> $CONSOLE_LOG
 }
 
-log() { printf "$*\n"; append_console_log "$*"}
-log_item { printf "\t * $*\n"; append_console_log " * $*"}
-log_error { printf "Error: $*\n" append_console_log "[Error]\t$*"}
-fail { printf "\nError: $*\n" >&2; append_console_log "$*"; exit 1 }
+log() 
+{ 
+	printf "$*\n"
+	append_console_log "$*"
+}
 
-test -z "$EDITOR" && export EDITOR=nano # Or vi?
+log_item()
+{ 
+	printf "\t * $*\n"
+	append_console_log " * $*"
+}
+
+log_error()
+{
+	printf "Error: $*\n"
+	append_console_log "[Error]\t$*"
+}
+
+fail()
+{
+	printf "\nError: $*\n" >&2
+	append_console_log "$*"
+	exit 1
+}
 
 site_exists()
 {

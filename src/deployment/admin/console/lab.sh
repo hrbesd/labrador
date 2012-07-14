@@ -1,12 +1,24 @@
 #!/bin/bash
 
 # Finding the real script thru links
-SELF=$0
-while true; do
-	DIR=`dirname $SELF`
-	SELF=`readlink $SELF`
-	test -z "$SELF" && break
+# SELF=$0
+# while true; do
+# 	DIR=`dirname $SELF`
+# 	SELF=`readlink $SELF`
+# 	test -z "$SELF" && break
+# done
+
+# My solution sucks, so copy a clip from stackoverflow.com
+SOURCE="${BASH_SOURCE[0]}"
+DIR="$( dirname "$SOURCE" )"
+while [ -h "$SOURCE" ]
+do 
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+  DIR="$( cd -P "$( dirname "$SOURCE"  )" && pwd )"
 done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
 
 source $DIR/utils/common.sh
 
