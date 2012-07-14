@@ -129,8 +129,8 @@ root_or_fail()
 user_or_fail()
 {
 	# Check if current user is labrador
-	if test `id -u` -eq 0; then
-		printf "\nYou must be a user to use option: $*\n"; exit 1 
+	if test `id -u` -eq 0 -o ! -f ~/.labrador-user; then
+		printf "\nYou must be a regular user to use option: $*\n"; exit 1 
 	fi
 }
 
@@ -243,6 +243,7 @@ create_user()
 		local script_path=$script_dir"/`basename $0`"
 		chmod 755 $script_path
 		ln -s $script_path /home/$username/"`basename $0`"
+		touch /home/$username/.labrador-user
 		log "User $username sucessfully created."
 
 		log "Logging on update server to continue to install keys ..."
@@ -348,9 +349,17 @@ do
 				log "Added LABRADOR_CONFIG variable"
 			fi
 
+			# Set default editor
 			if test -z "$EDITOR"; then
 				echo "EDITOR=/usr/bin/nano" >>~/.profile
 				log "Added EDITOR variable."
+			fi
+			
+			# Set up aliases
+			test -f ~/.bash_aliases && grep "setup" ~/.bash_aliases >/dev/null
+			if test $? -ne 0; then
+				echo "alias update='~/setup --sync-bin'" >>~/.bash_aliases
+				log "Added bash aliases."
 			fi
 			;;
 
@@ -428,6 +437,8 @@ do
 			
 			# Ruby 1.8
 			apt-get -y install ruby1.8
+			# Gems
+			apt-get -y install rubygems1.8
 			# sinatra
 			gem install sinatra
 			;;
