@@ -28,16 +28,16 @@ test -d $TMP_DIR && rm -r $TMP_DIR
 echo "Making temp dir for syncing ..."
 mkdir $TMP_DIR
 echo "Making dirs ..."
-source $DIR/*.dirs
+for f in $DIR/*.dirs; do source $f; done
 echo "Putting butts in ..."
-source $DIR/*.files
+for f in $DIR/*.files; do source $f; done
 echo "Kicking asses ..."
 rsync -av --copy-links --delete $TMP_DIR/ $UPDATE_LOGIN@$UPDATE_SERVER:~/labrador/$CHANNEL/
 
 # Create symbol links
 echo "Creating links for executables ..."
 mkdir $TMP_DIR/bin
-source $DIR/*.links
+for f in $DIR/*.links; do source $f; done
 rsync -av --delete $TMP_DIR/bin/ $UPDATE_LOGIN@$UPDATE_SERVER:~/labrador/$CHANNEL/bin/
 
 # And don not forget the promoter
