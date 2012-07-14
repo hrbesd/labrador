@@ -13,11 +13,15 @@ source ~/.profile
 
 source $LABRADOR_CONFIG
 
-while true; do
-	DIR=`dirname $SELF`
-	SELF=`readlink $SELF`
-	test -z "$SELF" && break
+SOURCE="${BASH_SOURCE[0]}"
+DIR="$( dirname "$SOURCE" )"
+while [ -h "$SOURCE" ]
+do 
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+	DIR="$( cd -P "$( dirname "$SOURCE"  )" && pwd )"
 done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 source $DIR/../../common/launch.sh
 
