@@ -1,5 +1,0 @@
-# ln -s $DIR/../repo/labrador/src/backend/reactor/reactor.py $DIR/labrador/butts/reactor.py
-
-# Note: Use full source address when creating links
-# Debug
-ln -s ~/repo/labrador/src/deployment/debug/spider $TMP_DIR/butts/spider/spider

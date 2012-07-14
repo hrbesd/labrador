@@ -28,11 +28,23 @@ uname -v
 
 不要使用 `root`，以具有 `sudo` 权限的用户登录，根据开发方的说明获得并运行安装脚本：
 
+默认安装方式：
+
+```
+$ wget -q -O- http://get.yunmd.info/install | bash
+```
+
 #### 运行之前
 
 如果开发方有特别说明，按说明使用文本编辑器修改脚本最前的参数；否则不用修改脚本。
 
-#### 配置 OpenSSH Server
+#### 安装基本软件包
+
+```
+$ sudo ./setup.sh --install-dev
+```
+
+#### 自动配置 OpenSSH Server
 
 ```
 $ sudo ./setup.sh --config-sshd
@@ -76,8 +88,18 @@ $ ./setup.sh --check-env
 
 #### 第一次安装
 
+先检查环境变量：
+
 ```
-$ ./setup.sh --make-dirs --modify-env --sync-bin --sync-etc
+$ ./setup.sh --modify-env
+```
+
+如果提示更新了PATH，需要重新登录修改才能立刻生效。
+
+开始安装：
+
+```
+$ ./setup.sh --make-dirs --sync-bin --sync-etc
 ```
 
 测试员可以在 `setup.sh` 后面插入 `--go-dev` 之类的参数，设置更新通道。
