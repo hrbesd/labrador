@@ -329,7 +329,7 @@ do
 				log_item "Action skipped."
 			else
 				echo 'export PATH='$LABRADOR_BIN':$PATH' >>~/.profile
-				log_item "Updated PATH!\n To make this change take effect now, log out and log back." )
+				log_item "Updated PATH!\n To make this change take effect now, type '. ~/.profile'"
 			fi
 			
 			# Add $LABRADOR_CONFIG to .profile

@@ -2,6 +2,6 @@
 # Note: Avoid using relative path when creating links
 
 # Admin
-ln -s $DEV_SERVER_REPO_ROOT/src/deployment/admin/console $TMP_DIR/butts/console
-ln -s $DEV_SERVER_REPO_ROOT/src/deployment/admin/common $TMP_DIR/butts/common
-ln -s $DEV_SERVER_REPO_ROOT/src/deployment/admin/daemon $TMP_DIR/butts/daemon
+ln -s $DEV_SERVER_REPO_ROOT/src/deployment/admin/console $TMP_DIR/butts/admin/console
+ln -s $DEV_SERVER_REPO_ROOT/src/deployment/admin/common $TMP_DIR/butts/admin/common
+ln -s $DEV_SERVER_REPO_ROOT/src/deployment/admin/daemon $TMP_DIR/butts/admin/daemon
