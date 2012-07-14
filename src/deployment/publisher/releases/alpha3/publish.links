@@ -1,5 +1,0 @@
-
-# Programs
-# ln -s $DIR/butts/reactor/reactor.py $DIR/labrador/bin/reactor.py
-
-ln -s ../butts/spider/spider $TMP_DIR/bin/spider

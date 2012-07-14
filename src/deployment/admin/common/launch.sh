@@ -5,6 +5,7 @@ launch_module()
 	local site_id=$2
 	local prev_module=
 	local need_webroot=
+	local need_stylesheets=
 	case $module_name in
 		generator)
 			BUTT="GENERATOR_PATH"
@@ -24,6 +25,7 @@ launch_module()
 			BUTT="ASSEMBLER_PATH"
 			prev_module=reactor
 			need_webroot="YES"
+			need_stylesheets="YES"
 			;;
 		*)
 			echo "Unknown module name." >&2
@@ -43,5 +45,6 @@ launch_module()
 		--log-file=$site_root/logs/$module_name"
 	test -n "$prev_module" && arguments="$arguments --source-dir=$site_root/workers/$prev_module"
 	test -n "$need_webroot" && arguments="$arguments --webroot-dir=$site_root/webroot"
+	test -n "$need_stylesheets" && arguments="$arguments --stylesheet-dir=$site_root/stylesheets"
 	eval $BUTT $arguments
 }

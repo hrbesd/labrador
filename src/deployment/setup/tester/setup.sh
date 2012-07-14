@@ -21,7 +21,7 @@ UPDATER_ETC=etc
 UPDATER_BUTTS=butts
 UPDATER_SITES=sites
 UPDATER_LOG=log
-UPDATER_HOST="219.217.227.82" # You have to verify this!
+UPDATER_HOST="get.yunmd.info" # You have to verify this!
 
 LABRADOR_ROOT=~/labrador
 LABRADOR_BIN=$LABRADOR_ROOT/$UPDATER_BIN
@@ -320,14 +320,29 @@ do
 
 		--modify-env)
 			user_or_fail "$token"
+
+			log "\nCheck environment varibles ..."
+
 			# Ensure bin inside path
-			log "\nModifying PATH ..."
 			grep $LABRADOR_BIN ~/.profile >/dev/null
-			test $? -eq 0 && log_item "Action skipped." || ( echo 'export PATH='$LABRADOR_BIN':$PATH' >>~/.profile && log_item "Updated PATH! To make this change take effect now, log out and log back." )
+			if test $? -eq 0; then
+				log_item "Action skipped."
+			else
+				echo 'export PATH='$LABRADOR_BIN':$PATH' >>~/.profile
+				log_item "Updated PATH!\n To make this change take effect now, type '. ~/.profile'"
+			fi
 			
 			# Add $LABRADOR_CONFIG to .profile
-			#grep "LABRADOR_CONFIG" ~/.profile >/dev/null
-			#test $? -eq 0 || ( echo 'LABRADOR_CONFIG='$LABRADOR_ETC'/labrador.conf' >>~/.profile && echo "Added LABRADOR_CONFIG!" )
+			grep "LABRADOR_CONFIG" ~/.profile >/dev/null
+			if test $? -ne 0; then
+				echo 'LABRADOR_CONFIG='$LABRADOR_ETC'/labrador.conf' >>~/.profile
+				log "Added LABRADOR_CONFIG variable"
+			fi
+
+			if test -z "$EDITOR"; then
+				echo "EDITOR=/usr/bin/nano" >>~/.profile
+				log "Added EDITOR variable."
+			fi
 			;;
 
 		--config-sshd)
