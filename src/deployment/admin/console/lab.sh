@@ -92,7 +92,7 @@ locate_site()
 
 usage()
 {
-	printf "Usage:\n \t lab <command> [<arguments>]\n \t lab -l\n" >&2
+	printf "\nUsage:\n \tlab <command> [<arguments>]\n" >&2
 	printf "\nSupported lab commands are:\n"
 	for i in `ls $DIR/commands/*.sh`
 	do

@@ -76,6 +76,16 @@ $ sudo ./setup.sh --create-user labrador
 
 被创建的用户使用密钥登录。密钥名为 `esd_rsa`，由管理员分发。
 
+#### 授权用户
+
+如果允许用户创建网站，并修改 Web 服务器设置，需要先对用户授权：
+
+```
+$ sudo ./setup.sh --authorize-user emma
+```
+
+`emma` 为已经创建的用户名。
+
 ### 安装软件
 
 用户第一次登录后运行：
