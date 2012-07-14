@@ -30,7 +30,7 @@ mkdir $TMP_DIR
 echo "Making dirs ..."
 source $DIR/*.dirs
 echo "Putting butts in ..."
-source $DIR/*.butts
+source $DIR/*.files
 echo "Kicking asses ..."
 rsync -av --copy-links --delete $TMP_DIR/ $UPDATE_LOGIN@$UPDATE_SERVER:~/labrador/$CHANNEL/
 
