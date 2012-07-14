@@ -190,15 +190,15 @@ void Generator::generateIndexFile()
         NodeType type = getNodeType(node);
         if(type==ArticleNode)
         {
-            writer.writeTextElement("pageUrl","./a/"+node.hashName.left(2)+"/"+ node.hashName);
+            writer.writeTextElement("pageUrl","./a/"+node.hashName.left(2)+"/"+ node.hashName+".xml");
         }
         else if(type==ListNode)
         {
-            writer.writeTextElement("pageUrl","./l/" + node.hashName);
+            writer.writeTextElement("pageUrl","./l/" + node.hashName+".xml");
         }
         else
         {
-           writer.writeTextElement("pageUrl","./c/" + node.hashName);
+           writer.writeTextElement("pageUrl","./c/" + node.hashName+".xml");
         }
         if(type!=ArticleNode)
         {
@@ -292,7 +292,7 @@ void Generator::generateFiles()
 void Generator::generateColumnFile(const Node &node)
 {
     QFile file;
-    file.setFileName(m_webrootDir.absolutePath()+"/c/"+node.hashName);
+    file.setFileName(m_webrootDir.absolutePath()+"/c/"+node.hashName+".xml");
     if(!file.open(QIODevice::WriteOnly|QIODevice::Text))
     {
         std::cerr<<"can't write webroot column file"<<std::endl;
@@ -313,7 +313,7 @@ void Generator::generateColumnFile(const Node &node)
 void Generator::generateListFile(const Node &node)
 {
     QFile file;
-    file.setFileName(m_webrootDir.absolutePath()+"/l/"+node.hashName);
+    file.setFileName(m_webrootDir.absolutePath()+"/l/"+node.hashName+".xml");
     if(!file.open(QIODevice::WriteOnly|QIODevice::Text))
     {
         std::cerr<<"can't write webroot column file"<<std::endl;
