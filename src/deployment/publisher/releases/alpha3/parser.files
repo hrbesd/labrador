@@ -1,0 +1,7 @@
+# Use symbolic links to specify which file or directory to copy
+# Note: Avoid using relative path when creating links
+
+# Debug
+# Actual path may be: ~/labrador_bin/Parser
+
+ln -s $DEV_SERVER_REPO_ROOT/src/deployment/debug/parser $TMP_DIR/butts/parser/parser

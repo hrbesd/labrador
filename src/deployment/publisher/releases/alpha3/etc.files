@@ -1,0 +1,5 @@
+# Use symbolic links to specify which file or directory to copy
+# Note: Avoid using relative path when creating links
+
+# Config and templets
+ln -s $DEV_SERVER_REPO_ROOT/src/deployment/etc $TMP_DIR/etc

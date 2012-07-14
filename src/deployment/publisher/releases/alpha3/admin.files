@@ -1,3 +1,4 @@
+# Use symbolic links to specify which file or directory to copy
 # Note: Avoid using relative path when creating links
 
 # Admin
