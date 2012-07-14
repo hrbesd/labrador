@@ -1,0 +1,5 @@
+# Always use relative path as source in this config file
+
+# Admin
+ln -s ../butts/admin/console/lab.sh $TMP/bin/lab
+ln -s ../butts/admin/daemon/cron/labrador-scheduler.sh $TMP_DIR/bin/labrador-scheduler

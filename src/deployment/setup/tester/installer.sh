@@ -10,10 +10,16 @@ if test $? -ne 0; then
 fi
 
 cd ~
-rm setup.sh
+test -f setup.sh && rm setup.sh
 wget $UPDATER_HOST"/setup.sh"
 chmod +x ~/setup.sh
 echo
 echo
 
-sudo ~/setup.sh --install-dev --check-env
+read -p "Would you like to install the required development pakage now? (Y/n)" REPLY
+
+if test "$REPLY" != 'n'; then
+	sudo ~/setup.sh --install-dev --check-env
+else
+	echo "Run setup.sh to continue. If you don not know what to do, type './setup.sh help' or check out the documents."
+fi

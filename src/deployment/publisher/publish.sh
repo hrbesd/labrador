@@ -16,6 +16,8 @@ while true; do
     test -z "$SELF" && break
 done
 
+PROMOTER_PATH=$DIR/promote.sh
+
 DIR=$DIR/releases/$1
 test ! -d $DIR && printf "Config dir of this release was not found:\n \t$DIR\n\n" >&2 && exit 1
 
@@ -37,6 +39,10 @@ echo "Creating links for executables ..."
 mkdir $TMP_DIR/bin
 source $DIR/*.links
 rsync -av --delete $TMP_DIR/bin/ $UPDATE_LOGIN@$UPDATE_SERVER:~/labrador/$CHANNEL/bin/
+
+# And don not forget the promoter
+echo "Updating promote.sh ..."
+rsync -av $PROMOTER_PATH $UPDATE_LOGIN@$UPDATE_SERVER:~
 
 # rm -r $DIR/$TMP_DIR
 
