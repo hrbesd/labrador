@@ -41,19 +41,19 @@ $ wget -q -O- http://get.yunmd.info/install | bash
 #### 安装基本软件包
 
 ```
-$ sudo ./setup.sh --install-dev
+$ sudo ./setup --install-dev
 ```
 
 #### 自动配置 OpenSSH Server
 
 ```
-$ sudo ./setup.sh --config-sshd
+$ sudo ./setup --config-sshd
 ```
 
 #### 检查软件配置
 
 ```
-$ ./setup.sh --check-env
+$ ./setup --check-env
 ```
 
 确保全部测试通过再进行下一步操作。
@@ -63,12 +63,12 @@ $ ./setup.sh --check-env
 **提示** 进行如下操作之前请通过 Email 等方式获取用户 `updater` 的密码。
 
 ```
-$ sudo ./setup.sh --create-tester sue
+$ sudo ./setup --create-tester sue
 ```
 将创建一位名为 sue 的测试员。
 
 ```
-$ sudo ./setup.sh --create-user labrador
+$ sudo ./setup --create-user labrador
 ```
 将创建一位操作员 labrador。
 
@@ -81,7 +81,7 @@ $ sudo ./setup.sh --create-user labrador
 如果允许用户创建网站，并修改 Web 服务器设置，需要先对用户授权：
 
 ```
-$ sudo ./setup.sh --authorize-user emma
+$ sudo ./setup --authorize-user emma
 ```
 
 `emma` 为已经创建的用户名。
@@ -91,7 +91,7 @@ $ sudo ./setup.sh --authorize-user emma
 用户第一次登录后运行：
 
 ```
-$ ./setup.sh --check-env
+$ ./setup --check-env
 ```
 确保操作环境满足需求。
 
@@ -101,7 +101,7 @@ $ ./setup.sh --check-env
 先检查环境变量：
 
 ```
-$ ./setup.sh --modify-env
+$ ./setup --modify-env
 ```
 
 如果提示更新了PATH，需要重新登录修改才能立刻生效。
@@ -109,10 +109,10 @@ $ ./setup.sh --modify-env
 开始安装：
 
 ```
-$ ./setup.sh --make-dirs --sync-bin --sync-etc
+$ ./setup --make-dirs --sync-bin --sync-etc
 ```
 
-测试员可以在 `setup.sh` 后面插入 `--go-dev` 之类的参数，设置更新通道。
+测试员可以在 `setup` 后面插入 `--go-dev` 之类的参数，设置更新通道。
 
 在运营服务器上谨慎使用 `--go-unstable` 和 `--go-dev` 参数。如果误用，使用 `--go-stable` 参数重置更新通道。
 
@@ -132,7 +132,7 @@ $ ./setup.sh --make-dirs --sync-bin --sync-etc
 如果想保留配置，可以只更新程序
 
 ```
-$ ./setup.sh -sync-bin
+$ ./setup -sync-bin
 ```
 
 涉及的更新内容：
@@ -145,7 +145,7 @@ $ ./setup.sh -sync-bin
 如果想保留目前版本的程序，可以只更新配置
 
 ```
-$ ./setup.sh -sync-etc
+$ ./setup -sync-etc
 ```
 
 涉及的更新内容：
