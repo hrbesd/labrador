@@ -1,4 +1,4 @@
-test $@ -eq 2 || fail "required arguments not found."
+test $# -eq 2 || fail "required arguments not found."
 
 cp -r $LABRADOR_TEMPLETS $LABRADOR_SITES/$1
 # Updating config
