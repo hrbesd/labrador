@@ -11,15 +11,15 @@ fi
 
 cd ~
 test -f setup.sh && rm setup.sh
-wget $UPDATER_HOST"/setup.sh"
-chmod +x ~/setup.sh
+wget $UPDATER_HOST"/setup"
+chmod +x ~/setup
 echo
 echo
 
 read -p "Would you like to install the required development pakage now? (Y/n) "
 
 if test "$REPLY" != 'n'; then
-	sudo ~/setup.sh --install-dev --check-env
+	sudo ~/setup --install-dev --check-env
 else
-	echo "Run setup.sh to continue. If you don not know what to do, type './setup.sh help' or check out the documents."
+	echo "Run setup to continue. If you don not know what to do, type './setup.sh help' or check out the documents."
 fi
