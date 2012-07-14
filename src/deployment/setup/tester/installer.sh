@@ -16,7 +16,7 @@ chmod +x ~/setup.sh
 echo
 echo
 
-read -p "Would you like to install the required development pakage now? (Y/n)" REPLY
+read -p "Would you like to install the required development pakage now? (Y/n) "
 
 if test "$REPLY" != 'n'; then
 	sudo ~/setup.sh --install-dev --check-env
