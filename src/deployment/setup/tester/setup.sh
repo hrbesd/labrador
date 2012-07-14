@@ -257,6 +257,15 @@ create_user()
 	fi
 }
 
+authorize_user()
+{
+	echo 'echo "'$1' ALL = NOPASSWD: /home/'$1'/labrador/butts/admin/console/utils/add_virtualhost.sh" >>$1' >/tmp/auth_user.sh
+	chmod +x /tmp/auth_user.sh
+	export EDITOR=/tmp/auth_user.sh
+	visudo
+	log "User $1 sucessfully authorized."
+}
+
 # log "Begin setting up ...\n"
 
 # Parse CLI arguments.
@@ -389,6 +398,17 @@ do
 			log "Creating user $USER_NAME..."
 			create_user $USER_NAME
 			;;
+
+		--authorize-user)
+			root_or_fail "$token"
+			USER_NAME="$1"
+			if [[ "$USER_NAME" =~ --* ]]; then
+				fail "You must specify a user to authorize."
+			else
+				shift
+			fi
+			log "Authorizing user $USER_NAME..."
+			authorize_user $USER_NAME
 
 		--install-dev)
 			root_or_fail "$token"
