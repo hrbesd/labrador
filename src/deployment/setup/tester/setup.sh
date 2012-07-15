@@ -129,8 +129,8 @@ root_or_fail()
 user_or_fail()
 {
 	# Check if current user is labrador
-	if test `id -u` -eq 0; then
-		printf "\nYou must be a user to use option: $*\n"; exit 1 
+	if test `id -u` -eq 0 -o ! -f ~/.labrador-user; then
+		printf "\nYou must be a regular user to use option: $*\n"; exit 1 
 	fi
 }
 
@@ -243,6 +243,7 @@ create_user()
 		local script_path=$script_dir"/`basename $0`"
 		chmod 755 $script_path
 		ln -s $script_path /home/$username/"`basename $0`"
+		touch /home/$username/.labrador-user
 		log "User $username sucessfully created."
 
 		log "Logging on update server to continue to install keys ..."
@@ -257,6 +258,15 @@ create_user()
 	fi
 }
 
+authorize_user()
+{
+        echo '#!/bin/bash' >/tmp/auth_user.sh
+        echo 'echo "'$1' ALL = NOPASSWD: /home/'$1'/labrador/butts/admin/console/utils/add_virtualhost.sh" >>$1' >>/tmp/auth_user.sh
+        chmod +x /tmp/auth_user.sh
+        export EDITOR=/tmp/auth_user.sh && visudo
+        # visudo
+        test $? -eq 0 && log "User $1 sucessfully authorized."
+}
 # log "Begin setting up ...\n"
 
 # Parse CLI arguments.
@@ -339,9 +349,17 @@ do
 				log "Added LABRADOR_CONFIG variable"
 			fi
 
+			# Set default editor
 			if test -z "$EDITOR"; then
 				echo "EDITOR=/usr/bin/nano" >>~/.profile
 				log "Added EDITOR variable."
+			fi
+			
+			# Set up aliases
+			test -f ~/.bash_aliases && grep "setup" ~/.bash_aliases >/dev/null
+			if test $? -ne 0; then
+				echo "alias update='~/setup --sync-bin'" >>~/.bash_aliases
+				log "Added bash aliases."
 			fi
 			;;
 
@@ -390,6 +408,18 @@ do
 			create_user $USER_NAME
 			;;
 
+		--authorize-user)
+			root_or_fail "$token"
+			USER_NAME="$1"
+			if [[ "$USER_NAME" =~ --* ]]; then
+				fail "You must specify a user to authorize."
+			else
+				shift
+			fi
+			log "Authorizing user $USER_NAME..."
+			authorize_user $USER_NAME
+			;;
+
 		--install-dev)
 			root_or_fail "$token"
 			log "Refreshing apt cache ...\n\n"
@@ -407,6 +437,8 @@ do
 			
 			# Ruby 1.8
 			apt-get -y install ruby1.8
+			# Gems
+			apt-get -y install rubygems1.8
 			# sinatra
 			gem install sinatra
 			;;
