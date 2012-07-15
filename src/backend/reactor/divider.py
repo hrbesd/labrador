@@ -28,7 +28,6 @@ class Divider:
 					words = sentence[left:right]
 					soundPath = self.client.generateSound(words)
 					if soundPath:
-						print soundPath
 						sentenceTag = Tag(self.soup, 'data', [('id', soundPath)])
 						sentenceTag.insert(0, words)
 						resultSentence.append(sentenceTag)
@@ -54,7 +53,6 @@ class Divider:
 		for element in soup.findAll(['title', 'author']):
 			content = element.contents[0].strip()
 			soundPath = self.client.generateSound(content)
-			print soundPath
 			if soundPath:
 				dataTag = Tag(soup, 'data', [('id', soundPath)])
 				dataTag.insert(0, content)
@@ -69,7 +67,6 @@ class Divider:
 			except:
 				content = u"未知"
 			soundPath = self.client.generateSound(content)
-			print soundPath
 			if soundPath:
 				dataTag = Tag(soup, 'data', [('id', soundPath)])
 				dataTag.insert(0, content)
@@ -77,8 +74,5 @@ class Divider:
 
 		for element in soup.findAll('bodydata'):
 			self.processSentence(element)
-			print element
 
-		#soup = BeautifulSoup(html.unescape_string(soup.prettify()))
-		print soup.prettify()
 		return soup
