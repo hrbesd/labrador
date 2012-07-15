@@ -1,6 +1,6 @@
 launch_module()
 {
-	test $@ -eq 2 || return 1
+	test $# -eq 2 || return 1
 	local module_name=$1
 	local site_id=$2
 	local prev_module=

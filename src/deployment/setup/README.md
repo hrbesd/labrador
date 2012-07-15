@@ -132,7 +132,7 @@ $ ./setup --make-dirs --sync-bin --sync-etc
 如果想保留配置，可以只更新程序
 
 ```
-$ ./setup -sync-bin
+$ ./setup --sync-bin
 ```
 
 涉及的更新内容：
