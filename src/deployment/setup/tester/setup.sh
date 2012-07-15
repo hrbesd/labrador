@@ -431,8 +431,6 @@ do
 			apt-get -y install python-pip
 			# python-dateutil html5lib : 
 			easy_install python-dateutil html5lib
-			# Amara: 
-			easy_install amara
 			# PyParsing:
 			easy_install pyparsing
 			# BeautifulSoup:
