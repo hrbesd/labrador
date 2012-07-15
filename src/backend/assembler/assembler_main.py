@@ -105,25 +105,28 @@ class Assembler:
 				parentFile = root + "/" + fileName
 				dataFile = self.in_folder_path + "/" + fileName[:2] + "/" + fileName
 
-				data = open(dataFile)
-				dataContent = data.read()
-				data.close()
+				try:
+					data = open(dataFile)
+					dataContent = data.read()
+					data.close()
 
-				parent = open(parentFile)
-				parentContent = parent.read()
-				parent.close()
+					parent = open(parentFile)
+					parentContent = parent.read()
+					parent.close()
 
-				dataSoup = BeautifulSoup(dataContent)
-				parentSoup = BeautifulSoup(parentContent)
+					dataSoup = BeautifulSoup(dataContent)
+					parentSoup = BeautifulSoup(parentContent)
 
-				dataSoup.article.insert(0, parentSoup)
-				print dataSoup
+					dataSoup.article.insert(0, parentSoup)
+					print dataSoup
 
-				writeFile = open(filePath, 'w')
-				writeFile.write(dataSoup.prettify())
-				writeFile.close()
+					writeFile = open(filePath, 'w')
+					writeFile.write(dataSoup.prettify())
+					writeFile.close()
 
-				self.addContentAtLineNumber(dataFile, self.xsltPath('../../xml_stylesheets/list.xsl'), 2)
+					self.addContentAtLineNumber(dataFile, self.xsltPath('../../xml_stylesheets/list.xsl'), 2)
+				except:
+					pass
 
 		pass
 
