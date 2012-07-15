@@ -8,9 +8,12 @@ class ConfigParser:
 		self.alt_dict = {}
 
 	def parseFile(self):
-		configFile = codecs.open(self.filePath, 'r', 'utf-8')
-		for line in configFile.readlines():
-			hashKey, alt = line.split(" ")
-			self.alt_dict[hashKey.encode('ascii')] = alt
-		configFile.close()
-		return self.alt_dict
+		try:
+			configFile = codecs.open(self.filePath, 'r', 'utf-8')
+			for line in configFile.readlines():
+				hashKey, alt = line.split(" ")
+				self.alt_dict[hashKey.encode('ascii')] = alt
+			configFile.close()
+			return self.alt_dict
+		except:
+			return self.alt_dict
