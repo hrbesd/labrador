@@ -100,7 +100,7 @@ class Assembler:
 				self.addContentAtLineNumber(srcFile, self.xsltPath('./xml_stylesheets/list.xsl'), 2)
 
 		# a
-		for root, dirs, files in os.walk(lFolderPath):
+		for root, dirs, files in os.walk(aFolderPath):
 			for fileName in files:
 				parentFile = root + "/" + fileName
 				dataFile = self.in_folder_path + "/" + fileName[:2] + "/" + fileName
@@ -117,7 +117,7 @@ class Assembler:
 					dataSoup = BeautifulSoup(dataContent)
 					parentSoup = BeautifulSoup(parentContent)
 
-					dataSoup.article.insert(0, parentSoup)
+					dataSoup.article.insert(0, parentSoup.parentpageurl)
 					print dataSoup
 
 					writeFile = open(filePath, 'w')
