@@ -5,6 +5,6 @@ if test "$2" == "for"; then
 	locate_site
 fi
 
-source $DIR/../../common/launch.sh
+source $DIR/../common/launch.sh
 log "Launching $1 ...\n"
 launch_module $1 $SITE_ID
