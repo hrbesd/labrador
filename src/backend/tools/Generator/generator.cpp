@@ -9,6 +9,7 @@ Generator::Generator(QObject *parent) :
     parseWebsiteIndexFile();
     generateWebroot();
     qDebug()<<"finish";
+    exit(0);
 }
 
 void Generator::initParameters()
