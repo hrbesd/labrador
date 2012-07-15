@@ -14,6 +14,7 @@ class Divider:
 
 	def doWork(self):
 		soup = self.soup
+		print soup.prettify()
 		# first of all, process the fixed elements, like `title', `author', `lastmodified'
 		# `lastmodified' need to be changed to human readable text
 
@@ -45,6 +46,7 @@ class Divider:
 
 		for element in soup.findAll('bodydata'):
 			dividedSentences = Tag(soup, 'bodydata')
+			# TODO 按照树状结构重建翻译之后的节点
 			content = element.contents[0].strip()
 			m = self.dividerPattern.findall(content)
 			for parts in m:
