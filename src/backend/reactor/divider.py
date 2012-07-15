@@ -40,7 +40,7 @@ class Divider:
 			for result in results:
 				resultTag.append(result)
 			element.replaceWith(resultTag)
-		else if type(element) == unicode:
+		elif type(element) == unicode:
 			return
 		else:
 			for child in element:
