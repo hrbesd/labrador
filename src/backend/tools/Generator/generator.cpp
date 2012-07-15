@@ -339,9 +339,7 @@ void Generator::generateArticleFile(const Node &node)
     QXmlStreamWriter writer(&file);
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
-    writer.writeStartElement("article");
     writeParentPageUrlXml(writer,node);
-    writer.writeEndElement();
     writer.writeEndDocument();
     file.close();
 }
