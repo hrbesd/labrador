@@ -64,7 +64,7 @@ YZParser::YZParser(QObject *parent) :
     parseFolder(m_paramenters.value("--source-dir"));
     qDebug()<<"finish";
     qDebug()<<time.elapsed()<<":"<<m_webpageCount;
-    qApp->exit(0);
+    exit(0);
 }
 
 int YZParser::parseFile(QString fileName)
