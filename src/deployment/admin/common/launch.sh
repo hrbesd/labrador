@@ -38,7 +38,7 @@ launch_module()
 	local conf_dir=$LABRADOR/etc
 
 	arguments="--site-config=$site_conf \
-		--work-dir=$site_root/workers/$module_name \
+		--worker-dir=$site_root/workers/$module_name \
 		--shared-dir=$site_root/workers/shared \
 		--config-dir=$conf_dir/$module_name \
 		--rule-dir=$site_root/rules/$module_name \
