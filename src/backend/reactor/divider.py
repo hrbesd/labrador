@@ -40,6 +40,8 @@ class Divider:
 			for result in results:
 				resultTag.append(result)
 			element.replaceWith(resultTag)
+		else if type(element) == unicode:
+			return
 		else:
 			for child in element:
 				self.processSentence(child)
@@ -72,10 +74,7 @@ class Divider:
 				dataTag.insert(0, content)
 				element.contents[0] = dataTag
 
-		try:
-			for element in soup.findAll('bodydata'):
-				self.processSentence(element)
-		except:
-			pass
+		for element in soup.findAll('bodydata'):
+			self.processSentence(element)
 
 		return soup
