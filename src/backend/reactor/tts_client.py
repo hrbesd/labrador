@@ -2,6 +2,7 @@
 # 调用TTS服务，并获取生成的mp3的结果
 import urllib2, base64
 from xml.dom.minidom import parseString
+import datetime
 
 class TTSClient:
 	configDict = {}
@@ -40,5 +41,8 @@ class TTSClient:
 		if len(text) == 0:
 			return False
 		print text.encode('utf-8')
+		start = datetime.datetime.now()
 		jobID = self.sendJobRequest(text)
+		finish = datetime.datetime.now()
+		print (finish - start)
 		return self.getAudioPath(jobID)
