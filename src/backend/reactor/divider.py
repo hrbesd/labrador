@@ -72,7 +72,10 @@ class Divider:
 				dataTag.insert(0, content)
 				element.contents[0] = dataTag
 
-		for element in soup.findAll('bodydata'):
-			self.processSentence(element)
+		try:
+			for element in soup.findAll('bodydata'):
+				self.processSentence(element)
+		except:
+			pass
 
 		return soup
