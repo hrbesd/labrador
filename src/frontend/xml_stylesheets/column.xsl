@@ -10,7 +10,16 @@
 			<body>
 				<nav>
 					<ul>
-						<li><a href="../index.xml">首页</a></li>
+						<xsl:for-each select="column/parentPageUrl/node">
+							<li>
+								<a>
+									<xsl:attribute name="href">
+										<xsl:value-of select="pageUrl"/>
+									</xsl:attribute>
+									<xsl:value-of select="name"/>
+								</a>
+							</li>
+						</xsl:for-each>
 						<li>
 							<a href="#"><xsl:value-of select="column/name"/></a>
 						</li>

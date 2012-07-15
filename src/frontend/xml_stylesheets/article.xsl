@@ -8,13 +8,21 @@
 				<title><xsl:value-of select="article/title"/></title>
 			</head>
 			<body>
-				<!-- Location. e.g. Home > You > Are > Here -->
 				<nav>
 					<ul>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">You</a></li>
-						<li><a href="#">Are</a></li>
-						<li><a href="#">Here</a></li>
+						<xsl:for-each select="article/parentPageUrl/node">
+							<li>
+								<a>
+									<xsl:attribute name="href">
+										<xsl:value-of select="pageUrl"/>
+									</xsl:attribute>
+									<xsl:value-of select="name"/>
+								</a>
+							</li>
+						</xsl:for-each>
+						<li>
+							<a href="#"><xsl:value-of select="article/name"/></a>
+						</li>
 					</ul>
 				</nav>
 				<article>
