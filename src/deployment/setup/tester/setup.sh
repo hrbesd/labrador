@@ -436,7 +436,7 @@ do
 			# BeautifulSoup:
 			easy_install BeautifulSoup
 			# HTML
-			easy_install html
+			# easy_install html
 			
 			# Ruby 1.8
 			apt-get -y install ruby1.8
