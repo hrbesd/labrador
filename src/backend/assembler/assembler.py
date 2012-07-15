@@ -22,6 +22,13 @@ def main():
 		print assembler_main.getVersionStr()
 		return
 
+	print args.source_dir
+	print args.stylesheet_dir
+	print args.shared_dir
+	print args.worker_dir
+	print args.webroot_dir
+	print args.log_file
+
 	assemblerObj = assembler_main.Assembler(args.source_dir, 
 		args.stylesheet_dir, 
 		args.shared_dir, 

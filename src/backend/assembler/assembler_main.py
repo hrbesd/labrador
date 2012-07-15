@@ -46,18 +46,10 @@ class Assembler:
 
 	def ensureInputFolderExists(self):
 		baseFolderPath = self.in_folder_path
-		indexFile = self.in_folder_path + "/index.xml"
-		aFolderPath = self.in_folder_path + "/a"
-		cFolderPath = self.in_folder_path + "/c"
-		lFolderPath = self.in_folder_path + "/l"
 		stylesheetPath = self.stylesheet_path
 		print baseFolderPath
-		print indexFile
-		print aFolderPath
-		print cFolderPath
-		print lFolderPath
 		print stylesheetPath
-		return os.path.exists(self.in_folder_path) and os.path.exists(indexFile) and os.path.exists(aFolderPath) and os.path.exists(cFolderPath) and os.path.exists(lFolderPath) and os.path.exists(stylesheetPath)
+		return os.path.exists(self.in_folder_path) and os.path.exists(stylesheetPath)
 
 	def xsltPath(self, type):
 		return '<?xml-stylesheet type="text/xsl" href="%s"?>' % type
