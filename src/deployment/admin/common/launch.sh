@@ -8,21 +8,21 @@ launch_module()
 	local need_stylesheets=
 	case $module_name in
 		generator)
-			BUTT="GENERATOR_PATH"
+			BUTT="$GENERATOR_PATH"
 			;;
 		spider)
-			BUTT="SPDIER_PATH"
+			BUTT="$SPDIER_PATH"
 			;;
 		parser)
-			BUTT="PARSER_PATH"
+			BUTT="$PARSER_PATH"
 			prev_module=spider
 			;;
 		reactor)
-			BUTT="REACTOR_PATH"
+			BUTT="$REACTOR_PATH"
 			prev_module=parser
 			;;
 		assembler)
-			BUTT="ASSEMBLER_PATH"
+			BUTT="$ASSEMBLER_PATH"
 			prev_module=reactor
 			need_webroot="YES"
 			need_stylesheets="YES"
