@@ -10,11 +10,11 @@
 			<body>
 				<nav>
 					<ul>
-						<xsl:for-each select="article/parentPageUrl/node">
+						<xsl:for-each select="article/parentpageurl/node">
 							<li>
 								<a>
 									<xsl:attribute name="href">
-										<xsl:value-of select="pageUrl"/>
+										<xsl:value-of select="pageurl"/>
 									</xsl:attribute>
 									<xsl:value-of select="name"/>
 								</a>
