@@ -123,7 +123,7 @@ class Assembler:
 					writeFile.write(dataSoup.prettify())
 					writeFile.close()
 
-					self.addContentAtLineNumber(parentFile, self.xsltPath('../../xml_stylesheets/list.xsl'), 2)
+					self.addContentAtLineNumber(parentFile, self.xsltPath('../../xml_stylesheets/article.xsl'), 2)
 
 					print 'generated %s ' % parentFile
 				except:
