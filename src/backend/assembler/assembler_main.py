@@ -119,13 +119,13 @@ class Assembler:
 
 					dataSoup.article.insert(0, parentSoup.parentpageurl)
 
-					writeFile = open(dataFile, 'w')
+					writeFile = open(parentFile, 'w')
 					writeFile.write(dataSoup.prettify())
 					writeFile.close()
 
-					self.addContentAtLineNumber(dataFile, self.xsltPath('../../xml_stylesheets/list.xsl'), 2)
+					self.addContentAtLineNumber(parentFile, self.xsltPath('../../xml_stylesheets/list.xsl'), 2)
 
-					print 'generated %s ' % dataFile
+					print 'generated %s ' % parentFile
 				except:
 					pass
 
