@@ -11,7 +11,7 @@ launch_module()
 			BUTT="$GENERATOR_PATH"
 			;;
 		spider)
-			BUTT="$SPDIER_PATH"
+			BUTT="$SPIDER_PATH"
 			;;
 		parser)
 			BUTT="$PARSER_PATH"
