@@ -7,6 +7,9 @@ import assembler_main, argparse
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-v', '--version', help='显示当前版本号', action='store_true')
+	parser.add_argument('--site-config', required=True, help='site config')
+	parser.add_argument('--config-dir', required=True, help='config dir')
+	parser.add_argument('--rule-dir', required=True, help='rule dir')
 	parser.add_argument('--source-dir', required=True, help='reactor文件提供的文件内容')
 	parser.add_argument('--worker-dir', required=True, help='输出的文件路径')
 	parser.add_argument('--shared-dir', required=True, help='共享文件路径')
