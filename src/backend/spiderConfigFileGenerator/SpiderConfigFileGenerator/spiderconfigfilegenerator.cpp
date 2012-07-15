@@ -194,6 +194,7 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
 //    websiteItem.node.ruleList.append(jiHuaGuiHuaRule);
 
 
-    YZXmlWriter::writeWebsiteItemToXml(websiteItem,"config.xml");
+    YZXmlWriter::writeWebsiteItemToXml(websiteItem,"spider_config.xml");
     qDebug()<<"finish";
+    exit(0);
 }
