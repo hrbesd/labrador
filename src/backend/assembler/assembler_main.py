@@ -91,13 +91,13 @@ class Assembler:
 		for root, dirs, files in os.walk(cFolderPath):
 			for fileName in files:
 				srcFile = root + "/" + fileName
-				self.addContentAtLineNumber(srcFile, self.xsltPath('./xml_stylesheets/column.xsl'), 2)
+				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/column.xsl'), 2)
 
 		# l
 		for root, dirs, files in os.walk(lFolderPath):
 			for fileName in files:
 				srcFile = root + "/" + fileName
-				self.addContentAtLineNumber(srcFile, self.xsltPath('./xml_stylesheets/list.xsl'), 2)
+				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/list.xsl'), 2)
 
 		# a
 		for root, dirs, files in os.walk(aFolderPath):
