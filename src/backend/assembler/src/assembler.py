@@ -9,7 +9,7 @@ def main():
 	parser.add_argument('-v', '--version', help='显示当前版本号', action='store_true')
 	parser.add_argument('--source-dir', required=True, help='reactor文件提供的文件内容')
 	parser.add_argument('--worker-dir', required=True, help='输出的文件路径')
-	parser.add_argument('--share-dir', required=True, help='共享文件路径')
+	parser.add_argument('--shared-dir', required=True, help='共享文件路径')
 	parser.add_argument('--webroot-dir', required=True, help='所有文件处理完成之后，文件存放的路径')
 	parser.add_argument('--stylesheet-dir', required=True, help='xslt文件所在目录')
 	parser.add_argument('--log-file', help='日志文件', default='assembler_log.log')
@@ -21,7 +21,7 @@ def main():
 
 	assemblerObj = assembler_main.Assembler(args.source_dir, 
 		args.stylesheet_dir, 
-		args.share_dir, 
+		args.shared_dir, 
 		args.worker_dir, 
 		args.webroot_dir, 
 		args.log_file)

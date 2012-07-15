@@ -51,12 +51,10 @@ class Assembler:
 		cFolderPath = self.in_folder_path + "/c"
 		lFolderPath = self.in_folder_path + "/l"
 		stylesheetPath = self.stylesheet_path
-		return os.path.exists(self.in_folder_path) 
-			and os.path.exists(indexFile) 
-			and os.path.exists(aFolderPath) 
-			and os.path.exists(cFolderPath) 
-			and os.path.exists(lFolderPath) 
-			and os.path.exists(stylesheetPath)
+		return os.path.exists(self.in_folder_path) and os.path.exists(indexFile) and os.path.exists(aFolderPath) and os.path.exists(cFolderPath) and os.path.exists(lFolderPath) and os.path.exists(stylesheetPath)
+
+	def xsltPath(self, type):
+		return '<?xml-stylesheet type="text/xsl" href="%s"?>' % type
 
 	# 确认输出目录是否存在，如果不存在，就创建这个目录
 	def ensureOutputFolderExists(self):
@@ -73,7 +71,7 @@ class Assembler:
 				indexPath = fileName
 
 		if len(indexPath) > 0:
-			command = './Generator --index-file %s --webroot-dir %s --log-file %s' % (indexPath, self.temp_out_dir, self.log_file)
+			command = './producer --index-file %s --webroot-dir %s --log-file %s' % (indexPath, self.temp_out_dir, self.log_file)
 			os.system(command)
 		else:
 			print 'Index file not found!'
@@ -83,6 +81,25 @@ class Assembler:
 		self.fileMover(self.stylesheet_path, self.temp_out_dir + "/xml_stylesheets")
 
 	def processFilesRecursively(self):
+		indexFile = self.in_folder_path + "/index.xml"
+		aFolderPath = self.in_folder_path + "/a"
+		cFolderPath = self.in_folder_path + "/c"
+		lFolderPath = self.in_folder_path + "/l"
+
+		# index first
+		self.addContentAtLineNumber(indexFile, self.xsltPath('./xml_stylesheets/index.xsl'), 2)
+
+		# c
+		for root, dirs, files in os.walk(cFolderPath):
+			for fileName in files:
+				srcFile = root + "/" + fileName
+				self.addContentAtLineNumber(srcFile, self.xsltPath('./xml_stylesheets/column.xsl'), 2)
+
+		# l
+		for root, dirs, files in os.walk(lFolderPath):
+			for fileName in files:
+				srcFile = root + "/" + fileName
+				self.addContentAtLineNumber(srcFile, self.xsltPath('./xml_stylesheets/list.xsl'), 2)
 
 		pass
 
