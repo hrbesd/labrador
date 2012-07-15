@@ -178,9 +178,7 @@ void Generator::generateIndexFile()
     writer.writeTextElement("name",m_website.node.name);
     writer.writeTextElement("info",m_website.info);
     writer.writeTextElement("url",m_website.node.url);
-    writer.writeStartElement("nodeList");
     writeNodeListXml(writer,m_website.node.nodeList);
-    writer.writeEndElement();
     writer.writeEndDocument();
     file.close();
 }
