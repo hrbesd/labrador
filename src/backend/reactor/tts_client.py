@@ -39,13 +39,6 @@ class TTSClient:
 	def generateSound(self, text):
 		if len(text) == 0:
 			return False
-		print text + "   " + str(len(text))
+		print text + "   " + unicode(len(text))
 		jobID = self.sendJobRequest(text)
 		return self.getAudioPath(jobID)
-
-def main():
-	client = TTSClient('reactor_config.config')
-	print client.generateSound('<bodydata>据全国征兵工作会议和省政府有关征兵工作的要求，为圆满完成哈尔滨市今冬征兵任务，特发此令。</bodydata>')
-
-if __name__ == '__main__':
-	main()
