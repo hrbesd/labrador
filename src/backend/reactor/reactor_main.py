@@ -23,6 +23,7 @@ class Reactor:
 		self.rule_list = []
 		self.buildRules()
 		self.executor = Executor(log_file_path)
+		self.count = 0
 
 	def __str__(self):
 		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path + '", using rule file "' + self.rule_file_path + '"'
@@ -129,3 +130,6 @@ class Reactor:
 		resultData = soup.prettify().decode('utf-8')
 		resultFile.write(resultData)
 		resultFile.close()
+
+		self.count += 1
+		print 'Processed: %d' % self.count
