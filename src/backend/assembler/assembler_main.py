@@ -66,10 +66,11 @@ class Assembler:
 		indexPath = ""
 		for fileName in os.listdir(self.share_dir):
 			if fileName.endswith('.xml'):
-				indexPath = fileName
+				indexPath = self.share_dir + "/" + fileName
 
 		if len(indexPath) > 0:
-			command = '../../butts/assembler/producer --index-file %s --webroot-dir %s --log-file %s' % (indexPath, self.temp_out_dir, self.log_file)
+			command = '../../butts/assembler/producer --index-file=%s --webroot-dir=%s --log-file=%s' % (indexPath, self.temp_out_dir, self.log_file)
+			print command
 			os.system(command)
 		else:
 			print 'Index file not found!'
