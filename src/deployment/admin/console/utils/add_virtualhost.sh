@@ -51,14 +51,17 @@ then
 fi
 
 virtualhost=${VIRTUALHOST_ROOT}/${hostname}
-docroot=${webroot}/${hostname}
+# docroot=${webroot}/${hostname}
+# Modified by zhf
+docroot=${webroot}
+
 domainname=${hostname}.${DOMAIN}
 #Check the hostname file and webroot dir
 if [ -e $virtualhost ];then
     echo $virtualhost
     echo $ERROR_HOSTEXIST
     exit
-fi	
+fi
 
 if [ -d $docroot ]; then
     echo $docroot
