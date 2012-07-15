@@ -4,4 +4,4 @@
 # Debug
 # Actual path may be: $DEV_SERVER_REPO_ROOT/src/backend/reactor/reactor.py
 
-ln -s $DEV_SERVER_REPO_ROOT/src/deployment/debug/reactor $TMP_DIR/butts/reactor/reactor
+ln -s $DEV_SERVER_REPO_ROOT/src/backend/reactor/* $TMP_DIR/butts/reactor/
