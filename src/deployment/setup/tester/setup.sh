@@ -424,7 +424,6 @@ do
 			root_or_fail "$token"
 			log "Refreshing apt cache ...\n\n"
 			sleep 1
-
 			apt-get update
 			# python2.7-dev: 
 			apt-get -y install python2.7-dev
@@ -434,6 +433,10 @@ do
 			easy_install python-dateutil html5lib
 			# Amara: 
 			easy_install amara
+			# PyParsing:
+			easy_install pyparsing
+			# BeautifulSoup:
+			easy_install BeautifulSoup
 			
 			# Ruby 1.8
 			apt-get -y install ruby1.8
