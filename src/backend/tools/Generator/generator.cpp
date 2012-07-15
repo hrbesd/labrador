@@ -84,11 +84,7 @@ void Generator::parseWebsiteXml(QXmlStreamReader &reader)
         }
         else if(reader.isStartElement())
         {
-            if(reader.name()=="editor")
-            {
-                m_website.editor = reader.readElementText();
-            }
-            else if(reader.name()=="info")
+            if(reader.name()=="info")
             {
                 m_website.info = reader.readElementText();
             }
@@ -127,14 +123,14 @@ void Generator::parseNodeXml(QXmlStreamReader &reader, Node &node)
             }
             else if(reader.name()=="nodeList")
             {
-                parseNodeListXml(reader,node.nodeList);
+                parseNodeListXml(reader,node);
             }
         }
         reader.readNext();
     }
 }
 
-void Generator::parseNodeListXml(QXmlStreamReader &reader, QList<Node> &nodeList)
+void Generator::parseNodeListXml(QXmlStreamReader &reader, Node &node)
 {
     reader.readNext();
     while(!reader.atEnd())
@@ -149,8 +145,9 @@ void Generator::parseNodeListXml(QXmlStreamReader &reader, QList<Node> &nodeList
             if(reader.name()=="node")
             {
                 Node newNode;
-                nodeList<<newNode;
-                parseNodeXml(reader,nodeList.last());
+                newNode.parentNode = &node;
+                node.nodeList<<newNode;
+                parseNodeXml(reader,node.nodeList.last());
             }
         }
         reader.readNext();
@@ -178,35 +175,11 @@ void Generator::generateIndexFile()
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("website");
-    writer.writeTextElement("editor",m_website.editor);
+    writer.writeTextElement("name",m_website.node.name);
     writer.writeTextElement("info",m_website.info);
+    writer.writeTextElement("url",m_website.node.url);
     writer.writeStartElement("nodeList");
-    for(int i=0;i<m_website.node.nodeList.size();i++)
-    {
-        Node& node = m_website.node.nodeList[i];
-        writer.writeStartElement("node");
-        writer.writeTextElement("name",node.name);
-        writer.writeTextElement("url",node.url);
-        NodeType type = getNodeType(node);
-        if(type==ArticleNode)
-        {
-            writer.writeTextElement("pageUrl","./a/"+node.hashName.left(2)+"/"+ node.hashName+".xml");
-        }
-        else if(type==ListNode)
-        {
-            writer.writeTextElement("pageUrl","./l/" + node.hashName+".xml");
-        }
-        else
-        {
-           writer.writeTextElement("pageUrl","./c/" + node.hashName+".xml");
-        }
-        if(type!=ArticleNode)
-        {
-            m_nodeStack.push(&node);
-        }
-        writer.writeEndElement();
-    }
-    writer.writeEndElement();
+    writeNodeListXml(writer,m_website.node.nodeList);
     writer.writeEndElement();
     writer.writeEndDocument();
     file.close();
@@ -218,18 +191,38 @@ void Generator::writeNodeXml(QXmlStreamWriter &writer, const Node &node)
     writer.writeTextElement("name",node.name);
     writer.writeTextElement("url",node.url);
     NodeType type = getNodeType(node);
-    if(type==ArticleNode)
+    if(node.parentNode==&m_website.node)
     {
-        writer.writeTextElement("pageUrl","../a/"+node.hashName.left(2)+"/"+ node.hashName);
-    }
-    else if(type==ListNode)
-    {
-        writer.writeTextElement("pageUrl","../l/" + node.hashName);
+        if(type==ArticleNode)
+        {
+            node.pageUrl = "./a/"+node.hashName.left(2)+"/"+ node.hashName+".xml";
+        }
+        else if(type==ListNode)
+        {
+            node.pageUrl = "./l/"+ node.hashName+".xml";
+        }
+        else
+        {
+            node.pageUrl = "./c/"+ node.hashName+".xml";
+        }
     }
     else
     {
-       writer.writeTextElement("pageUrl","../c/" + node.hashName);
+        if(type==ArticleNode)
+        {
+            node.pageUrl = "../a/"+node.hashName.left(2)+"/"+ node.hashName+".xml";
+        }
+        else if(type==ListNode)
+        {
+            node.pageUrl = "../l/"+ node.hashName+".xml";
+        }
+        else
+        {
+            node.pageUrl = "../c/"+ node.hashName+".xml";
+        }
     }
+    writer.writeTextElement("pageUrl",node.pageUrl);
+
     if(type!=ArticleNode)
     {
         m_nodeStack.push(&node);
@@ -304,6 +297,7 @@ void Generator::generateColumnFile(const Node &node)
     writer.writeStartElement("column");
     writer.writeTextElement("name",node.name);
     writer.writeTextElement("url",node.url);
+    writeParentPageUrlXml(writer,node);
     writeNodeListXml(writer,node.nodeList);
     writer.writeEndElement();
     writer.writeEndDocument();
@@ -325,8 +319,29 @@ void Generator::generateListFile(const Node &node)
     writer.writeStartElement("list");
     writer.writeTextElement("name",node.name);
     writer.writeTextElement("url",node.url);
+    writeParentPageUrlXml(writer,node);
     writeNodeListXml(writer,node.nodeList);
     writer.writeEndElement();
     writer.writeEndDocument();
     file.close();
+}
+
+void Generator::writeParentPageUrlXml(QXmlStreamWriter &writer, const Node &node)
+{
+    if(node.parentNode!=NULL)
+    {
+        if(node.parentNode==&m_website.node)
+        {
+            writer.writeTextElement("parentPageUrl","../index.xml");
+        }
+        //because index.xml is not in c folder :)
+        else if(node.parentNode->parentNode!=NULL&&node.parentNode->parentNode==&m_website.node)
+        {
+            writer.writeTextElement("parentPageUrl","."+node.parentNode->pageUrl);
+        }
+        else
+        {
+            writer.writeTextElement("parentPageUrl",node.parentNode->pageUrl);
+        }
+    }
 }

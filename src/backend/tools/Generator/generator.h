@@ -26,6 +26,7 @@ signals:
 public slots:
 private slots:
 private:
+    //init app parameters
     void initParameters();
 
     //generate webroot
@@ -38,11 +39,12 @@ private:
     void parseWebsiteIndexFile();
     void parseWebsiteXml(QXmlStreamReader &reader);
     void parseNodeXml(QXmlStreamReader &reader, Node& node);
-    void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& nodeList);
+    void parseNodeListXml(QXmlStreamReader &reader,Node& node);
 
     //utilities
     void writeNodeListXml(QXmlStreamWriter &writer, const QList<Node>& nodeList);
     void writeNodeXml(QXmlStreamWriter &writer,const Node& node);
+    void writeParentPageUrlXml(QXmlStreamWriter &writer,const Node& node);
     NodeType getNodeType(const Node& node);
     QXmlStreamReader xmlReader;
     QString m_indexFilePath;
