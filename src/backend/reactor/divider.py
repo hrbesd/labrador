@@ -54,7 +54,7 @@ class Divider:
 			content = element.contents[0].strip()
 			soundPath = '123'#self.client.generateSound(content)
 			if soundPath:
-				sentenceTag = Tag(self.soup, 'span', [('id', soundPath), ('class', 'sentence')])
+				dataTag = Tag(self.soup, 'span', [('id', soundPath), ('class', 'sentence')])
 				dataTag.insert(0, content)
 				element.contents[0] = dataTag
 
@@ -68,7 +68,7 @@ class Divider:
 				content = u"未知"
 			soundPath = '234'#self.client.generateSound(content)
 			if soundPath:
-				sentenceTag = Tag(self.soup, 'span', [('id', soundPath), ('class', 'sentence')])
+				dataTag = Tag(self.soup, 'span', [('id', soundPath), ('class', 'sentence')])
 				dataTag.insert(0, content)
 				element.contents[0] = dataTag
 
