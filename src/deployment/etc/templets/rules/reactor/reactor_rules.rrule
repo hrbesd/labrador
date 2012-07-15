@@ -1,0 +1,113 @@
+applet
+	=> remove
+	==> warning | Please remove applet element
+===
+
+img alt
+	=> fill(img_alt.config)
+===
+
+img
+	-> missing(title)
+	=> set(title, [alt])
+===
+
+video track
+	=> fill(video_alt.config)
+===
+
+audio track
+	=> fill(audio_alt.config)
+===
+
+img
+	-> missing(alt)
+	=> remove
+	==> warning | missing alt
+===
+
+area
+	=> remove
+===
+
+map
+	=> remove
+===
+
+iframe
+    => remove
+===
+
+script
+	=> remove
+===
+
+style
+	=> remove
+===
+
+object
+	=> remove
+===
+
+audio
+	-> missing(track)
+	=> remove
+===
+
+video
+	-> missing(track)
+	=> remove
+===
+
+embed
+	-> equal(type, audio)
+	-> equal(type, video)
+	=> remove
+===
+
+form
+	-> has(action)
+	=> remove
+===
+
+canvas
+	-> has(contents)
+	=> remove
+===
+
+table
+	-> missing(summary)
+	==> warning | missing table summary
+===
+
+textarea
+	-> let(rows, 3)
+	-> let(cols, 20)
+	==> warning | size of textarea is too small
+===
+
+figure
+	==> warning | image may not be identified
+===
+
+bb
+	==> warning | no idea what this is
+===
+
+a target
+	-> equal(target, _blank)
+	=> replace(_self)
+===
+
+a
+	-> missing(title)
+	-> insideSite(src)
+	=> set(title, pageTitle(src))
+===
+
+a
+	-> missing(title)
+	-> outsideSite(src)
+	=> set(title, leaving)
+===

@@ -11,6 +11,8 @@ def main():
 	parser.add_argument('--config-dir', help='reactor配置文件位置', default='reactor.config')
 	parser.add_argument('--source-dir', required=True, help='analyser分析之后输出的文件路径')
 	parser.add_argument('--worker-dir', required=True, help='reactor要输出的文件路径')
+	parser.add_argument('--site-config', required=True, help='site config')
+	parser.add_argument('--shared-dir', required=True, help='shared dir')
 	parser.add_argument('--log-file', help='reactor日志文件', default='reactor_log.log')
 
 	args = parser.parse_args()
