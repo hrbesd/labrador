@@ -44,7 +44,7 @@ private:
     //utilities
     void writeNodeListXml(QXmlStreamWriter &writer, const QList<Node>& nodeList);
     void writeNodeXml(QXmlStreamWriter &writer,const Node& node);
-    void writeParentPageUrlXml(QXmlStreamWriter &writer,const Node& node);
+    void writeParentPageUrlXml(QXmlStreamWriter &writer,const Node& nodeItem);
     NodeType getNodeType(const Node& node);
     QXmlStreamReader xmlReader;
     QString m_indexFilePath;

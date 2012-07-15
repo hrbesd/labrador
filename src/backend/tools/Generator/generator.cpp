@@ -326,22 +326,35 @@ void Generator::generateListFile(const Node &node)
     file.close();
 }
 
-void Generator::writeParentPageUrlXml(QXmlStreamWriter &writer, const Node &node)
+void Generator::writeParentPageUrlXml(QXmlStreamWriter &writer, const Node &nodeItem)
 {
-    if(node.parentNode!=NULL)
+    writer.writeStartElement("parentPageUrl");
+    Node *node = &(const_cast<Node &>(nodeItem));
+    QStack<Node *> nodeStack;
+    while(node->parentNode!=NULL)
     {
-        if(node.parentNode==&m_website.node)
+        nodeStack.push(node);
+        node= node->parentNode;
+    }
+    while(!nodeStack.isEmpty())
+    {
+        node=nodeStack.pop();
+        writer.writeStartElement("node");
+        writer.writeTextElement("name",node->parentNode->name);
+        if(node->parentNode==&m_website.node)
         {
-            writer.writeTextElement("parentPageUrl","../index.xml");
+            writer.writeTextElement("pageUrl","../index.xml");
         }
         //because index.xml is not in c folder :)
-        else if(node.parentNode->parentNode!=NULL&&node.parentNode->parentNode==&m_website.node)
+        else if(node->parentNode->parentNode!=NULL&&node->parentNode->parentNode==&m_website.node)
         {
-            writer.writeTextElement("parentPageUrl","."+node.parentNode->pageUrl);
+            writer.writeTextElement("pageUrl","."+node->parentNode->pageUrl);
         }
         else
         {
-            writer.writeTextElement("parentPageUrl",node.parentNode->pageUrl);
+            writer.writeTextElement("pageUrl",node->parentNode->pageUrl);
         }
+        writer.writeEndElement();
     }
+    writer.writeEndElement();
 }
