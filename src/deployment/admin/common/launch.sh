@@ -35,7 +35,7 @@ launch_module()
 	
 	local site_root=$LABRADOR_SITES/$site_id
 	local site_conf=$site_root/config/site.conf
-	local conf_dir=$LABRADOR/etc
+	local conf_dir=$LABRADOR_ROOT/etc
 
 	arguments="--site-config=$site_conf \
 		--worker-dir=$site_root/workers/$module_name \
