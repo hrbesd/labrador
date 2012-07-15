@@ -26,7 +26,7 @@ class Divider:
 					right = min(sentenceLength, left + self.MAX_STEP)
 					currentLength = right
 					words = sentence[left:right]
-					soundPath = '345'#self.client.generateSound(words)
+					soundPath = self.client.generateSound(words)
 					if soundPath:
 						sentenceTag = Tag(self.soup, 'data', [('id', soundPath)])
 						sentenceTag.insert(0, words)
@@ -54,7 +54,7 @@ class Divider:
 		# TODO 修改设计方式
 		for element in soup.findAll(['title', 'author']):
 			content = element.contents[0].strip()
-			soundPath = '123'#self.client.generateSound(content)
+			soundPath = self.client.generateSound(content)
 			if soundPath:
 				dataTag = Tag(self.soup, 'data', [('id', soundPath)])
 				dataTag.insert(0, content)
@@ -68,7 +68,7 @@ class Divider:
 				content = dateStr.decode('utf-8')
 			except:
 				content = u"未知"
-			soundPath = '234'#self.client.generateSound(content)
+			soundPath = self.client.generateSound(content)
 			if soundPath:
 				dataTag = Tag(self.soup, 'data', [('id', soundPath)])
 				dataTag.insert(0, content)
