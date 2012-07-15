@@ -39,6 +39,6 @@ class TTSClient:
 	def generateSound(self, text):
 		if len(text) == 0:
 			return False
-		print text + "   " + unicode(len(text))
+		print text.encode('utf-8')
 		jobID = self.sendJobRequest(text)
 		return self.getAudioPath(jobID)
