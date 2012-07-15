@@ -1,8 +1,7 @@
 #!/usr/local/bin
 # -*- coding: utf-8 -*-
-import sys, os, shutil, re, codecs, datetime
-import html # 使用开源的html组件，将html进行解码。由于不是标准库，所以首先需要安装这个库。文件放到libs目录下了。
-from xml.dom.minidom import parseString # xml解析类库
+import sys, os, shutil
+from BeautifulSoup import BeautifulSoup
 
 VERSION_NAME = "0.3.1.SERVER"
 
@@ -99,6 +98,32 @@ class Assembler:
 			for fileName in files:
 				srcFile = root + "/" + fileName
 				self.addContentAtLineNumber(srcFile, self.xsltPath('./xml_stylesheets/list.xsl'), 2)
+
+		# a
+		for root, dirs, files in os.walk(lFolderPath):
+			for fileName in files:
+				parentFile = root + "/" + fileName
+				dataFile = self.in_folder_path + "/" + fileName[:2] + "/" + fileName
+
+				data = open(dataFile)
+				dataContent = data.read()
+				data.close()
+
+				parent = open(parentFile)
+				parentContent = parent.read()
+				parent.close()
+
+				dataSoup = BeautifulSoup(dataContent)
+				parentSoup = BeautifulSoup(parentContent)
+
+				dataSoup.article.insert(0, parentSoup)
+				print dataSoup
+
+				writeFile = open(filePath, 'w')
+				writeFile.write(dataSoup.prettify())
+				writeFile.close()
+
+				self.addContentAtLineNumber(dataFile, self.xsltPath('../../xml_stylesheets/list.xsl'), 2)
 
 		pass
 
