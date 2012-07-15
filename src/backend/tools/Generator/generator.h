@@ -34,6 +34,7 @@ private:
     void generateIndexFile();
     void generateColumnFile(const Node &node);
     void generateListFile(const Node &node);
+    void generateArticleFile(const Node &node);
     void generateFiles();
     //read xml files
     void parseWebsiteIndexFile();

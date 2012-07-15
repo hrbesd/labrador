@@ -223,10 +223,8 @@ void Generator::writeNodeXml(QXmlStreamWriter &writer, const Node &node)
     }
     writer.writeTextElement("pageUrl",node.pageUrl);
 
-    if(type!=ArticleNode)
-    {
-        m_nodeStack.push(&node);
-    }
+    m_nodeStack.push(&node);
+
     writer.writeEndElement();
 }
 
@@ -272,6 +270,10 @@ void Generator::generateFiles()
         else if(type == ColumnNode)
         {
             generateColumnFile(*tmpNode);
+        }
+        else if(type == ArticleNode)
+        {
+            generateArticleFile(*tmpNode);
         }
         else
         {
@@ -321,6 +323,26 @@ void Generator::generateListFile(const Node &node)
     writer.writeTextElement("url",node.url);
     writeParentPageUrlXml(writer,node);
     writeNodeListXml(writer,node.nodeList);
+    writer.writeEndElement();
+    writer.writeEndDocument();
+    file.close();
+}
+
+void Generator::generateArticleFile(const Node &node)
+{
+    QFile file;
+    m_webrootDir.mkpath(m_webrootDir.absolutePath()+"/a/"+node.hashName.left(2));
+    file.setFileName(m_webrootDir.absolutePath()+"/a/"+node.hashName.left(2)+"/"+ node.hashName+".xml");
+    if(!file.open(QIODevice::WriteOnly|QIODevice::Text))
+    {
+        std::cerr<<"can't write webroot article file"<<std::endl;
+        return;
+    }
+    QXmlStreamWriter writer(&file);
+    writer.setAutoFormatting(true);
+    writer.writeStartDocument();
+    writer.writeStartElement("article");
+    writeParentPageUrlXml(writer,node);
     writer.writeEndElement();
     writer.writeEndDocument();
     file.close();
