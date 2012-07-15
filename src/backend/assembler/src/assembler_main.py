@@ -35,7 +35,7 @@ class Assembler:
 		self.copyResourceFiles()
 
 		# 4.分别为index.xml、a、c、l文件夹下的文件添加对应的xslt引用语句
-		self.processFilesRecursively(self.in_folder_path, ".xml", self.genHtml)
+		self.processFilesRecursively()
 
 		# 5.将temp_out_dir中的内容复制到webroot_dir中
 		self.mv2webroot()
@@ -82,8 +82,19 @@ class Assembler:
 		# 导航文件直接在temp_out_path中生成，所以不用复制，需要复制的是stylesheets目录
 		self.fileMover(self.stylesheet_path, self.temp_out_dir + "/xml_stylesheets")
 
-	def processFilesRecursively(self, topPath, targetPostfix, processFunction):
+	def processFilesRecursively(self):
+
 		pass
+
+	def addContentAtLineNumber(self, filePath, content, lineNo):
+		readFile = open(filePath)
+		contents = readFile.readlines()
+		readFile.close()
+
+		contents = contents[:lineNo - 1] + [content] + contents[lineNo - 1:]
+		writeFile = open(filePath, 'w')
+		writeFile.write('\n'.join(contents))
+		writeFile.close()
 
 	def mv2webroot(self):
 		self.fileMover(self.temp_out_dir, self.webroot_dir)
