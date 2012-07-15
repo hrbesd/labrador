@@ -51,6 +51,12 @@ class Assembler:
 		cFolderPath = self.in_folder_path + "/c"
 		lFolderPath = self.in_folder_path + "/l"
 		stylesheetPath = self.stylesheet_path
+		print baseFolderPath
+		print indexFile
+		print aFolderPath
+		print cFolderPath
+		print lFolderPath
+		print stylesheetPath
 		return os.path.exists(self.in_folder_path) and os.path.exists(indexFile) and os.path.exists(aFolderPath) and os.path.exists(cFolderPath) and os.path.exists(lFolderPath) and os.path.exists(stylesheetPath)
 
 	def xsltPath(self, type):
