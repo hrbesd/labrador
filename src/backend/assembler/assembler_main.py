@@ -66,7 +66,7 @@ class Assembler:
 		indexPath = ""
 		for fileName in os.listdir(self.share_dir):
 			if fileName.endswith('.xml'):
-				indexPath = self.share_dir + "/" + fileName
+				indexPath = self.share_dir + "/" + fileName.replace(' ', r'\ ')
 
 		if len(indexPath) > 0:
 			command = '../../butts/assembler/producer --index-file=%s --webroot-dir=%s --log-file=%s' % (indexPath, self.temp_out_dir, self.log_file)
@@ -80,10 +80,10 @@ class Assembler:
 		self.fileMover(self.stylesheet_path, self.temp_out_dir + "/xml_stylesheets")
 
 	def processFilesRecursively(self):
-		indexFile = self.in_folder_path + "/index.xml"
-		aFolderPath = self.in_folder_path + "/a"
-		cFolderPath = self.in_folder_path + "/c"
-		lFolderPath = self.in_folder_path + "/l"
+		indexFile = self.temp_out_dir + "/index.xml"
+		aFolderPath = self.temp_out_dir + "/a"
+		cFolderPath = self.temp_out_dir + "/c"
+		lFolderPath = self.temp_out_dir + "/l"
 
 		# index first
 		self.addContentAtLineNumber(indexFile, self.xsltPath('./xml_stylesheets/index.xsl'), 2)
