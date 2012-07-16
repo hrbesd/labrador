@@ -1,6 +1,6 @@
 launch_module()
 {
-	test $@ -eq 2 || return 1
+	test $# -eq 2 || return 1
 	local module_name=$1
 	local site_id=$2
 	local prev_module=
@@ -8,21 +8,21 @@ launch_module()
 	local need_stylesheets=
 	case $module_name in
 		generator)
-			BUTT="GENERATOR_PATH"
+			BUTT="$GENERATOR_PATH"
 			;;
 		spider)
-			BUTT="SPDIER_PATH"
+			BUTT="$SPIDER_PATH"
 			;;
 		parser)
-			BUTT="PARSER_PATH"
+			BUTT="$PARSER_PATH"
 			prev_module=spider
 			;;
 		reactor)
-			BUTT="REACTOR_PATH"
+			BUTT="$REACTOR_PATH"
 			prev_module=parser
 			;;
 		assembler)
-			BUTT="ASSEMBLER_PATH"
+			BUTT="$ASSEMBLER_PATH"
 			prev_module=reactor
 			need_webroot="YES"
 			need_stylesheets="YES"
@@ -35,10 +35,10 @@ launch_module()
 	
 	local site_root=$LABRADOR_SITES/$site_id
 	local site_conf=$site_root/config/site.conf
-	local conf_dir=$LABRADOR/etc
+	local conf_dir=$LABRADOR_ROOT/etc
 
 	arguments="--site-config=$site_conf \
-		--work-dir=$site_root/workers/$module_name \
+		--worker-dir=$site_root/workers/$module_name \
 		--shared-dir=$site_root/workers/shared \
 		--config-dir=$conf_dir/$module_name \
 		--rule-dir=$site_root/rules/$module_name \
@@ -46,5 +46,5 @@ launch_module()
 	test -n "$prev_module" && arguments="$arguments --source-dir=$site_root/workers/$prev_module"
 	test -n "$need_webroot" && arguments="$arguments --webroot-dir=$site_root/webroot"
 	test -n "$need_stylesheets" && arguments="$arguments --stylesheet-dir=$site_root/stylesheets"
-	eval $BUTT $arguments
+	$BUTT $arguments
 }

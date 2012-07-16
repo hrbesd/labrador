@@ -2,6 +2,7 @@
 # 调用TTS服务，并获取生成的mp3的结果
 import urllib2, base64
 from xml.dom.minidom import parseString
+import datetime
 
 class TTSClient:
 	configDict = {}
@@ -39,13 +40,9 @@ class TTSClient:
 	def generateSound(self, text):
 		if len(text) == 0:
 			return False
-		print text + "   " + str(len(text))
+		print text.encode('utf-8')
+		start = datetime.datetime.now()
 		jobID = self.sendJobRequest(text)
+		finish = datetime.datetime.now()
+		print (finish - start)
 		return self.getAudioPath(jobID)
-
-def main():
-	client = TTSClient('reactor_config.config')
-	print client.generateSound('<bodydata>据全国征兵工作会议和省政府有关征兵工作的要求，为圆满完成哈尔滨市今冬征兵任务，特发此令。</bodydata>')
-
-if __name__ == '__main__':
-	main()

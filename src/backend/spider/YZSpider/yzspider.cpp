@@ -114,7 +114,7 @@ void YZSpider::webpageDownloadScheduler()
     if(m_webPageRequestTask.isEmpty()&&m_webpageRequestThreadNum==m_maxWebPageRequestThreadNum&& m_finishParseRules == true)
     {
         qDebug()<<"finish download webpages";
-        qApp->exit();
+        exit(0);
     }
 }
 
