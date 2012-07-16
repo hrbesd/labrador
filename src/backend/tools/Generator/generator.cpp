@@ -347,6 +347,8 @@ void Generator::generateArticleFile(const Node &node)
 
 void Generator::writeParentPageUrlXml(QXmlStreamWriter &writer, const Node &nodeItem)
 {
+    //article need to add ../../ to the pageUrl
+    QString articlePageUrlPrefix = getNodeType(nodeItem)==ArticleNode?"../":"";
     writer.writeStartElement("parentPageUrl");
     Node *node = &(const_cast<Node &>(nodeItem));
     QStack<Node *> nodeStack;
@@ -360,18 +362,21 @@ void Generator::writeParentPageUrlXml(QXmlStreamWriter &writer, const Node &node
         node=nodeStack.pop();
         writer.writeStartElement("node");
         writer.writeTextElement("name",node->parentNode->name);
+        // node is direct child of website
         if(node->parentNode==&m_website.node)
         {
-            writer.writeTextElement("pageUrl","../index.xml");
+            writer.writeTextElement("pageUrl",articlePageUrlPrefix+"../index.xml");
         }
         //because index.xml is not in c folder :)
+        //direct children of index.xml
         else if(node->parentNode->parentNode!=NULL&&node->parentNode->parentNode==&m_website.node)
         {
-            writer.writeTextElement("pageUrl","."+node->parentNode->pageUrl);
+            writer.writeTextElement("pageUrl",articlePageUrlPrefix+"."+node->parentNode->pageUrl);
         }
+        //other nodes
         else
         {
-            writer.writeTextElement("pageUrl",node->parentNode->pageUrl);
+            writer.writeTextElement("pageUrl",articlePageUrlPrefix+node->parentNode->pageUrl);
         }
         writer.writeEndElement();
     }
