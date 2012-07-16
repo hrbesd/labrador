@@ -36,6 +36,8 @@ class Divider:
 	def processSentence(self, element):
 		if type(element) == NavigableString:
 			results = self.divide(element)
+			if len(results) == 0:
+				return
 			resultTag = Tag(self.soup, 'p')
 			for result in results:
 				resultTag.append(result)
