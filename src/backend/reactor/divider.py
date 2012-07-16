@@ -28,7 +28,7 @@ class Divider:
 					words = sentence[left:right]
 					soundPath = self.client.generateSound(words)
 					if soundPath:
-						sentenceTag = Tag(self.soup, 'data', [('id', soundPath))
+						sentenceTag = Tag(self.soup, 'data', [('id', soundPath)])
 						sentenceTag.insert(0, words)
 						resultSentence.append(sentenceTag)
 		return resultSentence
