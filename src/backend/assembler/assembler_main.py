@@ -120,7 +120,7 @@ class Assembler:
 					dataSoup.article.insert(0, parentSoup.parentpageurl)
 
 					writeFile = open(parentFile, 'w')
-					writeFile.write(dataSoup.prettify())
+					writeFile.write(str(dataSoup))
 					writeFile.close()
 
 					self.addContentAtLineNumber(parentFile, self.xsltPath('../../xml_stylesheets/article.xsl'), 2)

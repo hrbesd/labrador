@@ -44,6 +44,9 @@ class Divider:
 			element.replaceWith(resultTag)
 		elif type(element) == unicode:
 			return
+		elif type(element) == Tag and element.name == 'br':
+			element.extract()
+			return
 		else:
 			for child in element:
 				self.processSentence(child)
