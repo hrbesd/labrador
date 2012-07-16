@@ -1,4 +1,4 @@
 # Always use relative path as source in this config file
 
 # reactor
-ln -s ../butts/reactor/reactor $TMP_DIR/bin/reactor
+ln -s ../butts/reactor/reactor.py $TMP_DIR/bin/reactor

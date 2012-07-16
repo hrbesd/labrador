@@ -9,20 +9,21 @@ from divider import Divider
 from rule_item import *
 import re, sys, os, codecs, html
 
-VERSION_NAME = "0.3.1.CLOUD"
+VERSION_NAME = "0.3.1.SERVER"
 
 def getVersionStr():
 	return 'Labrador Reactor Version %s' % VERSION_NAME
 
 class Reactor:
 	def __init__(self, rule_file_path, config_file_path, in_folder_path, out_folder_path, log_file_path):
-		self.rule_file_path = rule_file_path
-		self.config_file_path = config_file_path
+		self.rule_file_path = rule_file_path + "/reactor_rules.rrule"
+		self.config_file_path = config_file_path + "/reactor_config.config"
 		self.in_folder_path = in_folder_path
 		self.out_folder_path = out_folder_path
 		self.rule_list = []
 		self.buildRules()
 		self.executor = Executor(log_file_path)
+		self.count = 0
 
 	def __str__(self):
 		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path + '", using rule file "' + self.rule_file_path + '"'
@@ -129,3 +130,6 @@ class Reactor:
 		resultData = soup.prettify().decode('utf-8')
 		resultFile.write(resultData)
 		resultFile.close()
+
+		self.count += 1
+		print 'Processed: %d' % self.count
