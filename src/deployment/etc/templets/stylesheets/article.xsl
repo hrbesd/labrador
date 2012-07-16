@@ -21,7 +21,7 @@
 							</li>
 						</xsl:for-each>
 						<li>
-							<a href="#"><xsl:value-of select="article/title/span"/></a>
+							<a href="#"><xsl:value-of select="article/title"/></a>
 						</li>
 					</ul>
 				</nav>
