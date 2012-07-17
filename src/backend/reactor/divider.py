@@ -51,7 +51,6 @@ class Divider:
 			for child in element:
 				self.processSentence(child)
 
-	@profiler.exeTime
 	def doWork(self):
 		soup = self.soup
 		# first of all, process the fixed elements, like `title', `author', `lastmodified'

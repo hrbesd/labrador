@@ -27,7 +27,6 @@ class TTSClient:
 			jobID = xmlData[7:-8]
 		return jobID
 
-	@profiler.exeTime
 	def getAudioPath(self, jobID):
 		conDict = self.configDict
 		requestUrl = conDict['audioPath'] % (conDict['serverUrl'], jobID)
