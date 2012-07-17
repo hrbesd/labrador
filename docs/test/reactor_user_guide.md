@@ -21,6 +21,8 @@
 	* 在断句之后，需要申请服务端生成语音
 	
 ## 使用方式
-* 首先以测试身份登陆Production Server，命令类似于：```ssh -i esd_rsa your_name@prod_server```
-* 使用```cd```命令进入目标网站所在的目录
-* 运行```lab run reactor```执行即可
+以下命令将帮助您以```Tester```的身份（这个身份是您自己的用户名，根据实际情况进行替换）登陆进入系统，并完成对```TestWebsite```网站（请根据实际操作的网站名称进行替换）页面内容的整理
+
+* 1.以```Tester```身份登陆服务器（假设该服务器的IP地址是```127.0.0.1```，实际操作中应根据具体服务器地址进行替换），命令是：```ssh -i ~/.ssh/esd_rsa Tester@127.0.0.1```
+* 2.进入```TestWebsite```所在的目录，首先，使用```cd ~```命令进入到用户根目录，然后进入```TestWebsite```所在目录，一般路径为```labrador/sites/TestWebsite```，故而命令为：```cd labrador/sites/TestWebsite```，根据服务器不同，路径可能不同
+* 3.使用命令```lab run reactor```运行程序，看到类似于```processed XXXXX```字样的输出，说明程序开始运行
