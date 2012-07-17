@@ -32,4 +32,4 @@ if __name__ == '__main__':
 	# show it
 	print 'Profiler result:'
 	p = pstats.Stats(logName)
-	p.sort_stats('cumulative').print_stats()
+	p.strip_dirs().sort_stats('cumulative').print_stats()
