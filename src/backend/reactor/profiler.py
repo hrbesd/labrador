@@ -1,11 +1,14 @@
 import time
+import logger
 
 def exeTime(func):
     def newFunc(*args, **args2):
-        t0 = time.time()
-        print "@%s, {%s} start" % (time.strftime("%X", time.localtime()), func.__name__)
+    	l = open('tts_logger.log', 'a')
+    	print args[1]
+    	text = args[1]
+        start = time.time()
         back = func(*args, **args2)
-        print "@%s, {%s} end" % (time.strftime("%X", time.localtime()), func.__name__)
-        print "%.3fs taken for {%s}" % (time.time() - t0, func.__name__)
+        l.write("%.4fs taken for text {%s}" % (time.time() - start, text))
+        l.close()
         return back
     return newFunc

@@ -3,6 +3,7 @@
 # 为reactor提供命令行参数的包装、处理
 # 不进行reactor的实际操作
 import reactor_main, argparse
+import cProfile, pstats
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -25,4 +26,10 @@ def main():
 
 
 if __name__ == '__main__':
-	main()
+	logName = 'profiler.log'
+	cProfile.run('main()', logName)
+
+	# show it
+	print 'Profiler result:'
+	p = pstats.Stats(logName)
+	p.sort_stats('cumulative').print_stats()

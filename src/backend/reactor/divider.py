@@ -3,7 +3,6 @@
 from tts_client import TTSClient
 from BeautifulSoup import BeautifulSoup, Comment, Tag, NavigableString
 import datetime, re, html
-import profiler
 
 class Divider:
 	MAX_STEP = 100
@@ -13,7 +12,6 @@ class Divider:
 		self.client = TTSClient(configPath)
 		self.dividerPattern = re.compile(ur"([^。，！？；……,!?;\n\r]+)([。，！？；……,!?;\n\r])", re.UNICODE)
 
-	@profiler.exeTime
 	def divide(self, element): # element is NavigableString
 		resultSentence = []
 		content = element.strip()
@@ -35,7 +33,6 @@ class Divider:
 						resultSentence.append(sentenceTag)
 		return resultSentence
 
-	@profiler.exeTime
 	def processSentence(self, element):
 		if type(element) == NavigableString:
 			results = self.divide(element)
