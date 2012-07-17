@@ -80,14 +80,24 @@ Rule目前包含两种规则，正则表达式和JavaScript脚本语言
 
 ##数据结构定义
 <pre><code>
+
+struct Expression
+{
+    String type;         //value type: {RegExp, JavaScript}
+    String executeOnlyOnce;     //execute only once flag : {true,false}
+    String label;     // used as key
+    String value;     // used as value
+};
+
 struct Rule
 {
-    String urlRegExp;
-    String nextPageRegExp;
+    List<Expression> expressionList;
+    Expression nextPageExpression;
+    Expression urlExpression;
+    Expression titleExpression;
     String maxPageCount;
-    String nameRegExp;
-    Rule*   childRule;
     List<Node> nodeList;
+    Rule* childRule;
 };
 
 struct Node
@@ -150,10 +160,12 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
         &lt;refreshRate&gt;&lt;/refreshRate&gt;
         &lt;ruleList&gt;
             &lt;rule&gt;
-                &lt;urlRegExp&gt;&lt;/urlRegExp&gt;
-                &lt;nextPageRegExp&gt;&lt;/nextPageRegExp&gt;
+                &lt;expressionList&gt;
+                    &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/&gt;
+                    &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value=""/&gt;
+                    &lt;expression type="RegExp" executeOnlyOnce="false" label="title" value=""/&gt;
+                &lt;/expressionList&gt;
                 &lt;maxPageCount&gt;&lt;/maxPageCount&gt;
-                &lt;nameRegExp&gt;&lt;/nameRegExp&gt;
                 &lt;childRule/&gt;
                 &lt;nodeList&gt;
                     &lt;node&gt;
@@ -162,16 +174,20 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
                         &lt;refreshRate&gt;&lt;/refreshRate&gt;
                         &lt;ruleList&gt;
                             &lt;rule&gt;
-                                &lt;urlRegExp&gt;&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'&lt;/urlRegExp&gt;
-                                &lt;nextPageRegExp&gt;&lt;/nextPageRegExp&gt;
+                                &lt;expressionList&gt;
+                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/&gt;
+                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'"/&gt;
+                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="title" value="class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;"/&gt;
+                                &lt;/expressionList&gt;
                                 &lt;maxPageCount&gt;&lt;/maxPageCount&gt;
-                                &lt;nameRegExp&gt;class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;&lt;/nameRegExp&gt;
                                 &lt;childRule&gt;
                                     &lt;rule&gt;
-                                        &lt;urlRegExp&gt;&lt;a class=&quot;f3348&quot; href=&quot;([^&quot;]*)&quot;&lt;/urlRegExp&gt;
-                                        &lt;nextPageRegExp&gt;&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页&lt;/nextPageRegExp&gt;
+                                        &lt;expressionList&gt;
+                                            &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页"/&gt;
+                                            &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a class=&quot;f3348&quot; href=&quot;([^&quot;]*)&quot;"/&gt;
+                                            &lt;expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;a class=&quot;f3348&quot;.*title=&quot;([^&quot;]*)&quot;"/&gt;
+                                        &lt;/expressionList&gt;
                                         &lt;maxPageCount&gt;&lt;/maxPageCount&gt;
-                                        &lt;nameRegExp&gt;&lt;a class=&quot;f3348&quot;.*title=&quot;([^&quot;]*)&quot;&lt;/nameRegExp&gt;
                                         &lt;childRule/&gt;
                                         &lt;nodeList/&gt;
                                     &lt;/rule&gt;
@@ -183,10 +199,12 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
                 &lt;/nodeList&gt;
             &lt;/rule&gt;
             &lt;rule&gt;
-                &lt;urlRegExp&gt;&lt;/urlRegExp&gt;
-                &lt;nextPageRegExp&gt;&lt;/nextPageRegExp&gt;
+                &lt;expressionList&gt;
+                    &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/&gt;
+                    &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value=""/&gt;
+                    &lt;expression type="RegExp" executeOnlyOnce="false" label="title" value=""/&gt;
+                &lt;/expressionList&gt;
                 &lt;maxPageCount&gt;&lt;/maxPageCount&gt;
-                &lt;nameRegExp&gt;&lt;/nameRegExp&gt;
                 &lt;childRule/&gt;
                 &lt;nodeList&gt;
                     &lt;node&gt;
@@ -195,16 +213,20 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
                         &lt;refreshRate&gt;&lt;/refreshRate&gt;
                         &lt;ruleList&gt;
                             &lt;rule&gt;
-                                &lt;urlRegExp&gt;&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;hei14&quot;&gt;&lt;/urlRegExp&gt;
-                                &lt;nextPageRegExp&gt;&lt;/nextPageRegExp&gt;
+                                &lt;expressionList&gt;
+                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/&gt;
+                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;hei14&quot;&gt;"/&gt;
+                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;FONT class=&quot;hei12&quot;&gt;(.*)&lt;/font&gt;"/&gt;
+                                &lt;/expressionList&gt;
                                 &lt;maxPageCount&gt;&lt;/maxPageCount&gt;
-                                &lt;nameRegExp&gt;&lt;FONT class=&quot;hei12&quot;&gt;(.*)&lt;/font&gt;&lt;/nameRegExp&gt;
                                 &lt;childRule&gt;
                                     &lt;rule&gt;
-                                        &lt;urlRegExp&gt; &lt;a class=&quot;f3665&quot; href=&quot;([^&quot;]*)&quot;&lt;/urlRegExp&gt;
-                                        &lt;nextPageRegExp&gt;&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页&lt;/nextPageRegExp&gt;
+                                        &lt;expressionList&gt;
+                                            &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页"/&gt;
+                                            &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value=" &lt;a class=&quot;f3665&quot; href=&quot;([^&quot;]*)&quot;"/&gt;
+                                            &lt;expression type="RegExp" executeOnlyOnce="false" label="title" value="class=&quot;f3665&quot; title=&quot;([^&quot;]*)&quot;"/&gt;
+                                        &lt;/expressionList&gt;
                                         &lt;maxPageCount&gt;&lt;/maxPageCount&gt;
-                                        &lt;nameRegExp&gt;class=&quot;f3665&quot; title=&quot;([^&quot;]*)&quot;&lt;/nameRegExp&gt;
                                         &lt;childRule/&gt;
                                         &lt;nodeList/&gt;
                                     &lt;/rule&gt;
@@ -218,6 +240,7 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
         &lt;/ruleList&gt;
     &lt;/node&gt;
 &lt;/website&gt;
+
 </code></pre>
 
 ##已知问题和解决办法
