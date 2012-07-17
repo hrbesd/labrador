@@ -4,6 +4,7 @@ count = 0
 
 def exeTime(func):
     def newFunc(*args, **args2):
+    	global count
     	l = codecs.open('tts_logger.log', 'a+', 'utf-8')
     	text = args[1]
         start = time.time()
