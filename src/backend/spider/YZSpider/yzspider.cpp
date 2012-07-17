@@ -17,6 +17,7 @@ YZSpider::YZSpider(QObject *parent) :
     if(m_paramenters.contains("--version"))
     {
         std::cout<<"Labrador Spider Version "<<BASE_VERSION<<endl;
+        exit(0);
     }
     if(m_paramenters.contains("--log-file"))
     {
