@@ -14,6 +14,7 @@ class TTSClient:
 			key, value = item.split(':', 1)
 			self.configDict[key] = value.strip()
 
+	@profiler.exeTime
 	def sendJobRequest(self, text):
 		conDict = self.configDict
 		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text.encode('utf8')))
