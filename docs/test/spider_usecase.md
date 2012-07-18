@@ -18,7 +18,7 @@
 - Spider配置文件验证
 	* 验证待处理网站根目录是否包含```workers```文件夹
 	* 验证待处理网站根目录是否包含```rules```文件夹
-	* 验证```rules```文件夹中是否包含```spider_config.xml```文件
+	* 验证```rules```文件夹中是否包含```spider```文件夹，且```spider```文件夹下包含 ```spider_config.xml```文件
 	* 验证```spider_config.xml```文件是否合法，是否为空
 
 - Spider工作验证
