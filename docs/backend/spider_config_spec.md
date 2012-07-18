@@ -153,19 +153,25 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
 	
 分析[中国哈尔滨](http://www.harbin.gov.cn/)的政府公告栏目和部门动态栏目
 
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+-->
+</style>
+
 <pre><code>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;website&gt;
-    &lt;editor&gt;genghailong&lt;/editor&gt;
-    &lt;info&gt;zhong guo haerbin&lt;/info&gt;
-    &lt;crawlTime&gt;&lt;/crawlTime&gt;
-    &lt;threadLimit&gt;10&lt;/threadLimit&gt;
-    &lt;node&gt;
-        &lt;name&gt;chinese harbin&lt;/name&gt;
-        &lt;url&gt;http://www.harbin.gov.cn/&lt;/url&gt;
-        &lt;refreshRate&gt;&lt;/refreshRate&gt;
-        &lt;ruleList&gt;
-            &lt;rule&gt;
+    &lt;editor&gt;王XX&lt;/editor&gt;  		<span class="STYLE1">编辑人的名字叫王XX</span>
+    &lt;info&gt;zhong guo haerbin&lt;/info&gt; 		<span class="STYLE1">网站的描述信息，可以写任何东西</span>
+    &lt;crawlTime&gt;&lt;/crawlTime&gt;		<span class="STYLE1">网站的爬行时间，空为任何时间都可以</span>
+    &lt;threadLimit&gt;10&lt;/threadLimit&gt;	<span class="STYLE1">最多用10个线程爬行该网站</span>
+    &lt;node&gt;		<span class="STYLE1">这是网站首页的信息</span>
+        &lt;name&gt;chinese harbin&lt;/name&gt;		<span class="STYLE1">网站首页的标题</span>
+        &lt;url&gt;http://www.harbin.gov.cn/&lt;/url&gt; 	<span class="STYLE1">网站首页的地址</span>
+        &lt;refreshRate&gt;&lt;/refreshRate&gt;		<span class="STYLE1">网站首页的刷新率</span>
+        &lt;ruleList&gt;	<span class="STYLE1">网站首页下子节点的规则列表</span>
+            &lt;rule&gt;	<span class="STYLE1">政府公告的规则，没有自动规则，只有手动规则</span>
                 &lt;expressionList&gt;
                     &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/&gt;
                     &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value=""/&gt;
@@ -174,19 +180,19 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
                 &lt;maxPageCount&gt;&lt;/maxPageCount&gt;
                 &lt;childRule/&gt;
                 &lt;nodeList&gt;
-                    &lt;node&gt;
+                    &lt;node&gt;	<span class="STYLE1">手动添加的规则</span>
                         &lt;name&gt;zhengfugonggao&lt;/name&gt;
                         &lt;url&gt;http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm#&lt;/url&gt;
                         &lt;refreshRate&gt;&lt;/refreshRate&gt;
-                        &lt;ruleList&gt;
-                            &lt;rule&gt;
+                        &lt;ruleList&gt;	<span class="STYLE1">政府公告子节点的规则</span>
+                            &lt;rule&gt; <span class="STYLE1">获得政府公告所有子节点的规则，全部是自动规则</span>
                                 &lt;expressionList&gt;
                                     &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/&gt;
-                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'"/&gt;
-                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="title" value="class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;"/&gt;
+                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a .*href=&quot;([^&quot;]*)&quot; class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; onmouseout=&quot;this.className='bgc1'"/&gt;<span class="STYLE1">获得子节点的链接地址</span>
+                                    &lt;expression type="RegExp" executeOnlyOnce="false" label="title" value="class=&quot;bgc1&quot; onmouseover=&quot;this.className='bgc2'&quot; .*&lt;span&gt;(.*)&lt;/span&gt;"/&gt;<span class="STYLE1">获得子节点的标题 如2010年政府公告</span>
                                 &lt;/expressionList&gt;
                                 &lt;maxPageCount&gt;&lt;/maxPageCount&gt;
-                                &lt;childRule&gt;
+                                &lt;childRule&gt;	<span class="STYLE1">子规则，自动复制给每一个子节点，这里的每个子节点为本rule匹配出来的节点，即为每一年的政府公告，从03年到12年，通过这些子规则自动获得每一年的文章正文链接</span>
                                     &lt;rule&gt;
                                         &lt;expressionList&gt;
                                             &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot; class=&quot;Next&quot;&gt;下页"/&gt;
@@ -204,7 +210,7 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
                     &lt;/node&gt;
                 &lt;/nodeList&gt;
             &lt;/rule&gt;
-            &lt;rule&gt;
+            &lt;rule&gt;		<span class="STYLE1">部门动态的规则，没有自动规则，只有手动规则</span>
                 &lt;expressionList&gt;
                     &lt;expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/&gt;
                     &lt;expression type="RegExp" executeOnlyOnce="false" label="url" value=""/&gt;
@@ -246,7 +252,6 @@ Website结构负责保存整个网站的信息，Node用来递归的定义栏目
         &lt;/ruleList&gt;
     &lt;/node&gt;
 &lt;/website&gt;
-
 </code></pre>
 
 ##已知问题和解决办法
