@@ -10,13 +10,13 @@ class TTSWorkerThread(Thread):
 	def __init__(self, parent, text):
 		super(TTSWorkerThread, self).__init__()
 		self.text2send = text
-		self.conDict = parent.conDict
+		self.configDict = parent.configDict
 
 	def run(self):
 		global sem
 		sem.acquire()
 		conDict = self.configDict
-		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text.encode('utf8')))
+		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(self.text2send.encode('utf8')))
 		try:
 			conn = urllib2.urlopen(urlPath)
 			conn.close()
