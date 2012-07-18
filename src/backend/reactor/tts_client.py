@@ -17,7 +17,7 @@ class TTSWorkerThread(Thread):
 		conDict = self.configDict
 		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(self.text2send.encode('utf8')))
 		try:
-			conn = urllib2.urlopen(urlPath, timeout=100)
+			conn = urllib2.urlopen(urlPath)
 			conn.close()
 		except Exception as e:
 			print 'Error occurred while processing %s' % text
