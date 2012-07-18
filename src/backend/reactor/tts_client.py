@@ -8,6 +8,7 @@ sem = Semaphore(4)
 
 class TTSWorkerThread(Thread):
 	def __init__(self, parent, text):
+		super(TTSWorkerThread, self).__init__()
 		self.text2send = text
 		self.conDict = parent.conDict
 
