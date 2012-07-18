@@ -7,8 +7,9 @@ from threading import Thread, Semaphore
 sem = Semaphore(4)
 
 class TTSWorkerThread(Thread):
-	def __init__(self, text):
+	def __init__(self, parent, text):
 		self.text2send = text
+		self.conDict = parent.conDict
 
 	def run(self):
 		global sem
@@ -40,5 +41,5 @@ class TTSClient:
 		if len(text) == 0:
 			return False
 
-		th = TTSWorkerThread(text)
+		th = TTSWorkerThread(self, text)
 		th.start()
