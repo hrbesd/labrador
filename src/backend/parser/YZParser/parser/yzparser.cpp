@@ -46,7 +46,10 @@ YZParser::YZParser(QObject *parent) :
     QFile scriptFile(fileName);
     if (!scriptFile.open(QIODevice::ReadOnly))
     {
+        std::cerr<<"can't open parser config file"<<std::endl;
+        exit(0);
     }
+    std::cout<<"parser start to work..."<<std::endl;
     QTextStream stream(&scriptFile);
     QString contents = stream.readAll();
     scriptFile.close();

@@ -39,9 +39,6 @@ YZSpider::YZSpider(QObject *parent) :
         exit(0);
     }
 
-    YZLogger::Logger()->log("log something to test");
-
-
     m_webPageCount = 0;
     m_finishParseRules = false;
     m_networkAccessManager = new QNetworkAccessManager(this);
@@ -221,13 +218,13 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
 
 void YZSpider::parseWebsiteConfigFile(QString configFile)
 {
-    qDebug()<<configFile;
     QFile file(configFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qWarning("can't open config File");
         exit(0);
     }
+    std::cout<<"spider start to run..."<<endl;
     xmlReader.setDevice(&file);
     while (!xmlReader.atEnd()) {
         if(xmlReader.isStartElement())
