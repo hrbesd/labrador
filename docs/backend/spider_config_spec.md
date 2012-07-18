@@ -91,57 +91,63 @@ struct Expression
 
 struct Rule
 {
-    List<Expression> expressionList;
-    Expression nextPageExpression;
-    Expression urlExpression;
-    Expression titleExpression;
-    String maxPageCount;
-    List<Node> nodeList;
-    Rule* childRule;
+    List<Expression> expressionList;  //extra expressions
+    Expression nextPageExpression;	//the expression to get nextpage link
+    Expression urlExpression;	//the expression to get url
+    Expression titleExpression;		the expression to get webpage title 
+    String maxPageCount;	//max nextpage number
+    List<Node> nodeList;	//manual added nodelist
+    Rule* childRule;		//child rule that will be applied to all children
 };
 
 struct Node
 {
-    String url;
-    String name;
-    String refreshRate;
-    List<Rule*> ruleList;
+    String url;		//url of webpage
+    String name; 	//title of webpage
+    String refreshRate;		//refreshRate of this webpage
+    List<Rule*> ruleList;		//rules to get children links, each rule will be applied to one column
 };
 
 struct WebSite
 {
-    Node node;
-    String info;
-    String editor;
-    String crawlTime;
-    String threadLimit;
+    Node node;		//the index page 
+    String info;   //website information
+    String editor;   //who edit this file
+    String crawlTime;    // when will spider crawl this website
+    String threadLimit;  //the max thread number spider used to crawl this website
 };
 </code></pre>
 
 ##数据属性说明
-Website结构负责保存整个网站的信息，Node用来递归的定义栏目的描述信息,Rule用来定义向下扩展的规则
+Website结构负责保存整个网站的信息，Node用来递归的定义栏目的描述信息,Rule用来定义向下扩展的规则,Expression定义具体的规则表达式
 
 - WebSite描述一个网站的整体信息
 
     * info: 网站的描述信息
     * editor： 网站配置文件编辑者
-    * node: 记录网站的链接信息
-    * crawlTime: 爬行时间
-    * threadLimit： 最大线程数
+    * node: 网站的首页
+    * crawlTime: 什么时间对网站进行爬行
+    * threadLimit： 爬行最大线程数
 
 - Node 描述一个页面的信息
-    * url: 页面的url地址
-    * name： 页面的名称
-    * refreshRate： 记录页面刷新
+    * url: 网页的url地址
+    * name： 网页的名称
+    * refreshRate： 记录页面刷新率
     * ruleList： 页面匹配规则列表
 
 - Rule 记录匹配规则
-    * urlRegExp： 匹配页面链接的正则表达式
-    * nextPageRegExp： 用来找出下一页地址的正则表达式
+    * urlExpression： 匹配页面链接的表达式
+    * nextPageExpression： 用来找出下一页地址的表达式
     * maxPageCount： 记录最多翻页数
-    * nameRegExp： 用来匹配链接标题的正则表达式
+    * titleExpression： 用来匹配链接标题的表达式
     * nodeList： 用来手工添加子栏目节点
-    * childRule： 应用于下层节点的规则
+    * childRule： 应用于下层子节点的规则
+    
+- Expression 规则表达式
+	* type 表达式类型，目前只有两种 RegExp，正则表达式；JavaScript javascript脚本
+	* executeOnlyOnce 只执行一次标志
+	* label 表达式名字
+	* value 表达式的值 
 
 ##XML示例
 	
