@@ -26,11 +26,10 @@ class Divider:
 					right = min(sentenceLength, left + self.MAX_STEP)
 					currentLength = right
 					words = sentence[left:right]
-					soundPath = self.client.generateSound(words)
-					if soundPath:
-						sentenceTag = Tag(self.soup, 'data', [('id', soundPath)])
-						sentenceTag.insert(0, words)
-						resultSentence.append(sentenceTag)
+					self.client.generateSound(words)
+					sentenceTag = Tag(self.soup, 'data', [('class', 'tts_data')])
+					sentenceTag.insert(0, words)
+					resultSentence.append(sentenceTag)
 		return resultSentence
 
 	def processSentence(self, element):
@@ -56,11 +55,10 @@ class Divider:
 		# TODO 修改设计方式
 		for element in soup.findAll(['title', 'author']):
 			content = element.contents[0].strip()
-			soundPath = self.client.generateSound(content)
-			if soundPath:
-				dataTag = Tag(self.soup, 'data', [('id', soundPath)])
-				dataTag.insert(0, content)
-				element.contents[0] = dataTag
+			self.client.generateSound(content)
+			dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
+			dataTag.insert(0, content)
+			element.contents[0] = dataTag
 
 		for element in soup.findAll('lastmodified'):
 			content = element.contents[0].strip()
@@ -70,11 +68,10 @@ class Divider:
 				content = dateStr.decode('utf-8')
 			except:
 				content = u"未知"
-			soundPath = self.client.generateSound(content)
-			if soundPath:
-				dataTag = Tag(self.soup, 'data', [('id', soundPath)])
-				dataTag.insert(0, content)
-				element.contents[0] = dataTag
+			self.client.generateSound(content)
+			dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
+			dataTag.insert(0, content)
+			element.contents[0] = dataTag
 
 		for element in soup.findAll('bodydata'):
 			self.processSentence(element)
