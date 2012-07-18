@@ -3,6 +3,7 @@
 import urllib2, base64
 from xml.dom.minidom import parseString
 import profiler
+from threading import Thread
 
 class TTSClient:
 	configDict = {}
@@ -22,31 +23,11 @@ class TTSClient:
 			conn = urllib2.urlopen(urlPath)
 			conn.close()
 		except Exception as e:
-			print 'Error occurred when processing %s' % text
+			print 'Error occurred while processing %s' % text
 			print e
-		'''jobResult = urllib2.urlopen(urlPath).read()
-		dom = parseString(jobResult)
-		jobList = dom.getElementsByTagName('jobID')
-		jobID = ""
-		for jobNode in jobList:
-			xmlData = jobNode.toxml()
-			jobID = xmlData[7:-8]
-		return jobID
-
-	def getAudioPath(self, jobID):
-		conDict = self.configDict
-		requestUrl = conDict['audioPath'] % (conDict['serverUrl'], jobID)
-		audioResult = urllib2.urlopen(requestUrl).read()
-		dom = parseString(audioResult)
-		urlList = dom.getElementsByTagName('url')
-		for urlNode in urlList:
-			xmlData = urlNode.toxml()
-			audioPath = xmlData[5:-6]
-			return audioPath'''
 
 	def generateSound(self, text):
 		if len(text) == 0:
 			return False
-		self.sendJobRequest(text)
-		'''jobID = self.sendJobRequest(text)
-		return self.getAudioPath(jobID)'''
+		th = Thread(target=sendJobRequest, args = (text))
+		th.start()
