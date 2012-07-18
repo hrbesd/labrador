@@ -18,7 +18,7 @@ class TTSClient:
 
 	@profiler.exeTime
 	def sendJobRequest(self, text):
-		self.sem.acquire(True)
+		self.sem.acquire()
 		conDict = self.configDict
 		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text.encode('utf8')))
 		try:
@@ -28,6 +28,7 @@ class TTSClient:
 			print 'Error occurred while processing %s' % text
 			print e
 		self.sem.release()
+		return
 
 	def generateSound(self, text):
 		if len(text) == 0:
@@ -35,4 +36,3 @@ class TTSClient:
 
 		th = Thread(target=self.sendJobRequest, args = (text, ))
 		th.start()
-		th.join()
