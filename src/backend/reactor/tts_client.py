@@ -18,7 +18,13 @@ class TTSClient:
 	def sendJobRequest(self, text):
 		conDict = self.configDict
 		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text.encode('utf8')))
-		jobResult = urllib2.urlopen(urlPath).read()
+		try:
+			conn = urllib2.urlopen(urlPath)
+			conn.close()
+		except Exception as e:
+			print 'Error occurred when processing %s' % text
+			print e
+		'''jobResult = urllib2.urlopen(urlPath).read()
 		dom = parseString(jobResult)
 		jobList = dom.getElementsByTagName('jobID')
 		jobID = ""
@@ -36,10 +42,11 @@ class TTSClient:
 		for urlNode in urlList:
 			xmlData = urlNode.toxml()
 			audioPath = xmlData[5:-6]
-			return audioPath
+			return audioPath'''
 
 	def generateSound(self, text):
 		if len(text) == 0:
 			return False
-		jobID = self.sendJobRequest(text)
-		return self.getAudioPath(jobID)
+		self.sendJobRequest(text)
+		'''jobID = self.sendJobRequest(text)
+		return self.getAudioPath(jobID)'''

@@ -5,7 +5,8 @@ import logger
 from config_parser import ConfigParser
 
 class Executor:
-	def __init__(self, logPath):
+	def __init__(self, configFilePath, logPath):
+		self.configPath = configFilePath
 		self.log = logger.Logger(logPath)
 
 	# condition
@@ -46,6 +47,9 @@ class Executor:
 	def fill(self, target, args):
 		targetElement, filePath = args
 		filePath = ''.join(filePath)
+		# add base dir for config file
+		filePath = self.configPath + "/" + filePath
+		print filePath
 		parser = ConfigParser(filePath)
 		alt_dict = parser.parseFile()
 		element, attr = targetElement.split(' ')
