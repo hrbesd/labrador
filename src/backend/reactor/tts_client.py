@@ -14,7 +14,6 @@ class TTSWorkerThread(Thread):
 
 	def run(self):
 		global sem
-		sem.acquire()
 		conDict = self.configDict
 		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(self.text2send.encode('utf8')))
 		try:
@@ -25,7 +24,6 @@ class TTSWorkerThread(Thread):
 			print e
 
 		sem.release()
-		print 'thread ended'
 
 
 class TTSClient:
@@ -42,6 +40,7 @@ class TTSClient:
 		if len(text) == 0:
 			return False
 
+		global sem
+		sem.acquire()
 		th = TTSWorkerThread(self, text)
 		th.start()
-		th.join()
