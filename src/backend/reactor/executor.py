@@ -49,7 +49,6 @@ class Executor:
 		filePath = ''.join(filePath)
 		# add base dir for config file
 		filePath = self.configPath + "/" + filePath
-		print filePath
 		parser = ConfigParser(filePath)
 		alt_dict = parser.parseFile()
 		element, attr = targetElement.split(' ')
