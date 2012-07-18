@@ -35,3 +35,4 @@ class TTSClient:
 
 		th = Thread(target=self.sendJobRequest, args = (text, ))
 		th.start()
+		th.join()
