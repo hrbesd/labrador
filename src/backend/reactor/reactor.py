@@ -4,6 +4,7 @@
 # 不进行reactor的实际操作
 import reactor_main, argparse
 import cProfile, pstats
+import time
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -26,6 +27,8 @@ def main():
 
 
 if __name__ == '__main__':
+	start = time.time()
+
 	logName = 'profiler.log'
 	cProfile.run('main()', logName)
 
@@ -33,3 +36,5 @@ if __name__ == '__main__':
 	print 'Profiler result:'
 	p = pstats.Stats(logName)
 	p.strip_dirs().sort_stats('cumulative').print_stats()
+
+	print "\n\n\n\nUsed %.3fs for reactor!" % (time.time() - start)
