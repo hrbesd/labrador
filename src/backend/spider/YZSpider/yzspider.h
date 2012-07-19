@@ -20,6 +20,7 @@
 #include <QMap>
 #include "version.h"
 #include "core/xmlWriter/yzxmlwriter.h"
+#include "yzspiderconfigfileparser.h"
 using namespace std;
 /**************************************************
  * download webpage in whitelist and convert text codec
@@ -32,7 +33,6 @@ class YZSpider : public QObject
     Q_OBJECT
 public:
     explicit YZSpider(QObject *parent = 0);
-    void parseWebsiteConfigFile();
 signals:
     
 protected slots:
@@ -51,14 +51,7 @@ private:
     //scheduler
     void webpageDownloadScheduler();
     void ruleRequestScheduler();
-    //read xml file
-    void parseWebsiteXml(QXmlStreamReader &reader);
-    void parseNodeXml(QXmlStreamReader &reader, Node &node);
-    void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& parentNodeList);
-    void parseRuleListXml(QXmlStreamReader &reader, QList<Rule*>& parentRuleList);
-    void parseRuleXml(QXmlStreamReader &reader, Rule *rule);
-    void parseChildRuleXml(QXmlStreamReader &reader, Rule *rule);
-    void parseExpressionListXml(QXmlStreamReader &reader, Rule *rule);
+
     //parse website data
     void parseWebsiteData();
     void parseNodeData(Node &nodeItem);
@@ -86,8 +79,7 @@ private:
     WebSite m_website;
     bool m_finishParseRules;
     QUrl m_websiteUrl;
-
-    QXmlStreamReader xmlReader;
+    YZSpiderConfigFileParser m_configFileParser;
 
     int m_maxWebPageRequestThreadNum;
     int m_maxRuleRequestThreadNum;
