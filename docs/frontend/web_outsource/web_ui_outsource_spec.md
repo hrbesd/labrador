@@ -2,6 +2,21 @@
 
 ## 工作内容
 
+### 网站背景
+本网站服务的对象是包括盲人、文盲在内的残障人士，他们阅读、理解普通网站的时候存在一定的困难，本网站提供的页面需要为他们提供基本的帮助，比如支持文字放大缩小，支持色彩变换等等；
+
+指导标准
+
+* [WCAG 2.0](http://www.w3.org/TR/WCAG20/)
+* [WCAG 2.0 中文翻译](http://w3c.andtoo.net/wcag20zh.htm)
+* [Accessibility 主题](http://www.w3.org/standards/webdesign/accessibility)
+* [Dive Into Accessibility](http://dia.z6i.org/table_of_contents.html)
+* [Accessibility Features of CSS](http://www.w3.org/TR/CSS-access)
+
+参考网站
+
+* [Recite Me](http://www.reciteme.com/)
+
 ### 页面模板
 需要设计的页面模板包括：
 
@@ -30,7 +45,7 @@
 - 朗读声音性别选择 _A_
 - 朗读声音速度选择 _A_
 - 开关翻译 _A_
-- 当开启翻译功能之后，需要提供一个半透明层，用户鼠标移动到哪个文字上，半透明层就显示对应的文字（要美观）_A_
+- 当开启翻译功能之后，需要提供一个半透明层，用户鼠标移动到哪个文字上，半透明层就显示对应的文字（要美观，请参考ReciteMe的实现）_A_
 - 翻转对比度 _A_
 - 播报当前位置 _A_
 - 帮助 _A_
