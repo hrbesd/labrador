@@ -14,7 +14,7 @@ YZSpider::YZSpider(QObject *parent) :
     initParameters();
     m_networkAccessManager = new QNetworkAccessManager(this);
     m_configFileParser.parseWebsiteConfigFile(m_paramenters.value("--rule-dir"),m_website);
-    m_webpageRequestThreadNum = m_maxWebPageRequestThreadNum;
+    m_webpageRequestThreadNum = m_website.threadLimit.toInt();
     //because we want columns to be downloaded in order, so only one thread
     m_maxRuleRequestThreadNum = 1;
     m_ruleRequestThreadNum = m_maxRuleRequestThreadNum;
@@ -93,6 +93,7 @@ void YZSpider::ruleRequestScheduler()
     while(m_ruleRequestThreadNum>0&&m_ruleRequestTask.isEmpty()==false)
     {
         RuleRequest ruleRequest = m_ruleRequestTask.takeFirst();
+        std::cout<<"parsing rule: "<<ruleRequest.url.toStdString()<<std::endl;
         downloadRule(ruleRequest);
     }
     if(m_ruleRequestTask.isEmpty()&&m_ruleRequestThreadNum==m_maxRuleRequestThreadNum)
