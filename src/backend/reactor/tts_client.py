@@ -20,8 +20,6 @@ class TTSWorkerThread(Thread):
 			conn = urllib2.urlopen(urlPath)
 			conn.close()
 		except Exception as e:
-			errorString = u'Error occurred while processing %s' % self.text2send
-			print errorString
 			print e
 
 		sem.release()
