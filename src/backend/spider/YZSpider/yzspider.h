@@ -32,7 +32,7 @@ class YZSpider : public QObject
     Q_OBJECT
 public:
     explicit YZSpider(QObject *parent = 0);
-    void parseWebsiteConfigFile(QString configFile);
+    void parseWebsiteConfigFile();
 signals:
     
 protected slots:
@@ -41,6 +41,9 @@ protected slots:
 
     void ruleRequestReply();
 private:
+    //init
+    void initParameters();
+
     //download
     void downloadWebPage(Node* node);
     void downloadRule(RuleRequest ruleRequest);

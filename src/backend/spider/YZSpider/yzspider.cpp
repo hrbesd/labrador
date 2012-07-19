@@ -5,48 +5,15 @@
 #include <QDir>
 
 YZSpider::YZSpider(QObject *parent) :
-    QObject(parent),m_maxRuleRequestThreadNum(10),m_maxWebPageRequestThreadNum(10)
+    QObject(parent)
+  ,m_maxRuleRequestThreadNum(10)
+  ,m_maxWebPageRequestThreadNum(10)
+  ,m_webPageCount(0)
+  ,m_finishParseRules(false)
 {
-    QStringList parametersList = QCoreApplication::arguments();
-    foreach(QString parameter,parametersList)
-    {
-        QStringList tmpList = parameter.split('=');
-        m_paramenters.insert(tmpList[0],tmpList.size()>1?tmpList[1]:QString(""));
-    }
-
-    if(m_paramenters.contains("--version"))
-    {
-        std::cout<<"Labrador Spider Version "<<BASE_VERSION<<endl;
-        exit(0);
-    }
-    if(m_paramenters.contains("--log-file"))
-    {
-        YZLogger::logFilePath = m_paramenters.value("--log-file");
-    }
-    if(!m_paramenters.contains("--rule-dir"))
-    {
-        std::cerr<<"rule dir can't be empty, spider will exit now!"<<endl;
-        exit(0);
-    }
-    if(!m_paramenters.contains("--worker-dir"))
-    {
-        std::cerr<<"worker dir can't be empty, spider will exit now!"<<endl;
-        exit(0);
-    }
-    if(!m_paramenters.contains("--shared-dir"))
-    {
-        std::cerr<<"shared dir can't be empty, spider will exit now!"<<endl;
-        exit(0);
-    }
-
-    YZLogger::Logger()->log("log something to test");
-
-
-    m_webPageCount = 0;
-    m_finishParseRules = false;
+    initParameters();
     m_networkAccessManager = new QNetworkAccessManager(this);
-    QDir dir(m_paramenters.value("--rule-dir"));
-    parseWebsiteConfigFile(dir.absolutePath()+"/"+"spider_config.xml");
+    parseWebsiteConfigFile();
     m_webpageRequestThreadNum = m_maxWebPageRequestThreadNum;
     m_ruleRequestThreadNum = m_maxRuleRequestThreadNum;
     parseWebsiteData();
@@ -219,15 +186,17 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
     }
 }
 
-void YZSpider::parseWebsiteConfigFile(QString configFile)
+void YZSpider::parseWebsiteConfigFile()
 {
-    qDebug()<<configFile;
+    QDir dir(m_paramenters.value("--rule-dir"));
+    QString configFile = dir.absolutePath()+"/"+"spider_config.xml";
     QFile file(configFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qWarning("can't open config File");
         exit(0);
     }
+    std::cout<<"spider start to run..."<<std::endl;
     xmlReader.setDevice(&file);
     while (!xmlReader.atEnd()) {
         if(xmlReader.isStartElement())
@@ -535,4 +504,39 @@ void YZSpider::parseNextPage(RuleRequest ruleRequest)
 void YZSpider::outputWebsite(QString fileName)
 {
     YZXmlWriter::writeWebsiteItemToXml(m_website,fileName);
+}
+
+void YZSpider::initParameters()
+{
+    QStringList parametersList = QCoreApplication::arguments();
+    foreach(QString parameter,parametersList)
+    {
+        QStringList tmpList = parameter.split('=');
+        m_paramenters.insert(tmpList[0],tmpList.size()>1?tmpList[1]:QString(""));
+    }
+
+    if(m_paramenters.contains("--version"))
+    {
+        std::cout<<"Labrador Spider Version "<<BASE_VERSION<<endl;
+        exit(0);
+    }
+    if(m_paramenters.contains("--log-file"))
+    {
+        YZLogger::logFilePath = m_paramenters.value("--log-file");
+    }
+    if(!m_paramenters.contains("--rule-dir"))
+    {
+        std::cerr<<"rule dir can't be empty, spider will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--worker-dir"))
+    {
+        std::cerr<<"worker dir can't be empty, spider will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--shared-dir"))
+    {
+        std::cerr<<"shared dir can't be empty, spider will exit now!"<<endl;
+        exit(0);
+    }
 }
