@@ -108,9 +108,21 @@
     
     NSString *url = [NSString URLWithPath:currentElem.pageURL];
     
-    DLog(@"%@", currentElem.pageURL);
+    //DLog(@"%@", currentElem.pageURL);
     
-    NSString *dir = [[currentElem.pageURL componentsSeparatedByString:@"/"] objectAtIndex:0];
+    NSArray *urlElements = [currentElem.pageURL componentsSeparatedByString:@"/"];
+    
+    NSString *dir = [urlElements objectAtIndex:1];
+    
+    NSMutableString *rebuildPath = [NSMutableString stringWithString:dir];
+    
+    for (int i = 2; i < [urlElements count]; i++) {
+        [rebuildPath appendFormat:@"/%@", [urlElements objectAtIndex:i]];
+    }
+    
+    url = [NSString URLWithPath:rebuildPath];
+    
+    DLog(@"%@", url);
     
     if ([dir isEqualToString:@"a"]) {
         // this is article
@@ -126,9 +138,6 @@
         
         [self.navigationController pushViewController:listVC animated:YES];
     }
-    
-    
-    
 }
 
 #pragma mark - LAXMLDataDelegate

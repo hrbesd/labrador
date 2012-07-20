@@ -25,7 +25,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    LAHomePageViewController *homePageVC = [[LAHomePageViewController alloc] initWithURL:[NSString URLWithPath:@"index.xml"]];
+    LAHomePageViewController *homePageVC = [[LAHomePageViewController alloc] initWithCategoryURL:[NSString URLWithPath:@"index.xml"] headlinesURL:[NSString URLWithPath:@"mobile_headlines.xml"]];
     [homePageVC setTitle:@"首页"];
     self.navController = [[UINavigationController alloc] initWithRootViewController:homePageVC];
     //[_navController.navigationBar setTintColor:[UIColor blackColor]];
