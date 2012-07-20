@@ -17,11 +17,14 @@
             var url = "hit:image:zoom";
             document.location = url;
         }
+        var title = document.getElementById("title");
+        var subtitle = document.getElementById("subtitle");
+        var body_section = document.getElementById("body_section");
         
         function resizeText(multiplier) {
-            var title = document.getElementById("title");
-            var subtitle = document.getElementById("subtitle");
-            var body_section = document.getElementById("body_section");
+            //var title = document.getElementById("title");
+            //var subtitle = document.getElementById("subtitle");
+            //var body_section = document.getElementById("body_section");
             if (title.style.fontSize == "") {
                 title.style.fontSize = "14pt";
             }
@@ -35,6 +38,31 @@
             subtitle.style.fontSize = parseFloat(subtitle.style.fontSize) + (multiplier * 1) + "pt";
             body_section.style.fontSize = parseFloat(body_section.style.fontSize) + (multiplier * 1) + "pt";
         }
+        
+        var style = 0;
+        
+        function changeStyle() {
+            //var title = document.getElementById("title");
+            //var subtitle = document.getElementById("subtitle");
+            //var body_section = document.getElementById("body_section");
+            switch (style) {
+                case 0:
+                title.style.color = "#FFFFFF";
+                subtitle.style.color = "#FFFFFF";
+                document.body.style.backgroundColor = "#000000";
+                body_section.style.color = "#FFFFFF";
+                break;
+                
+                default:
+                title.style.color = "#464646";
+                subtitle.style.color = "#8e8e8e";
+                document.body.style.backgroundColor = "#efeff0";
+                body_section.style.color = "#333";
+                break;
+            }
+            style = (style + 1) % 2;
+        }
+        
         </script>
     
 </body></html>

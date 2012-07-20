@@ -9,20 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "LACategoryView.h"
 #import "LAXMLData.h"
+#import "CycleScrollView.h"
 
 @class BHTabsViewController;
 @class LAHeadlinesView;
 @class LAHighlightsView;
 
-@interface LAHomePageViewController : UIViewController <LACategoryViewDelegae, LAXMLDataDelegate>
+@interface LAHomePageViewController : UIViewController <LACategoryViewDelegae, LAXMLDataDelegate, UITableViewDelegate, UITableViewDataSource, CycleScrollViewDelegate>
 
 @property (strong, nonatomic) BHTabsViewController *tabVC;
 @property (strong, nonatomic) LACategoryView *categoryView;
 @property (strong, nonatomic) LAHeadlinesView *headlinesView;
 @property (strong, nonatomic) LAHighlightsView *highlightsView;
+@property (strong, nonatomic) CycleScrollView *cycleScrollView;
 
 @property (strong, nonatomic) LAXMLData *list;
+@property (strong, nonatomic) LAXMLData *headLines;
 
-- (id)initWithURL:(NSString *)urlStr;
+- (id)initWithCategoryURL:(NSString *)categoryURLStr headlinesURL:(NSString *)headLinesURLStr;
 
 @end
