@@ -16,6 +16,7 @@
 @dynamic refreshRate;
 @dynamic hashName;
 @dynamic nodeList;
+@dynamic imageUrl;
 
 - (NSString *)nodeName {
     NSString *str = [[[self elementsForName:@"name"] objectAtIndex:0] stringValue];
@@ -43,5 +44,14 @@
     //return [self nodesForXPath:@"/nodeList" error:nil];
 }
 
+- (NSString *)imageUrl {
+    NSString *imageUrl = [[[self elementsForName:@"imgUrl"] objectAtIndex:0] stringValue];
+    return imageUrl;
+}
+
+- (NSString *)title {
+    NSString *str = [[[self elementsForName:@"title"] objectAtIndex:0] stringValue];
+    return str;
+}
 
 @end

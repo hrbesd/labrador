@@ -126,6 +126,8 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    //DLog(@"%@", [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding]);
+    
     NSError *err;
     self.xmlDoc = [[GDataXMLDocument alloc] initWithData:_data options:0 error:&err];
     
