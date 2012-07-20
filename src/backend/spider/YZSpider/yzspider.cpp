@@ -198,6 +198,7 @@ void YZSpider::parseWebsiteData()
 
 void YZSpider::parseNodeData(Node &nodeItem)
 {
+    //检查链接是否已经扫描过
     if(!m_resolvedNodes.contains(nodeItem.url))
     {
         if(!m_websiteUrl.isParentOf(QUrl(nodeItem.url)))
@@ -219,18 +220,14 @@ void YZSpider::parseNodeData(Node &nodeItem)
 // to do...
 void YZSpider::parseRuleData(Rule *ruleItem, Node &parentNode)
 {
-    if(ruleItem->urlExpression.value.isEmpty())
-    {
-        parseNodeListData(ruleItem);
-    }
-    else
+    if(!ruleItem->urlExpression.value.isEmpty())
     {
         RuleRequest ruleRequest;
         ruleRequest.rule = ruleItem;
         ruleRequest.url = parentNode.url;
         m_ruleRequestTask.append(ruleRequest);
-        // to do..       parseNodeListData(ruleItem);
     }
+    parseNodeListData(ruleItem);
 }
 
 void YZSpider::parseNodeListData(Rule *ruleItem)
