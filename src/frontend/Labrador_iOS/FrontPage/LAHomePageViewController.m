@@ -18,11 +18,22 @@
 #import "GDataXMLElement+List.h"
 #import "NSString+URL.h"
 #import "LAListViewController.h"
+#import "LAHighlightsItem.h"
+#import "CycleScrollView.h"
+#import "LAListCell.h"
+#import "LAArticleViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LAHomePageViewController ()
 
 @property (strong, nonatomic) NSMutableArray *items;
+@property (strong, nonatomic) NSMutableArray *highlightItems; // headlines with pic
+@property (strong, nonatomic) NSMutableArray *headlineItems; // headlines without pic
+
+@property (strong, nonatomic) NSMutableArray *highlightsTitles;
+@property (strong, nonatomic) NSMutableArray *highlightsImages;
+
+@property (strong, nonatomic) NSIndexPath *selectedPath;
 
 - (void)loadItems;
 
@@ -34,21 +45,42 @@
 @synthesize categoryView = _categoryView;
 @synthesize headlinesView = _headlinesView;
 @synthesize highlightsView = _highlightsView;
+@synthesize cycleScrollView = _cycleScrollView;
 @synthesize list = _list;
+@synthesize headLines = _headLines;
 
 @synthesize items = _items;
+@synthesize highlightItems = _highlightItems;
+@synthesize headlineItems = _headlineItems;
 
-- (id)initWithURL:(NSString *)urlStr {
+@synthesize highlightsTitles = _highlightsTitles;
+@synthesize highlightsImages = _highlightsImages;
+
+@synthesize selectedPath = _selectedPath;
+
+- (id)initWithCategoryURL:(NSString *)categoryURLStr headlinesURL:(NSString *)headLinesURLStr{
     self = [super init];
     if (self) {
         
-        self.list = [[LAXMLData alloc] initWithURL:urlStr type:XMLDataType_List];
+        self.list = [[LAXMLData alloc] initWithURL:categoryURLStr type:XMLDataType_List];
         [_list setDelegate:self];
         
+        self.headLines = [[LAXMLData alloc] initWithURL:headLinesURLStr type:XMLDataType_List];
+        [_headLines setDelegate:self];
+        
         [self loadItems];
+        [self loadHeadlines];
         
         self.headlinesView = [[LAHeadlinesView alloc] initWithFrame:CGRectZero];
-        self.highlightsView = [[LAHighlightsView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+        [_headlinesView setDataSource:self];
+        [_headlinesView setDelegate:self];
+        //self.highlightsView = [[LAHighlightsView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+        self.cycleScrollView = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 160) cycleDirection:CycleDirectionLandscape pictures:_highlightsImages titles:_highlightsTitles];
+        [_cycleScrollView setDelegate:self];
+        
+        //[self.cycleScrollView.layer setBorderWidth:2];
+        //[self.cycleScrollView.layer setBorderColor:[[UIColor redColor] CGColor]];
+        
         self.categoryView = [[LACategoryView alloc] initWithItems:_items];
         [_categoryView setDelegate:self];
         
@@ -61,15 +93,12 @@
         //[self.tabVC.view.layer setBorderColor:[[UIColor redColor] CGColor]];
         
         [self.view addSubview:_highlightsView];
+        [self.view addSubview:_cycleScrollView];
         [self.view addSubview:_tabVC.view];
         
         
     }
     return self;
-}
-
-- (id)init {
-    return [self initWithURL:nil];
 }
 
 - (void)loadItems {
@@ -84,6 +113,39 @@
     self.items = itemsArr;
     
     [_categoryView updateWithItems:_items];
+}
+
+- (void)loadHeadlines {
+    NSMutableArray *highlightsArr = [NSMutableArray array];
+    NSMutableArray *headlinesArr = [NSMutableArray array];
+    
+    NSMutableArray *images = [NSMutableArray arrayWithCapacity:[_headLines.listData count]];
+    NSMutableArray *titles = [NSMutableArray arrayWithCapacity:[_headLines.listData count]];
+    
+    for (GDataXMLElement *xmlElem in _headLines.listData) {
+        LAHighlightsItem *item = [[LAHighlightsItem alloc] init];
+        item.title = xmlElem.title;
+        item.imageURL = xmlElem.imageUrl;
+        item.url = xmlElem.url;
+        
+        if (item.imageURL != nil) {
+            [highlightsArr addObject:item];
+            [images addObject:xmlElem.imageUrl];
+            [titles addObject:xmlElem.nodeName];
+        }
+        else {
+            [headlinesArr addObject:item];
+        }
+    }
+
+    self.highlightItems = highlightsArr;
+    self.headlineItems = headlinesArr;
+    
+    self.highlightsTitles = titles;
+    self.highlightsImages = images;
+    
+    [_cycleScrollView reloadWithPictures:_highlightsImages titles:_highlightsTitles];
+    [_headlinesView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -110,7 +172,101 @@
 
 - (void)listDidFinishLoading:(LAXMLData *)list {
     // not a good 
-    [self loadItems];
+    if (list == _list) { // category loaded
+        [self loadItems];
+    }
+    else { // headlines loaded
+        [self loadHeadlines];
+    }
+}
+
+#pragma mark - headlines
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [_headlinesView deselectRowAtIndexPath:_selectedPath animated:YES];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [_headLines.listData count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (!cell) {
+        cell = [[LAListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    GDataXMLElement *currentElem = [_headLines.listData objectAtIndex:indexPath.row];
+    
+    [cell.textLabel setText:currentElem.nodeName];
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 53.0f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectedPath = indexPath;
+    
+    GDataXMLElement *currentElem = (GDataXMLElement *)[_headLines.listData objectAtIndex:indexPath.row];
+    
+    NSString *url = [NSString URLWithPath:currentElem.url];
+    
+    //DLog(@"%@", currentElem.url);
+    
+    NSArray *urlElements = [currentElem.url componentsSeparatedByString:@"/"];
+    
+    NSString *dir = [urlElements objectAtIndex:1];
+    
+    NSMutableString *rebuildPath = [NSMutableString stringWithString:dir];
+    
+    for (int i = 2; i < [urlElements count]; i++) {
+        [rebuildPath appendFormat:@"/%@", [urlElements objectAtIndex:i]];
+    }
+    
+    url = [NSString URLWithPath:rebuildPath];
+    
+    DLog(@"%@", url);
+    
+    // this is article
+    LAArticleViewController *articleVC = [[LAArticleViewController alloc] initWithURL:url];
+    [articleVC setTitle:@"新闻"];
+    
+    [self.navigationController pushViewController:articleVC animated:YES];
+}
+
+#pragma mark - CycleScroll Delegate
+
+- (void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView didSelectImageView:(int)index {    
+    LAHighlightsItem *currentItem = [_highlightItems objectAtIndex:index];
+    NSString *url = [NSString URLWithPath:currentItem.url];
+    
+    //DLog(@"%@", currentItem.url);
+    
+    NSArray *urlElements = [currentItem.url componentsSeparatedByString:@"/"];
+    
+    NSString *dir = [urlElements objectAtIndex:1];
+    
+    NSMutableString *rebuildPath = [NSMutableString stringWithString:dir];
+    
+    for (int i = 2; i < [urlElements count]; i++) {
+        [rebuildPath appendFormat:@"/%@", [urlElements objectAtIndex:i]];
+    }
+    
+    url = [NSString URLWithPath:rebuildPath];
+    
+    DLog(@"%@", url);
+    
+    // this is article
+    LAArticleViewController *articleVC = [[LAArticleViewController alloc] initWithURL:url];
+    [articleVC setTitle:@"新闻"];
+    
+    [self.navigationController pushViewController:articleVC animated:YES];
     
 }
 
