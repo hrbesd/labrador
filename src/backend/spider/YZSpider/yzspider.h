@@ -71,7 +71,7 @@ private:
     QLinkedList<RuleRequest> m_ruleRequestTask;
 
     QSet<QString> m_nodeUrlSet;
-    QSet<QString> m_resolvedNodes;
+    QSet<QString> m_resolvedNodes;  //扫描过的url集合
 
     int m_webpageRequestThreadNum;
     int m_ruleRequestThreadNum;
