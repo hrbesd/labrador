@@ -11,26 +11,26 @@ import Queue
 from xml.dom.minidom import parseString
 from threading import Thread, Semaphore
 
-sem = Semaphore(8)
-taskQueue = Queue.Queue()
+NUM_WORKER_THREADS = 8
 
-class TTSWorkerThread(Thread):
-	def __init__(self, text):
-		super(TTSWorkerThread, self).__init__()
-		self.text2send = text
-		self.configDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://116.255.231.36:8080', 'ttsKey':'zhangjianzong'}
+taskQueue = Queue.Queue(0)
 
-	def run(self):
-		global sem
-		conDict = self.configDict
-		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(self.text2send.encode('utf8')))
-		try:
-			conn = urllib2.urlopen(urlPath)
-			conn.close()
-		except Exception as e:
-			print e
+conDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://116.255.231.36:8080', 'ttsKey':'zhangjianzong'}
 
-		sem.release()
+def doWork(text):
+	urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text.encode('utf8')))
+	try:
+		conn = urllib2.urlopen(urlPath)
+		print conn.read()
+		conn.close()
+	except Exception as e:
+		print e
+
+def proxyWorker():
+	while True:
+		item = taskQueue.get(True)
+		doWork(item)
+		taskQueue.task_done()
 
 class TTSProxyService(DefinitionBase):
 	@soap(String, String, String, _returns=String)
@@ -42,18 +42,12 @@ class TTSProxyService(DefinitionBase):
 		global taskQueue
 		taskQueue.put(text)
 
-def queryList():
-	while True:
-		if not taskQueue.empty():
-			global sem
-			sem.acquire()
-			text = taskQueue.get()
-			th = TTSWorkerThread(text)
-			th.start()
-
 def main():
-	queryThread = Thread(target=queryList)
-	queryThread.start()
+	for i in range(NUM_WORKER_THREADS):
+		t = Thread(target=proxyWorker)
+		t.daemon = True
+		t.start()
+
 	soap_app = soaplib.core.Application([TTSProxyService], 'tns')
 	wsgi_app = wsgi.Application(soap_app)
 	print 'listening on 127.0.0.1:7789'

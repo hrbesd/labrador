@@ -31,7 +31,7 @@ if __name__ == '__main__':
 	start = time.time()
 
 	# start the proxy
-	p = Popen(['python', '../../butts/reactor/tts_proxy.py'])
+	proxy = Popen(['python', '../../butts/reactor/tts_proxy.py'])
 
 	time.sleep(2)
 
@@ -44,4 +44,4 @@ if __name__ == '__main__':
 	p.strip_dirs().sort_stats('cumulative').print_stats()
 
 	print "\n\n\n\nUsed %.3fs for reactor!" % (time.time() - start)
-	p.terminate()
+	proxy.terminate()
