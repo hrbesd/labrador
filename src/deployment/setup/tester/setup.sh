@@ -437,6 +437,10 @@ do
 			easy_install BeautifulSoup
 			# HTML
 			# easy_install html
+			# soap lib
+			easy_install soaplib
+			#suds
+			easy_install suds
 			
 			# Ruby 1.8
 			apt-get -y install ruby1.8
