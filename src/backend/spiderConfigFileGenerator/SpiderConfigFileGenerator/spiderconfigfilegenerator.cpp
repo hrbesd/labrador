@@ -146,6 +146,7 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     quanShengGaiKuang->nodeList.append(quanShengGaiKuangNodeItem);
 
     Rule *quanShengGaiKuangArticleRule = new Rule();
+    quanShengGaiKuangArticleRule->urlExpression.type = "JavaScript";
 
 
     websiteItem.node.ruleList.append(quanShengGaiKuang);
