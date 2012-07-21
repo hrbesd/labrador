@@ -21,7 +21,6 @@ def doWork(text):
 	urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text.encode('utf8')))
 	try:
 		conn = urllib2.urlopen(urlPath)
-		print conn.read()
 		conn.close()
 	except Exception as e:
 		print e
