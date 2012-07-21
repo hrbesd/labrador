@@ -33,6 +33,8 @@ if __name__ == '__main__':
 	# start the proxy
 	p = Popen(['python', '../../butts/reactor/tts_proxy.py'])
 
+	time.sleep(2)
+
 	logName = 'profiler.log'
 	cProfile.run('main()', logName)
 
