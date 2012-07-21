@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- encoding:utf-8 -*-
 import soaplib
-from soaplib.core.util.wsgi_wrapper import run_twisted
 from soaplib.core.server import wsgi
 from soaplib.core.service import DefinitionBase, soap
 from soaplib.core.model.primitive import String
@@ -26,6 +25,7 @@ class TTSWorkerThread(Thread):
 		urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(self.text2send.encode('utf8')))
 		try:
 			conn = urllib2.urlopen(urlPath)
+			print conn.read()
 			conn.close()
 		except Exception as e:
 			print e
@@ -51,14 +51,16 @@ def queryList():
 			th = TTSWorkerThread(text)
 			th.start()
 
-def main(configFilePath):
+def main():
+	from wsgiref.simple_server import make_server
 	queryThread = Thread(target=queryList)
 	queryThread.start()
 	soap_app = soaplib.core.Application([TTSProxyService], 'tns')
 	wsgi_app = wsgi.Application(soap_app)
 	print 'listening on 127.0.0.1:7789'
-	print 'wsdl is at: http://127.0.0.1:7789/SOAP/?wsdl'
-	run_twisted(((wsgi_app, "SOAP"),), 7789)
+	print 'wsdl is at: http://127.0.0.1:7789/?wsdl'
+	server = make_server('localhost', 7789, wsgi_app)
+	server.serve_forever()
 
 if __name__ == '__main__':
 	main()
