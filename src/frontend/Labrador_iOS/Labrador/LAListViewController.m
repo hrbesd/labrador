@@ -14,24 +14,26 @@
 #import "NSString+URL.h"
 #import "LAListCellBgView.h"
 #import "LAArticleViewController.h"
+#import "MBProgressHUD.h"
 
 @interface LAListViewController ()
+
+@property (strong, nonatomic) MBProgressHUD *hud;
+@property (strong, nonatomic) NSString *urlStr;
 
 @end
 
 @implementation LAListViewController
 
 @synthesize xmlData = _xmlData;
+@synthesize hud = _hud;
+@synthesize urlStr = _urlStr;
 
 - (id)initWithStyle:(UITableViewStyle)style url:(NSString *)urlStr
 {
     self = [super initWithStyle:style];
     if (self) {
-        // custom style
-        //[self.tableView setSeparatorColor:[UIColor clearColor]];
-        
-        self.xmlData = [[LAXMLData alloc] initWithURL:urlStr type:XMLDataType_List];
-        [_xmlData setDelegate:self];
+        self.urlStr = urlStr;
     }
     return self;
 }
@@ -40,11 +42,19 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // custom style
+    //[self.tableView setSeparatorColor:[UIColor clearColor]];
+    
+    self.xmlData = [[LAXMLData alloc] initWithURL:_urlStr type:XMLDataType_List delegate:self];
+    
+    UIBarButtonItem *updateButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"更新" style:UIBarButtonItemStyleBordered target:self action:@selector(updateData)];
+    [self.navigationItem setRightBarButtonItem:updateButtonItem];
+    
+    [self.view bringSubviewToFront:_hud];
+}
+
+- (void)updateData {
+    [_xmlData forceUpdate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,6 +77,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSUInteger count = [_xmlData.listData count];
+    if (count == 0) {
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    }
+    else {
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    }
     return [_xmlData.listData count];
 }
 
@@ -142,9 +159,26 @@
 
 #pragma mark - LAXMLDataDelegate
 
+- (void)listWillStartLoading:(LAXMLData *)list {
+    self.hud = [[MBProgressHUD alloc] initWithView:self.tableView];
+    [self.view addSubview:_hud];
+    
+    [_hud setLabelText:@"更新数据中"];
+    
+    [_hud show:YES];
+}
+
 - (void)listDidFinishLoading:(LAXMLData *)list {
     // not a good 
     [self.tableView reloadData];
+    
+    [_hud hide:YES];
+}
+
+- (void)list:(LAXMLData *)list failWithError:(NSError *)error {
+    [_hud hide:YES];
+    
+    NSLog(@"更新出错");
 }
 
 
