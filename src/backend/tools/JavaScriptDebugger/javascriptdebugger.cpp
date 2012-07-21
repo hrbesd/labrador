@@ -18,6 +18,10 @@ void JavaScriptDebugger::initUI()
 
     //buttons
     buttonsLayout->addStretch(5);
+    generateButton = new QPushButton(this);
+    generateButton->setText("Generate");
+    generateButton->setToolTip("generate javascript in useful mode");
+    generateButton->setFixedSize(100,30);
     executeButton = new QPushButton(this);
     executeButton->setText("Execute");
     executeButton->setToolTip("execute javascript code");
@@ -26,6 +30,7 @@ void JavaScriptDebugger::initUI()
     clearButton->setText("Clear");
     clearButton->setToolTip("clear all data");
     clearButton->setFixedSize(100,30);
+    buttonsLayout->addWidget(generateButton);
     buttonsLayout->addWidget(executeButton);
     buttonsLayout->addWidget(clearButton);
     buttonsLayout->addStretch(1);
@@ -57,6 +62,7 @@ void JavaScriptDebugger::initConnections()
 {
     connect(executeButton,SIGNAL(clicked()),this,SLOT(execute()));
     connect(clearButton,SIGNAL(clicked()),this,SLOT(clear()));
+    connect(generateButton,SIGNAL(clicked()),this,SLOT(generate()));
 }
 
 void JavaScriptDebugger::clear()
@@ -72,8 +78,25 @@ void JavaScriptDebugger::clear()
     resultTextEdit->clear();
 }
 
+void JavaScriptDebugger::generate()
+{
+    resultTextEdit->clear();
+    QString str = javascriptTextEdit->toPlainText();
+    QTextStream stream(&str);
+    QString line;
+    do {
+        line = stream.readLine();
+        line.replace("\\", "\\\\");
+        line.replace("\"", "\\\"");
+        line.prepend("\"");
+        line.append("\"");
+        resultTextEdit->appendPlainText(line);
+    } while (!stream.atEnd());
+}
+
 void JavaScriptDebugger::execute()
 {
+    int count = 0;
     resultTextEdit->clear();
     QScriptValue result = m_engine.evaluate(javascriptTextEdit->toPlainText());
     if (m_engine.hasUncaughtException()) {
@@ -88,6 +111,7 @@ void JavaScriptDebugger::execute()
     resultStringList = resultValue.toVariant().toStringList();
     foreach(QString str, resultStringList)
     {
-        resultTextEdit->appendPlainText(str+"\n");
+        resultTextEdit->appendPlainText(QString::number(++count) + ":"  + str+"\n");
     }
+    m_engine.abortEvaluation();
 }

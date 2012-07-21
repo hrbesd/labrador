@@ -22,12 +22,14 @@ public:
 private slots:
     void execute();
     void clear();
+    void generate();
 private:
     void initUI();
     void initConnections();
 
     QPushButton *executeButton;
     QPushButton *clearButton;
+    QPushButton *generateButton;
     QPlainTextEdit *contentTextEdit;
     QPlainTextEdit *javascriptTextEdit;
     QPlainTextEdit *resultTextEdit;
