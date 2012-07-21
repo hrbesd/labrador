@@ -5,49 +5,18 @@
 #include <QDir>
 
 YZSpider::YZSpider(QObject *parent) :
-    QObject(parent),m_maxRuleRequestThreadNum(10),m_maxWebPageRequestThreadNum(10)
+    QObject(parent)
+  ,m_maxRuleRequestThreadNum(10)
+  ,m_maxWebPageRequestThreadNum(10)
+  ,m_webPageCount(0)
+  ,m_finishParseRules(false)
 {
-    QStringList parametersList = QCoreApplication::arguments();
-    foreach(QString parameter,parametersList)
-    {
-        QStringList tmpList = parameter.split('=');
-        m_paramenters.insert(tmpList[0],tmpList.size()>1?tmpList[1]:QString(""));
-    }
-
-    if(m_paramenters.contains("--version"))
-    {
-        std::cout<<"Labrador Spider Version "<<BASE_VERSION<<endl;
-        exit(0);
-    }
-    if(m_paramenters.contains("--log-file"))
-    {
-        YZLogger::logFilePath = m_paramenters.value("--log-file");
-    }
-    if(!m_paramenters.contains("--rule-dir"))
-    {
-        std::cerr<<"rule dir can't be empty, spider will exit now!"<<endl;
-        exit(0);
-    }
-    if(!m_paramenters.contains("--worker-dir"))
-    {
-        std::cerr<<"worker dir can't be empty, spider will exit now!"<<endl;
-        exit(0);
-    }
-    if(!m_paramenters.contains("--shared-dir"))
-    {
-        std::cerr<<"shared dir can't be empty, spider will exit now!"<<endl;
-        exit(0);
-    }
-
-    YZLogger::Logger()->log("log something to test");
-
-
-    m_webPageCount = 0;
-    m_finishParseRules = false;
+    initParameters();
     m_networkAccessManager = new QNetworkAccessManager(this);
-    QDir dir(m_paramenters.value("--rule-dir"));
-    parseWebsiteConfigFile(dir.absolutePath()+"/"+"spider_config.xml");
-    m_webpageRequestThreadNum = m_maxWebPageRequestThreadNum;
+    m_configFileParser.parseWebsiteConfigFile(m_paramenters.value("--rule-dir"),m_website);
+    m_webpageRequestThreadNum = m_website.threadLimit.toInt();
+    //because we want columns to be downloaded in order, so only one thread
+    m_maxRuleRequestThreadNum = 1;
     m_ruleRequestThreadNum = m_maxRuleRequestThreadNum;
     parseWebsiteData();
 }
@@ -124,6 +93,7 @@ void YZSpider::ruleRequestScheduler()
     while(m_ruleRequestThreadNum>0&&m_ruleRequestTask.isEmpty()==false)
     {
         RuleRequest ruleRequest = m_ruleRequestTask.takeFirst();
+        std::cout<<"parsing rule: "<<ruleRequest.url.toStdString()<<std::endl;
         downloadRule(ruleRequest);
     }
     if(m_ruleRequestTask.isEmpty()&&m_ruleRequestThreadNum==m_maxRuleRequestThreadNum)
@@ -219,248 +189,6 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
     }
 }
 
-void YZSpider::parseWebsiteConfigFile(QString configFile)
-{
-    qDebug()<<configFile;
-    QFile file(configFile);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        qWarning("can't open config File");
-        exit(0);
-    }
-    xmlReader.setDevice(&file);
-    while (!xmlReader.atEnd()) {
-        if(xmlReader.isStartElement())
-        {
-            if(xmlReader.name()=="website")
-                parseWebsiteXml(xmlReader);
-            else
-            {
-                qWarning()<<"invalid xml format";
-            }
-        }
-        xmlReader.readNext();
-    }
-    file.close();
-}
-
-void YZSpider::parseWebsiteXml(QXmlStreamReader &reader)
-{
-    reader.readNext();
-    while(!reader.atEnd())
-    {
-        if(reader.isEndElement()&&reader.name()=="website")
-        {
-            reader.readNext();
-            return;
-        }
-        else if(reader.isStartElement())
-        {
-            if(reader.name()=="editor")
-            {
-                m_website.editor = reader.readElementText();
-            }
-            else if(reader.name()=="info")
-            {
-                m_website.info = reader.readElementText();
-            }
-            else if(reader.name()=="crawlTime")
-            {
-                m_website.crawlTime = reader.readElementText();
-            }
-            else if(reader.name()=="threadLimit")
-            {
-                m_website.threadLimit = reader.readElementText();
-                m_maxRuleRequestThreadNum = m_website.threadLimit.toInt();
-                m_maxWebPageRequestThreadNum = m_webpageRequestThreadNum;
-            }
-            else if(reader.name()=="node")
-            {
-                parseNodeXml(reader,m_website.node);
-            }
-        }
-        reader.readNext();
-    }
-
-}
-
-void YZSpider::parseNodeXml(QXmlStreamReader &reader, Node &node)
-{
-    reader.readNext();
-    while(!reader.atEnd())
-    {
-        if(reader.isEndElement()&&reader.name()=="node")
-        {
-            reader.readNext();
-            return;
-        }
-        else if(reader.isStartElement())
-        {
-            if(reader.name()=="name")
-            {
-                node.name = reader.readElementText();
-            }
-            else if(reader.name()=="url")
-            {
-                node.url = reader.readElementText();
-            }
-            else if(reader.name()=="refreshRate")
-            {
-                node.refreshRate = reader.readElementText();
-            }
-            else if(reader.name()=="ruleList")
-            {
-                parseRuleListXml(reader,node.ruleList);
-            }
-        }
-        reader.readNext();
-    }
-}
-
-void YZSpider::parseNodeListXml(QXmlStreamReader &reader, QList<Node> &parentNodeList)
-{
-    reader.readNext();
-    while(!reader.atEnd())
-    {
-        if(reader.isEndElement()&&reader.name()=="nodeList")
-        {
-            reader.readNext();
-            return;
-        }
-        else if(reader.isStartElement())
-        {
-            if(reader.name()=="node")
-            {
-                Node newNode;
-                parentNodeList<<newNode;
-                parseNodeXml(reader,parentNodeList.last());
-            }
-        }
-        reader.readNext();
-    }
-}
-
-void YZSpider::parseRuleListXml(QXmlStreamReader &reader, QList<Rule *> &parentRuleList)
-{
-    reader.readNext();
-    while(!reader.atEnd())
-    {
-        if(reader.isEndElement()&&reader.name()=="ruleList")
-        {
-            reader.readNext();
-            return;
-        }
-        else if(reader.isStartElement())
-        {
-            if(reader.name()=="rule")
-            {
-                Rule* newRule = new Rule;
-                parentRuleList<<newRule;
-                parseRuleXml(reader,parentRuleList.last());
-            }
-        }
-        reader.readNext();
-    }
-}
-
-
-void YZSpider::parseRuleXml(QXmlStreamReader &reader, Rule *rule)
-{
-    reader.readNext();
-    while(!reader.atEnd())
-    {
-        if(reader.isEndElement()&&reader.name()=="rule")
-        {
-            reader.readNext();
-            return;
-        }
-        else if(reader.isStartElement())
-        {
-            if(reader.name()=="maxPageCount")
-            {
-                rule->maxPageCount = reader.readElementText();
-            }
-            else if(reader.name()=="childRule")
-            {
-                parseChildRuleXml(reader,rule);
-            }
-            else if(reader.name()=="nodeList")
-            {
-                parseNodeListXml(reader,rule->nodeList);
-            }
-            else if(reader.name()=="expressionList")
-            {
-                parseExpressionListXml(reader,rule);
-            }
-        }
-        reader.readNext();
-    }
-}
-
-void YZSpider::parseExpressionListXml(QXmlStreamReader &reader, Rule *rule)
-{
-    reader.readNext();
-    while(!reader.atEnd())
-    {
-        if(reader.isEndElement()&&reader.name()=="expressionList")
-        {
-            reader.readNext();
-            return;
-        }
-        else if(reader.isStartElement())
-        {
-            if(reader.name()=="expression")
-            {
-                Expression newExpression;
-                newExpression.executeOnlyOnce.append(reader.attributes().value("executeOnlyOnce"));
-                newExpression.label.append(reader.attributes().value("label"));
-                newExpression.value.append(reader.attributes().value("value"));
-                newExpression.type.append(reader.attributes().value("type"));
-                if(newExpression.label=="title")
-                {
-                    rule->titleExpression.copyFromExpression(newExpression);
-                }
-                else if(newExpression.label=="url")
-                {
-                    rule->urlExpression.copyFromExpression(newExpression);
-                }
-                else if(newExpression.label=="nextPage")
-                {
-                    rule->nextPageExpression.copyFromExpression(newExpression);
-                }
-                else
-                {
-                    rule->expressionList<<newExpression;
-                }
-            }
-        }
-        reader.readNext();
-    }
-}
-
-void YZSpider::parseChildRuleXml(QXmlStreamReader &reader, Rule *rule)
-{
-    reader.readNext();
-    while(!reader.atEnd())
-    {
-        if(reader.isEndElement()&&reader.name()=="childRule")
-        {
-            reader.readNext();
-            break;
-        }
-        else if(reader.isStartElement())
-        {
-            if(reader.name()=="rule")
-            {
-                Rule* newRule = new Rule;
-                rule->childRule = newRule;
-                parseRuleXml(reader,rule->childRule);
-            }
-        }
-        reader.readNext();
-    }
-}
-
 void YZSpider::parseWebsiteData()
 {
     m_websiteUrl.setUrl(m_website.node.url);
@@ -470,6 +198,7 @@ void YZSpider::parseWebsiteData()
 
 void YZSpider::parseNodeData(Node &nodeItem)
 {
+    //检查链接是否已经扫描过
     if(!m_resolvedNodes.contains(nodeItem.url))
     {
         if(!m_websiteUrl.isParentOf(QUrl(nodeItem.url)))
@@ -491,18 +220,14 @@ void YZSpider::parseNodeData(Node &nodeItem)
 // to do...
 void YZSpider::parseRuleData(Rule *ruleItem, Node &parentNode)
 {
-    if(ruleItem->urlExpression.value.isEmpty())
-    {
-        parseNodeListData(ruleItem);
-    }
-    else
+    if(!ruleItem->urlExpression.value.isEmpty())
     {
         RuleRequest ruleRequest;
         ruleRequest.rule = ruleItem;
         ruleRequest.url = parentNode.url;
         m_ruleRequestTask.append(ruleRequest);
-        // to do..       parseNodeListData(ruleItem);
     }
+    parseNodeListData(ruleItem);
 }
 
 void YZSpider::parseNodeListData(Rule *ruleItem)
@@ -535,4 +260,40 @@ void YZSpider::parseNextPage(RuleRequest ruleRequest)
 void YZSpider::outputWebsite(QString fileName)
 {
     YZXmlWriter::writeWebsiteItemToXml(m_website,fileName);
+}
+
+void YZSpider::initParameters()
+{
+    QStringList parametersList = QCoreApplication::arguments();
+    foreach(QString parameter,parametersList)
+    {
+        QStringList tmpList = parameter.split('=');
+        m_paramenters.insert(tmpList[0],tmpList.size()>1?tmpList[1]:QString(""));
+    }
+
+    if(m_paramenters.contains("--version"))
+    {
+        std::cout<<"Labrador Spider Version "<<BASE_VERSION<<endl;
+        exit(0);
+    }
+    if(m_paramenters.contains("--log-file"))
+    {
+        YZLogger::logFilePath = m_paramenters.value("--log-file");
+    }
+    if(!m_paramenters.contains("--rule-dir"))
+    {
+        std::cerr<<"rule dir can't be empty, spider will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--worker-dir"))
+    {
+        std::cerr<<"worker dir can't be empty, spider will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--shared-dir"))
+    {
+        std::cerr<<"shared dir can't be empty, spider will exit now!"<<endl;
+        exit(0);
+    }
+    std::cout<<"spider start to run..."<<std::endl;
 }

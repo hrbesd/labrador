@@ -16,5 +16,7 @@
 @property (readonly, nonatomic) NSString *refreshRate;
 @property (readonly, nonatomic) NSString *hashName;
 @property (readonly, nonatomic) NSArray *nodeList;
+@property (readonly, nonatomic) NSString *imageUrl;
+@property (readonly, nonatomic) NSString *title;
 
 @end

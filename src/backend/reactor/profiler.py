@@ -13,6 +13,5 @@ def exeTime(func):
         l.write(logText)
         l.close()
         count += 1
-        print "tts called %d times" % count
         return back
     return newFunc

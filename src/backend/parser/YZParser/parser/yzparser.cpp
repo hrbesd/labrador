@@ -5,48 +5,16 @@
 YZParser::YZParser(QObject *parent) :
     QObject(parent),m_webpageCount(0)
 {
-    QStringList parametersList = QCoreApplication::arguments();
-    foreach(QString parameter,parametersList)
-    {
-        QStringList tmpList = parameter.split('=');
-        m_paramenters.insert(tmpList[0],tmpList.size()>1?tmpList[1]:QString(""));
-    }
-
-    if(m_paramenters.contains("--version"))
-    {
-        std::cout<<"Labrador Parser Version "<<BASE_VERSION<<endl;
-        exit(0);
-    }
-    if(m_paramenters.contains("--log-file"))
-    {
-        YZLogger::logFilePath = m_paramenters.value("--log-file");
-    }
-    if(!m_paramenters.contains("--rule-dir"))
-    {
-        std::cerr<<"rule dir can't be empty, parser will exit now!"<<endl;
-        exit(0);
-    }
-    if(!m_paramenters.contains("--worker-dir"))
-    {
-        std::cerr<<"worker dir can't be empty, parser will exit now!"<<endl;
-        exit(0);
-    }
-    if(!m_paramenters.contains("--shared-dir"))
-    {
-        std::cerr<<"shared dir can't be empty, parser will exit now!"<<endl;
-        exit(0);
-    }
-    if(!m_paramenters.contains("--source-dir"))
-    {
-        std::cerr<<"source dir can't be empty, parser will exit now!"<<endl;
-        exit(0);
-    }
+    initParameters();
     QDir dir(m_paramenters.value("--rule-dir"));
     QString fileName = dir.absolutePath()+"/"+"parser_config.js";
     QFile scriptFile(fileName);
     if (!scriptFile.open(QIODevice::ReadOnly))
     {
+        std::cerr<<"can't open parser config file, exit now!"<<std::endl;
+        exit(0);
     }
+    std::cout<<"parser start to run..."<<std::endl;
     QTextStream stream(&scriptFile);
     QString contents = stream.readAll();
     scriptFile.close();
@@ -163,4 +131,44 @@ void YZParser::parseImageFromBody(const QString &dataString, QString base, Artic
 void YZParser::parseConfigFile(QString parserConfigFileUrl)
 {
 
+}
+
+void YZParser::initParameters()
+{
+    QStringList parametersList = QCoreApplication::arguments();
+    foreach(QString parameter,parametersList)
+    {
+        QStringList tmpList = parameter.split('=');
+        m_paramenters.insert(tmpList[0],tmpList.size()>1?tmpList[1]:QString(""));
+    }
+
+    if(m_paramenters.contains("--version"))
+    {
+        std::cout<<"Labrador Parser Version "<<BASE_VERSION<<endl;
+        exit(0);
+    }
+    if(m_paramenters.contains("--log-file"))
+    {
+        YZLogger::logFilePath = m_paramenters.value("--log-file");
+    }
+    if(!m_paramenters.contains("--rule-dir"))
+    {
+        std::cerr<<"rule dir can't be empty, parser will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--worker-dir"))
+    {
+        std::cerr<<"worker dir can't be empty, parser will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--shared-dir"))
+    {
+        std::cerr<<"shared dir can't be empty, parser will exit now!"<<endl;
+        exit(0);
+    }
+    if(!m_paramenters.contains("--source-dir"))
+    {
+        std::cerr<<"source dir can't be empty, parser will exit now!"<<endl;
+        exit(0);
+    }
 }
