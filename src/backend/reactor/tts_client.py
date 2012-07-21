@@ -4,7 +4,7 @@ from suds.client import Client
 
 class TTSClient:
 	def __init__(self):	
-		self.tts_client = Client('http://127.0.0.1:7789/?wsdl')
+		self.tts_client = Client('http://127.0.0.1:7789/SOAP/?wsdl')
 
 	def generateSound(self, text):
 		if len(text) == 0:
