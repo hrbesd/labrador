@@ -34,7 +34,7 @@
         
         UIImage *placeholderImage = [UIImage imageNamed:[NSString stringWithFormat:@"TempIcon%d.png", item.text.length % 5 + 1]]; 
         
-        [_button setImageWithURL:[NSURL URLWithString:item.imageURL] placeholderImage:placeholderImage];
+        [_button setStorageImageWithURL:[NSURL URLWithString:item.imageURL] placeholderImage:placeholderImage];
         //[_button setBackgroundImage:[UIImage imageNamed:@"TestIcon3.png"] forState:UIControlStateNormal];
         [_button addTarget:self action:@selector(buttonTochUpInside:) forControlEvents:UIControlEventTouchUpInside];
         
