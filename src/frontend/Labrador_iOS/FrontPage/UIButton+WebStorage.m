@@ -10,17 +10,17 @@
 
 @implementation UIButton (WebStorage)
 
-- (void)setImageWithURL:(NSURL *)url
+- (void)setStorageImageWithURL:(NSURL *)url
 {
-    [self setImageWithURL:url placeholderImage:nil];
+    [self setStorageImageWithURL:url placeholderImage:nil];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder
+- (void)setStorageImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder
 {
-    [self setImageWithURL:url placeholderImage:placeholder options:0];
+    [self setStorageImageWithURL:url placeholderImage:placeholder options:0];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options
+- (void)setStorageImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options
 {
     SDWebImageStorageManager *manager = [SDWebImageStorageManager sharedManager];
     
@@ -39,17 +39,17 @@
 }
 
 #if NS_BLOCKS_AVAILABLE
-- (void)setImageWithURL:(NSURL *)url success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
+- (void)setStorageImageWithURL:(NSURL *)url success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
 {
-    [self setImageWithURL:url placeholderImage:nil success:success failure:failure];
+    [self setStorageImageWithURL:url placeholderImage:nil success:success failure:failure];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
+- (void)setStorageImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
 {
-    [self setImageWithURL:url placeholderImage:placeholder options:0 success:success failure:failure];
+    [self setStorageImageWithURL:url placeholderImage:placeholder options:0 success:success failure:failure];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
+- (void)setStorageImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
 {
     SDWebImageStorageManager *manager = [SDWebImageStorageManager sharedManager];
     
@@ -67,17 +67,17 @@
 }
 #endif
 
-- (void)setBackgroundImageWithURL:(NSURL *)url
+- (void)setStorageBackgroundImageWithURL:(NSURL *)url
 {
-    [self setBackgroundImageWithURL:url placeholderImage:nil];
+    [self setStorageBackgroundImageWithURL:url placeholderImage:nil];
 }
 
-- (void)setBackgroundImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder
+- (void)setStorageBackgroundImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder
 {
-    [self setBackgroundImageWithURL:url placeholderImage:placeholder options:0];
+    [self setStorageBackgroundImageWithURL:url placeholderImage:placeholder options:0];
 }
 
-- (void)setBackgroundImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options
+- (void)setStorageBackgroundImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options
 {
     SDWebImageStorageManager *manager = [SDWebImageStorageManager sharedManager];
     
@@ -96,17 +96,17 @@
 }
 
 #if NS_BLOCKS_AVAILABLE
-- (void)setBackgroundImageWithURL:(NSURL *)url success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
+- (void)setStorageBackgroundImageWithURL:(NSURL *)url success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
 {
-    [self setBackgroundImageWithURL:url placeholderImage:nil success:success failure:failure];
+    [self setStorageBackgroundImageWithURL:url placeholderImage:nil success:success failure:failure];
 }
 
-- (void)setBackgroundImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
+- (void)setStorageBackgroundImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
 {
-    [self setBackgroundImageWithURL:url placeholderImage:placeholder options:0 success:success failure:failure];
+    [self setStorageBackgroundImageWithURL:url placeholderImage:placeholder options:0 success:success failure:failure];
 }
 
-- (void)setBackgroundImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
+- (void)setStorageBackgroundImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options success:(void (^)(UIImage *image))success failure:(void (^)(NSError *error))failure;
 {
     SDWebImageStorageManager *manager = [SDWebImageStorageManager sharedManager];
     

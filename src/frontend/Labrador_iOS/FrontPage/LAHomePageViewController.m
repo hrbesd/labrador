@@ -22,9 +22,13 @@
 #import "CycleScrollView.h"
 #import "LAListCell.h"
 #import "LAArticleViewController.h"
+#import "MBProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LAHomePageViewController ()
+
+@property (strong, nonatomic) NSString *categoryURLStr;
+@property (strong, nonatomic) NSString *headLinesURLStr;
 
 @property (strong, nonatomic) NSMutableArray *items;
 @property (strong, nonatomic) NSMutableArray *highlightItems; // headlines with pic
@@ -34,6 +38,10 @@
 @property (strong, nonatomic) NSMutableArray *highlightsImages;
 
 @property (strong, nonatomic) NSIndexPath *selectedPath;
+
+@property (assign, nonatomic) NSInteger *loadingCount;
+
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 - (void)loadItems;
 
@@ -49,6 +57,9 @@
 @synthesize list = _list;
 @synthesize headLines = _headLines;
 
+@synthesize categoryURLStr = _categoryURLStr;
+@synthesize headLinesURLStr = _headLinesURLStr;
+
 @synthesize items = _items;
 @synthesize highlightItems = _highlightItems;
 @synthesize headlineItems = _headlineItems;
@@ -58,47 +69,25 @@
 
 @synthesize selectedPath = _selectedPath;
 
+@synthesize loadingCount = _loadingCount;
+
+@synthesize hud = _hud;
+
 - (id)initWithCategoryURL:(NSString *)categoryURLStr headlinesURL:(NSString *)headLinesURLStr{
     self = [super init];
     if (self) {
         
-        self.list = [[LAXMLData alloc] initWithURL:categoryURLStr type:XMLDataType_List];
-        [_list setDelegate:self];
+        self.loadingCount = 0;
         
-        self.headLines = [[LAXMLData alloc] initWithURL:headLinesURLStr type:XMLDataType_List];
-        [_headLines setDelegate:self];
-        
-        [self loadItems];
-        [self loadHeadlines];
-        
-        self.headlinesView = [[LAHeadlinesView alloc] initWithFrame:CGRectZero];
-        [_headlinesView setDataSource:self];
-        [_headlinesView setDelegate:self];
-        //self.highlightsView = [[LAHighlightsView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
-        self.cycleScrollView = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 160) cycleDirection:CycleDirectionLandscape pictures:_highlightsImages titles:_highlightsTitles];
-        [_cycleScrollView setDelegate:self];
-        
-        //[self.cycleScrollView.layer setBorderWidth:2];
-        //[self.cycleScrollView.layer setBorderColor:[[UIColor redColor] CGColor]];
-        
-        self.categoryView = [[LACategoryView alloc] initWithItems:_items];
-        [_categoryView setDelegate:self];
-        
-        NSArray *tabViews = [NSArray arrayWithObjects:_categoryView, _headlinesView, nil];
-        NSArray *tabTitles = [NSArray arrayWithObjects:@"分类", @"头条", nil];
-        
-        self.tabVC = [[BHTabsViewController alloc] initWithViews:tabViews titles:tabTitles style:[BHTabStyle defaultStyle]];
-        [self.tabVC.view setFrame:CGRectMake(0, 160, 320, 480 - 20 - 44 - 160)];
-        //[self.tabVC.view.layer setBorderWidth:2];
-        //[self.tabVC.view.layer setBorderColor:[[UIColor redColor] CGColor]];
-        
-        [self.view addSubview:_highlightsView];
-        [self.view addSubview:_cycleScrollView];
-        [self.view addSubview:_tabVC.view];
-        
-        
+        self.categoryURLStr = [NSString stringWithString:categoryURLStr];
+        self.headLinesURLStr = [NSString stringWithString:headLinesURLStr];
     }
     return self;
+}
+
+- (void)updateData {
+    [_list forceUpdate];
+    [_headLines forceUpdate];
 }
 
 - (void)loadItems {
@@ -148,6 +137,47 @@
     [_headlinesView reloadData];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.list = [[LAXMLData alloc] initWithURL:_categoryURLStr type:XMLDataType_List delegate:self];
+    
+    self.headLines = [[LAXMLData alloc] initWithURL:_headLinesURLStr type:XMLDataType_List delegate:self];
+    
+    [self loadItems];
+    [self loadHeadlines];
+    
+    self.headlinesView = [[LAHeadlinesView alloc] initWithFrame:CGRectZero];
+    [_headlinesView setDataSource:self];
+    [_headlinesView setDelegate:self];
+    //self.highlightsView = [[LAHighlightsView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    self.cycleScrollView = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 160) cycleDirection:CycleDirectionLandscape pictures:_highlightsImages titles:_highlightsTitles];
+    [_cycleScrollView setDelegate:self];
+    
+    //[self.cycleScrollView.layer setBorderWidth:2];
+    //[self.cycleScrollView.layer setBorderColor:[[UIColor redColor] CGColor]];
+    
+    self.categoryView = [[LACategoryView alloc] initWithItems:_items];
+    [_categoryView setDelegate:self];
+    
+    NSArray *tabViews = [NSArray arrayWithObjects:_categoryView, _headlinesView, nil];
+    NSArray *tabTitles = [NSArray arrayWithObjects:@"分类", @"头条", nil];
+    
+    self.tabVC = [[BHTabsViewController alloc] initWithViews:tabViews titles:tabTitles style:[BHTabStyle defaultStyle]];
+    [self.tabVC.view setFrame:CGRectMake(0, 160, 320, 480 - 20 - 44 - 160)];
+    //[self.tabVC.view.layer setBorderWidth:2];
+    //[self.tabVC.view.layer setBorderColor:[[UIColor redColor] CGColor]];
+    
+    [self.view addSubview:_highlightsView];
+    [self.view addSubview:_cycleScrollView];
+    [self.view addSubview:_tabVC.view];
+    
+    // a little trick 
+    [self.view bringSubviewToFront:_hud];
+    
+    UIBarButtonItem *updateButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"更新" style:UIBarButtonItemStyleBordered target:self action:@selector(updateData)];
+    [self.navigationItem setRightBarButtonItem:updateButtonItem];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -170,6 +200,20 @@
 
 #pragma mark - LAListDelegate
 
+- (void)listWillStartLoading:(LAXMLData *)list {
+    
+    if (_loadingCount <= 0) {
+        self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:_hud];
+        
+        [_hud setLabelText:@"更新数据中"];
+        
+        [_hud show:YES];
+    }
+    
+    _loadingCount++;
+}
+
 - (void)listDidFinishLoading:(LAXMLData *)list {
     // not a good 
     if (list == _list) { // category loaded
@@ -178,6 +222,22 @@
     else { // headlines loaded
         [self loadHeadlines];
     }
+    
+    _loadingCount--;
+    
+    if (_loadingCount <= 0) {
+        [_hud hide:YES];
+    }
+}
+
+- (void)list:(LAXMLData *)list failWithError:(NSError *)error {
+    _loadingCount--;
+    
+    if (_loadingCount <= 0) {
+        [_hud hide:YES];
+    }
+    
+    NSLog(@"更新出错");
 }
 
 #pragma mark - headlines
@@ -267,7 +327,6 @@
     [articleVC setTitle:@"新闻"];
     
     [self.navigationController pushViewController:articleVC animated:YES];
-    
 }
 
 

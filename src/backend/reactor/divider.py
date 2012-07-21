@@ -9,7 +9,7 @@ class Divider:
 
 	def __init__(self, soup, configPath):
 		self.soup = soup
-		self.client = TTSClient(configPath)
+		self.client = TTSClient()
 		self.dividerPattern = re.compile(ur"([^。，！？；……,!?;\n\r]+)([。，！？；……,!?;\n\r])", re.UNICODE)
 
 	def divide(self, element): # element is NavigableString
