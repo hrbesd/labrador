@@ -10,10 +10,6 @@ class TTSClient:
 		if len(text) == 0:
 			return False
 
+		print text
 		result = self.tts_client.service.text2Speech('zhangjianzong', text, 'null')
 		return result
-
-if __name__ == '__main__':
-	t = TTSClient()
-	for i in range(10000):
-		t.generateSound(u'你好中国')
