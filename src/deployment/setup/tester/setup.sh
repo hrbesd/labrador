@@ -441,6 +441,10 @@ do
 			easy_install soaplib
 			#suds
 			easy_install suds
+			# libxml2-dev: 
+			apt-get install libxml2-dev
+			# libxslt1-dev: 
+			apt-get install libxslt1-dev
 			
 			# Ruby 1.8
 			apt-get -y install ruby1.8
