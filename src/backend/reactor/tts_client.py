@@ -13,6 +13,5 @@ class TTSClient:
 		if text[0] == '&':
 			return False
 
-		print text.encode('utf-8')
 		result = self.tts_client.service.text2Speech('zhangjianzong', text, 'null')
 		return result
