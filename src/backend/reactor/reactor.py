@@ -30,7 +30,8 @@ if __name__ == '__main__':
 	start = time.time()
 
 	# start the proxy
-	subprocess.call('python', 'tts_proxy.py')
+	subprocess.call(['ls'])
+	subprocess.call(['python', 'tts_proxy.py'])
 
 	logName = 'profiler.log'
 	cProfile.run('main()', logName)
