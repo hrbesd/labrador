@@ -4,7 +4,7 @@
 # 不进行reactor的实际操作
 import reactor_main, argparse
 import cProfile, pstats
-import time
+import time, subprocess
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -28,6 +28,9 @@ def main():
 
 if __name__ == '__main__':
 	start = time.time()
+
+	# start the proxy
+	subprocess.call('python', 'tts_proxy.py')
 
 	logName = 'profiler.log'
 	cProfile.run('main()', logName)
