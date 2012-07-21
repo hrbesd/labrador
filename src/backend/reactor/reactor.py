@@ -4,7 +4,8 @@
 # 不进行reactor的实际操作
 import reactor_main, argparse
 import cProfile, pstats
-import time, subprocess
+import time
+from subprocess import Popen
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -30,7 +31,7 @@ if __name__ == '__main__':
 	start = time.time()
 
 	# start the proxy
-	subprocess.call(['python', '../../butts/reactor/tts_proxy.py'])
+	p = Popen(['python', '../../butts/reactor/tts_proxy.py'])
 
 	logName = 'profiler.log'
 	cProfile.run('main()', logName)
@@ -41,3 +42,4 @@ if __name__ == '__main__':
 	p.strip_dirs().sort_stats('cumulative').print_stats()
 
 	print "\n\n\n\nUsed %.3fs for reactor!" % (time.time() - start)
+	p.terminate()
