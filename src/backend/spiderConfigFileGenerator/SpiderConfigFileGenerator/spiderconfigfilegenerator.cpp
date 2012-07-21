@@ -143,68 +143,102 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     Node quanShengGaiKuangNodeItem;
     quanShengGaiKuangNodeItem.name = "全省概况";
     quanShengGaiKuangNodeItem.url = "http://www.hlj.gov.cn/zjlj/";
-    quanShengGaiKuang->nodeList.append(quanShengGaiKuangNodeItem);
 
     Rule *quanShengGaiKuangArticleRule = new Rule();
+    quanShengGaiKuangArticleRule->urlExpression.type = "JavaScript";
+    quanShengGaiKuangArticleRule->urlExpression.executeOnlyOnce = "true";
+    quanShengGaiKuangArticleRule->urlExpression.value = "function getYZSpiderResult(content)"
+            "{"
+            "    var result = new Array();"
+            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList2\\\" style=\\\"height:27px\\\">\");"
+            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+            "    var tmp = content.substring(startIndex,endIndex);"
+            "    var reg = new RegExp(\"<li> <a href=\\\"([^\\\"]*)\\\"\",\"g\");"
+            "    var regResult = reg.exec(tmp);"
+            "	while(reg.lastIndex!==0)"
+            "	{"
+            "		result.push(regResult[1]);"
+            "		regResult = reg.exec(tmp);"
+            "	}"
+            "    return result;"
+            "}";
+    quanShengGaiKuangArticleRule->titleExpression.type = "JavaScript";
+    quanShengGaiKuangArticleRule->titleExpression.executeOnlyOnce = "true";
+    quanShengGaiKuangArticleRule->titleExpression.value = "function getYZSpiderResult(content)"
+            "{"
+            "    var result = new Array();"
+            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList2\\\" style=\\\"height:27px\\\">\");"
+            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+            "    var tmp = content.substring(startIndex,endIndex);"
+            "    var reg = new RegExp(\"<li> <a href=\\\"[^>]*>([^<]*)<\",\"g\");"
+            "    var regResult = reg.exec(tmp);"
+            "	while(reg.lastIndex!==0)"
+            "	{"
+            "		result.push(regResult[1]);"
+            "		regResult = reg.exec(tmp);"
+            "	}"
+            "    return result;"
+            "}";
 
-
+    quanShengGaiKuangNodeItem.ruleList.append(quanShengGaiKuangArticleRule);
+    quanShengGaiKuang->nodeList.append(quanShengGaiKuangNodeItem);
     websiteItem.node.ruleList.append(quanShengGaiKuang);
-    /****************************************************
-     *公告信息
-     ***************************************************/
-    Rule *gongGaoXinXiRule = new Rule();
-    Rule* gongGaoXinXiArticleRule = new Rule;
-    Node gongGaoXinXiNodeItem;
-    gongGaoXinXiNodeItem.name = "公告信息";
-    gongGaoXinXiNodeItem.url = "http://www.hlj.gov.cn/zwdt/ggxx/index.shtml";
-    gongGaoXinXiNodeItem.ruleList.append(gongGaoXinXiArticleRule);
+//    /****************************************************
+//     *公告信息
+//     ***************************************************/
+//    Rule *gongGaoXinXiRule = new Rule();
+//    Rule* gongGaoXinXiArticleRule = new Rule;
+//    Node gongGaoXinXiNodeItem;
+//    gongGaoXinXiNodeItem.name = "公告信息";
+//    gongGaoXinXiNodeItem.url = "http://www.hlj.gov.cn/zwdt/ggxx/index.shtml";
+//    gongGaoXinXiNodeItem.ruleList.append(gongGaoXinXiArticleRule);
 
-    gongGaoXinXiRule->nodeList.append(gongGaoXinXiNodeItem);
+//    gongGaoXinXiRule->nodeList.append(gongGaoXinXiNodeItem);
 
-    gongGaoXinXiArticleRule->urlExpression.value = "<td><ul><a href=\"([^\"]*)\"";
-    gongGaoXinXiArticleRule->titleExpression.value = "<td><ul><a href=\"[^\"]*\" Title=\"([^\"]*)\"";
-    gongGaoXinXiArticleRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
-    websiteItem.node.ruleList.append(gongGaoXinXiRule);
+//    gongGaoXinXiArticleRule->urlExpression.value = "<td><ul><a href=\"([^\"]*)\"";
+//    gongGaoXinXiArticleRule->titleExpression.value = "<td><ul><a href=\"[^\"]*\" Title=\"([^\"]*)\"";
+//    gongGaoXinXiArticleRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
+//    websiteItem.node.ruleList.append(gongGaoXinXiRule);
 
-    /****************************************************
-     *政务要闻
-     ***************************************************/
-    Rule *zhengWuYaoWenRule = new Rule();
-    Rule* zhengWuYaoWenArticleRule = new Rule;
-    Node zhengWuYaoWenNodeItem;
-    zhengWuYaoWenNodeItem.name = "zhengWuYaoWen";
-    zhengWuYaoWenNodeItem.url = "http://www.hlj.gov.cn/zwdt/zwyw/index.shtml";
-    zhengWuYaoWenNodeItem.ruleList.append(zhengWuYaoWenArticleRule);
+//    /****************************************************
+//     *政务要闻
+//     ***************************************************/
+//    Rule *zhengWuYaoWenRule = new Rule();
+//    Rule* zhengWuYaoWenArticleRule = new Rule;
+//    Node zhengWuYaoWenNodeItem;
+//    zhengWuYaoWenNodeItem.name = "zhengWuYaoWen";
+//    zhengWuYaoWenNodeItem.url = "http://www.hlj.gov.cn/zwdt/zwyw/index.shtml";
+//    zhengWuYaoWenNodeItem.ruleList.append(zhengWuYaoWenArticleRule);
 
-    zhengWuYaoWenRule->nodeList.append(zhengWuYaoWenNodeItem);
+//    zhengWuYaoWenRule->nodeList.append(zhengWuYaoWenNodeItem);
 
-    zhengWuYaoWenArticleRule->urlExpression.value = "<td><ul><a href=\"([^\"]*)\"";
-    zhengWuYaoWenArticleRule->titleExpression.value = "<td><ul><a href=\"[^\"]*\" Title=\"([^\"]*)\"";
-    zhengWuYaoWenArticleRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
-    websiteItem.node.ruleList.append(zhengWuYaoWenRule);
+//    zhengWuYaoWenArticleRule->urlExpression.value = "<td><ul><a href=\"([^\"]*)\"";
+//    zhengWuYaoWenArticleRule->titleExpression.value = "<td><ul><a href=\"[^\"]*\" Title=\"([^\"]*)\"";
+//    zhengWuYaoWenArticleRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
+//    websiteItem.node.ruleList.append(zhengWuYaoWenRule);
 
-    /****************************************************
-     *计划规划
-     ***************************************************/
-    Rule* jiHuaGuiHuaRule = new Rule;
-    Rule* jiHuaGuiHuaChildRule = new Rule;
-    Rule* jiHuaGuiHuaArticleRule = new Rule;
+//    /****************************************************
+//     *计划规划
+//     ***************************************************/
+//    Rule* jiHuaGuiHuaRule = new Rule;
+//    Rule* jiHuaGuiHuaChildRule = new Rule;
+//    Rule* jiHuaGuiHuaArticleRule = new Rule;
 
-    Node jiHuaGuiHuaNodeItem;
-    jiHuaGuiHuaNodeItem.name = "jiHuaGuiHua";
-    jiHuaGuiHuaNodeItem.url = "http://www.hlj.gov.cn/zwdt/jhgh/index.shtml";
-    jiHuaGuiHuaNodeItem.ruleList.append(jiHuaGuiHuaChildRule);
+//    Node jiHuaGuiHuaNodeItem;
+//    jiHuaGuiHuaNodeItem.name = "jiHuaGuiHua";
+//    jiHuaGuiHuaNodeItem.url = "http://www.hlj.gov.cn/zwdt/jhgh/index.shtml";
+//    jiHuaGuiHuaNodeItem.ruleList.append(jiHuaGuiHuaChildRule);
 
-    jiHuaGuiHuaRule->nodeList.append(jiHuaGuiHuaNodeItem);
-    jiHuaGuiHuaChildRule->urlExpression.value = "<a href=\"([^\"]*)\">更多";
-    jiHuaGuiHuaChildRule->titleExpression.value = "<td class=\"ftit\">(.*)</td>";
+//    jiHuaGuiHuaRule->nodeList.append(jiHuaGuiHuaNodeItem);
+//    jiHuaGuiHuaChildRule->urlExpression.value = "<a href=\"([^\"]*)\">更多";
+//    jiHuaGuiHuaChildRule->titleExpression.value = "<td class=\"ftit\">(.*)</td>";
 
-    jiHuaGuiHuaArticleRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
-    jiHuaGuiHuaArticleRule->urlExpression.value = "<td><ul><a href=\"([^\"]*)\"";
-    jiHuaGuiHuaArticleRule->titleExpression.value = "<td><ul><a href=\"[^\"]*\" Title=\"([^\"]*)\"";
+//    jiHuaGuiHuaArticleRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
+//    jiHuaGuiHuaArticleRule->urlExpression.value = "<td><ul><a href=\"([^\"]*)\"";
+//    jiHuaGuiHuaArticleRule->titleExpression.value = "<td><ul><a href=\"[^\"]*\" Title=\"([^\"]*)\"";
 
-    jiHuaGuiHuaChildRule->childRule = jiHuaGuiHuaArticleRule;
-    websiteItem.node.ruleList.append(jiHuaGuiHuaRule);
+//    jiHuaGuiHuaChildRule->childRule = jiHuaGuiHuaArticleRule;
+//    websiteItem.node.ruleList.append(jiHuaGuiHuaRule);
 
 
     YZXmlWriter::writeWebsiteItemToXml(websiteItem,"spider_config.xml");
