@@ -74,6 +74,7 @@ void JavaScriptDebugger::clear()
 
 void JavaScriptDebugger::execute()
 {
+    int count = 0;
     resultTextEdit->clear();
     QScriptValue result = m_engine.evaluate(javascriptTextEdit->toPlainText());
     if (m_engine.hasUncaughtException()) {
@@ -88,6 +89,7 @@ void JavaScriptDebugger::execute()
     resultStringList = resultValue.toVariant().toStringList();
     foreach(QString str, resultStringList)
     {
-        resultTextEdit->appendPlainText(str+"\n");
+        resultTextEdit->appendPlainText(QString::number(++count) + ":"  + str+"\n");
     }
+    m_engine.abortEvaluation();
 }
