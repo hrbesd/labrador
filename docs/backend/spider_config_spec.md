@@ -53,7 +53,7 @@ Rule目前包含两种规则，正则表达式和JavaScript脚本语言
 * 编写规则
 		
 			规则示例：
-				function getYZSpiderResult() 
+				function getYZSpiderResult(content) 
 				{
 					var result = new Array();
 					…………

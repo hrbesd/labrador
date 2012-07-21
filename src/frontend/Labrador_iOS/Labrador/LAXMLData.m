@@ -35,14 +35,19 @@
 @synthesize articleElem = _articleElem;
 @synthesize type = _type;
 
-- (id)initWithURL:(NSString *)urlStr type:(XMLDataType)type{
+- (void)dealloc {
+    [self cancleConnection];
+    self.delegate = nil;
+}
+
+- (id)initWithURL:(NSString *)urlStr type:(XMLDataType)type delegate:(id<LAXMLDataDelegate>)delegate{
     self = [super init];
     if (self) {
         self.data = [NSMutableData data];
         self.listData = [NSArray array];
         self.urlStr = urlStr;
         self.type = type;
-        
+        self.delegate = delegate;
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
         NSString *path = [self docPathForKey:_urlStr];
@@ -85,6 +90,14 @@
     return self;
 }
 
+- (id)initWithURL:(NSString *)urlStr type:(XMLDataType)type {
+    return [self initWithURL:urlStr type:type delegate:nil];
+}
+
+- (void)forceUpdate {
+    [self requestWithURL:_urlStr];
+}
+
 - (NSString *)docPathForKey:(NSString *)key {
     const char *str = [key UTF8String];
     unsigned char r[CC_MD5_DIGEST_LENGTH];
@@ -111,14 +124,31 @@
 - (void)requestWithURL:(NSString *)urlStr {
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:30];
 
-    // TODO: only one connection 
-    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    // only one connection 
+    if (_connection == nil) {
+        self.data = [NSMutableData data];
+        self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        if ([_delegate respondsToSelector:@selector(listWillStartLoading:)]) {
+            [_delegate listWillStartLoading:self];
+        }
+    }
+    else {
+        if ([_delegate respondsToSelector:@selector(listAlreadyLoading:)]) {
+            [_delegate listAlreadyLoading:self];
+        }
+    }
+}
+
+- (void)cancleConnection {
+    [_connection cancel];
+    self.connection = nil;
 }
 
 #pragma mark - NSURLConnectionDataDelegate
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    DLog("");
+    //DLog("");
+    // TODO: add response detail
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -127,6 +157,8 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     //DLog(@"%@", [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding]);
+    
+    [self cancleConnection];
     
     NSError *err;
     self.xmlDoc = [[GDataXMLDocument alloc] initWithData:_data options:0 error:&err];
@@ -155,17 +187,26 @@
         if (![_data writeToFile:path atomically:YES]) {
             NSLog(@"errrrr");
         }
-        
-        [_delegate listDidFinishLoading:self];
+        if ([_delegate respondsToSelector:@selector(listDidFinishLoading:)]) {
+            [_delegate listDidFinishLoading:self];
+        }
     }
     else {
-        // TODO: send err to delegate
+        // TODO: detail error info
+        if ([_delegate respondsToSelector:@selector(list:failWithError:)]) {
+            [_delegate list:self failWithError:nil];
+        }
     }
     
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     DLog("");
+    [self cancleConnection];
+    
+    if ([_delegate respondsToSelector:@selector(list:failWithError:)]) {
+        [_delegate list:self failWithError:error];
+    }
 }
 
 @end
