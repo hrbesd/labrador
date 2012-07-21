@@ -26,7 +26,10 @@ typedef enum {
 @property (readonly, nonatomic) XMLDataType type;
 
 - (id)initWithURL:(NSString *)urlStr type:(XMLDataType)type;
+- (id)initWithURL:(NSString *)urlStr type:(XMLDataType)type delegate:(id<LAXMLDataDelegate>)delegate;
+- (void)forceUpdate;
 //- (void)requestWithURL:(NSString *)urlStr;
+- (void)cancleConnection;
 
 @end
 
@@ -35,5 +38,8 @@ typedef enum {
 @optional
 
 - (void)listDidFinishLoading:(LAXMLData *)list;
+- (void)listWillStartLoading:(LAXMLData *)list;
+- (void)listAlreadyLoading:(LAXMLData *)list;
+- (void)list:(LAXMLData *)list failWithError:(NSError *)error;
 
 @end

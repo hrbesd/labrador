@@ -12,10 +12,13 @@
 #import "GRMustache.h"
 #import "NSString+HTML.h"
 #import "GDataXMLElement+Article.h"
+#import "MBProgressHUD.h"
 
 @interface LAArticleViewController ()
 
 @property (strong, nonatomic) UIWebView *webView;
+@property (strong, nonatomic) NSString *urlStr;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
 
@@ -23,12 +26,14 @@
 
 @synthesize xmlData = _xmlData;
 @synthesize webView = _webView;
+@synthesize urlStr = _urlStr;
+@synthesize hud = _hud;
 
 - (id)initWithURL:(NSString *)urlStr {
     self = [super init];
     if (self) {
-        self.xmlData = [[LAXMLData alloc] initWithURL:urlStr type:XMLDataType_Article];
-        [_xmlData setDelegate:self];
+        self.urlStr = urlStr;
+        
     }
     return self;
 }
@@ -100,6 +105,8 @@
 {
     [super viewDidLoad];
     
+    self.xmlData = [[LAXMLData alloc] initWithURL:_urlStr type:XMLDataType_Article delegate:self];
+    
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480 - 20 -44)];
     [self.view addSubview:_webView];
     
@@ -141,6 +148,9 @@
     
     [popOverView addSubview:fontSmaller];
     [popOverView addSubview:fontBigger];
+    
+    // a little trick
+    [self.view bringSubviewToFront:_hud];
     
     if (_xmlData.articleElem != nil) {
         [self showArticle];
@@ -189,9 +199,26 @@
 
 #pragma mark - LAXMLDataDelegate
 
+- (void)listWillStartLoading:(LAXMLData *)list {
+    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_hud];
+    
+    [_hud setLabelText:@"加载中"];
+    
+    [_hud show:YES];
+}
+
 - (void)listDidFinishLoading:(LAXMLData *)list {
     // load page
     [self showArticle];
+    
+    [_hud hide:YES];
+}
+
+- (void)list:(LAXMLData *)list failWithError:(NSError *)error {
+    [_hud hide:YES];
+    
+    NSLog(@"加载出错");
 }
 
 #pragma mark - Shake 
