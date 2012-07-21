@@ -4,7 +4,7 @@ from suds.client import Client
 
 class TTSClient:
 	def __init__(self):	
-		self.tts_client = Client('http://127.0.0.1:7789/SOAP/?wsdl')
+		self.tts_client = Client('http://127.0.0.1:7789/?wsdl')
 
 	def generateSound(self, text):
 		if len(text) == 0:
@@ -12,3 +12,8 @@ class TTSClient:
 
 		result = self.tts_client.service.text2Speech('zhangjianzong', text, 'null')
 		return result
+
+if __name__ == '__main__':
+	t = TTSClient()
+	for i in range(10000):
+		t.generateSound(u'你好中国')
