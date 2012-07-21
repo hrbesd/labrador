@@ -20,6 +20,7 @@
 #include <QMap>
 #include "version.h"
 #include "core/xmlWriter/yzxmlwriter.h"
+#include "yzspiderconfigfileparser.h"
 using namespace std;
 /**************************************************
  * download webpage in whitelist and convert text codec
@@ -32,7 +33,6 @@ class YZSpider : public QObject
     Q_OBJECT
 public:
     explicit YZSpider(QObject *parent = 0);
-    void parseWebsiteConfigFile(QString configFile);
 signals:
     
 protected slots:
@@ -41,6 +41,9 @@ protected slots:
 
     void ruleRequestReply();
 private:
+    //init
+    void initParameters();
+
     //download
     void downloadWebPage(Node* node);
     void downloadRule(RuleRequest ruleRequest);
@@ -48,14 +51,7 @@ private:
     //scheduler
     void webpageDownloadScheduler();
     void ruleRequestScheduler();
-    //read xml file
-    void parseWebsiteXml(QXmlStreamReader &reader);
-    void parseNodeXml(QXmlStreamReader &reader, Node &node);
-    void parseNodeListXml(QXmlStreamReader &reader, QList<Node>& parentNodeList);
-    void parseRuleListXml(QXmlStreamReader &reader, QList<Rule*>& parentRuleList);
-    void parseRuleXml(QXmlStreamReader &reader, Rule *rule);
-    void parseChildRuleXml(QXmlStreamReader &reader, Rule *rule);
-    void parseExpressionListXml(QXmlStreamReader &reader, Rule *rule);
+
     //parse website data
     void parseWebsiteData();
     void parseNodeData(Node &nodeItem);
@@ -75,7 +71,7 @@ private:
     QLinkedList<RuleRequest> m_ruleRequestTask;
 
     QSet<QString> m_nodeUrlSet;
-    QSet<QString> m_resolvedNodes;
+    QSet<QString> m_resolvedNodes;  //扫描过的url集合
 
     int m_webpageRequestThreadNum;
     int m_ruleRequestThreadNum;
@@ -83,8 +79,7 @@ private:
     WebSite m_website;
     bool m_finishParseRules;
     QUrl m_websiteUrl;
-
-    QXmlStreamReader xmlReader;
+    YZSpiderConfigFileParser m_configFileParser;
 
     int m_maxWebPageRequestThreadNum;
     int m_maxRuleRequestThreadNum;

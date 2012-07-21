@@ -32,6 +32,9 @@ signals:
 public slots:
 protected:
 private:
+    //init
+    void initParameters();
+
     QScriptEngine m_engine;
     QScriptValue m_globalValue;
     QScriptValue m_parserValue;

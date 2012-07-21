@@ -1,5 +1,6 @@
 body{font-family:arial,sans-serif;margin: 0; padding: 0;background-color:#efeff0;word-wrap: break-word;}
 p{margin-top:0;margin-bottom:5pt}
+data{margin-top:0;margin-bottom:0}
 #title_section{padding-top:6pt;background:transparent url('comment_topline.png') repeat-x scroll center bottom;-webkit-background-size:320px 2px;}
 #title{color:#464646;font-weight:bold;text-align:center;font-size:14pt;padding:0 10;}
 #subtitle{color:#8e8e8e;font-size:8pt;text-align:center;padding-top:3pt;padding-bottom:3pt}

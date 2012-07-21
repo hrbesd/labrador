@@ -72,7 +72,7 @@
     NSString *renderedHTMLStr = [template renderObject:contentDic];
     renderedHTMLStr = [renderedHTMLStr stringByDecodingHTMLEntities];
     
-    //NSLog(@"%@", renderedHTMLStr);
+    NSLog(@"%@", renderedHTMLStr);
     
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480 - 20 - 44)];
     [self.view addSubview:_webView];

@@ -44,12 +44,15 @@
         NSLog(@"%@", [error localizedDescription]);
     }
     
+    //NSLog(@"%@", [_xmlData.articleElem.bodyData stringWithNewLinesAsBRs]);
+    
     NSDictionary *contentDic = [NSDictionary dictionaryWithObjectsAndKeys:
                                 _xmlData.articleElem.title, @"title",
                                 _xmlData.articleElem.lastModified, @"ptime",
                                 _xmlData.articleElem.author, @"author",
                                 @"", @"content_image",
-                                [_xmlData.articleElem.bodyData stringWithNewLinesAsBRs], @"body",
+                                //[_xmlData.articleElem.bodyData stringWithNewLinesAsBRs], @"body",
+                                _xmlData.articleElem.bodyData, @"body",
                                 nil];
     
     NSString *renderedHTMLStr = [template renderObject:contentDic];
@@ -144,6 +147,14 @@
     }
 }
 
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self becomeFirstResponder];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -181,6 +192,15 @@
 - (void)listDidFinishLoading:(LAXMLData *)list {
     // load page
     [self showArticle];
+}
+
+#pragma mark - Shake 
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (event.subtype == UIEventSubtypeMotionShake) {
+        NSLog(@"shake");
+        [_webView stringByEvaluatingJavaScriptFromString:@"changeStyle()"];
+    }
 }
 
 @end

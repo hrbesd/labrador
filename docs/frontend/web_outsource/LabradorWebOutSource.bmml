@@ -1,0 +1,46 @@
+<mockup version="1.0" skin="sketch" measuredW="1184" measuredH="522" mockupW="1167" mockupH="511">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="29" y="55" w="-1" h="-1" measuredW="243" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Home%2C%20Notice%2C%202012%2C%20Article%20Name</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="17" y="11" w="549" h="511" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Paragraph" x="29" y="94" w="76" h="252" measuredW="200" measuredH="140" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5Barticle%201%5D%0A%5Barticle%202%5D%0A%5Barticle%203%5D%0A%5Barticle%204%5D%0A%5Barticle%205%5D%0A%5Barticle%206%5D%0A%5Barticle%207%5D%0A%5Barticle%208%5D%0A%5Barticle%209%5D%0A%5Barticle%2010%5D%0A%5Barticle%2011%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::MenuBar" x="17" y="11" w="549" h="29" measuredW="119" measuredH="29" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>ToolBox</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Paragraph" x="116" y="94" w="438" h="413" measuredW="200" measuredH="140" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Article%20Title%0A%20%0Aauthor%0Aedit%20time%0A%20%0AMain%20article%20content%20goes%20here....%0Amay%20contain%20%5Blink%5D%2C%20or%20image%20or%20whatever</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Canvas" x="635" y="11" w="549" h="511" measuredW="100" measuredH="70" zOrder="5" locked="false" isInGroup="-1"/>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="647" y="26" w="-1" h="-1" measuredW="243" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Home%2C%20Notice%2C%202012%2C%20Article%20Name</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Paragraph" x="647" y="55" w="76" h="252" measuredW="200" measuredH="140" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5Barticle%201%5D%0A%5Barticle%202%5D%0A%5Barticle%203%5D%0A%5Barticle%204%5D%0A%5Barticle%205%5D%0A%5Barticle%206%5D%0A%5Barticle%207%5D%0A%5Barticle%208%5D%0A%5Barticle%209%5D%0A%5Barticle%2010%5D%0A%5Barticle%2011%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::MenuBar" x="1073" y="11" w="111" h="511" measuredW="119" measuredH="29" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>ToolBox</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::Paragraph" x="723" y="55" w="438" h="413" measuredW="200" measuredH="140" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Article%20Title%0A%20%0Aauthor%0Aedit%20time%0A%20%0AMain%20article%20content%20goes%20here....%0Amay%20contain%20%5Blink%5D%2C%20or%20image%20or%20whatever</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

@@ -22,7 +22,7 @@ class Reactor:
 		self.out_folder_path = out_folder_path
 		self.rule_list = []
 		self.buildRules()
-		self.executor = Executor(log_file_path)
+		self.executor = Executor(config_file_path, log_file_path)
 		self.count = 0
 
 	def __str__(self):

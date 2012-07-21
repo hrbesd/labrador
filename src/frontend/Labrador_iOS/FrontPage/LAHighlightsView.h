@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LAHighlightsView : UIScrollView
+typedef enum {
+    LAScrollDirection_Portait,
+    LAScrollDirection_Landscape
+}LAScrollDirection;
+
+@protocol LAHighlightsViewDelegate;
+
+@interface LAHighlightsView : UIScrollView <UIScrollViewDelegate>
+
+@property (weak, nonatomic) id<LAHighlightsViewDelegate> highlightsViewDelegate;
+
+@end
+
+
+@protocol LAHighlightsViewDelegate <NSObject>
+
+
 
 @end
