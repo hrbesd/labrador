@@ -9,6 +9,7 @@ from soaplib.core.model.primitive import String
 import urllib2, base64
 import Queue
 from xml.dom.minidom import parseString
+from threading import Thread
 
 NUM_WORKER_THREADS = 8
 
