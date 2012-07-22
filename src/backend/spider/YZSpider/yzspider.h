@@ -61,6 +61,7 @@ private:
     //parse rule reply
     void parseRuleReply(Rule* ruleItem,QByteArray& data, QUrl &baseUrl);
     void parseNextPage(RuleRequest ruleRequest);
+    QStringList parseRuleExpression(Expression & expressionItem,const QString& strData);
 
     //output xml dir and download webpages
     void outputWebsite(QString fileName);
