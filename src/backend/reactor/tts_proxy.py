@@ -1,13 +1,9 @@
 #!/usr/bin/python
 # -*- encoding:utf-8 -*-
-import soaplib
-from soaplib.core.util.wsgi_wrapper import run_twisted
-from soaplib.core.server import wsgi
-from soaplib.core.service import DefinitionBase, soap
-from soaplib.core.model.primitive import String
-
 import urllib2, base64
 import Queue
+import bottle
+from bottle import run, route, request
 from xml.dom.minidom import parseString
 from threading import Thread
 
@@ -18,7 +14,7 @@ taskQueue = Queue.Queue(0)
 conDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://116.255.231.36:8080', 'ttsKey':'zhangjianzong'}
 
 def doWork(text):
-	urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text.encode('utf8')))
+	urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text))
 	try:
 		conn = urllib2.urlopen(urlPath)
 		conn.close()
@@ -31,15 +27,16 @@ def proxyWorker():
 		doWork(item)
 		taskQueue.task_done()
 
-class TTSProxyService(DefinitionBase):
-	@soap(String, String, String, _returns=String)
-	def text2Speech(self, key, text, base64):
-		self.addTask(text)
-		return "DONE"
+@route('/text2Speech')
+def text2Speech():
+	text = request.GET.get('text', default=None)
+	if text is not None:
+		addTask(text)
+	return "DONE"
 
-	def addTask(self, text):
-		global taskQueue
-		taskQueue.put(text)
+def addTask(text):
+	global taskQueue
+	taskQueue.put(text)
 
 def main():
 	for i in range(NUM_WORKER_THREADS):
@@ -47,11 +44,8 @@ def main():
 		t.daemon = True
 		t.start()
 
-	soap_app = soaplib.core.Application([TTSProxyService], 'tns')
-	wsgi_app = wsgi.Application(soap_app)
-	print 'listening on 127.0.0.1:7789'
-	print 'wsdl is at: http://127.0.0.1:7789/SOAP/?wsdl'
-	run_twisted(((wsgi_app, "SOAP"),), 7789)
+	bottle.debug(False)
+	run(host='localhost', port=7800, reloader=True)
 
 if __name__ == '__main__':
 	main()
