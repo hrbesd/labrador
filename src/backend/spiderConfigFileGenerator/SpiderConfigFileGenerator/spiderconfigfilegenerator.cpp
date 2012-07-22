@@ -183,6 +183,15 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     quanShengGaiKuangNodeItem.ruleList.append(quanShengGaiKuangArticleRule);
     quanShengGaiKuang->nodeList.append(quanShengGaiKuangNodeItem);
     websiteItem.node.ruleList.append(quanShengGaiKuang);
+
+    /*****************************************************
+     *投资
+     ****************************************************/
+    Rule* touZi = new Rule();
+    Node touZiNodeItem;
+    touZiNodeItem.name="投资";
+    touZiNodeItem.url = "http://www.hlj.gov.cn/tzlj/";
+
 //    /****************************************************
 //     *公告信息
 //     ***************************************************/
