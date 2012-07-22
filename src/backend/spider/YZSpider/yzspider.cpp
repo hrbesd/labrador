@@ -129,31 +129,26 @@ void YZSpider::ruleRequestReply()
 void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
 {
     QString strData = QString::fromUtf8(QTextCodec::codecForHtml(data)->toUnicode(data).toUtf8().data());
-    int posUrl = 0;
-    int posTitle = 0;
-    QRegExp urlRegExp(ruleItem->urlExpression.value);
-    QRegExp titleRegExp(ruleItem->titleExpression.value);
-    urlRegExp.setMinimal(true);
-    titleRegExp.setMinimal(true);
-
-    while ((posUrl = urlRegExp.indexIn(strData, posUrl)) != -1) {
-        posUrl+=urlRegExp.matchedLength();
-        if((posTitle = titleRegExp.indexIn(strData,posTitle)) ==-1)
-        {
-            qWarning()<<"rule error: url reg doesn't match title reg";
-        }
-        posTitle+=titleRegExp.matchedLength();
-        QString url = baseUrl.resolved(urlRegExp.cap(1)).toString();
+    //title && url
+    QStringList urlStringList = parseRuleExpression(ruleItem->urlExpression,strData);
+    QStringList titleStringList = parseRuleExpression(ruleItem->titleExpression,strData);
+    if(urlStringList.size()!=titleStringList.size())
+    {
+        YZLogger::Logger()->log("rule error: url reg doesn't match title reg");
+    }
+    for(int i=0;i<urlStringList.size();i++)
+    {
+        QString url = baseUrl.resolved(urlStringList[i]).toString();
         if(!m_nodeUrlSet.contains(url))
         {
             m_nodeUrlSet.insert(url);
             Node nodeItem;
-            nodeItem.name = titleRegExp.cap(1);
+            nodeItem.name = titleStringList[i];
             nodeItem.url = url;
             ruleItem->nodeList.append(nodeItem);
         }
     }
-
+    //next page
     if(!ruleItem->nextPageExpression.value.isEmpty())
     {
         if(ruleItem->nextPageExpression.type=="RegExp")
@@ -187,6 +182,22 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
             }
         }
     }
+}
+
+QStringList YZSpider::parseRuleExpression(Expression &expressionItem, const QString &strData)
+{
+    QStringList resultStrList;
+    if(expressionItem.type=="RegExp")
+    {
+        QRegExp regExp(expressionItem.value);
+        regExp.setMinimal(true);
+        int index = 0;
+        while ((index = regExp.indexIn(strData, index)) != -1) {
+            index+=regExp.matchedLength();
+            resultStrList.append(regExp.cap(1));
+        }
+    }
+    return resultStrList;
 }
 
 void YZSpider::parseWebsiteData()
