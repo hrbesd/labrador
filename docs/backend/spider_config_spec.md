@@ -65,17 +65,15 @@ Rule目前包含两种规则，正则表达式和JavaScript脚本语言
 * 参数
  	* executeOnlyOnce
  		- 类型：bool （true，false）
- 		- 说明：
- 				
- 				如果为true，则脚本运行一次之后就会被清除
- 				如果为false，则脚本被保留，每次都会被执行
+ 		- 说明：	
+			- 针对nextPage有效。
+ 			- 如果为true，则脚本运行一次之后就会被清除，不会再继续应用在其他nextPage。
+ 			- 如果为false，则脚本被保留，每个nextPage都会被执行。
  		- 示例：
  					
  				例子：
- 					1. 生成list页面的所有正文链接地址，则每个list页面只需运
- 				行一次就可以获得该页面的所有链接地址，此时executeOnlyOnce
- 				为true。 
- 				   2. 还没遇到，相信会遇到的 :)
+ 				   1. 如运行一次就可以获得nextPage所有地址，则标记为true 
+ 				   2. 如果需要在每个nextPage页面运行，来获取每个nextPage地址，则标记为false
  				
 
 ##数据结构定义
