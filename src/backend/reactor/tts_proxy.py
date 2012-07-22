@@ -30,7 +30,6 @@ def proxyWorker():
 @route('/text2Speech')
 def text2Speech():
 	text = request.GET.get('text', default=None)
-	print text
 	if text is not None:
 		addTask(text)
 	return "DONE"
