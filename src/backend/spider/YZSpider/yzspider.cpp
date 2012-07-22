@@ -149,52 +149,44 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
         }
     }
     //next page
-    if(!ruleItem->nextPageExpression.value.isEmpty())
+    QStringList nextPageStringList = parseRuleExpression(ruleItem->nextPageExpression,strData);
+    for(int i=0;i<nextPageStringList.size();i++)
     {
-        if(ruleItem->nextPageExpression.type=="RegExp")
-        {
-            QRegExp nextPageRegExp(ruleItem->nextPageExpression.value);
-            if(nextPageRegExp.indexIn(strData)!=-1)
-            {
-                RuleRequest ruleRequest;
-                ruleRequest.url = baseUrl.resolved(nextPageRegExp.cap(1)).toString();
-                ruleRequest.rule = ruleItem;
-                parseNextPage(ruleRequest);
-            }
-        }
-        else if(ruleItem->nextPageExpression.type=="JavaScript")
-        {
-            m_engine.evaluate(ruleItem->nextPageExpression.value);
-            m_globalValue = m_engine.globalObject();
-            m_spiderValue = m_globalValue.property("getYZSpiderResult");
-            QScriptValueList args;
-            QScriptValue result = m_spiderValue.call(QScriptValue(),args);
-            if(ruleItem->nextPageExpression.executeOnlyOnce == "true")
-            {
-                ruleItem->nextPageExpression.value.clear();
-            }
-            foreach(QString str,result.toVariant().toStringList())
-            {
-                RuleRequest ruleRequest;
-                ruleRequest.url = baseUrl.resolved(str).toString();
-                ruleRequest.rule = ruleItem;
-                m_ruleRequestTask.append(ruleRequest);
-            }
-        }
+        RuleRequest ruleRequest;
+        ruleRequest.url = baseUrl.resolved(nextPageStringList[i]).toString();
+        ruleRequest.rule = ruleItem;
+        m_ruleRequestTask.append(ruleRequest);
     }
 }
 
 QStringList YZSpider::parseRuleExpression(Expression &expressionItem, const QString &strData)
 {
     QStringList resultStrList;
-    if(expressionItem.type=="RegExp")
+    if(!expressionItem.value.isEmpty())
     {
-        QRegExp regExp(expressionItem.value);
-        regExp.setMinimal(true);
-        int index = 0;
-        while ((index = regExp.indexIn(strData, index)) != -1) {
-            index+=regExp.matchedLength();
-            resultStrList.append(regExp.cap(1));
+        if(expressionItem.type=="RegExp")
+        {
+            QRegExp regExp(expressionItem.value);
+            regExp.setMinimal(true);
+            int index = 0;
+            while ((index = regExp.indexIn(strData, index)) != -1) {
+                index+=regExp.matchedLength();
+                resultStrList.append(regExp.cap(1));
+            }
+        }
+        else if(expressionItem.type=="JavaScript")
+        {
+            m_engine.evaluate(expressionItem.value);
+            m_globalValue = m_engine.globalObject();
+            m_spiderValue = m_globalValue.property("getYZSpiderResult");
+            QScriptValueList args;
+            args<<strData;
+            QScriptValue result = m_spiderValue.call(QScriptValue(),args);
+            resultStrList = result.toVariant().toStringList();
+            if(expressionItem.executeOnlyOnce == "true")
+            {
+                expressionItem.value.clear();
+            }
         }
     }
     return resultStrList;
@@ -221,9 +213,11 @@ void YZSpider::parseNodeData(Node &nodeItem)
         {
             m_webPageRequestTask.append(&nodeItem);
         }
-        foreach(Rule *ruleItem,nodeItem.ruleList)
-        {
-            parseRuleData(ruleItem,nodeItem);
+        else{
+            foreach(Rule *ruleItem,nodeItem.ruleList)
+            {
+                parseRuleData(ruleItem,nodeItem);
+            }
         }
         m_resolvedNodes.insert(nodeItem.url);
     }
