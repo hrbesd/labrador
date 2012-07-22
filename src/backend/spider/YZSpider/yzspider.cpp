@@ -47,7 +47,6 @@ void YZSpider::downloadRule(RuleRequest ruleRequest)
 
 void YZSpider::webPageDownloaded()
 {
-    m_webpageRequestThreadNum++;
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
     QByteArray result = reply->readAll();
     Node *nodeItem = m_webPageDownloadingTask.take(reply);
@@ -71,6 +70,7 @@ void YZSpider::webPageDownloaded()
     qDebug()<<QString::number(m_webPageCount++)+ " web page downloaded";
     file.close();
     reply->deleteLater();
+    m_webpageRequestThreadNum++;
     webpageDownloadScheduler();
 }
 
@@ -115,7 +115,6 @@ void YZSpider::networkError(QNetworkReply::NetworkError error)
 
 void YZSpider::ruleRequestReply()
 {
-    m_ruleRequestThreadNum++;
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
     QByteArray result = reply->readAll();
     QUrl baseUrl = reply->url();
@@ -123,6 +122,7 @@ void YZSpider::ruleRequestReply()
     parseRuleReply(ruleRequest.rule,result,baseUrl);
     parseNodeListData(ruleRequest.rule);
     reply->deleteLater();
+    m_ruleRequestThreadNum++;
     ruleRequestScheduler();
 }
 //to do ... for now ,every rule has title regexp
