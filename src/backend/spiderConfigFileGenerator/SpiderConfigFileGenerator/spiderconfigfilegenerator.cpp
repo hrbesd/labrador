@@ -136,53 +136,181 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     websiteItem.node.url = "http://www.hlj.gov.cn/";
     websiteItem.node.name = "中国黑龙江";
 
+//    /****************************************************
+//     *全省概况
+//     ***************************************************/
+//    Rule *quanShengGaiKuang = new Rule();
+//    Node quanShengGaiKuangNodeItem;
+//    quanShengGaiKuangNodeItem.name = "全省概况";
+//    quanShengGaiKuangNodeItem.url = "http://www.hlj.gov.cn/zjlj/";
+
+//    Rule *quanShengGaiKuangArticleRule = new Rule();
+//    quanShengGaiKuangArticleRule->urlExpression.type = "JavaScript";
+//    quanShengGaiKuangArticleRule->urlExpression.executeOnlyOnce = "true";
+//    quanShengGaiKuangArticleRule->urlExpression.value = "function getYZSpiderResult(content)"
+//            "{"
+//            "    var result = new Array();"
+//            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList2\\\" style=\\\"height:27px\\\">\");"
+//            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+//            "    var tmp = content.substring(startIndex,endIndex);"
+//            "    var reg = new RegExp(\"<li> <a href=\\\"([^\\\"]*)\\\"\",\"g\");"
+//            "    var regResult = reg.exec(tmp);"
+//            "	while(reg.lastIndex!==0)"
+//            "	{"
+//            "		result.push(regResult[1]);"
+//            "		regResult = reg.exec(tmp);"
+//            "	}"
+//            "    return result;"
+//            "}";
+//    quanShengGaiKuangArticleRule->titleExpression.type = "JavaScript";
+//    quanShengGaiKuangArticleRule->titleExpression.executeOnlyOnce = "true";
+//    quanShengGaiKuangArticleRule->titleExpression.value = "function getYZSpiderResult(content)"
+//            "{"
+//            "    var result = new Array();"
+//            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList2\\\" style=\\\"height:27px\\\">\");"
+//            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+//            "    var tmp = content.substring(startIndex,endIndex);"
+//            "    var reg = new RegExp(\"<li> <a href=\\\"[^>]*>([^<]*)<\",\"g\");"
+//            "    var regResult = reg.exec(tmp);"
+//            "	while(reg.lastIndex!==0)"
+//            "	{"
+//            "		result.push(regResult[1]);"
+//            "		regResult = reg.exec(tmp);"
+//            "	}"
+//            "    return result;"
+//            "}";
+
+//    quanShengGaiKuangNodeItem.ruleList.append(quanShengGaiKuangArticleRule);
+//    quanShengGaiKuang->nodeList.append(quanShengGaiKuangNodeItem);
+//    websiteItem.node.ruleList.append(quanShengGaiKuang);
+
+//    /*****************************************************
+//     *投资
+//     ****************************************************/
+//    Rule* touZi = new Rule();
+//    Node touZiNodeItem;
+//    touZiNodeItem.name="投资";
+//    touZiNodeItem.url = "http://www.hlj.gov.cn/tzlj/";
+
+//    Rule* touZiChildRule = new Rule();
+//    touZiChildRule->urlExpression.type = "JavaScript";
+//    touZiChildRule->urlExpression.executeOnlyOnce = "true";
+//    touZiChildRule->urlExpression.value = "function getYZSpiderResult(content)"
+//            "{"
+//            "    var result = new Array();"
+//            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList9\\\" style=\\\"height:27px;padding-left:200px\\\">\");"
+//            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+//            "    var tmp = content.substring(startIndex,endIndex);"
+//            "    var reg = new RegExp(\"<li> <a href=\\\"([^\\\"]*)\\\"\",\"g\");"
+//            "    var regResult = reg.exec(tmp);"
+//            "	while(reg.lastIndex!==0)"
+//            "	{"
+//            "		result.push(regResult[1]);"
+//            "		regResult = reg.exec(tmp);"
+//            "	}"
+//            "    return result;"
+//            "}";
+//    touZiChildRule->titleExpression.type = "JavaScript";
+//    touZiChildRule->titleExpression.executeOnlyOnce = "true";
+//    touZiChildRule->titleExpression.value = "function getYZSpiderResult(content)"
+//            "{"
+//            "    var result = new Array();"
+//            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList9\\\" style=\\\"height:27px;padding-left:200px\\\">\");"
+//            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+//            "    var tmp = content.substring(startIndex,endIndex);"
+//            "    var reg = new RegExp(\"<li> <a href=\\\"[^>]*>([^<]*)<\",\"g\");"
+//            "    var regResult = reg.exec(tmp);"
+//            "	while(reg.lastIndex!==0)"
+//            "	{"
+//            "		result.push(regResult[1]);"
+//            "		regResult = reg.exec(tmp);"
+//            "	}"
+//            "    return result;"
+//            "}";
+
+//    Rule * touZiArticleChildRule = new Rule();
+//    touZiArticleChildRule->urlExpression.value = "<td><ul><li><a href=\"([^\"]*)\"";
+//    touZiArticleChildRule->titleExpression.value = "<td><ul><li><a href=[^>]*>([^<]*)<";
+//    touZiArticleChildRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
+//    touZiChildRule->childRule = touZiArticleChildRule;
+//    //投资指南
+//    Node touZiZhiNanNodeItem;
+//    touZiZhiNanNodeItem.name="投资指南";
+//    touZiZhiNanNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/";
+//    Rule *touZiZhiNanRule = new Rule();
+//    Node banShiZhiNanNodeItem;
+//    banShiZhiNanNodeItem.name="办事指南";
+//    banShiZhiNanNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/bszn/";
+//    Node zaiXianBanLiNodeItem;
+//    zaiXianBanLiNodeItem.name="在线办理";
+//    zaiXianBanLiNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/zxbl/";
+//    touZiZhiNanRule->nodeList.append(banShiZhiNanNodeItem);
+//    touZiZhiNanRule->nodeList.append(zaiXianBanLiNodeItem);
+//    touZiZhiNanRule->childRule=touZiArticleChildRule;
+//    touZiZhiNanNodeItem.ruleList.append(touZiZhiNanRule);
+//    touZiChildRule->nodeList.append(touZiZhiNanNodeItem);
+
+//    touZiNodeItem.ruleList.append(touZiChildRule);
+//    touZi->nodeList.append(touZiNodeItem);
+//    websiteItem.node.ruleList.append(touZi);
+
     /****************************************************
-     *全省概况
+     *旅游
      ***************************************************/
-    Rule *quanShengGaiKuang = new Rule();
-    Node quanShengGaiKuangNodeItem;
-    quanShengGaiKuangNodeItem.name = "全省概况";
-    quanShengGaiKuangNodeItem.url = "http://www.hlj.gov.cn/zjlj/";
+    Rule* lvYou = new Rule();
+    Node lvYouNodeItem;
+    lvYouNodeItem.name="旅游";
+    lvYouNodeItem.url = "http://www.hlj.gov.cn/cylj/";
 
-    Rule *quanShengGaiKuangArticleRule = new Rule();
-    quanShengGaiKuangArticleRule->urlExpression.type = "JavaScript";
-    quanShengGaiKuangArticleRule->urlExpression.executeOnlyOnce = "true";
-    quanShengGaiKuangArticleRule->urlExpression.value = "function getYZSpiderResult(content)"
-            "{"
-            "    var result = new Array();"
-            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList2\\\" style=\\\"height:27px\\\">\");"
-            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
-            "    var tmp = content.substring(startIndex,endIndex);"
-            "    var reg = new RegExp(\"<li> <a href=\\\"([^\\\"]*)\\\"\",\"g\");"
-            "    var regResult = reg.exec(tmp);"
-            "	while(reg.lastIndex!==0)"
-            "	{"
-            "		result.push(regResult[1]);"
-            "		regResult = reg.exec(tmp);"
-            "	}"
-            "    return result;"
-            "}";
-    quanShengGaiKuangArticleRule->titleExpression.type = "JavaScript";
-    quanShengGaiKuangArticleRule->titleExpression.executeOnlyOnce = "true";
-    quanShengGaiKuangArticleRule->titleExpression.value = "function getYZSpiderResult(content)"
-            "{"
-            "    var result = new Array();"
-            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList2\\\" style=\\\"height:27px\\\">\");"
-            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
-            "    var tmp = content.substring(startIndex,endIndex);"
-            "    var reg = new RegExp(\"<li> <a href=\\\"[^>]*>([^<]*)<\",\"g\");"
-            "    var regResult = reg.exec(tmp);"
-            "	while(reg.lastIndex!==0)"
-            "	{"
-            "		result.push(regResult[1]);"
-            "		regResult = reg.exec(tmp);"
-            "	}"
-            "    return result;"
-            "}";
+    Rule* lvYouChildRule = new Rule();
+    Node lvYouXinXiNodeItem;
+    lvYouXinXiNodeItem.name="旅游信息";
+    lvYouXinXiNodeItem.url = "http://www.hlj.gov.cn/cylj/lvxx/";
+    Node lvYouShengJingNodeItem;
+    lvYouShengJingNodeItem.name="旅游胜景";
+    lvYouShengJingNodeItem.url = "http://www.hlj.gov.cn/cylj/lysj/";
+    Node lvYouJingGuanNodeItem;
+    lvYouJingGuanNodeItem.name="旅游景观";
+    lvYouJingGuanNodeItem.url = "http://www.hlj.gov.cn/cylj/lyjg/";
+    Node minSuFengQingNodeItem;
+    minSuFengQingNodeItem.name="民俗风情";
+    minSuFengQingNodeItem.url = "http://www.hlj.gov.cn/cylj/msfq/";
+    Node lvYouChangShiNodeItem;
+    lvYouChangShiNodeItem.name="旅游常识";
+    lvYouChangShiNodeItem.url = "http://www.hlj.gov.cn/cylj/lycs/";
+    Node canYinFuWuNodeItem;
+    canYinFuWuNodeItem.name="餐饮服务";
+    canYinFuWuNodeItem.url = "http://www.hlj.gov.cn/cylj/cyfw/";
+    Node longJiangGouWuNodeItem;
+    longJiangGouWuNodeItem.name="龙江购物";
+    longJiangGouWuNodeItem.url = "http://www.hlj.gov.cn/cylj/ljgw/";
 
-    quanShengGaiKuangNodeItem.ruleList.append(quanShengGaiKuangArticleRule);
-    quanShengGaiKuang->nodeList.append(quanShengGaiKuangNodeItem);
-    websiteItem.node.ruleList.append(quanShengGaiKuang);
+
+    Rule * lvYouArticleChildRule = new Rule();
+    lvYouArticleChildRule->urlExpression.value = "<td><ul><li><a href=\"([^\"]*)\"";
+    lvYouArticleChildRule->titleExpression.value = "<td><ul><li><a href=[^>]*>([^<]*)<";
+    lvYouArticleChildRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
+    //    //投资指南
+    //    Node touZiZhiNanNodeItem;
+    //    touZiZhiNanNodeItem.name="投资指南";
+    //    touZiZhiNanNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/";
+    //    Rule *touZiZhiNanRule = new Rule();
+    //    Node banShiZhiNanNodeItem;
+    //    banShiZhiNanNodeItem.name="办事指南";
+    //    banShiZhiNanNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/bszn/";
+    //    Node zaiXianBanLiNodeItem;
+    //    zaiXianBanLiNodeItem.name="在线办理";
+    //    zaiXianBanLiNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/zxbl/";
+    //    touZiZhiNanRule->nodeList.append(banShiZhiNanNodeItem);
+    //    touZiZhiNanRule->nodeList.append(zaiXianBanLiNodeItem);
+    //    touZiZhiNanRule->childRule=touZiArticleChildRule;
+    //    touZiZhiNanNodeItem.ruleList.append(touZiZhiNanRule);
+    //    touZiChildRule->nodeList.append(touZiZhiNanNodeItem);
+
+    //    touZiNodeItem.ruleList.append(touZiChildRule);
+    //    touZi->nodeList.append(touZiNodeItem);
+    //    websiteItem.node.ruleList.append(touZi);
+
 //    /****************************************************
 //     *公告信息
 //     ***************************************************/

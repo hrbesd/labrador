@@ -102,7 +102,7 @@ void YZSpider::ruleRequestScheduler()
         m_finishParseRules = true;
         QDir dir(m_paramenters.value("--shared-dir"));
         dir.mkpath(dir.absolutePath());
-        outputWebsite(dir.absolutePath()+"/"+m_website.node.name+"_dir.xml");
+        outputWebsite(dir.absolutePath()+"/"+"dir.xml");
         webpageDownloadScheduler();
     }
 }
@@ -225,6 +225,7 @@ void YZSpider::parseNodeData(Node &nodeItem)
 // to do...
 void YZSpider::parseRuleData(Rule *ruleItem, Node &parentNode)
 {
+    parseNodeListData(ruleItem);
     if(!ruleItem->urlExpression.value.isEmpty())
     {
         RuleRequest ruleRequest;
@@ -232,7 +233,6 @@ void YZSpider::parseRuleData(Rule *ruleItem, Node &parentNode)
         ruleRequest.url = parentNode.url;
         m_ruleRequestTask.append(ruleRequest);
     }
-    parseNodeListData(ruleItem);
 }
 
 void YZSpider::parseNodeListData(Rule *ruleItem)
@@ -241,25 +241,22 @@ void YZSpider::parseNodeListData(Rule *ruleItem)
     {
         for(int i=0;i<ruleItem->nodeList.size();i++)
         {
-            Rule *newRule = new Rule;
-            newRule->childRule = ruleItem->childRule->childRule;
-            newRule->maxPageCount = ruleItem->childRule->maxPageCount;
-            newRule->titleExpression.copyFromExpression(ruleItem->childRule->titleExpression);
-            newRule->nextPageExpression.copyFromExpression(ruleItem->childRule->nextPageExpression);
-            newRule->urlExpression.copyFromExpression(ruleItem->childRule->urlExpression);
-            ruleItem->nodeList[i].ruleList.append(newRule);
+            if(ruleItem->nodeList[i].ruleList.isEmpty())
+            {
+                Rule *newRule = new Rule;
+                newRule->childRule = ruleItem->childRule->childRule;
+                newRule->maxPageCount = ruleItem->childRule->maxPageCount;
+                newRule->titleExpression.copyFromExpression(ruleItem->childRule->titleExpression);
+                newRule->nextPageExpression.copyFromExpression(ruleItem->childRule->nextPageExpression);
+                newRule->urlExpression.copyFromExpression(ruleItem->childRule->urlExpression);
+                ruleItem->nodeList[i].ruleList.append(newRule);
+            }
         }
     }
     for(int i=0;i<ruleItem->nodeList.size();i++)
     {
         parseNodeData(ruleItem->nodeList[i]);
     }
-}
-
-void YZSpider::parseNextPage(RuleRequest ruleRequest)
-{
-    m_ruleRequestTask.append(ruleRequest);
-    ruleRequestScheduler();
 }
 
 void YZSpider::outputWebsite(QString fileName)
