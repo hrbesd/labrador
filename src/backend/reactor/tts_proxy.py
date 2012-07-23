@@ -45,7 +45,11 @@ def main():
 		t.start()
 
 	bottle.debug(False)
-	run(host='localhost', port=7800, reloader=True)
+
+	try:
+		run(host='localhost', port=7800)
+	except:
+		print 'Proxy Already Running...'
 
 if __name__ == '__main__':
 	main()
