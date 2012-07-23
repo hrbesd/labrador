@@ -192,6 +192,51 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     touZiNodeItem.name="投资";
     touZiNodeItem.url = "http://www.hlj.gov.cn/tzlj/";
 
+    Rule* touZiChildRule = new Rule();
+    touZiChildRule->urlExpression.type = "JavaScript";
+    touZiChildRule->urlExpression.executeOnlyOnce = "true";
+    touZiChildRule->urlExpression.value = "function getYZSpiderResult(content)"
+            "{"
+            "    var result = new Array();"
+            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList9\\\" style=\\\"height:27px;padding-left:200px\\\">\");"
+            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+            "    var tmp = content.substring(startIndex,endIndex);"
+            "    var reg = new RegExp(\"<li> <a href=\\\"([^\\\"]*)\\\"\",\"g\");"
+            "    var regResult = reg.exec(tmp);"
+            "	while(reg.lastIndex!==0)"
+            "	{"
+            "		result.push(regResult[1]);"
+            "		regResult = reg.exec(tmp);"
+            "	}"
+            "    return result;"
+            "}";
+    touZiChildRule->titleExpression.type = "JavaScript";
+    touZiChildRule->titleExpression.executeOnlyOnce = "true";
+    touZiChildRule->titleExpression.value = "function getYZSpiderResult(content)"
+            "{"
+            "    var result = new Array();"
+            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList9\\\" style=\\\"height:27px;padding-left:200px\\\">\");"
+            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+            "    var tmp = content.substring(startIndex,endIndex);"
+            "    var reg = new RegExp(\"<li> <a href=\\\"[^>]*>([^<]*)<\",\"g\");"
+            "    var regResult = reg.exec(tmp);"
+            "	while(reg.lastIndex!==0)"
+            "	{"
+            "		result.push(regResult[1]);"
+            "		regResult = reg.exec(tmp);"
+            "	}"
+            "    return result;"
+            "}";
+
+    Rule * touZiArticleChildRule = new Rule();
+    touZiArticleChildRule->urlExpression.value = "<td><ul><li><a href=\"([^\"]*)\"";
+    touZiArticleChildRule->titleExpression.value = "<td><ul><li><a href=[^>]*>([^<]*)<";
+    touZiArticleChildRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
+    touZiChildRule->childRule = touZiArticleChildRule;
+    touZiNodeItem.ruleList.append(touZiChildRule);
+    touZi->nodeList.append(touZiNodeItem);
+    websiteItem.node.ruleList.append(touZi);
+
 //    /****************************************************
 //     *公告信息
 //     ***************************************************/
