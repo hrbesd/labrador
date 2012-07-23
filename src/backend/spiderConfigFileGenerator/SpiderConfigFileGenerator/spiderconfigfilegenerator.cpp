@@ -284,32 +284,54 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     Node longJiangGouWuNodeItem;
     longJiangGouWuNodeItem.name="龙江购物";
     longJiangGouWuNodeItem.url = "http://www.hlj.gov.cn/cylj/ljgw/";
-
+    Node lvYouXianLuNodeItem;
+    lvYouXianLuNodeItem.name="旅游线路";
+    lvYouXianLuNodeItem.url = "http://www.hlj.gov.cn/cylj/lyxl/";
+    Node longJiangTeChanNodeItem;
+    longJiangTeChanNodeItem.name="龙江特产";
+    longJiangTeChanNodeItem.url = "http://www.hlj.gov.cn/cylj/ljtc/";
+    Node liShiZhongDeHeiLongJiangNodeItem;
+    liShiZhongDeHeiLongJiangNodeItem.name="历史中的黑龙江";
+    liShiZhongDeHeiLongJiangNodeItem.url = "http://www.hlj.gov.cn/cylj/lslj/";
+    Node touSuJiGouNodeItem;
+    touSuJiGouNodeItem.name="投诉机构";
+    touSuJiGouNodeItem.url = "http://www.hlj.gov.cn/cylj/tsjg/";
 
     Rule * lvYouArticleChildRule = new Rule();
     lvYouArticleChildRule->urlExpression.value = "<td><ul><li><a href=\"([^\"]*)\"";
     lvYouArticleChildRule->titleExpression.value = "<td><ul><li><a href=[^>]*>([^<]*)<";
     lvYouArticleChildRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
-    //    //投资指南
-    //    Node touZiZhiNanNodeItem;
-    //    touZiZhiNanNodeItem.name="投资指南";
-    //    touZiZhiNanNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/";
-    //    Rule *touZiZhiNanRule = new Rule();
-    //    Node banShiZhiNanNodeItem;
-    //    banShiZhiNanNodeItem.name="办事指南";
-    //    banShiZhiNanNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/bszn/";
-    //    Node zaiXianBanLiNodeItem;
-    //    zaiXianBanLiNodeItem.name="在线办理";
-    //    zaiXianBanLiNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/zxbl/";
-    //    touZiZhiNanRule->nodeList.append(banShiZhiNanNodeItem);
-    //    touZiZhiNanRule->nodeList.append(zaiXianBanLiNodeItem);
-    //    touZiZhiNanRule->childRule=touZiArticleChildRule;
-    //    touZiZhiNanNodeItem.ruleList.append(touZiZhiNanRule);
-    //    touZiChildRule->nodeList.append(touZiZhiNanNodeItem);
+    Rule *lvYouPictureChildRule = new Rule();
+    lvYouPictureChildRule->urlExpression.value="<td width=\"33%\"><div align=\"center\"><a href=([^ ]*) ";
+    lvYouPictureChildRule->titleExpression.value="<div align=\"center\"><a href=[^ ]* Title=\"([^\"]*)\"";
+    lvYouPictureChildRule->nextPageExpression.value="<a href=\"([^\"]*)\">下一页";
 
-    //    touZiNodeItem.ruleList.append(touZiChildRule);
-    //    touZi->nodeList.append(touZiNodeItem);
-    //    websiteItem.node.ruleList.append(touZi);
+
+    lvYouXinXiNodeItem.ruleList.append(lvYouArticleChildRule);
+    lvYouShengJingNodeItem.ruleList.append(lvYouPictureChildRule);
+    lvYouJingGuanNodeItem.ruleList.append(lvYouPictureChildRule);
+    minSuFengQingNodeItem.ruleList.append(lvYouPictureChildRule);
+    lvYouChangShiNodeItem.ruleList.append(lvYouArticleChildRule);
+    lvYouXianLuNodeItem.ruleList.append(lvYouArticleChildRule);
+    longJiangTeChanNodeItem.ruleList.append(lvYouArticleChildRule);
+    liShiZhongDeHeiLongJiangNodeItem.ruleList.append(lvYouArticleChildRule);
+    touSuJiGouNodeItem.ruleList.append(lvYouArticleChildRule);
+
+    lvYouChildRule->nodeList.append(lvYouXinXiNodeItem);
+    lvYouChildRule->nodeList.append(lvYouShengJingNodeItem);
+    lvYouChildRule->nodeList.append(lvYouJingGuanNodeItem);
+    lvYouChildRule->nodeList.append(minSuFengQingNodeItem);
+    lvYouChildRule->nodeList.append(lvYouChangShiNodeItem);
+    lvYouChildRule->nodeList.append(canYinFuWuNodeItem);
+    lvYouChildRule->nodeList.append(longJiangGouWuNodeItem);
+    lvYouChildRule->nodeList.append(lvYouXianLuNodeItem);
+    lvYouChildRule->nodeList.append(longJiangTeChanNodeItem);
+    lvYouChildRule->nodeList.append(liShiZhongDeHeiLongJiangNodeItem);
+    lvYouChildRule->nodeList.append(touSuJiGouNodeItem);
+
+    lvYouNodeItem.ruleList.append(lvYouChildRule);
+    lvYou->nodeList.append(lvYouNodeItem);
+    websiteItem.node.ruleList.append(lvYou);
 
 //    /****************************************************
 //     *公告信息
