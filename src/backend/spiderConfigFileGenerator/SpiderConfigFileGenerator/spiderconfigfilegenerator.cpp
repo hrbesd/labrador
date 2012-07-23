@@ -233,6 +233,23 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     touZiArticleChildRule->titleExpression.value = "<td><ul><li><a href=[^>]*>([^<]*)<";
     touZiArticleChildRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
     touZiChildRule->childRule = touZiArticleChildRule;
+    //投资指南
+    Node touZiZhiNanNodeItem;
+    touZiZhiNanNodeItem.name="投资指南";
+    touZiZhiNanNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/";
+    Rule *touZiZhiNanRule = new Rule();
+    Node banShiZhiNanNodeItem;
+    banShiZhiNanNodeItem.name="办事指南";
+    banShiZhiNanNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/bszn/";
+    Node zaiXianBanLiNodeItem;
+    zaiXianBanLiNodeItem.name="在线办理";
+    zaiXianBanLiNodeItem.url="http://www.hlj.gov.cn/tzlj/tzzn/zxbl/";
+    touZiZhiNanRule->nodeList.append(banShiZhiNanNodeItem);
+    touZiZhiNanRule->nodeList.append(zaiXianBanLiNodeItem);
+    touZiZhiNanRule->childRule=touZiArticleChildRule;
+    touZiZhiNanNodeItem.ruleList.append(touZiZhiNanRule);
+    touZiChildRule->nodeList.append(touZiZhiNanNodeItem);
+
     touZiNodeItem.ruleList.append(touZiChildRule);
     touZi->nodeList.append(touZiNodeItem);
     websiteItem.node.ruleList.append(touZi);

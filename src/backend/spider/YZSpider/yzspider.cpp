@@ -241,13 +241,16 @@ void YZSpider::parseNodeListData(Rule *ruleItem)
     {
         for(int i=0;i<ruleItem->nodeList.size();i++)
         {
-            Rule *newRule = new Rule;
-            newRule->childRule = ruleItem->childRule->childRule;
-            newRule->maxPageCount = ruleItem->childRule->maxPageCount;
-            newRule->titleExpression.copyFromExpression(ruleItem->childRule->titleExpression);
-            newRule->nextPageExpression.copyFromExpression(ruleItem->childRule->nextPageExpression);
-            newRule->urlExpression.copyFromExpression(ruleItem->childRule->urlExpression);
-            ruleItem->nodeList[i].ruleList.append(newRule);
+            if(ruleItem->nodeList[i].ruleList.isEmpty())
+            {
+                Rule *newRule = new Rule;
+                newRule->childRule = ruleItem->childRule->childRule;
+                newRule->maxPageCount = ruleItem->childRule->maxPageCount;
+                newRule->titleExpression.copyFromExpression(ruleItem->childRule->titleExpression);
+                newRule->nextPageExpression.copyFromExpression(ruleItem->childRule->nextPageExpression);
+                newRule->urlExpression.copyFromExpression(ruleItem->childRule->urlExpression);
+                ruleItem->nodeList[i].ruleList.append(newRule);
+            }
         }
     }
     for(int i=0;i<ruleItem->nodeList.size();i++)
