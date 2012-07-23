@@ -134,7 +134,8 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
     QStringList titleStringList = parseRuleExpression(ruleItem->titleExpression,strData);
     if(urlStringList.size()!=titleStringList.size())
     {
-        YZLogger::Logger()->log("rule error: url reg doesn't match title reg");
+        YZLogger::Logger()->log("rule error: url reg doesn't match title reg:"+baseUrl.toString());
+        return;
     }
     for(int i=0;i<urlStringList.size();i++)
     {
