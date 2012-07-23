@@ -1,31 +1,23 @@
-High Accessibility Web Page Design & Implement
+Static Web Page Design & Implement
 
-Background
-    Our web pages are aimed to provide information for those who have difficulties in browsing normal pages, like the blind, as well as those who do not. The universal strategy for this is to provide a "accessibility" toolbox, which helps the end users to view information on the pages.
-
-    There are some guidlines out there:
-    - the WCAG 2.0 standard (http://www.w3.org/TR/WCAG20/)
-    - Accessibility (http://www.w3.org/standards/webdesign/accessibility)
-    - Accessibility Features of CSS (http://www.w3.org/TR/CSS-access)
-    And you MUST obey most of these guidelines.
-
-    Here's a similar website, ReciteMe (http://www.reciteme.com/), as you may see, they provide a plain text channel, and setup a small toolbox on the right side, making the web page more accessible.
+Goal
+    We're buiding a website similar to ReciteMe.com (http://www.reciteme.com/), as you may see, they provide a plain text channel, and setup a small toolbox on the right side, making the web page more accessible.
 
 The ToolBox
-	We'll build a toolbox like ReciteMe only with more functionality. The toolbox needs to be displayed on every single web page in our site, and we have some images designed for the buttons on the toolbox, you should make use of these images (or modify them when needed) to layout the toolbox on web pages. All images are designed with Illustrator. 
-	The functionality of our toolbox contains:
-	- increase / decrease width
+	We'll build a toolbox like ReciteMe only with more functionality. The toolbox needs to be displayed on every single web page in our site, and we already had some images designed for the buttons on the toolbox, you should make use of these images (or modify them when needed) to layout the toolbox on web pages. All images are designed with Illustrator. 
+	The functionality of our toolbox includes:
+	- increase / decrease width of the web page
 	- increase / decrease font size
 	- increase / decrease line height
-	- display a helper line on screen
-	- open magnifier
+	- display a assistant line on screen
+	- open up an area on web page to magnify text content of user point
 	- open / close speaker
 	- choose the sex / speed of the speaker
 	- open / close translator
 	- design a layer to display the translate result just like what ReciteMe does
-	- say your current location
-	- about toolbox
-	- help on toolbox
+	- tell user about their location, for example, once user clicks this button, the speaker will read "Home Page"
+	- about
+	- help
 	- close the toolbox
 
 The Four Web Pages
@@ -35,6 +27,15 @@ The Four Web Pages
 	Once user chooses a specific column, the articles of that column are displayed. Every article is a link item on page, in the form of "[title][publish time]", clicking these links will brought you to the article page.
 	The article page shows the article content, including title, author, publish time and main content.
 	Just as I've mentioned, toolbox is always displayed in the web page.
+
+Guidelines
+	Our web pages are aimed to provide information for those who have difficulties in browsing normal pages, like the blind, as well as those who do not. The universal strategy for this is to provide a "accessibility" toolbox, which helps the end users to view information on the pages.
+
+    There are some guidlines out there:
+    - the WCAG 2.0 standard (http://www.w3.org/TR/WCAG20/)
+    - Accessibility (http://www.w3.org/standards/webdesign/accessibility)
+    - Accessibility Features of CSS (http://www.w3.org/TR/CSS-access)
+    And you MUST obey most of these guidelines.
 
 Your Responsibility:
 	You are responsible for:
