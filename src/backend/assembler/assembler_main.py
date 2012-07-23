@@ -62,10 +62,7 @@ class Assembler:
 			os.makedirs(self.webroot_dir)
 
 	def genNavFiles(self):
-		indexPath = ""
-		for fileName in os.listdir(self.share_dir):
-			if fileName.endswith('.xml'):
-				indexPath = self.share_dir + "/" + fileName.replace(' ', r'\ ')
+		indexPath = self.share_dir + "/dir.xml"
 
 		if len(indexPath) > 0:
 			command = '../../butts/assembler/producer --index-file=%s --webroot-dir=%s --log-file=%s' % (indexPath, self.temp_out_dir, self.log_file)
