@@ -225,6 +225,7 @@ void YZSpider::parseNodeData(Node &nodeItem)
 // to do...
 void YZSpider::parseRuleData(Rule *ruleItem, Node &parentNode)
 {
+    parseNodeListData(ruleItem);
     if(!ruleItem->urlExpression.value.isEmpty())
     {
         RuleRequest ruleRequest;
@@ -232,7 +233,6 @@ void YZSpider::parseRuleData(Rule *ruleItem, Node &parentNode)
         ruleRequest.url = parentNode.url;
         m_ruleRequestTask.append(ruleRequest);
     }
-    parseNodeListData(ruleItem);
 }
 
 void YZSpider::parseNodeListData(Rule *ruleItem)
@@ -254,12 +254,6 @@ void YZSpider::parseNodeListData(Rule *ruleItem)
     {
         parseNodeData(ruleItem->nodeList[i]);
     }
-}
-
-void YZSpider::parseNextPage(RuleRequest ruleRequest)
-{
-    m_ruleRequestTask.append(ruleRequest);
-    ruleRequestScheduler();
 }
 
 void YZSpider::outputWebsite(QString fileName)
