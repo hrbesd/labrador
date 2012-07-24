@@ -39,6 +39,7 @@ Your Responsibility:
 
 	- Other
 		- MUST finish it within 48 hours.
-		- DO NOT destroy the semantical elements in sample pages.
+		- DO NOT remove the semantical elements in sample pages.
 		- Designing 2 styles of the toolbox could be the tricky part, and how to switch between these 2 styles may be another challenge.
+		- The minimum screen resolution supported should be 1024 * 768.
 		- Support IE6+, Chrome 7+, Firefox 5+, Safari 4+.
