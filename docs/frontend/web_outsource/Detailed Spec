@@ -6,9 +6,9 @@ Goal
     We're buiding a website similar to ReciteMe.com (http://www.reciteme.com/), as you may see, they provide a plain text channel, and setup a small toolbox on the right side, making the web page more accessible. We already had some simple html pages (without stylesheets), what you need to do is to design stylesheets to these pages.
 
 The ToolBox
-	We'll build a toolbox similar to ReciteMe.com with one exception, our toolbox sits to the top or right of the web page content, not above them like ReciteMe.com. The toolbox is NOT part of the web page, it is NOT part of the user agent either, it is more like a photo frame where the web content is the photo itself.
+	We'll build a toolbox similar to ReciteMe.com with one exception, our toolbox sits to the top or right of the web page content, not above them like ReciteMe.com. The toolbox is NOT part of the web page, it is NOT part of the user agent either, it is more like a photo frame where the web content is the photo itself. 
+	The toolbox must be elegant. In your design, the toolbox needs to meet some basic requirements, like alignment, easy to use and so on.
 	The toolbox needs to be displayed on every single web page in our site, and we already had some images designed for the buttons on the toolbox, you should make use of these images (or modify them when needed) to layout the toolbox on web pages. All images are designed with Illustrator.
-	
 
 	The functionality of our toolbox includes:
 	- increase / decrease width of the web page
