@@ -254,84 +254,101 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
 //    touZi->nodeList.append(touZiNodeItem);
 //    websiteItem.node.ruleList.append(touZi);
 
-    /****************************************************
-     *旅游
-     ***************************************************/
-    Rule* lvYou = new Rule();
-    Node lvYouNodeItem;
-    lvYouNodeItem.name="旅游";
-    lvYouNodeItem.url = "http://www.hlj.gov.cn/cylj/";
+//    /****************************************************
+//     *旅游
+//     ***************************************************/
+//    Rule* lvYou = new Rule();
+//    Node lvYouNodeItem;
+//    lvYouNodeItem.name="旅游";
+//    lvYouNodeItem.url = "http://www.hlj.gov.cn/cylj/";
 
-    Rule* lvYouChildRule = new Rule();
-    Node lvYouXinXiNodeItem;
-    lvYouXinXiNodeItem.name="旅游信息";
-    lvYouXinXiNodeItem.url = "http://www.hlj.gov.cn/cylj/lvxx/";
-    Node lvYouShengJingNodeItem;
-    lvYouShengJingNodeItem.name="旅游胜景";
-    lvYouShengJingNodeItem.url = "http://www.hlj.gov.cn/cylj/lysj/";
-    Node lvYouJingGuanNodeItem;
-    lvYouJingGuanNodeItem.name="旅游景观";
-    lvYouJingGuanNodeItem.url = "http://www.hlj.gov.cn/cylj/lyjg/";
-    Node minSuFengQingNodeItem;
-    minSuFengQingNodeItem.name="民俗风情";
-    minSuFengQingNodeItem.url = "http://www.hlj.gov.cn/cylj/msfq/";
-    Node lvYouChangShiNodeItem;
-    lvYouChangShiNodeItem.name="旅游常识";
-    lvYouChangShiNodeItem.url = "http://www.hlj.gov.cn/cylj/lycs/";
-    Node canYinFuWuNodeItem;
-    canYinFuWuNodeItem.name="餐饮服务";
-    canYinFuWuNodeItem.url = "http://www.hlj.gov.cn/cylj/cyfw/";
-    Node longJiangGouWuNodeItem;
-    longJiangGouWuNodeItem.name="龙江购物";
-    longJiangGouWuNodeItem.url = "http://www.hlj.gov.cn/cylj/ljgw/";
-    Node lvYouXianLuNodeItem;
-    lvYouXianLuNodeItem.name="旅游线路";
-    lvYouXianLuNodeItem.url = "http://www.hlj.gov.cn/cylj/lyxl/";
-    Node longJiangTeChanNodeItem;
-    longJiangTeChanNodeItem.name="龙江特产";
-    longJiangTeChanNodeItem.url = "http://www.hlj.gov.cn/cylj/ljtc/";
-    Node liShiZhongDeHeiLongJiangNodeItem;
-    liShiZhongDeHeiLongJiangNodeItem.name="历史中的黑龙江";
-    liShiZhongDeHeiLongJiangNodeItem.url = "http://www.hlj.gov.cn/cylj/lslj/";
-    Node touSuJiGouNodeItem;
-    touSuJiGouNodeItem.name="投诉机构";
-    touSuJiGouNodeItem.url = "http://www.hlj.gov.cn/cylj/tsjg/";
+//    Rule* lvYouChildRule = new Rule();
+//    Node lvYouXinXiNodeItem;
+//    lvYouXinXiNodeItem.name="旅游信息";
+//    lvYouXinXiNodeItem.url = "http://www.hlj.gov.cn/cylj/lvxx/";
+//    Node lvYouShengJingNodeItem;
+//    lvYouShengJingNodeItem.name="旅游胜景";
+//    lvYouShengJingNodeItem.url = "http://www.hlj.gov.cn/cylj/lysj/";
+//    Node lvYouJingGuanNodeItem;
+//    lvYouJingGuanNodeItem.name="旅游景观";
+//    lvYouJingGuanNodeItem.url = "http://www.hlj.gov.cn/cylj/lyjg/";
+//    Node minSuFengQingNodeItem;
+//    minSuFengQingNodeItem.name="民俗风情";
+//    minSuFengQingNodeItem.url = "http://www.hlj.gov.cn/cylj/msfq/";
+//    Node lvYouChangShiNodeItem;
+//    lvYouChangShiNodeItem.name="旅游常识";
+//    lvYouChangShiNodeItem.url = "http://www.hlj.gov.cn/cylj/lycs/";
+//    Node canYinFuWuNodeItem;
+//    canYinFuWuNodeItem.name="餐饮服务";
+//    canYinFuWuNodeItem.url = "http://www.hlj.gov.cn/cylj/cyfw/";
+//    Node longJiangGouWuNodeItem;
+//    longJiangGouWuNodeItem.name="龙江购物";
+//    longJiangGouWuNodeItem.url = "http://www.hlj.gov.cn/cylj/ljgw/";
+//    Node lvYouXianLuNodeItem;
+//    lvYouXianLuNodeItem.name="旅游线路";
+//    lvYouXianLuNodeItem.url = "http://www.hlj.gov.cn/cylj/lyxl/";
+//    Node longJiangTeChanNodeItem;
+//    longJiangTeChanNodeItem.name="龙江特产";
+//    longJiangTeChanNodeItem.url = "http://www.hlj.gov.cn/cylj/ljtc/";
+//    Node liShiZhongDeHeiLongJiangNodeItem;
+//    liShiZhongDeHeiLongJiangNodeItem.name="历史中的黑龙江";
+//    liShiZhongDeHeiLongJiangNodeItem.url = "http://www.hlj.gov.cn/cylj/lslj/";
+//    Node touSuJiGouNodeItem;
+//    touSuJiGouNodeItem.name="投诉机构";
+//    touSuJiGouNodeItem.url = "http://www.hlj.gov.cn/cylj/tsjg/";
 
-    Rule * lvYouArticleChildRule = new Rule();
-    lvYouArticleChildRule->urlExpression.value = "<td><ul><li><a href=\"([^\"]*)\"";
-    lvYouArticleChildRule->titleExpression.value = "<td><ul><li><a href=[^>]*>([^<]*)<";
-    lvYouArticleChildRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
-    Rule *lvYouPictureChildRule = new Rule();
-    lvYouPictureChildRule->urlExpression.value="<td width=\"33%\"><div align=\"center\"><a href=([^ ]*) ";
-    lvYouPictureChildRule->titleExpression.value="<div align=\"center\"><a href=[^ ]* Title=\"([^\"]*)\"";
-    lvYouPictureChildRule->nextPageExpression.value="<a href=\"([^\"]*)\">下一页";
+//    Rule * lvYouArticleChildRule = new Rule();
+//    lvYouArticleChildRule->urlExpression.value = "<td><ul><li><a href=\"([^\"]*)\"";
+//    lvYouArticleChildRule->titleExpression.value = "<td><ul><li><a href=[^>]*>([^<]*)<";
+//    lvYouArticleChildRule->nextPageExpression.value = "<a href=\"([^\"]*)\">下一页";
+//    Rule *lvYouPictureChildRule = new Rule();
+//    lvYouPictureChildRule->urlExpression.value="<td width=\"33%\"><div align=\"center\"><a href=([^ ]*) ";
+//    lvYouPictureChildRule->titleExpression.value="<div align=\"center\"><a href=[^ ]* Title=\"([^\"]*)\"";
+//    lvYouPictureChildRule->nextPageExpression.value="<a href=\"([^\"]*)\">下一页";
 
 
-    lvYouXinXiNodeItem.ruleList.append(lvYouArticleChildRule);
-    lvYouShengJingNodeItem.ruleList.append(lvYouPictureChildRule);
-    lvYouJingGuanNodeItem.ruleList.append(lvYouPictureChildRule);
-    minSuFengQingNodeItem.ruleList.append(lvYouPictureChildRule);
-    lvYouChangShiNodeItem.ruleList.append(lvYouArticleChildRule);
-    lvYouXianLuNodeItem.ruleList.append(lvYouArticleChildRule);
-    longJiangTeChanNodeItem.ruleList.append(lvYouArticleChildRule);
-    liShiZhongDeHeiLongJiangNodeItem.ruleList.append(lvYouArticleChildRule);
-    touSuJiGouNodeItem.ruleList.append(lvYouArticleChildRule);
+//    lvYouXinXiNodeItem.ruleList.append(lvYouArticleChildRule);
+//    lvYouShengJingNodeItem.ruleList.append(lvYouPictureChildRule);
+//    lvYouJingGuanNodeItem.ruleList.append(lvYouPictureChildRule);
+//    minSuFengQingNodeItem.ruleList.append(lvYouPictureChildRule);
+//    lvYouChangShiNodeItem.ruleList.append(lvYouArticleChildRule);
+//    lvYouXianLuNodeItem.ruleList.append(lvYouArticleChildRule);
+//    longJiangTeChanNodeItem.ruleList.append(lvYouArticleChildRule);
+//    liShiZhongDeHeiLongJiangNodeItem.ruleList.append(lvYouArticleChildRule);
+//    touSuJiGouNodeItem.ruleList.append(lvYouArticleChildRule);
 
-    lvYouChildRule->nodeList.append(lvYouXinXiNodeItem);
-    lvYouChildRule->nodeList.append(lvYouShengJingNodeItem);
-    lvYouChildRule->nodeList.append(lvYouJingGuanNodeItem);
-    lvYouChildRule->nodeList.append(minSuFengQingNodeItem);
-    lvYouChildRule->nodeList.append(lvYouChangShiNodeItem);
-    lvYouChildRule->nodeList.append(canYinFuWuNodeItem);
-    lvYouChildRule->nodeList.append(longJiangGouWuNodeItem);
-    lvYouChildRule->nodeList.append(lvYouXianLuNodeItem);
-    lvYouChildRule->nodeList.append(longJiangTeChanNodeItem);
-    lvYouChildRule->nodeList.append(liShiZhongDeHeiLongJiangNodeItem);
-    lvYouChildRule->nodeList.append(touSuJiGouNodeItem);
+//    lvYouChildRule->nodeList.append(lvYouXinXiNodeItem);
+//    lvYouChildRule->nodeList.append(lvYouShengJingNodeItem);
+//    lvYouChildRule->nodeList.append(lvYouJingGuanNodeItem);
+//    lvYouChildRule->nodeList.append(minSuFengQingNodeItem);
+//    lvYouChildRule->nodeList.append(lvYouChangShiNodeItem);
+//    lvYouChildRule->nodeList.append(canYinFuWuNodeItem);
+//    lvYouChildRule->nodeList.append(longJiangGouWuNodeItem);
+//    lvYouChildRule->nodeList.append(lvYouXianLuNodeItem);
+//    lvYouChildRule->nodeList.append(longJiangTeChanNodeItem);
+//    lvYouChildRule->nodeList.append(liShiZhongDeHeiLongJiangNodeItem);
+//    lvYouChildRule->nodeList.append(touSuJiGouNodeItem);
 
-    lvYouNodeItem.ruleList.append(lvYouChildRule);
-    lvYou->nodeList.append(lvYouNodeItem);
-    websiteItem.node.ruleList.append(lvYou);
+//    lvYouNodeItem.ruleList.append(lvYouChildRule);
+//    lvYou->nodeList.append(lvYouNodeItem);
+//    websiteItem.node.ruleList.append(lvYou);
+
+    /******************************************************
+     *政务公开
+     *****************************************************/
+    Rule * zhengWuGongKai = new Rule();
+    Node ZhengWuGongKaiNodeItem;
+    ZhengWuGongKaiNodeItem.name="政务公开";
+    ZhengWuGongKaiNodeItem.url="http://www.hlj.gov.cn/zwdt/index.shtml";
+
+    Rule* zhengWuGongKaiChildRule = new Rule();
+    Node jiGouSheZhiNodeItem;
+    jiGouSheZhiNodeItem.name="机构设置";
+    jiGouSheZhiNodeItem.url="http://www.hlj.gov.cn/jgsz/index.shtml";
+
+    Rule* jiGouSHeZhiRule = new Rule();
+    jiGouSHeZhiRule->urlExpression.value="<td.* height=\"\\d\\d\"[^>]*><a href=\"([^\"]*)\"";
+    jiGouSHeZhiRule->titleExpression.value="<td.* height=\"\\d\\d\"[^>]*><a href=\"[^\"]*\"[^>]*>([^<]*)<";
 
 //    /****************************************************
 //     *公告信息
