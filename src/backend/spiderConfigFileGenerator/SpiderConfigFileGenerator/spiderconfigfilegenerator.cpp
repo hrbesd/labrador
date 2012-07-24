@@ -342,15 +342,74 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     ZhengWuGongKaiNodeItem.url="http://www.hlj.gov.cn/zwdt/index.shtml";
 
     Rule* zhengWuGongKaiChildRule = new Rule();
+    Rule* zhengWuGongKaiChildArticleRule=new Rule();
+    zhengWuGongKaiChildArticleRule->urlExpression.value="<td><ul><a href=\"([^\"]*)\"";
+    zhengWuGongKaiChildArticleRule->titleExpression.value="<td><ul><a href=\"[^\"]*\" Title=\"([^\"]*)\"";
+    zhengWuGongKaiChildArticleRule->nextPageExpression.value="<a href=\"([^\"]*)\">下一页";
+    zhengWuGongKaiChildRule->childRule=zhengWuGongKaiChildArticleRule;
+    Rule* zhengWuGongKaiChildColumnRule=new Rule();
+    zhengWuGongKaiChildColumnRule->urlExpression.value="<td align=\"right\" class=\"f12black\"><a href=\"([^\"]*)\"";
+    zhengWuGongKaiChildColumnRule->titleExpression.value="<td class=\"ftit\">([^<]*)<";
+
     Node jiGouSheZhiNodeItem;
     jiGouSheZhiNodeItem.name="机构设置";
     jiGouSheZhiNodeItem.url="http://www.hlj.gov.cn/jgsz/index.shtml";
 
-    Rule* jiGouSHeZhiRule = new Rule();
-    jiGouSHeZhiRule->urlExpression.value="<td.* height=\"\\d\\d\"[^>]*><a href=\"([^\"]*)\"";
-    jiGouSHeZhiRule->titleExpression.value="<td.* height=\"\\d\\d\"[^>]*><a href=\"[^\"]*\"[^>]*>([^<]*)<";
+    Rule* jiGouSheZhiRule = new Rule();
+    jiGouSheZhiRule->urlExpression.value="<td.* height=\"\\d\\d\"[^>]*><a href=\"([^\"]*)\"";
+    jiGouSheZhiRule->titleExpression.value="<td.* height=\"\\d\\d\"[^>]*><a href=\"[^\"]*\"[^>]*>([^<]*)<";
+    jiGouSheZhiNodeItem.ruleList.append(jiGouSheZhiRule);
 
-//    /****************************************************
+    Node lingDaoJieShaoNodeItem;
+    lingDaoJieShaoNodeItem.name="领导介绍";
+    lingDaoJieShaoNodeItem.url="http://www.hlj.gov.cn/zwdt/lddt/";
+
+    Rule* lingDaoJieShaoRule = new Rule();
+    lingDaoJieShaoRule->titleExpression.value="<td align=\"center\" class=\"f12black\">([^<]*)</td";
+    lingDaoJieShaoRule->urlExpression.value="<a href=\"([^\"]*)\"><img src=\"/zwdt/lddt/images/pic_zfw_lddt_jj.gif\"";
+    lingDaoJieShaoNodeItem.ruleList.append(lingDaoJieShaoRule);
+
+    Node zhengFuWenJianNodeItem;
+    Rule *zhengFuWenJianRule = new Rule();
+
+    Node shengZhengFuWenJianNodeItem;
+    shengZhengFuWenJianNodeItem.name="省政府文件";
+    shengZhengFuWenJianNodeItem.url="http://www.hlj.gov.cn/wjfg/zfwj/szwj/";
+    Node shengZhengFuBanGongTingWenJianNodeItem;
+    shengZhengFuBanGongTingWenJianNodeItem.name="省政府办公厅文件";
+    shengZhengFuBanGongTingWenJianNodeItem.url="http://www.hlj.gov.cn/wjfg/zfwj/sbwj/";
+    Node shengZhengFuLingNodeItem;
+    shengZhengFuLingNodeItem.name="省政府令";
+    shengZhengFuLingNodeItem.url="http://www.hlj.gov.cn/wjfg/zfwj/szfl/";
+    Node shengZhiBuMenWenJianNodeItem;
+    shengZhiBuMenWenJianNodeItem.name="省直部门文件";
+    shengZhiBuMenWenJianNodeItem.url="http://www.hlj.gov.cn/gkml/zfxx/szwj/";
+
+    zhengFuWenJianRule->nodeList.append(shengZhengFuWenJianNodeItem);
+    zhengFuWenJianRule->nodeList.append(shengZhengFuBanGongTingWenJianNodeItem);
+    zhengFuWenJianRule->nodeList.append(shengZhengFuLingNodeItem);
+    zhengFuWenJianRule->nodeList.append(shengZhiBuMenWenJianNodeItem);
+    zhengFuWenJianRule->childRule=zhengWuGongKaiChildArticleRule;
+    zhengFuWenJianNodeItem.ruleList.append(zhengFuWenJianRule);
+
+    Node faLvFaGuiNodeItem;
+    Rule* faLvFaGuiRule= new Rule();
+
+    Node guoJiaFaLvFaGuiNodeItem;
+    guoJiaFaLvFaGuiNodeItem.name="国家法律法规";
+    guoJiaFaLvFaGuiNodeItem.url="http://www.hlj.gov.cn/wjfg/flfg/gjfg/";
+    Node diFangXingFaGuiNodeItem;
+    diFangXingFaGuiNodeItem.name="地方性法规及政府规章";
+    diFangXingFaGuiNodeItem.url="http://www.hlj.gov.cn/wjfg/flfg/dfgz/";
+    faLvFaGuiRule->nodeList.append(guoJiaFaLvFaGuiNodeItem);
+    faLvFaGuiRule->nodeList.append(diFangXingFaGuiNodeItem);
+    faLvFaGuiRule->childRule=zhengWuGongKaiChildArticleRule;
+    faLvFaGuiNodeItem.ruleList.append(faLvFaGuiRule);
+
+
+
+
+    //    /****************************************************
 //     *公告信息
 //     ***************************************************/
 //    Rule *gongGaoXinXiRule = new Rule();
