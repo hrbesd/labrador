@@ -60,7 +60,6 @@ Contents of Web Pages
 		- Article content (including title, author, publish time, body data)
 		- Toolbox
 
-
 Guidelines
 	Our web pages are aimed to provide information for those who have difficulties in browsing normal pages, like the blind, as well as those who do not. The universal strategy for this is to provide a "accessibility" toolbox, which helps the end users to view information on the pages.
 
@@ -89,3 +88,4 @@ Your Responsibility:
 
 	- Other
 		- MUST do it within 48 hours.
+		- Support IE6+, Chrome, Firefox, Opera & Safari.
