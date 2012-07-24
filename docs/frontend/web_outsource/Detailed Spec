@@ -3,26 +3,12 @@ Add Stylesheets for Simple HTML Pages
 We need someone to help us write stylesheets for some very simple html pages, these pages are so simple that no one has more than 8 different elements. We had 8 html pages and you'll design and implement the stylesheets for these pages according to our requirements, for example, you'll layout a toolbox around the page content with our icons. You need to know HTML and CSS well to fulfill this job, the ability to read and write JavaScript code is absolutely a bonus. And most of all, you must finish your work within 48 hours since you took the job.
 
 Goal
-    We're buiding a website similar to ReciteMe.com (http://www.reciteme.com/), as you may see, they provide a plain text channel, and setup a small toolbox on the right side, making the web page more accessible. We already had some simple html pages (without stylesheets), what you need to do is to design stylesheets to these pages.
+    We're buiding a website similar to ReciteMe.com (http://www.reciteme.com/). When you are in that site, click "Try Recite" on top bar, in the new web page, click the "Toggle Plain Text" link to brought up the plain text channel. As you may see, they provide a plain text channel, and setup a small toolbox on the right side, making the web page more accessible. We already had some simple html pages (without stylesheets), what you need to do is to design stylesheets to these pages.
 
 The ToolBox
 	We'll build a toolbox similar to ReciteMe.com with one exception, our toolbox sits to the top or right of the web page content, not above them like ReciteMe.com. The toolbox is NOT part of the web page, it is NOT part of the user agent either, it is more like a photo frame where the web content is the photo itself. 
 	The toolbox must be elegant. In your design, the toolbox needs to meet some basic requirements, like alignment, easy to use and so on.
 	The toolbox needs to be displayed on every single web page in our site, and we already had some images designed for the buttons on the toolbox, you should make use of these images (or modify them when needed) to layout the toolbox on web pages. All images are designed with Illustrator.
-
-	The functionality of our toolbox includes:
-	- increase / decrease width of the web page
-	- increase / decrease font size
-	- increase / decrease line height
-	- display a assistant line on screen
-	- open up an area on web page to magnify text content of user point
-	- open / close speaker
-	- choose the sex / speed of the speaker
-	- open / close translator
-	- design a layer to display the translate result just like what ReciteMe does
-	- tell user about their location, for example, once user clicks this button, the speaker will read "Home Page"
-	- change the toolbox vertically / horizontally
-	- show about page
 
 The Existing Web Pages
 	We have four web pages, namely, a index page(home.html), a column list page(columns.html), an article list page(list.html), and an article page(article.html), but we do not have any stylesheets designed for them.
@@ -76,7 +62,7 @@ Your Responsibility:
 		- You have to design for these 8 pages in attachment files.
 		- You need to design the toolbox layout, we will give you the icons for the buttons in the toolbox.
 		- These pages are for government websites, they need to be formal and elegent.
-		- These pages are for the disabled, they need to be simple and accesible. Checkout the guidelines above.
+		- These pages are for the disabled, they need to be simple and accesible. Obey the guidelines above will be a bonus.
 		- You should design a mockup first with our given UI materials, so that we could discuss and verify that.
 
 	- Writing Stylesheets
@@ -88,4 +74,5 @@ Your Responsibility:
 
 	- Other
 		- MUST do it within 48 hours.
-		- Support IE6+, Chrome, Firefox, Opera & Safari.
+		- DO NOT destroy the semantical elements in sample pages.
+		- Support IE6+, Chrome, Firefox, Opera, Safari and any browsers published in the last 5 years.
