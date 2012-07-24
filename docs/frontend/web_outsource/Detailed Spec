@@ -1,0 +1,91 @@
+Add Stylesheets for Simple HTML Pages
+
+We need someone to help us write stylesheets for some very simple html pages, these pages are so simple that no one has more than 8 different elements. We had 8 html pages and you'll design and implement the stylesheets for these pages according to our requirements, for example, you'll layout a toolbox around the page content with our icons. You need to know HTML and CSS well to fulfill this job, the ability to read and write JavaScript code is absolutely a bonus. And most of all, you must finish your work within 48 hours since you took the job.
+
+Goal
+    We're buiding a website similar to ReciteMe.com (http://www.reciteme.com/), as you may see, they provide a plain text channel, and setup a small toolbox on the right side, making the web page more accessible. We already had some simple html pages (without stylesheets), what you need to do is to design stylesheets to these pages.
+
+The ToolBox
+	We'll build a toolbox similar to ReciteMe.com with one exception, our toolbox sits to the top or right of the web page content, not above them like ReciteMe.com. The toolbox is NOT part of the web page, it is NOT part of the user agent either, it is more like a photo frame where the web content is the photo itself.
+	The toolbox needs to be displayed on every single web page in our site, and we already had some images designed for the buttons on the toolbox, you should make use of these images (or modify them when needed) to layout the toolbox on web pages. All images are designed with Illustrator.
+	
+
+	The functionality of our toolbox includes:
+	- increase / decrease width of the web page
+	- increase / decrease font size
+	- increase / decrease line height
+	- display a assistant line on screen
+	- open up an area on web page to magnify text content of user point
+	- open / close speaker
+	- choose the sex / speed of the speaker
+	- open / close translator
+	- design a layer to display the translate result just like what ReciteMe does
+	- tell user about their location, for example, once user clicks this button, the speaker will read "Home Page"
+	- change the toolbox vertically / horizontally
+	- show about page
+
+The Existing Web Pages
+	We have four web pages, namely, a index page(home.html), a column list page(columns.html), an article list page(list.html), and an article page(article.html), but we do not have any stylesheets designed for them.
+	The index page mainly works as an entrance to the website, there should be a logo, name of the site, and list of columns of the site.
+	When user clicks one of the column names on the index page, the column page will be displayed. In column page, all subcolumns should be listed.
+	Once user chooses a specific column, the articles of that column are displayed. Every article is a link item on page, in the form of "[title][publish time]", clicking these links will brought you to the article page.
+	The article page shows the article content, including title, author, publish time and main content.
+	Just as I've mentioned, toolbox is always displayed in the web page.
+	Refer to the attachment file and the "Contents of Web Pages" section below for detailed description.
+	Besides these 4 main pages, there are some introduction pages, including about.html, accessibility.html, browsers.html and sitemap.html. These pages are part of the website, and should be designed by you as well. Keep in mind that all pages should be designed in a same style.
+
+Contents of Web Pages
+	Please refer to the attachemnt first.
+	- The index page
+		- Banner of the site(please use a place holder, the size of the image should be 800 * 100 in pixels)
+		- Navigation bar
+		- Title of the site
+		- Column list
+		- Toolbox
+	- Column list page
+		- Banner of the site
+		- Navigation bar (Home > Column)
+		- Column name
+		- Sub column list
+		- Toolbox
+	- Article list page
+		- Banner of the site
+		- Navigation bar (Home > Column > List)
+		- Sub column name
+		- Article list (every item should be a link element)
+		- Toolbox
+	- Article content
+		- Banner of the site
+		- Navigation bar (Home > Column > List > Article)
+		- Article content (including title, author, publish time, body data)
+		- Toolbox
+
+
+Guidelines
+	Our web pages are aimed to provide information for those who have difficulties in browsing normal pages, like the blind, as well as those who do not. The universal strategy for this is to provide a "accessibility" toolbox, which helps the end users to view information on the pages.
+
+    There are some guidlines out there:
+    - the WCAG 2.0 standard (http://www.w3.org/TR/WCAG20/)
+    - Accessibility (http://www.w3.org/standards/webdesign/accessibility)
+    - Accessibility Features of CSS (http://www.w3.org/TR/CSS-access)
+    And you MUST obey most of these guidelines.
+
+Your Responsibility:
+	You are responsible for:
+	- Designing Pages
+		- You need to do the design work.
+		- You have to design for these 8 pages in attachment files.
+		- You need to design the toolbox layout, we will give you the icons for the buttons in the toolbox.
+		- These pages are for government websites, they need to be formal and elegent.
+		- These pages are for the disabled, they need to be simple and accesible. Checkout the guidelines above.
+		- You should design a mockup first with our given UI materials, so that we could discuss and verify that.
+
+	- Writing Stylesheets
+		- Write stylesheets for all 8 pages.
+		- Take care of your coding style, we need to implement some functionality with your CSS files, for example, we will allow the users to change the font size dynamically, and we hope you could write your stylesheets well, so we could just change the font size of the "<body>" element.
+		- You don't have to design the icons for the toolbox, we already had them designed and will give them to you, feel free to use it.
+		- you have to layout the toolbox horizontally and vertically, and you need to give us a clean interface so we could switch between them easily.
+		- For every single page, you have to design 3 themes, one for normal display, one for night mode, and one for high contrast. Please provide a clean interface so that we could change the theme to one of them easily.
+
+	- Other
+		- MUST do it within 48 hours.
