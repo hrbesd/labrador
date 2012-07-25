@@ -12,7 +12,7 @@ class TTSClient:
 			return False
 
 		data = urllib.urlencode({'text' : text.encode('utf-8')})
-		conn = urllib2.urlopen('http://127.0.0.1:7800/text2Speech', data)
+		conn = urllib2.urlopen('http://127.0.0.1:7800/text2Speech?%s' % data)
 		conn.close()
 		return True
 
