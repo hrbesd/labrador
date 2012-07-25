@@ -1,7 +1,7 @@
 # -*- encoding:utf-8 -*-
 # 调用TTS服务，并获取生成的mp3的结果
 import time
-import urllib2
+import urllib, urllib2
 
 class TTSClient:
 	def generateSound(self, text):
@@ -11,7 +11,8 @@ class TTSClient:
 		if text[0] == '&':
 			return False
 
-		conn = urllib2.urlopen('http://127.0.0.1:7800/text2Speech?text=' + text.encode('utf-8'))
+		data = urllib.urlencode({'text' : text.encode('utf-8')})
+		conn = urllib2.urlopen('http://127.0.0.1:7800/text2Speech', data)
 		conn.close()
 		return True
 
