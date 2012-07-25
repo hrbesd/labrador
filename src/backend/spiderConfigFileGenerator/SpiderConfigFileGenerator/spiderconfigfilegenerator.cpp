@@ -342,6 +342,40 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     ZhengWuGongKaiNodeItem.url="http://www.hlj.gov.cn/zwdt/index.shtml";
 
     Rule* zhengWuGongKaiChildRule = new Rule();
+    zhengWuGongKaiChildRule->urlExpression.type = "JavaScript";
+    zhengWuGongKaiChildRule->urlExpression.executeOnlyOnce = "true";
+    zhengWuGongKaiChildRule->urlExpression.value = "function getYZSpiderResult(content)"
+            "{"
+            "    var result = new Array();"
+            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList3\\\" style=\\\"height:47px\\\">\");"
+            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+            "    var tmp = content.substring(startIndex,endIndex);"
+            "    var reg = new RegExp(\"<li> <a href=\\\"([^\\\"]*)\\\"\",\"g\");"
+            "    var regResult = reg.exec(tmp);"
+            "	while(reg.lastIndex!==0)"
+            "	{"
+            "		result.push(regResult[1]);"
+            "		regResult = reg.exec(tmp);"
+            "	}"
+            "    return result;"
+            "}";
+    zhengWuGongKaiChildRule->titleExpression.type = "JavaScript";
+    zhengWuGongKaiChildRule->titleExpression.executeOnlyOnce = "true";
+    zhengWuGongKaiChildRule->titleExpression.value = "function getYZSpiderResult(content)"
+            "{"
+            "    var result = new Array();"
+            "	var startIndex = content.indexOf(\"<div class=\\\"slidingList_none\\\" id=\\\"slidingList3\\\" style=\\\"height:47px\\\">\");"
+            "    var endIndex = content.indexOf(\"</div>\",startIndex+1);"
+            "    var tmp = content.substring(startIndex,endIndex);"
+            "    var reg = new RegExp(\"<li> <a href=\\\"[^>]*>([^<]*)<\",\"g\");"
+            "    var regResult = reg.exec(tmp);"
+            "	while(reg.lastIndex!==0)"
+            "	{"
+            "		result.push(regResult[1]);"
+            "		regResult = reg.exec(tmp);"
+            "	}"
+            "    return result;"
+            "}";
     Rule* zhengWuGongKaiChildArticleRule=new Rule();
     zhengWuGongKaiChildArticleRule->urlExpression.value="<td><ul><a href=\"([^\"]*)\"";
     zhengWuGongKaiChildArticleRule->titleExpression.value="<td><ul><a href=\"[^\"]*\" Title=\"([^\"]*)\"";
@@ -350,6 +384,7 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     Rule* zhengWuGongKaiChildColumnRule=new Rule();
     zhengWuGongKaiChildColumnRule->urlExpression.value="<td align=\"right\" class=\"f12black\"><a href=\"([^\"]*)\"";
     zhengWuGongKaiChildColumnRule->titleExpression.value="<td class=\"ftit\">([^<]*)<";
+    zhengWuGongKaiChildColumnRule->childRule=zhengWuGongKaiChildArticleRule;
 
     Node jiGouSheZhiNodeItem;
     jiGouSheZhiNodeItem.name="机构设置";
@@ -370,6 +405,9 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     lingDaoJieShaoNodeItem.ruleList.append(lingDaoJieShaoRule);
 
     Node zhengFuWenJianNodeItem;
+    zhengFuWenJianNodeItem.name="政府文件";
+    zhengFuWenJianNodeItem.url="http://www.hlj.gov.cn/wjfg/zfwj/";
+
     Rule *zhengFuWenJianRule = new Rule();
 
     Node shengZhengFuWenJianNodeItem;
@@ -393,6 +431,8 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     zhengFuWenJianNodeItem.ruleList.append(zhengFuWenJianRule);
 
     Node faLvFaGuiNodeItem;
+    faLvFaGuiNodeItem.name="法律法规";
+    faLvFaGuiNodeItem.url="http://www.hlj.gov.cn/wjfg/flfg/";
     Rule* faLvFaGuiRule= new Rule();
 
     Node guoJiaFaLvFaGuiNodeItem;
@@ -405,6 +445,53 @@ SpiderConfigFileGenerator::SpiderConfigFileGenerator(QObject *parent) :
     faLvFaGuiRule->nodeList.append(diFangXingFaGuiNodeItem);
     faLvFaGuiRule->childRule=zhengWuGongKaiChildArticleRule;
     faLvFaGuiNodeItem.ruleList.append(faLvFaGuiRule);
+
+    Node canZhengYiZhengNodeItem;
+    canZhengYiZhengNodeItem.name="参政议政";
+    canZhengYiZhengNodeItem.url="http://www.hlj.gov.cn/zwdt/czyz/";
+    canZhengYiZhengNodeItem.ruleList.append(zhengWuGongKaiChildColumnRule);
+    Node renShiXinXiNodeItem;
+    renShiXinXiNodeItem.name="人事信息";
+    renShiXinXiNodeItem.url="http://www.hlj.gov.cn/zxxx/rsxx/";
+    renShiXinXiNodeItem.ruleList.append(zhengWuGongKaiChildColumnRule);
+    Node tongJiShuJuNodeItem;
+    tongJiShuJuNodeItem.name="统计数据";
+    tongJiShuJuNodeItem.url="http://www.hlj.gov.cn/zxxx/tjxx/";
+    tongJiShuJuNodeItem.ruleList.append(zhengWuGongKaiChildColumnRule);
+    Node jiHuaGuiHuaNodeItem;
+    jiHuaGuiHuaNodeItem.name="计划规划";
+    jiHuaGuiHuaNodeItem.url="http://www.hlj.gov.cn/zwdt/jhgh/";
+    jiHuaGuiHuaNodeItem.ruleList.append(zhengWuGongKaiChildColumnRule);
+    Node caiZhengXinXiNodeItem;
+    caiZhengXinXiNodeItem.name="财政信息";
+    caiZhengXinXiNodeItem.url="http://www.hlj.gov.cn/zxxx/czxx/";
+    caiZhengXinXiNodeItem.ruleList.append(zhengWuGongKaiChildColumnRule);
+    Node zhiFaJianDuNodeItem;
+    zhiFaJianDuNodeItem.name="执法监督";
+    zhiFaJianDuNodeItem.url="http://www.hlj.gov.cn/zwdt/zfjd/";
+    zhiFaJianDuNodeItem.ruleList.append(zhengWuGongKaiChildColumnRule);
+    Node yingJiGuanLiNodeItem;
+    yingJiGuanLiNodeItem.name="应急管理";
+    yingJiGuanLiNodeItem.url="http://www.hlj.gov.cn/yjgl/";
+    yingJiGuanLiNodeItem.ruleList.append(zhengWuGongKaiChildColumnRule);
+
+    zhengWuGongKaiChildRule->nodeList.append(jiGouSheZhiNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(lingDaoJieShaoNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(zhengFuWenJianNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(faLvFaGuiNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(canZhengYiZhengNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(renShiXinXiNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(tongJiShuJuNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(jiHuaGuiHuaNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(caiZhengXinXiNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(zhiFaJianDuNodeItem);
+    zhengWuGongKaiChildRule->nodeList.append(yingJiGuanLiNodeItem);
+
+    ZhengWuGongKaiNodeItem.ruleList.append(zhengWuGongKaiChildRule);
+    zhengWuGongKai->nodeList.append(ZhengWuGongKaiNodeItem);
+    websiteItem.node.ruleList.append(zhengWuGongKai);
+
+
 
 
 
