@@ -256,6 +256,10 @@ void YZSpider::parseNodeListData(Rule *ruleItem)
     }
     for(int i=0;i<ruleItem->nodeList.size();i++)
     {
+        m_nodeUrlSet.insert(ruleItem->nodeList[i].url);
+    }
+    for(int i=0;i<ruleItem->nodeList.size();i++)
+    {
         parseNodeData(ruleItem->nodeList[i]);
     }
 }
