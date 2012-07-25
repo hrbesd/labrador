@@ -17,8 +17,6 @@ def main():
 
 	time.sleep(2)
 
-	print args
-
 	reactorObj = reactor_main.Reactor(args.rule_dir, args.config_dir, args.source_dir, args.worker_dir, args.log_file)
 	reactorObj.doReactorWork()
 
