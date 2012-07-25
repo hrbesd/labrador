@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <website>
-    <editor>genghailong</editor>
-    <info>heilongjiang</info>
+    <editor>耿海龙</editor>
+    <info>黑龙江政府网站</info>
+    <version>0.1.0</version>
     <crawlTime></crawlTime>
     <threadLimit>10</threadLimit>
     <node>
-        <name>chinese heilongjiang</name>
+        <name>中国黑龙江</name>
         <url>http://www.hlj.gov.cn/</url>
         <refreshRate></refreshRate>
         <ruleList>
@@ -19,71 +20,318 @@
                 <childRule/>
                 <nodeList>
                     <node>
-                        <name>gongGaoXinXi</name>
-                        <url>http://www.hlj.gov.cn/zwdt/ggxx/index.shtml</url>
-                        <refreshRate></refreshRate>
-                        <ruleList>
-                            <rule>
-                                <expressionList>
-                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
-                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
-                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
-                                </expressionList>
-                                <maxPageCount></maxPageCount>
-                                <childRule/>
-                                <nodeList/>
-                            </rule>
-                        </ruleList>
-                    </node>
-                </nodeList>
-            </rule>
-            <rule>
-                <expressionList>
-                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
-                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
-                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
-                </expressionList>
-                <maxPageCount></maxPageCount>
-                <childRule/>
-                <nodeList>
-                    <node>
-                        <name>zhengWuYaoWen</name>
-                        <url>http://www.hlj.gov.cn/zwdt/zwyw/index.shtml</url>
-                        <refreshRate></refreshRate>
-                        <ruleList>
-                            <rule>
-                                <expressionList>
-                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
-                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
-                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
-                                </expressionList>
-                                <maxPageCount></maxPageCount>
-                                <childRule/>
-                                <nodeList/>
-                            </rule>
-                        </ruleList>
-                    </node>
-                </nodeList>
-            </rule>
-            <rule>
-                <expressionList>
-                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
-                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
-                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
-                </expressionList>
-                <maxPageCount></maxPageCount>
-                <childRule/>
-                <nodeList>
-                    <node>
-                        <name>jiHuaGuiHua</name>
-                        <url>http://www.hlj.gov.cn/zwdt/jhgh/index.shtml</url>
+                        <name>全省概况</name>
+                        <url>http://www.hlj.gov.cn/zjlj/</url>
                         <refreshRate></refreshRate>
                         <ruleList>
                             <rule>
                                 <expressionList>
                                     <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
-                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;更多"/>
-                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td class=&quot;ftit&quot;&gt;(.*)&lt;/td&gt;"/>
+                                    <expression type="JavaScript" executeOnlyOnce="true" label="url" value="function getYZSpiderResult(content){    var result = new Array();&#9;var startIndex = content.indexOf(&quot;&lt;div class=\&quot;slidingList_none\&quot; id=\&quot;slidingList2\&quot; style=\&quot;height:27px\&quot;&gt;&quot;);    var endIndex = content.indexOf(&quot;&lt;/div&gt;&quot;,startIndex+1);    var tmp = content.substring(startIndex,endIndex);    var reg = new RegExp(&quot;&lt;li&gt; &lt;a href=\&quot;([^\&quot;]*)\&quot;&quot;,&quot;g&quot;);    var regResult = reg.exec(tmp);&#9;while(reg.lastIndex!==0)&#9;{&#9;&#9;result.push(regResult[1]);&#9;&#9;regResult = reg.exec(tmp);&#9;}    return result;}"/>
+                                    <expression type="JavaScript" executeOnlyOnce="true" label="title" value="function getYZSpiderResult(content){    var result = new Array();&#9;var startIndex = content.indexOf(&quot;&lt;div class=\&quot;slidingList_none\&quot; id=\&quot;slidingList2\&quot; style=\&quot;height:27px\&quot;&gt;&quot;);    var endIndex = content.indexOf(&quot;&lt;/div&gt;&quot;,startIndex+1);    var tmp = content.substring(startIndex,endIndex);    var reg = new RegExp(&quot;&lt;li&gt; &lt;a href=\&quot;[^&gt;]*&gt;([^&lt;]*)&lt;&quot;,&quot;g&quot;);    var regResult = reg.exec(tmp);&#9;while(reg.lastIndex!==0)&#9;{&#9;&#9;result.push(regResult[1]);&#9;&#9;regResult = reg.exec(tmp);&#9;}    return result;}"/>
+                                </expressionList>
+                                <maxPageCount></maxPageCount>
+                                <childRule/>
+                                <nodeList/>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+            <rule>
+                <expressionList>
+                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                </expressionList>
+                <maxPageCount></maxPageCount>
+                <childRule/>
+                <nodeList>
+                    <node>
+                        <name>投资</name>
+                        <url>http://www.hlj.gov.cn/tzlj/</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <expressionList>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                    <expression type="JavaScript" executeOnlyOnce="true" label="url" value="function getYZSpiderResult(content){    var result = new Array();&#9;var startIndex = content.indexOf(&quot;&lt;div class=\&quot;slidingList_none\&quot; id=\&quot;slidingList9\&quot; style=\&quot;height:27px;padding-left:200px\&quot;&gt;&quot;);    var endIndex = content.indexOf(&quot;&lt;/div&gt;&quot;,startIndex+1);    var tmp = content.substring(startIndex,endIndex);    var reg = new RegExp(&quot;&lt;li&gt; &lt;a href=\&quot;([^\&quot;]*)\&quot;&quot;,&quot;g&quot;);    var regResult = reg.exec(tmp);&#9;while(reg.lastIndex!==0)&#9;{&#9;&#9;result.push(regResult[1]);&#9;&#9;regResult = reg.exec(tmp);&#9;}    return result;}"/>
+                                    <expression type="JavaScript" executeOnlyOnce="true" label="title" value="function getYZSpiderResult(content){    var result = new Array();&#9;var startIndex = content.indexOf(&quot;&lt;div class=\&quot;slidingList_none\&quot; id=\&quot;slidingList9\&quot; style=\&quot;height:27px;padding-left:200px\&quot;&gt;&quot;);    var endIndex = content.indexOf(&quot;&lt;/div&gt;&quot;,startIndex+1);    var tmp = content.substring(startIndex,endIndex);    var reg = new RegExp(&quot;&lt;li&gt; &lt;a href=\&quot;[^&gt;]*&gt;([^&lt;]*)&lt;&quot;,&quot;g&quot;);    var regResult = reg.exec(tmp);&#9;while(reg.lastIndex!==0)&#9;{&#9;&#9;result.push(regResult[1]);&#9;&#9;regResult = reg.exec(tmp);&#9;}    return result;}"/>
+                                </expressionList>
+                                <maxPageCount></maxPageCount>
+                                <childRule>
+                                    <rule>
+                                        <expressionList>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=[^&gt;]*&gt;([^&lt;]*)&lt;"/>
+                                        </expressionList>
+                                        <maxPageCount></maxPageCount>
+                                        <childRule/>
+                                        <nodeList/>
+                                    </rule>
+                                </childRule>
+                                <nodeList>
+                                    <node>
+                                        <name>投资指南</name>
+                                        <url>http://www.hlj.gov.cn/tzlj/tzzn/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=[^&gt;]*&gt;([^&lt;]*)&lt;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList>
+                                                    <node>
+                                                        <name>办事指南</name>
+                                                        <url>http://www.hlj.gov.cn/tzlj/tzzn/bszn/</url>
+                                                        <refreshRate></refreshRate>
+                                                        <ruleList/>
+                                                    </node>
+                                                    <node>
+                                                        <name>在线办理</name>
+                                                        <url>http://www.hlj.gov.cn/tzlj/tzzn/zxbl/</url>
+                                                        <refreshRate></refreshRate>
+                                                        <ruleList/>
+                                                    </node>
+                                                </nodeList>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                </nodeList>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+            <rule>
+                <expressionList>
+                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                </expressionList>
+                <maxPageCount></maxPageCount>
+                <childRule/>
+                <nodeList>
+                    <node>
+                        <name>旅游</name>
+                        <url>http://www.hlj.gov.cn/cylj/</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <expressionList>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                                </expressionList>
+                                <maxPageCount></maxPageCount>
+                                <childRule/>
+                                <nodeList>
+                                    <node>
+                                        <name>旅游信息</name>
+                                        <url>http://www.hlj.gov.cn/cylj/lvxx/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=[^&gt;]*&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>旅游胜景</name>
+                                        <url>http://www.hlj.gov.cn/cylj/lysj/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td width=&quot;33%&quot;&gt;&lt;div align=&quot;center&quot;&gt;&lt;a href=([^ ]*) "/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;div align=&quot;center&quot;&gt;&lt;a href=[^ ]* Title=&quot;([^&quot;]*)&quot;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>旅游景观</name>
+                                        <url>http://www.hlj.gov.cn/cylj/lyjg/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td width=&quot;33%&quot;&gt;&lt;div align=&quot;center&quot;&gt;&lt;a href=([^ ]*) "/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;div align=&quot;center&quot;&gt;&lt;a href=[^ ]* Title=&quot;([^&quot;]*)&quot;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>民俗风情</name>
+                                        <url>http://www.hlj.gov.cn/cylj/msfq/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td width=&quot;33%&quot;&gt;&lt;div align=&quot;center&quot;&gt;&lt;a href=([^ ]*) "/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;div align=&quot;center&quot;&gt;&lt;a href=[^ ]* Title=&quot;([^&quot;]*)&quot;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>旅游常识</name>
+                                        <url>http://www.hlj.gov.cn/cylj/lycs/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=[^&gt;]*&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>餐饮服务</name>
+                                        <url>http://www.hlj.gov.cn/cylj/cyfw/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>龙江购物</name>
+                                        <url>http://www.hlj.gov.cn/cylj/ljgw/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>旅游线路</name>
+                                        <url>http://www.hlj.gov.cn/cylj/lyxl/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=[^&gt;]*&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>龙江特产</name>
+                                        <url>http://www.hlj.gov.cn/cylj/ljtc/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=[^&gt;]*&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>历史中的黑龙江</name>
+                                        <url>http://www.hlj.gov.cn/cylj/lslj/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=[^&gt;]*&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>投诉机构</name>
+                                        <url>http://www.hlj.gov.cn/cylj/tsjg/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=[^&gt;]*&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                </nodeList>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+            <rule>
+                <expressionList>
+                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                </expressionList>
+                <maxPageCount></maxPageCount>
+                <childRule/>
+                <nodeList>
+                    <node>
+                        <name>政务公开</name>
+                        <url>http://www.hlj.gov.cn/zwdt/index.shtml</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <expressionList>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                    <expression type="JavaScript" executeOnlyOnce="true" label="url" value="function getYZSpiderResult(content){    var result = new Array();&#9;var startIndex = content.indexOf(&quot;&lt;div class=\&quot;slidingList_none\&quot; id=\&quot;slidingList3\&quot; style=\&quot;height:47px\&quot;&gt;&quot;);    var endIndex = content.indexOf(&quot;&lt;/div&gt;&quot;,startIndex+1);    var tmp = content.substring(startIndex,endIndex);    var reg = new RegExp(&quot;&lt;li&gt; &lt;a href=\&quot;([^\&quot;]*)\&quot;&quot;,&quot;g&quot;);    var regResult = reg.exec(tmp);&#9;while(reg.lastIndex!==0)&#9;{&#9;&#9;result.push(regResult[1]);&#9;&#9;regResult = reg.exec(tmp);&#9;}    return result;}"/>
+                                    <expression type="JavaScript" executeOnlyOnce="true" label="title" value="function getYZSpiderResult(content){    var result = new Array();&#9;var startIndex = content.indexOf(&quot;&lt;div class=\&quot;slidingList_none\&quot; id=\&quot;slidingList3\&quot; style=\&quot;height:47px\&quot;&gt;&quot;);    var endIndex = content.indexOf(&quot;&lt;/div&gt;&quot;,startIndex+1);    var tmp = content.substring(startIndex,endIndex);    var reg = new RegExp(&quot;&lt;li&gt; &lt;a href=\&quot;[^&gt;]*&gt;([^&lt;]*)&lt;&quot;,&quot;g&quot;);    var regResult = reg.exec(tmp);&#9;while(reg.lastIndex!==0)&#9;{&#9;&#9;result.push(regResult[1]);&#9;&#9;regResult = reg.exec(tmp);&#9;}    return result;}"/>
                                 </expressionList>
                                 <maxPageCount></maxPageCount>
                                 <childRule>
@@ -98,7 +346,332 @@
                                         <nodeList/>
                                     </rule>
                                 </childRule>
-                                <nodeList/>
+                                <nodeList>
+                                    <node>
+                                        <name>机构设置</name>
+                                        <url>http://www.hlj.gov.cn/jgsz/index.shtml</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td.* height=&quot;\d\d&quot;[^&gt;]*&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td.* height=&quot;\d\d&quot;[^&gt;]*&gt;&lt;a href=&quot;[^&quot;]*&quot;[^&gt;]*&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>领导介绍</name>
+                                        <url>http://www.hlj.gov.cn/zwdt/lddt/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;&lt;img src=&quot;/zwdt/lddt/images/pic_zfw_lddt_jj.gif&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td align=&quot;center&quot; class=&quot;f12black&quot;&gt;([^&lt;]*)&lt;/td"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>政府文件</name>
+                                        <url>http://www.hlj.gov.cn/wjfg/zfwj/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList>
+                                                    <node>
+                                                        <name>省政府文件</name>
+                                                        <url>http://www.hlj.gov.cn/wjfg/zfwj/szwj/</url>
+                                                        <refreshRate></refreshRate>
+                                                        <ruleList/>
+                                                    </node>
+                                                    <node>
+                                                        <name>省政府办公厅文件</name>
+                                                        <url>http://www.hlj.gov.cn/wjfg/zfwj/sbwj/</url>
+                                                        <refreshRate></refreshRate>
+                                                        <ruleList/>
+                                                    </node>
+                                                    <node>
+                                                        <name>省政府令</name>
+                                                        <url>http://www.hlj.gov.cn/wjfg/zfwj/szfl/</url>
+                                                        <refreshRate></refreshRate>
+                                                        <ruleList/>
+                                                    </node>
+                                                    <node>
+                                                        <name>省直部门文件</name>
+                                                        <url>http://www.hlj.gov.cn/gkml/zfxx/szwj/</url>
+                                                        <refreshRate></refreshRate>
+                                                        <ruleList/>
+                                                    </node>
+                                                </nodeList>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>法律法规</name>
+                                        <url>http://www.hlj.gov.cn/wjfg/flfg/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value=""/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList>
+                                                    <node>
+                                                        <name>国家法律法规</name>
+                                                        <url>http://www.hlj.gov.cn/wjfg/flfg/gjfg/</url>
+                                                        <refreshRate></refreshRate>
+                                                        <ruleList/>
+                                                    </node>
+                                                    <node>
+                                                        <name>地方性法规及政府规章</name>
+                                                        <url>http://www.hlj.gov.cn/wjfg/flfg/dfgz/</url>
+                                                        <refreshRate></refreshRate>
+                                                        <ruleList/>
+                                                    </node>
+                                                </nodeList>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>参政议政</name>
+                                        <url>http://www.hlj.gov.cn/zwdt/czyz/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td align=&quot;right&quot; class=&quot;f12black&quot;&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td class=&quot;ftit&quot;&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>人事信息</name>
+                                        <url>http://www.hlj.gov.cn/zxxx/rsxx/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td align=&quot;right&quot; class=&quot;f12black&quot;&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td class=&quot;ftit&quot;&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>统计数据</name>
+                                        <url>http://www.hlj.gov.cn/zxxx/tjxx/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td align=&quot;right&quot; class=&quot;f12black&quot;&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td class=&quot;ftit&quot;&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>计划规划</name>
+                                        <url>http://www.hlj.gov.cn/zwdt/jhgh/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td align=&quot;right&quot; class=&quot;f12black&quot;&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td class=&quot;ftit&quot;&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>财政信息</name>
+                                        <url>http://www.hlj.gov.cn/zxxx/czxx/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td align=&quot;right&quot; class=&quot;f12black&quot;&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td class=&quot;ftit&quot;&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>执法监督</name>
+                                        <url>http://www.hlj.gov.cn/zwdt/zfjd/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td align=&quot;right&quot; class=&quot;f12black&quot;&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td class=&quot;ftit&quot;&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>应急管理</name>
+                                        <url>http://www.hlj.gov.cn/yjgl/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value=""/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td align=&quot;right&quot; class=&quot;f12black&quot;&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td class=&quot;ftit&quot;&gt;([^&lt;]*)&lt;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule>
+                                                    <rule>
+                                                        <expressionList>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                                        </expressionList>
+                                                        <maxPageCount></maxPageCount>
+                                                        <childRule/>
+                                                        <nodeList/>
+                                                    </rule>
+                                                </childRule>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                </nodeList>
                             </rule>
                         </ruleList>
                     </node>
