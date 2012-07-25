@@ -51,9 +51,18 @@ int YZParser::parseFile(QString fileName)
     QByteArray webData = file.readAll();
 
     QScriptValueList args;
-    args << QScriptValue(webData.data());
+    args << QScriptValue(webData.data())<<QScriptValue(baseUrl.data());
     QScriptValue article = m_parserValue.call(QScriptValue(),args);
     QVariant articleItem = article.toVariant();
+
+    QString configFileVersion = QString::fromUtf8(articleItem.toMap()["version"].toByteArray().data());
+    if(configFileVersion.compare(QString(BASE_VERSION))!=0)
+    {
+        std::cerr<<"config file version is:"<<configFileVersion.toStdString()<<std::endl;
+        std::cerr<<"parser version is:"<<BASE_VERSION<<std::endl;
+        std::cerr<<"parser don't support this version of config file, will exit now!"<<std::endl;
+        exit(0);
+    }
 
     articleInterface.lastModified = QString::fromUtf8(lastModifiedTime.trimmed().data());
     articleInterface.title = QString::fromUtf8(title.data());
