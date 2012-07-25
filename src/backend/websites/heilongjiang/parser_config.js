@@ -70,6 +70,25 @@ function parseArticle(content,url) {
             }
         }
     }
+    else if ((url.indexOf("http://www.hlj.gov.cn/cylj/cyfw/") != -1) || (url.indexOf("http://www.hlj.gov.cn/cylj/ljgw/") != -1))
+    {
+        var bodyStartIndex = content.indexOf("<table width=\"100%\" border=\"0\" cellspacing=\"1\"");
+        var bodyEndIndex = bodyStartIndex;
+        var tableCount = 0;
+        while (bodyEndIndex != -1) {
+            var bodyEndIndex = content.indexOf("table", bodyEndIndex + 1);
+            if (content[bodyEndIndex - 1] == "<") {
+                tableCount = tableCount + 1;
+            }
+            else {
+                tableCount = tableCount - 1;
+            }
+            if (tableCount == 0) {
+                articleItem.body = content.substr(bodyStartIndex, bodyEndIndex - bodyStartIndex + 6);
+                break;
+            }
+        }
+    }
     else {
 
     }
