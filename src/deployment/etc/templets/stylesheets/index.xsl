@@ -20,13 +20,13 @@
 						</header>
 						<nav>
 							<ul class="major_col">
-								<xsl:for-each select="website/nodeList/node">
+								<xsl:for-each select="website/nodeList/indexNode">
 								<li>
 									<a>
 										<xsl:attribute name="href">
-											<xsl:value-of select="pageUrl"/>
+											<xsl:value-of select="node/pageUrl"/>
 										</xsl:attribute>
-										<xsl:value-of select="name"/>
+										<xsl:value-of select="node/name"/>
 									</a>
 									<ul class="sub_col">
 										<xsl:for-each select="nodeList/node">
