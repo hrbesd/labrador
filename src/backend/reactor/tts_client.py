@@ -6,9 +6,6 @@ import urllib, urllib2, html
 class TTSClient:
 	def generateSound(self, text):
 		text = html.unescape_string(text)
-		# get rip of something like "&amp;nbsp;"
-		# &amp;nbsp; => &nbsp; => " "
-		text = html.unescape_string(text)
 		if len(text.strip()) == 0:
 			return False
 
