@@ -179,7 +179,18 @@ void Generator::generateIndexFile()
     writer.writeTextElement("name",m_website.node.name);
     writer.writeTextElement("info",m_website.info);
     writer.writeTextElement("url",m_website.node.url);
-    writeNodeListXml(writer,m_website.node.nodeList);
+    writer.writeStartElement("nodeList");
+    for(int i=0;i<m_website.node.nodeList.size();i++)
+    {
+        writer.writeStartElement("indexNode");
+        writeNodeXml(writer,m_website.node.nodeList[i]);
+        if(getNodeType(m_website.node.nodeList[i])!=ArticleNode)
+        {
+            writeNodeListXml(writer,m_website.node.nodeList[i].nodeList);
+        }
+        writer.writeEndElement();
+    }
+    writer.writeEndElement();
     writer.writeEndDocument();
     file.close();
 }
