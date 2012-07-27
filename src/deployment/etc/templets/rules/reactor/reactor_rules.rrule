@@ -20,12 +20,6 @@ audio track
 	=> fill(audio_alt.config)
 ===
 
-img
-	-> missing(alt)
-	=> remove
-	==> warning | missing alt
-===
-
 area
 	=> remove
 ===

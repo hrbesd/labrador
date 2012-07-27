@@ -38,18 +38,18 @@
 				<footer>
 					<ul>
 						<li>
-							<a href="about.html">关于本站</a>
+							<a href="/about.html">关于本站</a>
 						</li>
 						<li>
-							<a href="accessibility.html">信息无障碍说明</a>
+							<a href="/accessibility.html">信息无障碍说明</a>
 						</li>
 						<li>
-							<a href="sitemap.html">站点地图</a>
+							<a href="/sitemap.html">站点地图</a>
 						</li>
 						<li>
 							<a>
 								<xsl:attribute name="href">
-									<xsl:value-of select="artical/url"/>
+									<xsl:value-of select="article/url"/>
 								</xsl:attribute>
 								返回原始页面
 							</a>
