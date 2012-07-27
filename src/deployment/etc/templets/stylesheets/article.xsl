@@ -38,14 +38,14 @@
 								<span id="pubdate"><xsl:value-of select="article/lastmodified"/></span>
 							</header>
 							<section>
-								<xsl:value-of select="article/bodydata"/>
+								<xsl:copy-of select="article/bodydata"/>
 							</section>
 						</article>
 					</div>
 					<div id="foot">
 						<footer>
 							<p id="powered">
-								Powered by <a href="http://www.hrbesd.com/">ESD</a>
+								运营支持： <a href="http://www.hrbesd.com/">哈尔滨e时代</a>
 							</p>
 							<ul id="footer_links">
 								<li>
@@ -60,7 +60,7 @@
 								<li>
 									<a>
 										<xsl:attribute name="href">
-											<xsl:value-of select="artical/url"/>
+											<xsl:value-of select="article/url"/>
 										</xsl:attribute>
 										返回原始页面
 									</a>
