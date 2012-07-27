@@ -124,7 +124,7 @@ a.block:hover em { color: #08c; text-decoration: underline; }
 	padding-left: 10px;
 	padding-right: 10px;
 	border-left: 1px solid #D0D0D0;
-	font-size: smaller;
+	font-size: small;
 }
 
 .major_col {

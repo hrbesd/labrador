@@ -50,7 +50,7 @@
 					<div id="foot">
 						<footer>
 							<p id="powered">
-								运营支持： 哈尔滨<a href="http://www.hrbesd.com/">e时代</a>
+								运营支持： <a href="http://www.hrbesd.com/">哈尔滨e时代</a>
 							</p>
 							<ul id="footer_links">
 								<li>
