@@ -48,9 +48,9 @@
 					<div id="foot">
 						<footer>
 							<p id="powered">
-								Powered by <a href="http://www.hrbesd.com/">ESD</a>
+								运营支持： <a href="http://www.hrbesd.com/">哈尔滨e时代</a>
 							</p>
-							<ul  id="footer_links">
+							<ul id="footer_links">
 								<li>
 									<a href="about.html">关于本站</a>
 								</li>
