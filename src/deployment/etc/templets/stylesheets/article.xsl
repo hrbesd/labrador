@@ -60,7 +60,7 @@
 								<li>
 									<a>
 										<xsl:attribute name="href">
-											<xsl:value-of select="artical/url"/>
+											<xsl:value-of select="article/url"/>
 										</xsl:attribute>
 										返回原始页面
 									</a>
