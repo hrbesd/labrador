@@ -110,7 +110,7 @@ void YZSpider::ruleRequestScheduler()
 void YZSpider::networkError(QNetworkReply::NetworkError error)
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
-    YZLogger::Logger()->log(QString("error:")+reply->errorString()+reply->url().toString());
+    YZLogger::Logger()->log(YZLogger::Error,reply->url().toString(),reply->errorString());
 }
 
 void YZSpider::ruleRequestReply()
@@ -134,7 +134,7 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
     QStringList titleStringList = parseRuleExpression(ruleItem->titleExpression,strData);
     if(urlStringList.size()!=titleStringList.size())
     {
-        YZLogger::Logger()->log("rule error: url reg doesn't match title reg:"+baseUrl.toString());
+        YZLogger::Logger()->log(YZLogger::Error,baseUrl.toString(),"url reg doesn't match title reg");
         return;
     }
     for(int i=0;i<urlStringList.size();i++)
@@ -207,7 +207,7 @@ void YZSpider::parseNodeData(Node &nodeItem)
     {
         if(!m_websiteUrl.isParentOf(QUrl(nodeItem.url)))
         {
-            YZLogger::Logger()->log(QString("outside link:")+nodeItem.url);
+            YZLogger::Logger()->log(YZLogger::Warning,nodeItem.url,QString("outside link:"));
         }
         nodeItem.hashName = QCryptographicHash::hash(QByteArray(nodeItem.url.toUtf8()),QCryptographicHash::Md5).toHex();
         if(nodeItem.ruleList.isEmpty())

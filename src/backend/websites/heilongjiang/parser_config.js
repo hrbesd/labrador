@@ -1,5 +1,13 @@
 function parseArticle(content,url) {
-    var articleItem = { title: '', body: '', lastModified: '', author: '' , version: '0.1.0'};
+    var articleItem = { title: '', body: '', lastModified: '', author: '' , version: '0.1.0' , refreshTag:''};
+    if(content.indexOf("http-equiv=\"refresh\"") != -1)
+    {
+    	articleItem.refreshTag="true";
+    }
+    else
+    {
+    	articleItem.refreshTag="false";
+    }
     if (url.indexOf("system") != -1) {
         var authorStartIndex = content.indexOf("<!--function source");
         if (authorStartIndex != -1) {
