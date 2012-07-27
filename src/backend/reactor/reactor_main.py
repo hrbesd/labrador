@@ -66,6 +66,9 @@ class Reactor:
 		xmlDataFile.close()
 
 		xmlData = html.unescape_string(xmlData)
+		# get rip of something like "&amp;nbsp;"
+		# &amp;nbsp; => &nbsp; => " "
+		xmlData = html.unescape_string(xmlData) 
 
 		soup = BeautifulSoup(xmlData)
 		soup = BeautifulSoup(soup.prettify())
