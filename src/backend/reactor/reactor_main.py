@@ -65,11 +65,6 @@ class Reactor:
 		xmlData = xmlDataFile.read()
 		xmlDataFile.close()
 
-		xmlData = html.unescape_string(xmlData)
-		# get rip of something like "&amp;nbsp;"
-		# &amp;nbsp; => &nbsp; => " "
-		xmlData = html.unescape_string(xmlData) 
-
 		soup = BeautifulSoup(xmlData)
 		soup = BeautifulSoup(soup.prettify())
 
@@ -128,6 +123,12 @@ class Reactor:
 
 		if not os.path.exists(resultFileDir):
 			os.makedirs(resultFileDir)
+
+		xmlData = soup.prettify().decode('utf-8')
+		xmlData = html.unescape_string(xmlData)
+		# get rip of something like "&amp;nbsp;"
+		# &amp;nbsp; => &nbsp; => " "
+		xmlData = html.unescape_string(xmlData) 
 
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
 		resultData = soup.prettify().decode('utf-8')

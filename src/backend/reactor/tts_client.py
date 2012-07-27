@@ -1,14 +1,15 @@
 # -*- encoding:utf-8 -*-
 # 调用TTS服务，并获取生成的mp3的结果
 import time
-import urllib, urllib2
+import urllib, urllib2, html
 
 class TTSClient:
 	def generateSound(self, text):
-		if len(text) == 0:
-			return False
-
-		if text[0] == '&':
+		text = html.unescape_string(text)
+		# get rip of something like "&amp;nbsp;"
+		# &amp;nbsp; => &nbsp; => " "
+		text = html.unescape_string(text)
+		if len(text.strip()) == 0:
 			return False
 
 		data = urllib.urlencode({'text' : text.encode('utf-8')})
