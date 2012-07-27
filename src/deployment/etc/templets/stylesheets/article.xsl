@@ -38,7 +38,7 @@
 								<span id="pubdate"><xsl:value-of select="article/lastmodified"/></span>
 							</header>
 							<section>
-								<xsl:value-of select="article/bodydata"/>
+								<xsl:copy-of select="article/bodydata"/>
 							</section>
 						</article>
 					</div>
