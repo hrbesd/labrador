@@ -21,9 +21,29 @@ YZLogger* YZLogger::Logger()
     return YZLogger::logger;
 }
 
-void YZLogger::log(QString str)
+void YZLogger::log(Type type, QString filePath, QString str)
 {
-    logFile.write(str.toUtf8());
+    QStringList strList;
+    strList.append("["+QDateTime::currentDateTime().toString(Qt::ISODate)+"]");
+    if(type==YZLogger::Warning)
+    {
+        strList.append("[Warning]");
+    }
+    else if(type==YZLogger::Debug)
+    {
+        strList.append("[Debug]");
+    }
+    else if(type==YZLogger::Info)
+    {
+        strList.append("[Info]");
+    }
+    else if(type==YZLogger::Error)
+    {
+        strList.append("[Error]");
+    }
+    strList.append("["+filePath+"]");
+    strList.append("["+str+"]");
+    logFile.write(strList.join(" ").toUtf8());
     logFile.write("\n");
     logFile.flush();
 }

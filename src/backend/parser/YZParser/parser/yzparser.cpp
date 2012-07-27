@@ -69,6 +69,10 @@ int YZParser::parseFile(QString fileName)
     articleInterface.author = QString::fromUtf8(articleItem.toMap()["author"].toByteArray().data());
     articleInterface.bodyData = QString::fromUtf8(articleItem.toMap()["body"].toByteArray().data());
     articleInterface.url = QString::fromUtf8((baseUrl.data()));
+    if(articleItem.toMap()["refreshTag"].toByteArray().data()=="true")
+    {
+        YZLogger::Logger()->log(YZLogger::Warning,articleInterface.url,"contains: http-equiv=\"refresh\"");
+    }
 
     parseImageFromBody(articleInterface.bodyData,QString(baseUrl),articleInterface);
     QFileInfo fileInfo(file);
