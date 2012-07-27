@@ -45,7 +45,7 @@
 					<div id="foot">
 						<footer>
 							<p id="powered">
-								Powered by <a href="http://www.hrbesd.com/">ESD</a>
+								运营支持： 哈尔滨<a href="http://www.hrbesd.com/">e时代</a>
 							</p>
 							<ul id="footer_links">
 								<li>
