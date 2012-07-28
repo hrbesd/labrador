@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/* toolbar style */
+.toolbar { text-align:center; padding:2em;}
+.toolbar_ver { width:245px; position:fixed; _position:absolute; right:0; top:0; }
+.tbitem { width:245px; height:72px; display:inline-block; *display:inline; *zoom:1; position:relative; margin:0.4em;}
+.item_1 { background:url(../img/normal.png) -12px -13px no-repeat;}
+.item_2 { background:url(../img/normal.png) -12px -92px no-repeat;}
+.item_3 { background:url(../img/normal.png) -12px -174px no-repeat;}
+.item_4 { background:url(../img/normal.png) -12px -251px no-repeat;}
+.item_5 { background:url(../img/normal.png) -12px -329px no-repeat;}
+.item_6 { background:url(../img/normal.png) -12px -410px no-repeat;}
+.item_a { width:82px; height:71px; display:block; position:absolute; left:0; top:0;}
+.item_b { width:81px; height:71px; display:block; position:absolute; left:81px; top:0;}
+.item_c { width:82px; height:71px; display:block; position:absolute; left:162px; top:0;}
+.item_a ,.item_b ,.item_c { background-image:url(../img/normal.png); background-repeat:no-repeat;}
+.item_a:hover ,.item_b:hover ,.item_c:hover { background-image:url(../img/hover.png);}
+.item_a:active ,.item_b:active ,.item_c:active { background-image:url(../img/active.png);}
+.item_a.on ,.item_b.on ,.item_c.on { background-image:url(../img/active.png);}
+
+.item_1 .item_a { background-position:-12px -13px; }
+.item_1 .item_b { background-position:-93px -13px; }
+.item_1 .item_c { background-position:-174px -13px; }
+.item_2 .item_a { background-position:-12px -92px; }
+.item_2 .item_c { background-position:-174px -92px; }
+.item_3 .item_a { background-position:-12px -174px; }
+.item_3 .item_c { background-position:-174px -174px; }
+.item_4 .item_a { background-position:-12px -251px; }
+.item_4 .item_c { background-position:-174px -251px; }
+.item_5 .item_a { background-position:-12px -329px; }
+.item_5 .item_b { background-position:-93px -329px; }
+.item_5 .item_c { background-position:-174px -329px; }
+.item_6 .item_a { background-position:-12px -410px;}
+.item_6 .item_b { background-position:-93px -410px;}
+
+
+
