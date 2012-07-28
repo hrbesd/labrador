@@ -109,22 +109,17 @@ SOAPClientParameters._serialize = function(o)
 
 function SOAPClient() {}
 
-SOAPClient.simpleSoapRequest = function(url, ns, method, parameters)
+SOAPClient.simpleSoapRequest = function(url)
 {
-    // build SOAP request
-    var sr = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-             "<soap:Envelope " +
-             "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" " +
-             "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" " +
-             "xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
-             "<soap:Body>" +
-             "<" + method + " xmlns=\"" + ns + "\">" +
-             parameters.toXml() +
-             "</" + method + "></soap:Body></soap:Envelope>";
     // send request
     var xmlHttp = SOAPClient._getXmlHttp();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState != 4) { return; }
+        var response = xmlHttp.responseText;
+        alert(response);
+    };
     xmlHttp.open("POST", url, true);
-    xmlHttp.send(sr);
+    xmlHttp.send(null);
 }
 
 // private: xmlhttp factory

@@ -9,7 +9,7 @@
 var speaker = {};
 
 // 伪成员变量
-speaker.url = "http://localhost:12321";
+speaker.url = "http://116.255.231.36:8080";
 speaker.audioPlaying = false;
 speaker.read_enabled = true;
 
@@ -21,29 +21,17 @@ speaker.speak = function (text)
     if(!speaker.read_enabled) {
         return;
     }
-    var pl = new SOAPClientParameters();
-    pl.add("string", text);
-    SOAPClient.simpleSoapRequest(speaker.url, "http://example.com/tts_service", "text2speech", pl);
-    // tests if the audio file exists
-    var audioURL = "http://localhost:2000/" + faultylabs.MD5(text) + ".m4a";
-    speaker.checkSoundExists(audioURL);
-}
 
-// 检查声音在服务端是否已经被创建
-// 如果已经被创建，那么直接播放；否则，1秒之后再试
-speaker.checkSoundExists = function (audioURL) {
+    /*var targetUrl = speaker.url + "/TextToSpeech/webservice/text2Speech/getStatus?jobID=null&text=" + text;
     $.ajax({
-        url:audioURL,
-        type:'HEAD',
-        error: function()
-        {
-            setTimeout(checkSoundExists(audioURL), 1000);
-        },
-        success: function()
-        {
-            speaker.sayWord(audioURL);
+        type: 'GET', 
+        url: targetUrl,
+        success: function(data, status) {
+            alert(status);
+            alert(data.responseData);
         }
-    });   
+    }); */
+    
 }
 
 // 声音播放完成的回调方法，主要用来设置标志位，标志播放已经完成

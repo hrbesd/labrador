@@ -59,6 +59,12 @@ var bindActions = function() {
     });
 
     $('a, data').each(function() {
+        $(this).bind("mouseover", function() {
+            speaker.speak(this.innerHTML);
+        });
+    });
+
+    $('a, data').each(function() {
         $(this).bind("mouseleave", function() {
             basic.translator.hideResult();
         });
