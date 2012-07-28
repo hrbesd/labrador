@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+body {
+	background-color: navy;
+	color: yellow;
+	font-weight: bold;
+}
+
+header {
+	color: yellow;
+}
+
+#loc, #content, #foot {
+	border: 3px solid yellow;
+}
+
+#content {
+	background-color: navy;
+}
+
+#loc {
+	color: yellow;
+}
+
+#author, #pubdate {
+	color: yellow;
+}
+
+a { color: white; }
+a.block span,
+a.block em { color: white; }
+a.block:hover em { color: white; }
+
+.major_col {
+	color: yellow;
+}
+
+.col li{
+	border: 3px solid yellow;
+	background-color: navy;
+}
+
+#top_banner img {
+}
+
+.articles {
+	border: 3px solid yellow;
+}
+
+.articles li {
+	color: yellow;
+}
+
+.articles li:nth-child(odd) {
+	background: navy; /* CSS3 required*/
+}
+
+.articles li time {
+	color: yellow;
+}
+
+
+
+/*
+* {margin:100;padding:100;}
+
+body {
+	background-color: navy;
+	margin: auto;
+	padding: 47px;
+	line-height:1.5em;
+	color: white;
+	font-family: "微软雅黑", "Hei", sans-serif;
+}
+
+h1 {
+	font-family: "微软雅黑", "Hei", sans-serif;
+	color: inherit;
+	text-align: center;
+	line-height: normal;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "微软雅黑", "Hei", sans-serif;
+    color: yellow;
+    text-align: left;
+}
+
+p {
+}
+
+a {color:yellow;text-decoration:underline;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:red;}
+
+button {
+	color: white;
+}
+
+#author {
+	text-align:right;
+    color: white;
+}
+
+#date {
+	text-align:right;
+    color: white;
+}
+
+#signature {
+	text-align:right;
+	color: white;
+}
+*/
