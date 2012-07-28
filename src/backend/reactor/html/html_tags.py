@@ -153,7 +153,7 @@ def unescape_string(string):
 	for i in range(1,len(chunks), 2):
 		if chunks[i] in _e.name2codepoint:
 			chunks[i] = unichr(_e.name2codepoint[chunks[i]])
-		elif re.match('#\d+$',chunks[i]):
+		elif _re.match('#\d+$',chunks[i]):
 			chunks[i] = unichr(int(chunks[i][1: ]))
 	return "".join(chunks)
 
