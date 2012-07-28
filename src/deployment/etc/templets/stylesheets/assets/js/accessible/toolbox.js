@@ -46,25 +46,21 @@ var bindActions = function() {
     $('#toggle_magnifier').click(action.toggleMagnifier);
     $('#toggle_speaker').click(action.toggleSpeak);
 
-    $('a').each(function() {
-        $(this).bind("mouseover", function() {
-            basic.magnifier.magnifyIt(this.innerHTML);  
-        });
-    });
-    $('data').each(function() {
+    $('a, data').each(function() {
         $(this).bind("mouseover", function() {
             basic.magnifier.magnifyIt(this.innerHTML);  
         });
     });
 
-    $('a').each(function() {
+    $('a, data').each(function() {
         $(this).bind("mouseover", function() {
             trans.doTranslate(this.innerHTML, $(this), transCallback);  
         });
     });
-    $('data').each(function() {
-        $(this).bind("mouseover", function() {
-            trans.doTranslate(this.innerHTML, $(this), transCallback); 
+
+    $('a, data').each(function() {
+        $(this).bind("mouseleave", function() {
+            basic.translator.hideResult();
         });
     });
 
