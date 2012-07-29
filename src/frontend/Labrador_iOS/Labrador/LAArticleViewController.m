@@ -206,18 +206,24 @@
     [_hud setLabelText:@"加载中"];
     
     [_hud show:YES];
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"加载中");
 }
 
 - (void)listDidFinishLoading:(LAXMLData *)list {
     // load page
     [self showArticle];
-    
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"加载完成");
     [_hud hide:YES];
 }
 
 - (void)list:(LAXMLData *)list failWithError:(NSError *)error {
     [_hud hide:YES];
-    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [_hud setLabelText:@"加载出错"];
+    [self.view addSubview:_hud];
+    [_hud show:YES];
+    [_hud hide:YES afterDelay:2];
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"加载出错");
     NSLog(@"加载出错");
 }
 
