@@ -66,7 +66,7 @@
         
         self.popOverShowUp = YES;
         
-        //UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"出现浮动窗口");
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"工具栏已打开");
     }
 }
 
