@@ -7,6 +7,44 @@
  * 
  * Author： Void Main
  */
+var initSM2 = function() {
+    alert('got initSM2');
+    // flash version URL switch (for this demo page)
+    var winLoc = window.location.toString();
+    soundManager.setup({
+      preferFlash: (winLoc.match(/usehtml5audio=1/i) ? false : true)
+    });
+    if (winLoc.match(/flash9/i)) {
+        soundManager.setup({
+            flashVersion: 9
+        });
+        if (winLoc.match(/highperformance/i)) {
+            soundManager.setup({
+              useHighPerformance: true
+            });
+        }
+    } else if (winLoc.match(/flash8/i)) {
+        soundManager.setup({
+            flashVersion: 8
+        });
+    }
+
+    soundManager.setup({
+        useFlashBlock: false,
+        url: 'assets/swf/',
+        debugMode: true,
+    });
+
+    soundManager.onready(function() {
+        alert('i am ready');
+    });
+
+    soundManager.ontimeout(function() {
+        alert('what is wrong?');
+    });
+}
+
+initSM2();
 
 jQuery(document).ready(function(){
     // 在ready的时候，载入各种工具箱工具的状态
@@ -52,11 +90,11 @@ var bindActions = function() {
         });
     });
 
-    $('a, data').each(function() {
+    /*$('a, data').each(function() {
         $(this).bind("mouseover", function() {
             trans.doTranslate(this.innerHTML, $(this), transCallback);  
         });
-    });
+    }); */
 
     $('a, data').each(function() {
         $(this).bind("mouseover", function() {
@@ -64,11 +102,13 @@ var bindActions = function() {
         });
     });
 
+    /*
     $('a, data').each(function() {
         $(this).bind("mouseleave", function() {
             basic.translator.hideResult();
         });
     });
+    */
 
     // change themes
     // change stylesheet button

@@ -14,6 +14,7 @@
 				<script src="assets/js/jquery.js"></script>
 				<script src="assets/js/md5.js"></script>
 				<script src="assets/js/soapclient.js"></script>
+				<script src="assets/script/soundmanager2.js"></script>
 				<script src="assets/js/accessible/toolbox.js"></script>
 				<script src="assets/js/accessible/basic.js"></script>
 				<script src="assets/js/accessible/action.js"></script>
