@@ -9,7 +9,7 @@
 var speaker = {};
 
 // 伪成员变量
-speaker.url = "http://116.255.231.36:8080";
+speaker.url = "http://123.165.136.125:8080";
 speaker.audioPlaying = false;
 speaker.read_enabled = true;
 
@@ -21,16 +21,30 @@ speaker.speak = function (text)
     if(!speaker.read_enabled) {
         return;
     }
-
-    /*var targetUrl = speaker.url + "/TextToSpeech/webservice/text2Speech/getStatus?jobID=null&text=" + text;
+    
+    var targetUrl = speaker.url + "/TextToSpeech/webservice/text2Speech/getStatus?jobID=null&text=" + text;
     $.ajax({
         type: 'GET', 
         url: targetUrl,
-        success: function(data, status) {
-            alert(status);
-            alert(data.responseData);
-        }
-    }); */
+        success: function(xml) {
+            $(xml).find("audio").each(function(){
+                var format = $(this).children('format').text();
+                var speed = $(this).children('speed').text();
+                var sex = $(this).children('voice').children('sex').text();
+                var lang = $(this).children('voice').children('lang').text();
+                var mp3Url = $(this).children('url').text();
+                
+                if (format == 'audio/mpeg') {
+                    alert(mp3Url);
+                    /*var mySound = soundManager.createSound({
+                        id: 'textSound',
+                        url: mp3Url
+                    });
+                    mySound.play();*/
+                } 
+            });
+        }        
+    });
     
 }
 
