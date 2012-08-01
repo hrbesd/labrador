@@ -49,6 +49,11 @@
         
         //[_textLabel.layer setBorderColor:[[UIColor blueColor] CGColor]];
         //[_textLabel.layer setBorderWidth:2];
+        
+        [_textLabel setIsAccessibilityElement:NO];
+        [_button setIsAccessibilityElement:YES];
+        [_button setAccessibilityLabel:_textLabel.text];
+        [_button setAccessibilityTraits:UIAccessibilityTraitButton];
 
         
         [self addSubview:_button];

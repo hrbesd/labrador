@@ -93,6 +93,11 @@
             //[label setTextColor:[UIColor whiteColor]];
             [imageView addSubview:label];
             
+            [label setIsAccessibilityElement:NO];
+            [imageView setIsAccessibilityElement:NO];
+            [imageView setAccessibilityLabel:label.text];
+            [imageView setAccessibilityTraits:UIAccessibilityScrollDirectionNext];
+            
             //[label.layer setBorderColor:[[UIColor greenColor] CGColor]];
             //[label.layer setBorderWidth:2.0f];
             
