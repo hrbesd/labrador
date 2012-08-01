@@ -164,6 +164,7 @@
     [self.view addSubview:_hud];
     
     [_hud setLabelText:@"更新数据中"];
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"更新数据中");
     
     [_hud show:YES];
 }
@@ -171,13 +172,18 @@
 - (void)listDidFinishLoading:(LAXMLData *)list {
     // not a good 
     [self.tableView reloadData];
-    
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"更新完成");
     [_hud hide:YES];
 }
 
 - (void)list:(LAXMLData *)list failWithError:(NSError *)error {
     [_hud hide:YES];
-    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [_hud setLabelText:@"更新出错"];
+    [self.view addSubview:_hud];
+    [_hud show:YES];
+    [_hud hide:YES afterDelay:2];
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"更新出错");
     NSLog(@"更新出错");
 }
 

@@ -57,10 +57,14 @@ static inline CGFloat radians(CGFloat degrees) {
     [self addGestureRecognizer:[[[UITapGestureRecognizer alloc]
                                  initWithTarget:self
                                  action:@selector(_onTap:)] autorelease]];
+      
+    [self.titleLabel setAccessibilityTraits:UIAccessibilityTraitButton];
   }
 
   return self;
 }
+
+
 
 - (void)_configureTitleLabel {
   if (self.selected) {
@@ -184,6 +188,9 @@ static inline CGFloat radians(CGFloat degrees) {
 - (void)setSelected:(BOOL)isSelected {
   selected = isSelected;
   [self setNeedsDisplay];
+    if (selected) {
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSString stringWithFormat:@"已选中%@标签", self.titleLabel.text]);
+    }
 }
 
 - (void)dealloc {

@@ -207,6 +207,7 @@
         [self.view addSubview:_hud];
         
         [_hud setLabelText:@"更新数据中"];
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"更新数据中");
         
         [_hud show:YES];
     }
@@ -227,16 +228,23 @@
     
     if (_loadingCount <= 0) {
         [_hud hide:YES];
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"更新完成");
     }
 }
 
 - (void)list:(LAXMLData *)list failWithError:(NSError *)error {
     _loadingCount--;
     
-    if (_loadingCount <= 0) {
+    /*if (_loadingCount <= 0) {
         [_hud hide:YES];
-    }
-    
+    }*/
+    [_hud hide:YES];
+    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [_hud setLabelText:@"更新出错"];
+    [self.view addSubview:_hud];
+    [_hud show:YES];
+    [_hud hide:YES afterDelay:2];
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @"更新出错");
     NSLog(@"更新出错");
 }
 
