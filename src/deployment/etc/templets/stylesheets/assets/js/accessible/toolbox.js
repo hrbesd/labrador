@@ -8,7 +8,6 @@
  * Author： Void Main
  */
 var initSM2 = function() {
-    alert('got initSM2');
     // flash version URL switch (for this demo page)
     var winLoc = window.location.toString();
     soundManager.setup({
@@ -33,14 +32,6 @@ var initSM2 = function() {
         useFlashBlock: false,
         url: 'assets/swf/',
         debugMode: true,
-    });
-
-    soundManager.onready(function() {
-        alert('i am ready');
-    });
-
-    soundManager.ontimeout(function() {
-        alert('what is wrong?');
     });
 }
 

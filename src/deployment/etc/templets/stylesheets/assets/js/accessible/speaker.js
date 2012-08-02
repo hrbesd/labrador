@@ -9,7 +9,7 @@
 var speaker = {};
 
 // 伪成员变量
-speaker.url = "http://123.165.136.125:8080";
+speaker.url = "http://123.166.118.135:8080";
 speaker.audioPlaying = false;
 speaker.read_enabled = true;
 
@@ -35,12 +35,11 @@ speaker.speak = function (text)
                 var mp3Url = $(this).children('url').text();
                 
                 if (format == 'audio/mpeg') {
-                    alert(mp3Url);
-                    /*var mySound = soundManager.createSound({
+                    var mySound = soundManager.createSound({
                         id: 'textSound',
                         url: mp3Url
                     });
-                    mySound.play();*/
+                    mySound.play();
                 } 
             });
         }        
