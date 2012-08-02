@@ -40,6 +40,7 @@ speaker.speak = function (text)
                         url: mp3Url
                     });
                     mySound.play();
+                    return false;
                 } 
             });
         }        
