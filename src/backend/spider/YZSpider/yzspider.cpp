@@ -200,6 +200,14 @@ void YZSpider::parseWebsiteData()
     ruleRequestScheduler();
 }
 
+bool YZSpider::checkWhetherNodeExists(Node &nodeItem)
+{
+    QString fileName = nodeItem.hashName;
+    QDir folderDir(m_paramenters.value("--worker-dir"));
+    QFile file(folderDir.absolutePath() + "/"+fileName.left(2)+"/"+ fileName);
+    return file.exists();
+}
+
 void YZSpider::parseNodeData(Node &nodeItem)
 {
     //检查链接是否已经扫描过
@@ -207,12 +215,15 @@ void YZSpider::parseNodeData(Node &nodeItem)
     {
         if(!m_websiteUrl.isParentOf(QUrl(nodeItem.url)))
         {
-            YZLogger::Logger()->log(YZLogger::Warning,nodeItem.url,QString("outside link:"));
+            YZLogger::Logger()->log(YZLogger::Warning,nodeItem.url,QString("outside link"));
         }
         nodeItem.hashName = QCryptographicHash::hash(QByteArray(nodeItem.url.toUtf8()),QCryptographicHash::Md5).toHex();
         if(nodeItem.ruleList.isEmpty())
         {
-            m_webPageRequestTask.append(&nodeItem);
+            if(!checkWhetherNodeExists(nodeItem))
+            {
+                m_webPageRequestTask.append(&nodeItem);
+            }
         }
         else{
             foreach(Rule *ruleItem,nodeItem.ruleList)
