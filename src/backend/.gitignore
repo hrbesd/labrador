@@ -15,3 +15,5 @@
 /tools/Generator/Generator.pro.user
 !/tools/JavaScriptDebugger
 /tools/JavaScriptDebugger/JavaScriptDebugger.pro.user
+!/tools/ConfigTool
+/tools/ConfigTool/ConfigTool.pro.user
