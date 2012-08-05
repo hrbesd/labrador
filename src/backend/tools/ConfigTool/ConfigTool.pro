@@ -13,6 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        yzconfigwindow.cpp
+        yzconfigwindow.cpp \
+    yzspiderconfigwidget.cpp \
+    yzspiderconfigtreeview.cpp
 
-HEADERS  += yzconfigwindow.h
+HEADERS  += yzconfigwindow.h \
+    yzspiderconfigwidget.h \
+    yzspiderconfigtreeview.h
