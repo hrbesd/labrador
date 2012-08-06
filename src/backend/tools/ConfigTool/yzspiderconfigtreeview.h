@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTreeView>
 #include <QFileSystemModel>
+#include "spiderconfigmodel.h"
 
 class YZSpiderConfigTreeView : public QTreeView
 {

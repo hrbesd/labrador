@@ -3,11 +3,16 @@
 #include <QString>
 #include <QList>
 #include <QVariant>
-struct Node;
+class Node;
+class Rule;
 
 class TreeItem
 {
 public:
+    enum Type{
+        NODE,
+        RULE
+    };
     TreeItem(TreeItem *parent = 0)
     {
         parentItem = parent;
@@ -28,6 +33,7 @@ public:
     virtual int childNumber() const = 0;
     virtual bool setData(int column, const QVariant &value) = 0;
     TreeItem *parentItem;
+    Type type;
 };
 
 struct Expression
@@ -54,13 +60,8 @@ struct Expression
 class Rule : public TreeItem
 {
 public:
-    Rule(TreeItem *parent = 0) : TreeItem(parent) {
-
-        childRule=NULL;
-        nextPageExpression.label = "nextPage";
-        urlExpression.label = "url";
-        titleExpression.label = "title";
-    }
+    Rule(TreeItem *parent = 0) ;
+    ~Rule();
     virtual TreeItem *child(int number);
     virtual int childCount() const;
     virtual int columnCount() const;
@@ -71,24 +72,20 @@ public:
     virtual bool removeColumns(int position, int columns);
     virtual int childNumber() const;
     virtual bool setData(int column, const QVariant &value);
-    QList<Expression*> expressionList;
+    QList<Expression> expressionList;
     Expression nextPageExpression;
     Expression urlExpression;
     Expression titleExpression;
     QString maxPageCount;
     QList<Node*> nodeList;
     Rule* childRule;
-    ~Rule(){
-        delete childRule;
-        qDeleteAll(nodeList);
-        qDeleteAll(expressionList);
-    }
 };
 
 class Node : public TreeItem
 {
 public:
     Node(TreeItem *parent = 0);
+    ~Node();
     virtual TreeItem *child(int number);
     virtual int childCount() const;
     virtual int columnCount() const;
@@ -103,9 +100,6 @@ public:
     QString name;
     QString refreshRate;
     QList<Rule*> ruleList;
-    ~Node(){
-        qDeleteAll(ruleList);
-    }
 };
 
 struct WebSite
