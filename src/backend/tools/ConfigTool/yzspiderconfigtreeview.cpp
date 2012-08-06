@@ -3,7 +3,6 @@
 YZSpiderConfigTreeView::YZSpiderConfigTreeView(QWidget *parent) :
     QTreeView(parent)
 {
-    QFileSystemModel *model = new QFileSystemModel;
-    model->setRootPath(QDir::currentPath());
+    SpiderConfigModel *model = new SpiderConfigModel(this);
     this->setModel(model);
 }
