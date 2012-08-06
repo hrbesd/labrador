@@ -15,8 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         yzconfigwindow.cpp \
     yzspiderconfigwidget.cpp \
-    yzspiderconfigtreeview.cpp
+    yzspiderconfigtreeview.cpp \
+    spiderconfigmodel.cpp \
+    DataInterface.cpp
 
 HEADERS  += yzconfigwindow.h \
     yzspiderconfigwidget.h \
-    yzspiderconfigtreeview.h
+    yzspiderconfigtreeview.h \
+    DataInterface.h \
+    spiderconfigmodel.h
