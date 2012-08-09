@@ -8,7 +8,7 @@ from executor import Executor
 from divider import Divider
 from rule_item import *
 import re, sys, os, codecs, html
-import utils
+import utils, tts_client
 
 VERSION_NAME = "0.3.1.SERVER"
 
@@ -27,6 +27,7 @@ class Reactor:
 		self.buildRules()
 		self.executor = Executor(config_file_path)
 		self.count = 0
+		self.client = tts_client.TTSClient()
 
 	def __str__(self):
 		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path
@@ -111,6 +112,9 @@ class Reactor:
 		resultData = soup.prettify().decode('utf-8')
 		resultFile.write(resultData)
 		resultFile.close()
+
+		# 文章内容生成之后，向Proxy发送文章URL，请求生成语音内容
+		self.client.callProxy(resultFilePath.encode('utf-8'))
 
 		self.count += 1
 		print 'Processed: %d' % self.count
