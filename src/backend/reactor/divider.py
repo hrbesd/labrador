@@ -8,7 +8,6 @@ class Divider:
 
 	def __init__(self, soup, configPath):
 		self.soup = soup
-		self.client = TTSClient()
 		self.dividerPattern = re.compile(ur"([^。，！？；……,!?;\n\r]+)([。，！？；……,!?;\n\r])", re.UNICODE)
 
 	def divide(self, element): # element is NavigableString
@@ -25,7 +24,7 @@ class Divider:
 					right = min(sentenceLength, left + self.MAX_STEP)
 					currentLength = right
 					words = sentence[left:right]
-					self.client.generateSound(words)
+					#self.client.generateSound(words)
 					sentenceTag = Tag(self.soup, 'data', [('class', 'tts_data')])
 					sentenceTag.insert(0, words)
 					resultSentence.append(sentenceTag)
@@ -54,7 +53,7 @@ class Divider:
 		# TODO 修改设计方式
 		for element in soup.findAll(['title', 'author']):
 			content = element.contents[0].strip()
-			self.client.generateSound(content)
+			#self.client.generateSound(content)
 			dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
 			dataTag.insert(0, content)
 			element.contents[0] = dataTag
@@ -67,7 +66,7 @@ class Divider:
 				content = dateStr.decode('utf-8')
 			except:
 				content = u"未知"
-			self.client.generateSound(content)
+			#self.client.generateSound(content)
 			dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
 			dataTag.insert(0, content)
 			element.contents[0] = dataTag

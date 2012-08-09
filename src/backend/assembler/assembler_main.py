@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys, os, shutil
 from BeautifulSoup import BeautifulSoup
+import utils
 
 VERSION_NAME = "0.3.1.SERVER"
 
@@ -128,10 +129,4 @@ class Assembler:
 		writeFile.close()
 
 	def mv2webroot(self):
-		self.fileMover(self.temp_out_dir, self.webroot_dir)
-
-	def fileMover(self, src, target):
-		# 由于shutil的copytree方法要求目录不能存在，因此首先要做判断，如果已经存在，就先使用shutil的rmtree来删除目录
-		if os.path.exists(target):
-			shutil.rmtree(target)
-		shutil.copytree(src, target)
+		utils.fileMover(self.temp_out_dir, self.webroot_dir)
