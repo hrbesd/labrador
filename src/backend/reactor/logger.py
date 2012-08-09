@@ -3,33 +3,61 @@
 # 这里采用了缓冲队列，只有在队列记录满，或者主动请求flush方法的时候才输出日志
 import time
 
-class Logger:
+outPath = None
+logBuff = []
+LOG_WINDOW_SIZE = 5000
 
-	def __init__(self, path):
-		self.outPath = path
-		self.logBuff = []
-		self.LOG_WINDOW_SIZE = 5000
+def setLogPath(path):
+	global outPath
+	if not outPath:
+		outPath = path
 
-	def flushCurrentLog(self):
-		if len(self.logBuff) == 0:
-			return
-		logFile = open(self.outPath, 'a+')
-		logFile.write('\n'.join(self.logBuff))
-		logFile.write('\n')
-		logFile.flush()
-		logFile.close()
-		self.logBuff = []
+def flushCurrentLog():
+	global logBuff, outPath
+	if len(logBuff) == 0:
+		return
+	logFile = open(outPath, 'a+')
+	logFile.write('\n'.join(logBuff))
+	logFile.write('\n')
+	logFile.flush()
+	logFile.close()
+	logBuff = []
 
-	def log(self, level, column, message):
-		logTime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
-		logStr = self.formatLog(logTime, level, column, message)
-		self.logBuff.append(logStr)
+def error(message):
+	log('ERROR', 'Console', [message, ])
 
-		if len(self.logBuff) >= self.LOG_WINDOW_SIZE:
-			self.flushCurrentLog()
+def warning(message):
+	log('WARNING', 'Console', [message, ])
 
-	def flush(self):
-		self.flushCurrentLog()
+def info(message):
+	log('INFO', 'Console', [message, ])
 
-	def formatLog(self, time, level, column, message):
-		return '[%s] [%s] [%s] [%s]' % (time, level, column, ' '.join(message))
+def debug(message):
+	log('DEBUG', 'Console', [message, ])
+
+def flush():
+	flushCurrentLog()
+
+def log(level, column, message):
+	logTime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+	logStr = formatLog(logTime, level, column, message)
+	logBuff.append(logStr)
+
+	if len(logBuff) >= LOG_WINDOW_SIZE:
+		flushCurrentLog()
+
+def formatLog(time, level, column, message):
+	return '[%s] [%s] [%s] [%s]' % (time, level, column, ' '.join(message))
+
+def runUnitTest():
+	setLogPath('/tmp/l1.log')
+	for i in xrange(1,10050):
+		error(str(i))
+		warning(str(i))
+		info(str(i))
+		debug(str(i))
+		log('WARNING', 'TEST', [str(i), ])
+	flush()
+
+if __name__ == '__main__':
+	runUnitTest()
