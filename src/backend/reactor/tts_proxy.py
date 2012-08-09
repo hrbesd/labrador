@@ -13,7 +13,6 @@ taskQueue = Queue.Queue(0)
 conDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://123.166.118.135:8080', 'ttsKey':'zhangjianzong'}
 
 def doWork(url):
-	print url
 	xmlDataFile = codecs.open(url, 'r', 'utf-8')
 	xmlData = xmlDataFile.read()
 	xmlDataFile.close()
@@ -23,10 +22,9 @@ def doWork(url):
 		if data_element.has_key('class') and data_element['class'] == 'tts_data':
 			for element in data_element:
 				if type(element) == NavigableString:
-					urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(element))
+					urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(element.encode('utf-8')))
  					conn = urllib2.urlopen(urlPath)
  					conn.close()
- 	print url
 
 def proxyWorker():
 	while True:
