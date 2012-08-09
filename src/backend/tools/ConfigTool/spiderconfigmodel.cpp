@@ -1,4 +1,5 @@
 #include "spiderconfigmodel.h"
+#include <QDebug>
 
 SpiderConfigModel::SpiderConfigModel(QObject *parent) :
     QAbstractItemModel(parent)
@@ -147,4 +148,9 @@ bool SpiderConfigModel::setHeaderData(int section, Qt::Orientation orientation,
                               const QVariant &value, int role)
 {
     return false;
+}
+
+void SpiderConfigModel::loadConfigFile(QString fileName)
+{
+    qDebug()<<fileName;
 }
