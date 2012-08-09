@@ -51,18 +51,18 @@ def parseArgs():
 	if args.version:
 		showVersion()
 	else:
-		main()
+		main(args)
 
 def showVersion():
 	print reactor_main.getVersionStr()
 
-def main():
+def main(args):
 	start = time.time()
 
 	# create singleton class
 	logger.setLogPath(args.log_file)
 
-	reactorObj = reactor_main.Reactor(args.rule_dir, args.config_dir, args.site_config, args.source_dir, args.worker_dir, args.shared_dir)
+	reactorObj = reactor_main.Reactor(args.rule_dir, args.config_dir, args.site_config, args.source_dir, args.worker_dir, args.shared_dir, args.log_file)
 	reactorObj.doReactorWork()
 
 	print "\n\n\n\nUsed %.3fs for reactor!" % (time.time() - start)
