@@ -8,6 +8,7 @@ from executor import Executor
 from divider import Divider
 from rule_item import *
 import re, sys, os, codecs, html
+import utils
 
 VERSION_NAME = "0.3.1.SERVER"
 
@@ -41,8 +42,10 @@ class Reactor:
 
 		self.ensureOutputFolderExists()
 		self.genNavFiles()
+		self.moveArticles()
 
-		self.processFilesRecursively(self.in_folder_path, self.doWork)
+		self.processFilesRecursively(self.doWork)
+
 		self.executor.finished()
 
 		return
@@ -61,23 +64,27 @@ class Reactor:
 
 		if len(indexPath) > 0:
 			command = '../../butts/reactor/producer --index-file=%s --webroot-dir=%s --log-file=%s' % (indexPath, self.out_folder_path, self.log_file)
-			print command
 			os.system(command)
 		else:
 			print 'Index file not found!'
 
+	def moveArticles(self):
+		utils.moveFile(self.in_folder_path, self.out_folder_path + "/a" + root[len(self.in_folder_path):] + "/")
+
 	# 递归处理文件
-	def processFilesRecursively(self, topPath, processFunction):
-		for root, dirs, files in os.walk(topPath):
+	def processFilesRecursively(self, processFunction):
+		for root, dirs, files in os.walk(self.out_folder_path):
 			for fileName in files:
 				processFunction(root, fileName)
 
 	def doWork(self, root, fileName):
-		srcFile = root + "/" + fileName
-		resultFileDir = self.out_folder_path + "/a" + root[len(self.in_folder_path):] + "/"
+		if not fileName.endswith('.xml'):
+			return
 
-		print resultFileDir
+		srcFile = root + "/" + fileName
+		resultFileDir = self.out_folder_path + root[len(self.in_folder_path):] + "/"
 		resultFilePath = resultFileDir + fileName
+		print resultFilePath
 
 		xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
 		xmlData = xmlDataFile.read()
