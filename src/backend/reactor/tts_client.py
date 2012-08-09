@@ -1,36 +1,20 @@
 # -*- encoding:utf-8 -*-
 # 调用TTS服务，并获取生成的mp3的结果
-import time
-import urllib, urllib2, html
-import threading
-from subprocess import Popen
+import urllib, urllib2
 
-NUM_THREAD_MAX = 8
-mutex = threading.Semaphore(NUM_THREAD_MAX)
-
-def callProxy(text):
-	global mutex
-	Popen(['python', '../../butts/reactor/tts_proxy.py', text])
-	mutex.release()
-
+# 将文章地址发送给TTSProxy，在TTSProxy中针对每个文章做请求
 class TTSClient:
-	def generateSound(self, text):
-		text = html.unescape_string(text)
-		if len(text.strip()) == 0:
-			return False
-
-		mutex.acquire()
-		t = threading.Thread(target=callProxy, args=[text, ])
-		t.start()
-		return True
+	def callProxy(self, filePath):
+		url = 'http://localhost:7800/genSoundForFile?path=%s' % filePath
+		print url
+		conn = urllib2.urlopen(url)
+		conn.close()
 
 def main():
-	t = TTSClient()
-	for i in range(10000):
-		t.generateSound(u'你好中国')
-		print "Processed %d" % i
+	client = TTSClient()
+	for x in xrange(1,10000):
+		p = u'/user/local/bin/path/我是中文/%s' % x
+		client.callProxy(p.encode('utf-8'))
 
 if __name__ == '__main__':
-	start = time.time()
 	main()
-	print "\n\n\n\nUsed %.3fs for 10000 requests!" % (time.time() - start)

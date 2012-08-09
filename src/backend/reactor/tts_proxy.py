@@ -1,17 +1,63 @@
 #!/usr/bin/python
 # -*- encoding:utf-8 -*-
-import urllib2, sys
+import urllib2
+import Queue
+import bottle
+from bottle import run, route, request
+from threading import Thread
+from BeautifulSoup import BeautifulSoup
+
+NUM_WORKER_THREADS = 8
+taskQueue = Queue.Queue(0)
 
 conDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://123.166.118.135:8080', 'ttsKey':'zhangjianzong'}
 
-def doWork(text):
-	urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(text))
+def doWork(url):
+	print url
+	xmlDataFile = codecs.open(url, 'r', 'utf-8')
+	xmlData = xmlDataFile.read()
+	xmlDataFile.close()
+
+	soup = BeautifulSoup(xmlData)
+	for data_element in soup.findAll('data'):
+		if data_element.has_key('class') and data_element['class'] = 'tts_data':
+			for element in data_element:
+				if type(element) == NavigableString:
+					urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(element))
+					print urlPath
+ 					conn = urllib2.urlopen(urlPath)
+ 					conn.close()
+ 	print url
+
+def proxyWorker():
+	while True:
+		item = taskQueue.get(True)
+		doWork(item)
+		taskQueue.task_done()
+
+@route('/genSoundForFile')
+def genSoundForFile():
+	path = request.GET.get('path', default=None)
+	if path is not None:
+		addTask(path)
+	return "DONE"
+
+def addTask(filePath):
+	global taskQueue
+	taskQueue.put(filePath)
+
+def main():
+	for i in range(NUM_WORKER_THREADS):
+		t = Thread(target=proxyWorker)
+		t.daemon = True
+		t.start()
+
+	bottle.debug(False)
+
 	try:
-		conn = urllib2.urlopen(urlPath)
-		conn.close()
+		run(host='localhost', port=7800, quiet=True)
 	except Exception as e:
 		print e
 
 if __name__ == '__main__':
-	if len(sys.argv) > 0:
-		doWork(sys.argv[0])
+	main()
