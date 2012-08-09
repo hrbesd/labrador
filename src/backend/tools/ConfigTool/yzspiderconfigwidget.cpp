@@ -7,4 +7,16 @@ YZSpiderConfigWidget::YZSpiderConfigWidget(QWidget *parent) :
     QVBoxLayout *vboxLayout = new QVBoxLayout(this);
     vboxLayout->addWidget(m_spiderConfigTreeView);
     this->setLayout(vboxLayout);
+
+    initConnections();
+}
+
+void YZSpiderConfigWidget::initConnections()
+{
+
+}
+
+void YZSpiderConfigWidget::loadSpiderConfigFile(QString fileName)
+{
+    m_spiderConfigTreeView->model->loadConfigFile(fileName);
 }

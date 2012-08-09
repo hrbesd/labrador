@@ -111,9 +111,6 @@ bool Rule::insertChildren(int position, int count, int columns)
 
     for (int row = 0; row < count; ++row) {
         TreeItem *item = new Node(this);
-        Rule * tmpRule = new Rule(item);
-        dynamic_cast<Node*>(item)->ruleList.append(tmpRule);
-
         nodeList.insert(position, dynamic_cast<Node*>(item));
     }
 

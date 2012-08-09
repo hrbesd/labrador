@@ -11,7 +11,7 @@ class YZSpiderConfigTreeView : public QTreeView
     Q_OBJECT
 public:
     explicit YZSpiderConfigTreeView(QWidget *parent = 0);
-    
+    SpiderConfigModel *model;
 signals:
     
 public slots:
