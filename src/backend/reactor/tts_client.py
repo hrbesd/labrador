@@ -2,6 +2,16 @@
 # 调用TTS服务，并获取生成的mp3的结果
 import time
 import urllib, urllib2, html
+import threading
+from subprocess import Popen
+
+NUM_THREAD_MAX = 8
+mutex = threading.Semaphore(NUM_THREAD_MAX)
+
+def callProxy(text):
+	global mutex
+	Popen(['python', '../../butts/reactor/tts_proxy.py', text])
+	mutex.release()
 
 class TTSClient:
 	def generateSound(self, text):
@@ -9,15 +19,13 @@ class TTSClient:
 		if len(text.strip()) == 0:
 			return False
 
-		data = urllib.urlencode({'text' : text.encode('utf-8')})
-		conn = urllib2.urlopen('http://127.0.0.1:7800/text2Speech?%s' % data)
-		conn.close()
+		mutex.acquire()
+		t = threading.Thread(target=callProxy, args=[text, ])
+		t.start()
 		return True
 
 def main():
-	print "Got Here!!!"
 	t = TTSClient()
-	print "Got Here2!!!!"
 	for i in range(10000):
 		t.generateSound(u'你好中国')
 		print "Processed %d" % i

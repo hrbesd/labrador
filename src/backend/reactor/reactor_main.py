@@ -99,13 +99,13 @@ class Reactor:
 		# &amp;nbsp; => &nbsp; => " "
 		xmlData = html.unescape_string(xmlData) 
 
-		# 最后做断句处理
-		# divider = Divider(soup, self.config_file_path)
-		# soup = divider.doWork()
-
 		soup = BeautifulSoup(xmlData)
 		soup = BeautifulSoup(soup.prettify())
-		self.semanticify(soup)
+		self.semanticify(soup, resultFilePath)
+
+		# 最后做断句处理
+		divider = Divider(soup, self.config_file_path)
+		soup = divider.doWork()
 
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
 		resultData = soup.prettify().decode('utf-8')
@@ -116,7 +116,7 @@ class Reactor:
 		print 'Processed: %d' % self.count
 
 	# 语义化处理
-	def semanticify(self, soup):
+	def semanticify(self, soup, resultFilePath):
 		# 建立originUrl为key，[hash, absoluteUrl]为value的字典
 		hashNodeRecords = {}
 		try:
