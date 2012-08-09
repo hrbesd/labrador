@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- encoding:utf-8 -*-
-import urllib2
+import urllib2, codecs
 import Queue
 import bottle
 from bottle import run, route, request
@@ -20,7 +20,7 @@ def doWork(url):
 
 	soup = BeautifulSoup(xmlData)
 	for data_element in soup.findAll('data'):
-		if data_element.has_key('class') and data_element['class'] = 'tts_data':
+		if data_element.has_key('class') and data_element['class'] == 'tts_data':
 			for element in data_element:
 				if type(element) == NavigableString:
 					urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(element))

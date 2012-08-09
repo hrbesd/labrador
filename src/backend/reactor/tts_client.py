@@ -6,7 +6,6 @@ import urllib, urllib2
 class TTSClient:
 	def callProxy(self, filePath):
 		url = 'http://localhost:7800/genSoundForFile?path=%s' % filePath
-		print url
 		conn = urllib2.urlopen(url)
 		conn.close()
 
