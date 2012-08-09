@@ -88,12 +88,7 @@ class Reactor:
 			return
 
 		srcFile = root + "/" + fileName
-
-		resultFileDir = self.out_folder_path + root[len(self.in_folder_path):] + "/"
-		resultFilePath = resultFileDir + fileName
-
-		print srcFile
-		print resultFilePath
+		resultFilePath = srcFile
 
 		xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
 		xmlData = xmlDataFile.read()
@@ -104,9 +99,24 @@ class Reactor:
 		# &amp;nbsp; => &nbsp; => " "
 		xmlData = html.unescape_string(xmlData) 
 
+		# 最后做断句处理
+		# divider = Divider(soup, self.config_file_path)
+		# soup = divider.doWork()
+
 		soup = BeautifulSoup(xmlData)
 		soup = BeautifulSoup(soup.prettify())
+		self.semanticify(soup)
 
+		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
+		resultData = soup.prettify().decode('utf-8')
+		resultFile.write(resultData)
+		resultFile.close()
+
+		self.count += 1
+		print 'Processed: %d' % self.count
+
+	# 语义化处理
+	def semanticify(self, soup):
 		# 建立originUrl为key，[hash, absoluteUrl]为value的字典
 		hashNodeRecords = {}
 		try:
@@ -155,18 +165,3 @@ class Reactor:
 
 					if len(rule.logLevel.strip()) > 0 and len(rule.logMsg) > 0:
 						self.executor.doLog(rule.logLevel, resultFilePath, rule.logMsg)
-
-		# 最后做断句处理
-		divider = Divider(soup, self.config_file_path)
-		soup = divider.doWork()
-
-		if not os.path.exists(resultFileDir):
-			os.makedirs(resultFileDir)
-
-		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
-		resultData = soup.prettify().decode('utf-8')
-		resultFile.write(resultData)
-		resultFile.close()
-
-		self.count += 1
-		print 'Processed: %d' % self.count
