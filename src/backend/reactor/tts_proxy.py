@@ -20,8 +20,13 @@ def doWork(url):
 
 	soup = BeautifulSoup(xmlData)
 	for data_element in soup.findAll('data'):
+		print data_element
+		print data_element.has_key('class')
+		if data_element.has_key('class'):
+			print data_element['class']
 		if data_element.has_key('class') and data_element['class'] == 'tts_data':
 			for element in data_element:
+				print type(element)
 				if type(element) == NavigableString:
 					urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(element))
 					print urlPath
