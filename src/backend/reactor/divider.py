@@ -2,12 +2,14 @@
 # 用来处理断句，并进行请求，将结果存放到服务器
 from BeautifulSoup import BeautifulSoup, Comment, Tag, NavigableString
 import datetime, re, html
+import tts_client
 
 class Divider:
 	MAX_STEP = 100
 
 	def __init__(self, soup, configPath):
 		self.soup = soup
+		self.client = tts_client.TTSClient()
 		self.dividerPattern = re.compile(ur"([^。，！？；……,!?;\n\r]+)([。，！？；……,!?;\n\r])", re.UNICODE)
 
 	def divide(self, element): # element is NavigableString
