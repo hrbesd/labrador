@@ -64,6 +64,9 @@ private:
 
     //output xml dir and download webpages
     void outputWebsite(QString fileName);
+
+    //tools
+    bool checkWhetherNodeExists(Node &nodeItem);
     QNetworkAccessManager *m_networkAccessManager;
     QMap<QNetworkReply*,Node*> m_webPageDownloadingTask;
     QLinkedList<Node*> m_webPageRequestTask;
