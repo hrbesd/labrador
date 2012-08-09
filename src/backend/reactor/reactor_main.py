@@ -41,13 +41,19 @@ class Reactor:
 			return
 
 		self.ensureOutputFolderExists()
+
+		print 'Generating navigation files...'
 		self.genNavFiles()
+
+		print 'Moving parser generated files...'
 		self.moveArticles()
 
+		print 'Begin processing...'
 		self.processFilesRecursively(self.doWork)
 
 		self.executor.finished()
 
+		print 'Done!'
 		return
 
 	def ensureInputFolderExists(self):
@@ -69,7 +75,7 @@ class Reactor:
 			print 'Index file not found!'
 
 	def moveArticles(self):
-		utils.moveFile(self.in_folder_path, self.out_folder_path + "/a" + root[len(self.in_folder_path):] + "/")
+		utils.moveFile(self.in_folder_path, self.out_folder_path + '/a')
 
 	# 递归处理文件
 	def processFilesRecursively(self, processFunction):
@@ -82,8 +88,11 @@ class Reactor:
 			return
 
 		srcFile = root + "/" + fileName
+
 		resultFileDir = self.out_folder_path + root[len(self.in_folder_path):] + "/"
 		resultFilePath = resultFileDir + fileName
+
+		print srcFile
 		print resultFilePath
 
 		xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
