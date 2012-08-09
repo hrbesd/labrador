@@ -1,29 +1,42 @@
 #!/usr/bin/python
 # -*- encoding:utf-8 -*-
-# 为reactor提供命令行参数的包装、处理
-# 不进行reactor的实际操作
+# 为reactor提供命令行参数的包装
+# 根据参数执行不同的命令
 import reactor_main, argparse
 import cProfile, pstats
 import time
-from subprocess import Popen
+import logger
 
 args = None
 
-def main():
-	start = time.time()
+def parseArgs():
+	'''Parse Command Line Arguments
+	
+	-v, --version
+		Tell user the reactor version, in the format of MAJOR_VERSION.MINOR_VERSION.SUB_VERSION.[Desktop/Server/Cloud]
 
-	# start the proxy
-	proxy = Popen(['python', '../../butts/reactor/tts_proxy.py'])
+	--rule-dir
+		The reactor DSL dir location
 
-	time.sleep(2)
+	--config-dir
+		The configuration dir for reactor
 
-	reactorObj = reactor_main.Reactor(args.rule_dir, args.config_dir, args.source_dir, args.worker_dir, args.log_file)
-	reactorObj.doReactorWork()
+	--source-dir
+		Tell the reactor about the analyser files
 
-	print "\n\n\n\nUsed %.3fs for reactor!" % (time.time() - start)
+	--worker-dir
+		Where to write the reactor files
 
+	--site-config
+		The configuration dir of the site
 
-if __name__ == '__main__':
+	--shared-dir
+		The sitemap.xml file
+
+	--log-file
+		Where to write the log. All reactor logs are written into one single log file, seperated by different components.
+
+	'''
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-v', '--version', help='显示当前版本号', action='store_true')
 	parser.add_argument('--rule-dir', help='reactor规则文件位置', default='reactor.rrule')
@@ -36,12 +49,24 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 	if args.version:
-		print reactor_main.getVersionStr()
+		showVersion()
 	else:
-		logName = 'profiler.log'
-		cProfile.run('main()', logName)
+		main()
 
-		# show it
-		print 'Profiler result:'
-		p = pstats.Stats(logName)
-		p.strip_dirs().sort_stats('cumulative').print_stats()
+def showVersion():
+	print reactor_main.getVersionStr()
+
+def main():
+	start = time.time()
+
+	# create singleton class
+	logger.setLogPath(args.log_file)
+
+	reactorObj = reactor_main.Reactor(args.rule_dir, args.config_dir, args.site_config, args.source_dir, args.worker_dir, args.shared_dir)
+	reactorObj.doReactorWork()
+
+	print "\n\n\n\nUsed %.3fs for reactor!" % (time.time() - start)
+
+
+if __name__ == '__main__':
+	parseArgs()

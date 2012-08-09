@@ -28,7 +28,6 @@ class Assembler:
 
 		#2. 调用外部工具，生成导航栏目；在调用之前先确保目录存在
 		self.ensureOutputFolderExists()
-		self.genNavFiles()
 
 		# 3.将所有stylesheet_path中文件复制到temp_out_dir中
 		self.copyResourceFiles()
@@ -60,16 +59,6 @@ class Assembler:
 
 		if not os.path.exists(self.webroot_dir):
 			os.makedirs(self.webroot_dir)
-
-	def genNavFiles(self):
-		indexPath = self.share_dir + "/dir.xml"
-
-		if len(indexPath) > 0:
-			command = '../../butts/assembler/producer --index-file=%s --webroot-dir=%s --log-file=%s' % (indexPath, self.temp_out_dir, self.log_file)
-			print command
-			os.system(command)
-		else:
-			print 'Index file not found!'
 
 	def copyResourceFiles(self):
 		# 导航文件直接在temp_out_path中生成，所以不用复制，需要复制的是stylesheets目录

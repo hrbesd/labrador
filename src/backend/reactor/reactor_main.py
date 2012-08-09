@@ -15,18 +15,18 @@ def getVersionStr():
 	return 'Labrador Reactor Version %s' % VERSION_NAME
 
 class Reactor:
-	def __init__(self, rule_file_path, config_file_path, in_folder_path, out_folder_path, log_file_path):
+	def __init__(self, rule_file_path, config_file_path, site_config, in_folder_path, out_folder_path, shared_dir):
 		self.rule_file_path = rule_file_path + "/reactor_rules.rrule"
 		self.config_file_path = config_file_path + "/reactor_config.config"
 		self.in_folder_path = in_folder_path
 		self.out_folder_path = out_folder_path
 		self.rule_list = []
 		self.buildRules()
-		self.executor = Executor(config_file_path, log_file_path)
+		self.executor = Executor(config_file_path)
 		self.count = 0
 
 	def __str__(self):
-		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path + '", using rule file "' + self.rule_file_path + '"'
+		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path
 
 	def buildRules(self):
 		parser = RuleParser()
@@ -36,7 +36,10 @@ class Reactor:
 		if not self.ensureInputFolderExists():
 			print "Error: Input folder does not exists."
 			return
+
 		self.ensureOutputFolderExists()
+		self.genNavFiles()
+
 		self.processFilesRecursively(self.in_folder_path, self.doWork)
 		self.executor.finished()
 
@@ -50,6 +53,17 @@ class Reactor:
 		if not os.path.exists(self.out_folder_path):
 			os.makedirs(self.out_folder_path)
 
+	# 生成index.xml，l、c目录下的xml
+	def genNavFiles(self):
+		indexPath = self.shared_dir + "/dir.xml"
+
+		if len(indexPath) > 0:
+			command = '../../butts/reactor/producer --index-file=%s --webroot-dir=%s --log-file=%s' % (indexPath, self.out_folder_path, self.log_file)
+			print command
+			os.system(command)
+		else:
+			print 'Index file not found!'
+
 	# 递归处理文件
 	def processFilesRecursively(self, topPath, processFunction):
 		for root, dirs, files in os.walk(topPath):
@@ -58,7 +72,9 @@ class Reactor:
 
 	def doWork(self, root, fileName):
 		srcFile = root + "/" + fileName
-		resultFileDir = self.out_folder_path + root[len(self.in_folder_path):] + "/"
+		resultFileDir = self.out_folder_path + "/a" + root[len(self.in_folder_path):] + "/"
+
+		print resultFileDir
 		resultFilePath = resultFileDir + fileName
 
 		xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
