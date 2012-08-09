@@ -5,9 +5,8 @@ import logger
 from config_parser import ConfigParser
 
 class Executor:
-	def __init__(self, configFilePath, logPath):
+	def __init__(self, configFilePath):
 		self.configPath = configFilePath
-		self.log = logger.Logger(logPath)
 
 	# condition
 	def missing(self, target, args):
@@ -91,12 +90,13 @@ class Executor:
 		pass
 
 	def pageTitle(self, url):
+		#TODO do that
 		return 'test'
 
 	# log
 	def doLog(self, level, filename, message):
-		self.log.log(level, filename, message)
+		logger.log(level, filename, message)
 
 	# end of reactor
 	def finished(self):
-		self.log.flush()
+		logger.flush()
