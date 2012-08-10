@@ -17,6 +17,7 @@ class Assembler:
 		self.temp_out_dir = temp_out_dir
 		self.webroot_dir = webroot_dir
 		self.log_file = log_file
+		self.count = 0
 
 	def __str__(self):
 		return getVersionStr()
@@ -37,6 +38,7 @@ class Assembler:
 		self.processFilesRecursively()
 
 		# 5.将temp_out_dir中的内容复制到webroot_dir中
+		print 'Moving to webroot...'
 		self.mv2webroot()
 
 		print 'Done!'
@@ -91,6 +93,9 @@ class Assembler:
 			for fileName in files:
 				srcFile = root + "/" + fileName
 				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/article.xsl'), 2)
+
+				count = count + 1
+				print 'Processed %d' % count
 		pass
 
 	def addContentAtLineNumber(self, filePath, content, lineNo):
