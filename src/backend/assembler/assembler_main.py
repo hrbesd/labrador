@@ -90,7 +90,7 @@ class Assembler:
 		for root, dirs, files in os.walk(aFolderPath):
 			for fileName in files:
 				srcFile = root + "/" + fileName
-				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/list.xsl'), 2)
+				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/article.xsl'), 2)
 		pass
 
 	def addContentAtLineNumber(self, filePath, content, lineNo):
