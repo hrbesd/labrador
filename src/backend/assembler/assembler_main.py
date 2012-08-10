@@ -27,7 +27,7 @@ class Assembler:
 			print "Error: Input folder does not exists."
 			return
 
-		#2. 调用外部工具，生成导航栏目；在调用之前先确保目录存在
+		# 2.确保目录存在
 		self.ensureOutputFolderExists()
 
 		# 3.将所有stylesheet_path中文件复制到temp_out_dir中
@@ -89,33 +89,8 @@ class Assembler:
 		# a
 		for root, dirs, files in os.walk(aFolderPath):
 			for fileName in files:
-				parentFile = root + "/" + fileName
-				dataFile = self.in_folder_path + "/" + fileName[:2] + "/" + fileName
-
-				try:
-					data = open(dataFile)
-					dataContent = data.read()
-					data.close()
-
-					parent = open(parentFile)
-					parentContent = parent.read()
-					parent.close()
-
-					dataSoup = BeautifulSoup(dataContent)
-					parentSoup = BeautifulSoup(parentContent)
-
-					dataSoup.article.insert(0, parentSoup.parentpageurl)
-
-					writeFile = open(parentFile, 'w')
-					writeFile.write(str(dataSoup))
-					writeFile.close()
-
-					self.addContentAtLineNumber(parentFile, self.xsltPath('../../xml_stylesheets/article.xsl'), 2)
-
-					print 'generated %s ' % parentFile
-				except:
-					pass
-
+				srcFile = root + "/" + fileName
+				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/list.xsl'), 2)
 		pass
 
 	def addContentAtLineNumber(self, filePath, content, lineNo):
