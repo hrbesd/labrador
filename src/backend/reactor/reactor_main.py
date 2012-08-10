@@ -75,35 +75,28 @@ class Reactor:
 		else:
 			print 'Index file not found!'
 
-	def moveArticles(self):
-		for root, dirs, files in os.walk(self.in_folder_path):
-			for fileName in files:
-				try:
-					dataFile = root + "/" + fileName
-					parentFile = self.out_folder_path + "/a/" + fileName[:2] + "/" + fileName
-					data = open(dataFile)
-					dataContent = data.read()
-					data.close()
+	def getParentFilePathForFileName(self, fileName):
+		return self.in_folder_path + "/" + fileName[:2] + "/" + fileName
 
-					print dataFile
-					print parentFile
+	def parentFileExists(self, fileName):
+		return os.exists(self.getParentFilePathForFileName(fileName))
 
-					parent = open(parentFile)
-					parentContent = parent.read()
-					parent.close()
+	def integrateParentWithData(self, fileName, dataFile):
+		data = open(dataFile)
+		dataContent = data.read()
+		data.close()
 
-					dataSoup = BeautifulSoup(dataContent)
-					parentSoup = BeautifulSoup(parentContent)
+		parentFile = getParentFilePathForFileName(fileName)
+		parent = open(parentFile)
+		parentContent = parent.read()
+		parent.close()
 
-					dataSoup.article.insert(0, parentSoup.parentpageurl)
+		dataSoup = BeautifulSoup(dataContent)
+		parentSoup = BeautifulSoup(parentContent)
 
-					writeFile = open(parentFile, 'w')
-					writeFile.write(str(dataSoup))
-					writeFile.close()
-				except Exception as e:
-					print e
-					pass
-		utils.moveFile(self.in_folder_path, self.out_folder_path + '/a')
+		dataSoup.article.insert(0, parentSoup.parentpageurl)
+
+		return dataSoup.prettify()
 
 	# 递归处理文件
 	def processFilesRecursively(self, processFunction):
@@ -118,9 +111,13 @@ class Reactor:
 		srcFile = root + "/" + fileName
 		resultFilePath = srcFile
 
-		xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
-		xmlData = xmlDataFile.read()
-		xmlDataFile.close()
+		xmlData = ''
+		if self.parentFileExists(fileName):
+			xmlData = self.integrateParentWithData(fileName, srcFile)
+		else:
+			xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
+			xmlData = xmlDataFile.read()
+			xmlDataFile.close()
 
 		xmlData = html.unescape_string(xmlData)
 		# get rip of something like "&amp;nbsp;"
