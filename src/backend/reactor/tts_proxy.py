@@ -10,7 +10,7 @@ from BeautifulSoup import BeautifulSoup, NavigableString
 NUM_WORKER_THREADS = 8
 taskQueue = Queue.Queue(0)
 
-conDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://123.166.118.135:8080', 'ttsKey':'zhangjianzong'}
+conDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://116.255.231.36:8083', 'ttsKey':'zhangjianzong'}
 
 def doWork(url):
 	xmlDataFile = codecs.open(url, 'r', 'utf-8')
