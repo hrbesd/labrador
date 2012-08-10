@@ -46,9 +46,6 @@ class Reactor:
 		print 'Generating navigation files...'
 		self.genNavFiles()
 
-		print 'Moving parser generated files...'
-		self.moveArticles()
-
 		print 'Begin processing...'
 		self.processFilesRecursively(self.doWork)
 
@@ -75,18 +72,18 @@ class Reactor:
 		else:
 			print 'Index file not found!'
 
-	def getParentFilePathForFileName(self, fileName):
+	def getDataFilePathForFileName(self, fileName):
 		return self.in_folder_path + "/" + fileName[:2] + "/" + fileName
 
-	def parentFileExists(self, fileName):
-		return os.exists(self.getParentFilePathForFileName(fileName))
+	def dataFileExists(self, fileName):
+		return os.path.exists(self.getDataFilePathForFileName(fileName))
 
-	def integrateParentWithData(self, fileName, dataFile):
+	def integrateParentWithData(self, fileName, parentFile):
+		dataFile = self.getDataFilePathForFileName(fileName)
 		data = open(dataFile)
 		dataContent = data.read()
 		data.close()
 
-		parentFile = getParentFilePathForFileName(fileName)
 		parent = open(parentFile)
 		parentContent = parent.read()
 		parent.close()
@@ -112,7 +109,7 @@ class Reactor:
 		resultFilePath = srcFile
 
 		xmlData = ''
-		if self.parentFileExists(fileName):
+		if self.dataFileExists(fileName):
 			xmlData = self.integrateParentWithData(fileName, srcFile)
 		else:
 			xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
