@@ -76,6 +76,33 @@ class Reactor:
 			print 'Index file not found!'
 
 	def moveArticles(self):
+		for root, dirs, files in os.walk(self.in_folder_path):
+			for fileName in files:
+				try:
+					dataFile = root + "/" + fileName
+					parentFile = self.out_folder_path + "/a/" + fileName[:2] + "/" + fileName
+					data = open(dataFile)
+					dataContent = data.read()
+					data.close()
+
+					print dataFile
+					print parentFile
+
+					parent = open(parentFile)
+					parentContent = parent.read()
+					parent.close()
+
+					dataSoup = BeautifulSoup(dataContent)
+					parentSoup = BeautifulSoup(parentContent)
+
+					dataSoup.article.insert(0, parentSoup.parentpageurl)
+
+					writeFile = open(parentFile, 'w')
+					writeFile.write(str(dataSoup))
+					writeFile.close()
+				except Exception as e:
+					print e
+					pass
 		utils.moveFile(self.in_folder_path, self.out_folder_path + '/a')
 
 	# 递归处理文件
