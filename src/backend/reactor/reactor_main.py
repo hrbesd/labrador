@@ -80,11 +80,11 @@ class Reactor:
 
 	def integrateParentWithData(self, fileName, parentFile):
 		dataFile = self.getDataFilePathForFileName(fileName)
-		data = open(dataFile)
+		data = codecs.open(dataFile, 'r', 'utf-8')
 		dataContent = data.read()
 		data.close()
 
-		parent = open(parentFile)
+		parent = codecs.open(parentFile, 'r', 'utf-8')
 		parentContent = parent.read()
 		parent.close()
 
@@ -110,7 +110,7 @@ class Reactor:
 
 		xmlData = ''
 		if self.dataFileExists(fileName):
-			xmlData = self.integrateParentWithData(fileName, srcFile)
+			xmlData = self.integrateParentWithData(fileName, srcFile).decode('utf-8')
 		else:
 			xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
 			xmlData = xmlDataFile.read()
