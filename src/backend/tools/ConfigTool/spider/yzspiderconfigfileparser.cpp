@@ -40,7 +40,6 @@ void YZSpiderConfigFileParser::parseWebsiteXml(QXmlStreamReader &reader, WebSite
         }
         reader.readNext();
     }
-
 }
 
 void YZSpiderConfigFileParser::parseNodeXml(QXmlStreamReader &reader, Node *node)

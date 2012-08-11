@@ -1,4 +1,5 @@
 #include "DataInterface.h"
+#include <QDebug>
 Node::Node()
 {
     itemType = Item::NODE;
@@ -7,7 +8,6 @@ Node::Node()
 Node::~Node()
 {
     qDeleteAll(ruleList);
-    ruleList.clear();
 }
 
 TreeItem::TreeItem(TreeItem *parent, Item *data)
@@ -20,6 +20,7 @@ TreeItem::TreeItem(TreeItem *parent, Item *data)
 TreeItem::~TreeItem()
 {
     qDeleteAll(childItems);
+    qDebug()<<this;
 }
 
 TreeItem* TreeItem::child(int number)
