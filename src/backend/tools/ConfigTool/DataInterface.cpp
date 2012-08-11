@@ -1,7 +1,7 @@
 #include "DataInterface.h"
-Node::Node(TreeItem *parent) : TreeItem(parent)
+Node::Node()
 {
-    type = TreeItem::NODE;
+    itemType = Item::NODE;
 }
 
 Node::~Node()
@@ -10,134 +10,171 @@ Node::~Node()
     ruleList.clear();
 }
 
-TreeItem *Node::child(int number)
+TreeItem::TreeItem(TreeItem *parent, Item *data)
 {
-    return dynamic_cast<TreeItem*>(ruleList.value(number));
+    itemType = Item::TREE;
+    parentItem = parent;
+    dataItem = data;
 }
-int Node::childCount() const
+
+TreeItem::~TreeItem()
 {
-    return ruleList.size();
+    qDeleteAll(childItems);
 }
-int Node::columnCount() const
+
+TreeItem* TreeItem::child(int number)
+{
+    return childItems.value(number);
+}
+
+int TreeItem::childCount() const
+{
+    return childItems.size();
+}
+
+int TreeItem::columnCount() const
 {
     return 1;
 }
-QVariant Node::data(int column) const
-{
-    return name;
-}
-bool Node::insertChildren(int position, int count, int columns)
-{
-    if (position < 0 || position > ruleList.size())
-        return false;
 
-    for (int row = 0; row < count; ++row) {
-        TreeItem *item = new Rule(this);
-        ruleList.insert(position, dynamic_cast<Rule*>(item));
+QVariant TreeItem::data(int column) const
+{
+    if(dataItem)
+    {
+        if(dataItem->itemType==Item::NODE)
+        {
+            return dynamic_cast<Node*>(dataItem)->name;
+        }
+        else if(dataItem->itemType==Item::RULE)
+        {
+            if(parentItem)
+            {
+                return QVariant(dynamic_cast<Node*>(parentItem->dataItem)->name+"Rule");
+            }
+        }
     }
+}
 
-    return true;
-}
-bool Node::insertColumns(int position, int columns)
+bool TreeItem::insertChildren(int position, int count, int columns)
 {
-    return true;
-}
-bool Node::removeChildren(int position, int count)
-{
-    if (position < 0 || position + count > ruleList.size())
-        return false;
+    if(dataItem)
+    {
+        if(dataItem->itemType==Item::NODE)
+        {
+            Node *tmpNode = dynamic_cast<Node*>(dataItem);
+            if (position < 0 || position > tmpNode->ruleList.size())
+                return false;
 
-    for (int row = 0; row < count; ++row)
-        delete ruleList.takeAt(position);
+            for (int row = 0; row < count; ++row) {
+                Rule *item = new Rule();
+                tmpNode->ruleList.insert(position, item);
+                TreeItem *tmpTreeItem = new TreeItem(this,item);
+                this->childItems.insert(position,tmpTreeItem);
+            }
+            return true;
+        }
+        else if(dataItem->itemType==Item::RULE)
+        {
+            Rule* tmpRule = dynamic_cast<Rule*>(dataItem);
+            if (position < 0 || position > tmpRule->nodeList.size())
+                return false;
 
-    return true;
+            for (int row = 0; row < count; ++row) {
+                Node *node = new Node();
+                tmpRule->nodeList.insert(position, node);
+                TreeItem *tmpTreeItem = new TreeItem(this,node);
+                this->childItems.insert(position,tmpTreeItem);
+            }
+            return true;
+        }
+    }
 }
-bool Node::removeColumns(int position, int columns)
+
+bool TreeItem::insertColumns(int position, int columns)
 {
-    return true;
+    return false;
 }
-int Node::childNumber() const
+
+bool TreeItem::removeChildren(int position, int count)
+{
+    if(dataItem)
+    {
+        if(dataItem->itemType==Item::NODE)
+        {
+            Node *tmpNode = dynamic_cast<Node*>(dataItem);
+            if (position < 0 || position + count > tmpNode->ruleList.size())
+                return false;
+
+            for (int row = 0; row < count; ++row)
+            {
+                delete tmpNode->ruleList.takeAt(position);
+                delete this->childItems.takeAt(position);
+            }
+
+            return true;
+        }
+        else if(dataItem->itemType==Item::RULE)
+        {
+            Rule* tmpRule = dynamic_cast<Rule*>(dataItem);
+            if (position < 0 || position + count > tmpRule->nodeList.size())
+                return false;
+
+            for (int row = 0; row < count; ++row)
+            {
+                tmpRule->nodeList.removeAt(position);
+                delete this->childItems.takeAt(position);
+            }
+
+            return true;
+        }
+    }
+}
+
+bool TreeItem::removeColumns(int position, int columns)
+{
+    return false;
+}
+
+int TreeItem::childNumber() const
 {
     if (parentItem)
-        return dynamic_cast<Rule*>(parentItem)->nodeList.indexOf(const_cast<Node*>(this));
+        return parentItem->childItems.indexOf(const_cast<TreeItem*>(this));
 
     return 0;
 }
-bool Node::setData(int column, const QVariant &value)
-{
-    if (column < 0 || column >= 1)
-        return false;
 
-    name=value.toString();
-    return true;
+bool TreeItem::setData(int column, const QVariant &value)
+{
+    if(dataItem)
+    {
+        if(dataItem->itemType==Item::NODE)
+        {
+            if (column < 0 || column >= 1)
+                return false;
+
+            dynamic_cast<Node*>(dataItem)->name=value.toString();
+            return true;
+        }
+        else if(dataItem->itemType==Item::RULE)
+        {
+            return false;
+        }
+    }
+
+    return false;
 }
 
-Rule::Rule(TreeItem *parent) : TreeItem(parent)
+Rule::Rule()
 {
     childRule=NULL;
     nextPageExpression.label = "nextPage";
     urlExpression.label = "url";
     titleExpression.label = "title";
-    type = TreeItem::RULE;
+    itemType = Item::RULE;
 }
 
 Rule::~Rule()
 {
     delete childRule;
-    expressionList.clear();
     qDeleteAll(nodeList);
-}
-
-TreeItem *Rule::child(int number)
-{
-    return dynamic_cast<TreeItem*>(nodeList.value(number));
-}
-int Rule::childCount() const
-{
-    return nodeList.count();
-}
-int Rule::columnCount() const
-{
-    return 1;
-}
-QVariant Rule::data(int column) const
-{
-    return QVariant(dynamic_cast<Node*>(parentItem)->name+"Rule");
-}
-bool Rule::insertChildren(int position, int count, int columns)
-{
-    if (position < 0 || position > nodeList.size())
-        return false;
-
-    for (int row = 0; row < count; ++row) {
-        TreeItem *item = new Node(this);
-        nodeList.insert(position, dynamic_cast<Node*>(item));
-    }
-
-    return true;
-}
-bool Rule::insertColumns(int position, int columns){
-    return true;
-}
-bool Rule::removeChildren(int position, int count)
-{
-    if (position < 0 || position + count > nodeList.size())
-        return false;
-
-    for (int row = 0; row < count; ++row)
-        delete nodeList.takeAt(position);
-
-    return true;
-}
-bool Rule::removeColumns(int position, int columns)
-{
-    return true;
-}
-int Rule::childNumber() const{
-    if (parentItem)
-        return  dynamic_cast<Node*>(parentItem)->ruleList.indexOf(const_cast<Rule*>(this));
-    return 0;
-}
-bool Rule::setData(int column, const QVariant &value){
-    return true;
 }
