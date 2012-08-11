@@ -1,5 +1,5 @@
 #include "DataInterface.h"
-#include <QDebug>
+
 Node::Node()
 {
     itemType = Item::NODE;
@@ -20,7 +20,6 @@ TreeItem::TreeItem(TreeItem *parent, Item *data)
 TreeItem::~TreeItem()
 {
     qDeleteAll(childItems);
-    qDebug()<<this;
 }
 
 TreeItem* TreeItem::child(int number)
