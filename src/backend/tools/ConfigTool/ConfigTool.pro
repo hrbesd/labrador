@@ -17,10 +17,12 @@ SOURCES += main.cpp\
     yzspiderconfigwidget.cpp \
     yzspiderconfigtreeview.cpp \
     spiderconfigmodel.cpp \
-    DataInterface.cpp
+    DataInterface.cpp \
+    spider/yzspiderconfigfileparser.cpp
 
 HEADERS  += yzconfigwindow.h \
     yzspiderconfigwidget.h \
     yzspiderconfigtreeview.h \
     DataInterface.h \
-    spiderconfigmodel.h
+    spiderconfigmodel.h \
+    spider/yzspiderconfigfileparser.h

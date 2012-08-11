@@ -4,11 +4,7 @@
 SpiderConfigModel::SpiderConfigModel(QObject *parent) :
     QAbstractItemModel(parent)
 {
-    rootItem = new Rule();
-    rootItem->insertChildren(rootItem->childCount(),1,0);
-    rootItem->child(rootItem->childCount()-1)->setData(0,QVariant("Test"));
-    rootItem->insertChildren(rootItem->childCount(),1,0);
-    rootItem->child(rootItem->childCount()-1)->setData(0,QVariant("Test"));
+    rootItem = new TreeItem(0,0);
 }
 
 SpiderConfigModel::~SpiderConfigModel()

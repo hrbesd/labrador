@@ -6,34 +6,43 @@
 class Node;
 class Rule;
 
-class TreeItem
-{
+class Item{
 public:
     enum Type{
         NODE,
-        RULE
+        RULE,
+        TREE
     };
-    TreeItem(TreeItem *parent = 0)
-    {
-        parentItem = parent;
-    }
 
-    virtual TreeItem *child(int number) = 0;
-    virtual int childCount() const = 0;
-    virtual int columnCount() const = 0;
-    virtual QVariant data(int column) const = 0;
-    virtual bool insertChildren(int position, int count, int columns) = 0;
-    virtual bool insertColumns(int position, int columns) = 0;
+    virtual Type getType()
+    {
+        return itemType;
+    }
+    Type itemType;
+};
+
+class TreeItem : public Item
+{
+public:
+    TreeItem(TreeItem *parent ,Item* data);
+    ~TreeItem();
+    TreeItem *child(int number);
+    int childCount() const;
+    int columnCount() const;
+    QVariant data(int column) const;
+    bool insertChildren(int position, int count, int columns);
+    bool insertColumns(int position, int columns);
     TreeItem *parent()
     {
         return parentItem;
     }
-    virtual bool removeChildren(int position, int count) = 0;
-    virtual bool removeColumns(int position, int columns) = 0;
-    virtual int childNumber() const = 0;
-    virtual bool setData(int column, const QVariant &value) = 0;
+    bool removeChildren(int position, int count);
+    bool removeColumns(int position, int columns);
+    int childNumber() const;
+    bool setData(int column, const QVariant &value);
     TreeItem *parentItem;
-    Type type;
+    Item *dataItem;
+    QList<TreeItem*> childItems;
 };
 
 struct Expression
@@ -57,21 +66,11 @@ struct Expression
     QString value;     // used as value
 };
 
-class Rule : public TreeItem
+class Rule : public Item
 {
 public:
-    Rule(TreeItem *parent = 0) ;
+    Rule() ;
     ~Rule();
-    virtual TreeItem *child(int number);
-    virtual int childCount() const;
-    virtual int columnCount() const;
-    virtual QVariant data(int column) const;
-    virtual bool insertChildren(int position, int count, int columns);
-    virtual bool insertColumns(int position, int columns);
-    virtual bool removeChildren(int position, int count);
-    virtual bool removeColumns(int position, int columns);
-    virtual int childNumber() const;
-    virtual bool setData(int column, const QVariant &value);
     QList<Expression> expressionList;
     Expression nextPageExpression;
     Expression urlExpression;
@@ -81,21 +80,11 @@ public:
     Rule* childRule;
 };
 
-class Node : public TreeItem
+class Node : public Item
 {
 public:
-    Node(TreeItem *parent = 0);
+    Node();
     ~Node();
-    virtual TreeItem *child(int number);
-    virtual int childCount() const;
-    virtual int columnCount() const;
-    virtual QVariant data(int column) const;
-    virtual bool insertChildren(int position, int count, int columns);
-    virtual bool insertColumns(int position, int columns);
-    virtual bool removeChildren(int position, int count);
-    virtual bool removeColumns(int position, int columns);
-    virtual int childNumber() const;
-    virtual bool setData(int column, const QVariant &value);
     QString url;
     QString name;
     QString refreshRate;

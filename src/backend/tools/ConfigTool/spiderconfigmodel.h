@@ -45,6 +45,7 @@ public slots:
 private:
     TreeItem *getItem(const QModelIndex &index) const;
     TreeItem *rootItem;
+    WebSite m_website;
 };
 
 #endif // SPIDERCONFIGMODEL_H
