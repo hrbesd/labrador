@@ -219,10 +219,9 @@ void YZSpiderConfigFileParser::parseChildRuleXml(QXmlStreamReader &reader, Rule 
     }
 }
 
-void YZSpiderConfigFileParser::parseWebsiteConfigFile(QString ruleDir, WebSite &m_website)
+void YZSpiderConfigFileParser::parseWebsiteConfigFile(QString fileName, WebSite &m_website)
 {
-    QDir dir(ruleDir);
-    QString configFile = dir.absolutePath()+"/"+"spider_config.xml";
+    QString configFile = fileName;
     QFile file(configFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {

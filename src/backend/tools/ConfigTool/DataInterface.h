@@ -30,6 +30,7 @@ public:
     int childCount() const;
     int columnCount() const;
     QVariant data(int column) const;
+    bool appendChild(TreeItem *childItem);
     bool insertChildren(int position, int count, int columns);
     bool insertColumns(int position, int columns);
     TreeItem *parent()
@@ -48,8 +49,6 @@ public:
 struct Expression
 {
     Expression(QString labelPara = "",QString valuePara = "") {
-        type = "RegExp";
-        executeOnlyOnce = "false";
         label =  labelPara;
         value = valuePara;
     }

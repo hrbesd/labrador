@@ -5,6 +5,7 @@
 #include <QModelIndex>
 #include <QVariant>
 #include "DataInterface.h"
+#include "spider/yzspiderconfigfileparser.h"
 
 class SpiderConfigModel : public QAbstractItemModel
 {
@@ -43,6 +44,10 @@ public:
 public slots:
     void loadConfigFile(QString fileName);
 private:
+    //parse website
+    void refreshModelWithWebsiteData();
+    void parseNode(TreeItem* parentTreeItem, Node *nodeItem);
+    void parseRule(TreeItem* parentTreeItem, Rule *ruleItem);
     TreeItem *getItem(const QModelIndex &index) const;
     TreeItem *rootItem;
     WebSite m_website;
