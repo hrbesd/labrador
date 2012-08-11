@@ -48,7 +48,7 @@ TreeItem *SpiderConfigModel::getItem(const QModelIndex &index) const
 }
 
 QVariant SpiderConfigModel::headerData(int section, Qt::Orientation orientation,
-                               int role) const
+                                       int role) const
 {
     return QVariant();
 }
@@ -126,7 +126,7 @@ int SpiderConfigModel::rowCount(const QModelIndex &parent) const
 }
 
 bool SpiderConfigModel::setData(const QModelIndex &index, const QVariant &value,
-                        int role)
+                                int role)
 {
     if (role != Qt::EditRole)
         return false;
@@ -141,12 +141,49 @@ bool SpiderConfigModel::setData(const QModelIndex &index, const QVariant &value,
 }
 
 bool SpiderConfigModel::setHeaderData(int section, Qt::Orientation orientation,
-                              const QVariant &value, int role)
+                                      const QVariant &value, int role)
 {
     return false;
 }
 
 void SpiderConfigModel::loadConfigFile(QString fileName)
 {
-    qDebug()<<fileName;
+    YZSpiderConfigFileParser parser;
+    parser.parseWebsiteConfigFile(fileName,m_website);
+    refreshModelWithWebsiteData();
+}
+
+void SpiderConfigModel::refreshModelWithWebsiteData()
+{
+    this->beginResetModel();
+    delete rootItem;
+    rootItem = new TreeItem(0,0);
+    parseNode(rootItem,&(m_website.node));
+    this->endResetModel();
+}
+
+void SpiderConfigModel::parseNode(TreeItem *parentTreeItem, Node *nodeItem)
+{
+    if(nodeItem!=NULL)
+    {
+        TreeItem *newTreeItem = new TreeItem(parentTreeItem,nodeItem);
+        parentTreeItem->appendChild(newTreeItem);
+        for(int i=0;i<nodeItem->ruleList.size();i++)
+        {
+            parseRule(newTreeItem,nodeItem->ruleList[i]);
+        }
+    }
+}
+
+void SpiderConfigModel::parseRule(TreeItem *parentTreeItem, Rule *ruleItem)
+{
+    if(ruleItem!=NULL)
+    {
+        TreeItem *newTreeItem = new TreeItem(parentTreeItem,ruleItem);
+        parentTreeItem->appendChild(newTreeItem);
+        for(int i=0;i<ruleItem->nodeList.size();i++)
+        {
+            parseNode(newTreeItem,ruleItem->nodeList[i]);
+        }
+    }
 }

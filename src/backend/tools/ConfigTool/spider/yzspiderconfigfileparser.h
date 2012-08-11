@@ -13,7 +13,7 @@ class YZSpiderConfigFileParser : public QObject
     Q_OBJECT
 public:
     explicit YZSpiderConfigFileParser(QObject *parent = 0);
-    void parseWebsiteConfigFile(QString ruleDir,WebSite& m_website);
+    void parseWebsiteConfigFile(QString fileName,WebSite& m_website);
 signals:
 
 public slots:
