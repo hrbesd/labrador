@@ -11,7 +11,7 @@ def main():
 
 	email = '9807068@qq.com'
 	password = '123456'
-	domain_id = '1755356'
+	domain_id = '1916162'
 
 
 	api = RecordCreate(sys.argv[1], "A", u'默认'.encode("utf8"), sys.argv[2], 600, domain_id=domain_id,email=email,password=password)
