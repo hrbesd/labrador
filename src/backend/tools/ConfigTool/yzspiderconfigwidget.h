@@ -3,8 +3,10 @@
 
 #include <QWidget>
 #include "yzspiderconfigtreeview.h"
+#include "spider/yzconfigstackwidget.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QSplitter>
 
 class YZSpiderConfigWidget : public QWidget
 {
@@ -22,6 +24,8 @@ private:
     void initConnections();
 
     YZSpiderConfigTreeView* m_spiderConfigTreeView;
+    YZConfigStackWidget *m_configStackWidget;
+
 };
 
 #endif // YZSPIDERCONFIGWIDGET_H
