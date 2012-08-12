@@ -48,8 +48,6 @@ class Assembler:
 	def ensureInputFolderExists(self):
 		baseFolderPath = self.in_folder_path
 		stylesheetPath = self.stylesheet_path
-		print baseFolderPath
-		print stylesheetPath
 		return os.path.exists(self.in_folder_path) and os.path.exists(stylesheetPath)
 
 	def xsltPath(self, type):
@@ -64,50 +62,52 @@ class Assembler:
 			os.makedirs(self.webroot_dir)
 
 	def copyResourceFiles(self):
-		print self.in_folder_path
-		print self.temp_out_dir
 		utils.fileMover(self.in_folder_path, self.temp_out_dir)
 		# 导航文件直接在temp_out_path中生成，所以不用复制，需要复制的是stylesheets目录
 		utils.fileMover(self.stylesheet_path, self.temp_out_dir + "/xml_stylesheets")
 
 	def processFilesRecursively(self):
-		indexFile = self.temp_out_dir + "/index.xml"
 		aFolderPath = self.temp_out_dir + "/a"
 		cFolderPath = self.temp_out_dir + "/c"
 		lFolderPath = self.temp_out_dir + "/l"
 
 		# index first
-		self.addContentAtLineNumber(indexFile, self.xsltPath('./xml_stylesheets/index.xsl'), 2)
+		self.addContentAtLineNumber(self.in_folder_path, self.temp_out_dir, 'index.xml', self.xsltPath('./xml_stylesheets/index.xsl'), 2)
 
 		# c
 		for root, dirs, files in os.walk(cFolderPath):
 			for fileName in files:
-				srcFile = root + "/" + fileName
-				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/column.xsl'), 2)
+				inFolder = root
+				outFilePath = self.temp_out_dir + root[len(self.in_folder_path):]
+				self.addContentAtLineNumber(inFolder, fileName, self.xsltPath('../xml_stylesheets/column.xsl'), 2)
 
 		# l
 		for root, dirs, files in os.walk(lFolderPath):
 			for fileName in files:
-				srcFile = root + "/" + fileName
-				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/list.xsl'), 2)
+				inFolder = root
+				outFilePath = self.temp_out_dir + root[len(self.in_folder_path):]
+				self.addContentAtLineNumber(inFolder, fileName, self.xsltPath('../xml_stylesheets/list.xsl'), 2)
 
 		# a
 		for root, dirs, files in os.walk(aFolderPath):
 			for fileName in files:
-				srcFile = root + "/" + fileName
-				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/article.xsl'), 2)
+				inFolder = root
+				outFilePath = self.temp_out_dir + root[len(self.in_folder_path):]
+				self.addContentAtLineNumber(inFolder, fileName, self.xsltPath('../xml_stylesheets/article.xsl'), 2)
 
 				self.count = self.count + 1
 				print 'Processed %d' % self.count
 		pass
 
-	def addContentAtLineNumber(self, filePath, content, lineNo):
+	def addContentAtLineNumber(self, inPath, outPath, fileName, content, lineNo):
+		filePath = inPath + "/" + fileName
 		readFile = open(filePath)
 		contents = readFile.readlines()
 		readFile.close()
 
+		outFilePath = outPath + "/" + fileName
 		contents = contents[:lineNo - 1] + [content] + contents[lineNo - 1:]
-		writeFile = open(filePath, 'w')
+		writeFile = open(outFilePath, 'w')
 		writeFile.write('\n'.join(contents))
 		writeFile.close()
 
