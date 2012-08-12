@@ -92,7 +92,7 @@ class Assembler:
 			for fileName in files:
 				inFolder = root
 				outFilePath = self.temp_out_dir + root[len(self.in_folder_path):]
-				self.addContentAtLineNumber(inFolder, outFilePath, fileName, self.xsltPath('../xml_stylesheets/article.xsl'), 2)
+				self.addContentAtLineNumber(inFolder, outFilePath, fileName, self.xsltPath('../../xml_stylesheets/article.xsl'), 2)
 
 				self.count = self.count + 1
 				print 'Processed %d' % self.count
