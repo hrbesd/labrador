@@ -80,7 +80,7 @@
           </nav>
           <nav>
             <ul class="mol">
-              <xsl:for-each select="website/nodeList/indexNode">
+              <xsl:for-each select="website/nodelist/indexnode">
                 <li>
                   <xsl:choose>
                     <xsl:when test="position() mod 2">
@@ -94,18 +94,18 @@
                     <span>
                       <a>
                         <xsl:attribute name="href">
-                          <xsl:value-of select="node/pageUrl"/>
+                          <xsl:value-of select="node/pageurl"/>
                         </xsl:attribute>
                         更多>>
                       </a>
                     </span>
                   </h2>
                   <ul>
-                    <xsl:for-each select="nodeList/node [position() &lt; 6]">
+                    <xsl:for-each select="nodelist/node [position() &lt; 6]">
                       <li>
                         <a>
                           <xsl:attribute name="href">
-                            <xsl:value-of select="pageUrl"/>
+                            <xsl:value-of select="pageurl"/>
                           </xsl:attribute>
                           <xsl:copy-of select="name" />
                         </a>
