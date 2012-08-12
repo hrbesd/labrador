@@ -64,6 +64,9 @@ class Assembler:
 			os.makedirs(self.webroot_dir)
 
 	def copyResourceFiles(self):
+		print self.in_folder_path
+		print self.temp_out_dir
+		utils.fileMover(self.in_folder_path, self.temp_out_dir)
 		# 导航文件直接在temp_out_path中生成，所以不用复制，需要复制的是stylesheets目录
 		utils.fileMover(self.stylesheet_path, self.temp_out_dir + "/xml_stylesheets")
 
