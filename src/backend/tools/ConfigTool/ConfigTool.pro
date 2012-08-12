@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     spider/yzspiderconfigfileparser.cpp \
     spider/yzspidernodeconfigwidget.cpp \
     spider/yzspiderruleconfigwidget.cpp \
-    spider/yzconfigstackwidget.cpp
+    spider/yzconfigstackwidget.cpp \
+    spider/yzspiderexpressionconfigwidget.cpp
 
 HEADERS  += yzconfigwindow.h \
     yzspiderconfigwidget.h \
@@ -31,8 +32,10 @@ HEADERS  += yzconfigwindow.h \
     spider/yzspiderconfigfileparser.h \
     spider/yzspidernodeconfigwidget.h \
     spider/yzspiderruleconfigwidget.h \
-    spider/yzconfigstackwidget.h
+    spider/yzconfigstackwidget.h \
+    spider/yzspiderexpressionconfigwidget.h
 
 FORMS += \
     spider/NodeConfigWidget.ui \
-    spider/RuleConfig.ui
+    spider/RuleConfig.ui \
+    spider/ExpressionConfig.ui
