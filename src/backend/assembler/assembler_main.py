@@ -65,7 +65,7 @@ class Assembler:
 
 	def copyResourceFiles(self):
 		# 导航文件直接在temp_out_path中生成，所以不用复制，需要复制的是stylesheets目录
-		self.fileMover(self.stylesheet_path, self.temp_out_dir + "/xml_stylesheets")
+		utils.fileMover(self.stylesheet_path, self.temp_out_dir + "/xml_stylesheets")
 
 	def processFilesRecursively(self):
 		indexFile = self.temp_out_dir + "/index.xml"
@@ -94,8 +94,8 @@ class Assembler:
 				srcFile = root + "/" + fileName
 				self.addContentAtLineNumber(srcFile, self.xsltPath('../xml_stylesheets/article.xsl'), 2)
 
-				count = count + 1
-				print 'Processed %d' % count
+				self.count = self.count + 1
+				print 'Processed %d' % self.count
 		pass
 
 	def addContentAtLineNumber(self, filePath, content, lineNo):

@@ -75,19 +75,22 @@
 
           <nav>
             <ul class="nav-main">
-              <li><a href="#">首页</a></li>
+              <li><a href="#"><xsl:copy-of select="website/info"/></a></li>
             </ul>
           </nav>
           <nav>
             <ul class="mol">
               <xsl:for-each select="website/nodeList/indexNode">
-                <xsl:when test="position() mod 2 = 1">
-                <li class="molli ml">
-                </xsl:when>
-                <xsl:otherwise>
-                <li class="molli">
-                </xsl:otherwise>
-                  <h2><xsl:value-of select="node/name"/>
+                <li>
+                  <xsl:choose>
+                    <xsl:when test="position() mod 2">
+                      <xsl:attribute name="class">molli</xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:attribute name="class">molli ml</xsl:attribute>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                  <h2><xsl:copy-of select="node/name"/>
                     <span>
                       <a>
                         <xsl:attribute name="href">
@@ -98,13 +101,13 @@
                     </span>
                   </h2>
                   <ul>
-                    <xsl:for-each select="nodeList/node">
+                    <xsl:for-each select="nodeList/node [position() &lt; 6]">
                       <li>
                         <a>
                           <xsl:attribute name="href">
                             <xsl:value-of select="pageUrl"/>
                           </xsl:attribute>
-                          <xsl:value-of select="name" />
+                          <xsl:copy-of select="name" />
                         </a>
                       </li>
                     </xsl:for-each>
