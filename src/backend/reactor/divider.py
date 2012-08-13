@@ -48,27 +48,33 @@ class Divider:
 		soup = self.soup
 		# first of all, process the fixed elements, like `title', `author', `lastmodified'
 		# `lastmodified' need to be changed to human readable text
-
-		# TODO 修改设计方式
-		for element in soup.findAll(['title', 'author', 'name']):
+		nameData = soup.findAll(['name', ])
+		if len(nameData) > 0: # navigation files
 			content = element.contents[0].strip()
 			dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
 			dataTag.insert(0, content)
 			element.contents[0] = dataTag
+		else: # data files
+			# TODO 修改设计方式
+			for element in soup.findAll(['title', 'author', 'name']):
+				content = element.contents[0].strip()
+				dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
+				dataTag.insert(0, content)
+				element.contents[0] = dataTag
 
-		for element in soup.findAll('lastmodified'):
-			content = element.contents[0].strip()
-			try:
-				modifiedDate = datetime.datetime.fromtimestamp(long(content) / 1000)
-				dateStr = modifiedDate.strftime(u'%Y年%m月%d日'.encode('utf-8'))
-				content = dateStr.decode('utf-8')
-			except:
-				content = u"未知"
-			dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
-			dataTag.insert(0, content)
-			element.contents[0] = dataTag
+			for element in soup.findAll('lastmodified'):
+				content = element.contents[0].strip()
+				try:
+					modifiedDate = datetime.datetime.fromtimestamp(long(content) / 1000)
+					dateStr = modifiedDate.strftime(u'%Y年%m月%d日'.encode('utf-8'))
+					content = dateStr.decode('utf-8')
+				except:
+					content = u"未知"
+				dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
+				dataTag.insert(0, content)
+				element.contents[0] = dataTag
 
-		for element in soup.findAll('bodydata'):
-			self.processSentence(element)
+			for element in soup.findAll('bodydata'):
+				self.processSentence(element)
 
 		return soup
