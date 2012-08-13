@@ -48,14 +48,8 @@ class Divider:
 		soup = self.soup
 		# first of all, process the fixed elements, like `title', `author', `lastmodified'
 		# `lastmodified' need to be changed to human readable text
-		nameData = soup.findAll(['name', ])
-		if len(nameData) > 0: # navigation files
-			for element in nameData:
-				content = element.contents[0].strip()
-				dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
-				dataTag.insert(0, content)
-				element.contents[0] = dataTag
-		else: # data files
+		bodyData = soup.findAll('bodydata')
+		if len(bodyData) > 0: # data files
 			# TODO 修改设计方式
 			for element in soup.findAll(['title', 'author']):
 				content = element.contents[0].strip()
@@ -75,7 +69,13 @@ class Divider:
 				dataTag.insert(0, content)
 				element.contents[0] = dataTag
 
-			for element in soup.findAll('bodydata'):
+			for element in bodyData:
 				self.processSentence(element)
+		else: # navigation files
+			for element in soup.findAll('name'):
+				content = element.contents[0].strip()
+				dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
+				dataTag.insert(0, content)
+				element.contents[0] = dataTag
 
 		return soup
