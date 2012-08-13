@@ -50,7 +50,7 @@ class Divider:
 		# `lastmodified' need to be changed to human readable text
 
 		# TODO 修改设计方式
-		for element in soup.findAll(['title', 'author']):
+		for element in soup.findAll(['title', 'author', 'name']):
 			content = element.contents[0].strip()
 			dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
 			dataTag.insert(0, content)
