@@ -50,13 +50,14 @@ class Divider:
 		# `lastmodified' need to be changed to human readable text
 		nameData = soup.findAll(['name', ])
 		if len(nameData) > 0: # navigation files
-			content = element.contents[0].strip()
-			dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
-			dataTag.insert(0, content)
-			element.contents[0] = dataTag
+			for element in nameData:
+				content = element.contents[0].strip()
+				dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
+				dataTag.insert(0, content)
+				element.contents[0] = dataTag
 		else: # data files
 			# TODO 修改设计方式
-			for element in soup.findAll(['title', 'author', 'name']):
+			for element in soup.findAll(['title', 'author']):
 				content = element.contents[0].strip()
 				dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
 				dataTag.insert(0, content)
