@@ -28,6 +28,7 @@ class Reactor:
 		self.executor = Executor(config_file_path)
 		self.count = 0
 		self.client = tts_client.TTSClient()
+		self.INVALID_TAGS = ['table', 'tr', 'td', 'Comment']
 
 	def __str__(self):
 		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path
@@ -140,6 +141,18 @@ class Reactor:
 		self.count += 1
 		print 'Processed: %d' % self.count
 
+	# 剔除标签
+	def strip_tags(self, soup):
+		for tag in soup.findAll(True):
+			if tag.name in self.INVALID_TAGS:
+				s = ""
+				for c in tag.contents:
+					if not isinstance(c, NavigableString):
+						c = strip_tags(unicode(c), invalid_tags)
+						s += unicode(c)
+				tag.replaceWith(s)
+		return soup
+
 	# 语义化处理
 	def semanticify(self, soup, resultFilePath):
 		# 建立originUrl为key，[hash, absoluteUrl]为value的字典
@@ -163,9 +176,8 @@ class Reactor:
 					img_element['src'] = hashNodeRecords[originUrl][1]
 					img_element['hash'] = hashNodeRecords[originUrl][0]
 
-		# 去掉注释
-		comments = soup.findAll(text=(lambda text:isinstance(text, Comment)))
-		[comment.extract() for comment in comments]
+		# 去掉非法元素
+		soup = self.strip_tags(soup)
 
 		# 利用反射机制，动态调用方法，所有方法的实现都在executor.Executor类中
 		for rule in self.rule_list:
