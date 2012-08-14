@@ -75,11 +75,11 @@
 
           <nav>
             <ul class="nav-main">
-              <xsl:for-each select="column/parentPageUrl/node">
+              <xsl:for-each select="column/parentpageurl/node">
                 <li>
                   <a>
                     <xsl:attribute name="href">
-                      <xsl:value-of select="pageUrl"/>
+                      <xsl:value-of select="pageurl"/>
                     </xsl:attribute>
                     <xsl:copy-of select="name"/>
                   </a>
@@ -96,11 +96,11 @@
             <h1 class="title1"><xsl:copy-of select="column/name"/></h1>
           </header>
       		<ul class="column">
-            <xsl:for-each select="column/nodeList/node">
+            <xsl:for-each select="column/nodelist/node">
               <li>
                 <a>
                   <xsl:attribute name="href">
-                    <xsl:value-of select="pageUrl"/>
+                    <xsl:value-of select="pageurl"/>
                   </xsl:attribute>
                   <xsl:copy-of select="name"/>
                 </a>
