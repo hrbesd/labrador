@@ -99,7 +99,9 @@
               <span id="pubdate"><xsl:copy-of select="article/lastmodified"/></span>
             </header>
       			<section>
-              <xsl:copy-of select="article/bodydata"/>
+              <div class="section1">
+                <xsl:copy-of select="article/bodydata"/>
+              </div>
     			  </section>
     		  </article>
         </div>
