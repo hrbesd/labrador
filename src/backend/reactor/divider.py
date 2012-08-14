@@ -30,7 +30,7 @@ class Divider:
 		return resultSentence
 
 	def processSentence(self, element):
-		if type(element) == NavigableString:
+		if isinstance(element, NavigableString):
 			results = self.divide(element)
 			if len(results) == 0:
 				return
@@ -38,7 +38,7 @@ class Divider:
 			for result in results:
 				resultTag.append(result)
 			element.replaceWith(resultTag)
-		elif type(element) == unicode:
+		elif isinstance(element, unicode):
 			return
 		else:
 			for child in element:

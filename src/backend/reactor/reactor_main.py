@@ -1,7 +1,7 @@
 #!/usr/local/bin
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, Comment, Tag
+from BeautifulSoup import BeautifulSoup, Comment, Tag, NavigableString
 from xml.dom.minidom import parseString
 from reactor_rule_parser import *
 from executor import Executor
