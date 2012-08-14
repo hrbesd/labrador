@@ -182,7 +182,7 @@ class Reactor:
 		
 		# 去掉非法元素
 		soup = self.strip_tags(soup.prettify())
-		xmlData = html.unescape_string(soup.prettify().encode('utf-8'))
+		xmlData = html.unescape_string(soup.prettify().decode('utf-8'))
 		soup = BeautifulSoup(xmlData)
 
 		# 利用反射机制，动态调用方法，所有方法的实现都在executor.Executor类中
