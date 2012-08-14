@@ -118,12 +118,14 @@ class Reactor:
 			xmlDataFile.close()
 
 		xmlData = html.unescape_string(xmlData)
+
+		# 去掉非法元素
+		xmlData = self.strip_tags(xmlData)
 		# get rip of something like "&amp;nbsp;"
 		# &amp;nbsp; => &nbsp; => " "
 		xmlData = html.unescape_string(xmlData) 
 
-		# 去掉非法元素
-		soup = self.strip_tags(xmlData)
+		soup = BeautifulSoup(xmlData)
 		soup = self.semanticify(soup, resultFilePath)
 
 		# 最后做断句处理
@@ -152,7 +154,7 @@ class Reactor:
 						c = self.strip_tags(unicode(c))
 					s += unicode(c)
 				tag.replaceWith(s)
-		return soup
+		return soup.prettify()
 
 	# 语义化处理
 	def semanticify(self, soup, resultFilePath):
