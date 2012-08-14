@@ -140,19 +140,6 @@ class Reactor:
 		self.count += 1
 		print 'Processed: %d' % self.count
 
-	# 剔除标签
-	def strip_tags(self, html):
-		soup = BeautifulSoup(html)
-		for tag in soup.findAll(True):
-			if tag.name in self.INVALID_TAGS:
-				s = ""
-				for c in tag.contents:
-					if not isinstance(c, NavigableString):
-						c = self.strip_tags(unicode(c))
-					s += unicode(c)
-				tag.replaceWith(s)
-		return soup
-
 	# 语义化处理
 	def semanticify(self, soup, resultFilePath):
 		# 建立originUrl为key，[hash, absoluteUrl]为value的字典
@@ -179,11 +166,6 @@ class Reactor:
 		# 去掉注释
 		comments = soup.findAll(text=(lambda text:isinstance(text, Comment)))
 		[comment.extract() for comment in comments]
-		
-		# 去掉非法元素
-		soup = self.strip_tags(soup.prettify())
-		xmlData = html.unescape_string(soup.prettify().decode('utf-8'))
-		soup = BeautifulSoup(xmlData)
 
 		# 利用反射机制，动态调用方法，所有方法的实现都在executor.Executor类中
 		for rule in self.rule_list:
