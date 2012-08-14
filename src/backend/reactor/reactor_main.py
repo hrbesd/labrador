@@ -28,7 +28,7 @@ class Reactor:
 		self.executor = Executor(config_file_path)
 		self.count = 0
 		self.client = tts_client.TTSClient()
-		self.INVALID_TAGS = ['table', 'tr', 'td']
+		self.INVALID_TAGS = ['table', 'tbody', 'tr', 'td']
 
 	def __str__(self):
 		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path
@@ -124,7 +124,7 @@ class Reactor:
 
 		soup = BeautifulSoup(xmlData)
 		soup = BeautifulSoup(soup.prettify())
-		self.semanticify(soup, resultFilePath)
+		soup = self.semanticify(soup, resultFilePath)
 
 		# 最后做断句处理
 		divider = Divider(soup, self.config_file_path)
@@ -207,3 +207,5 @@ class Reactor:
 
 					if len(rule.logLevel.strip()) > 0 and len(rule.logMsg) > 0:
 						self.executor.doLog(rule.logLevel, resultFilePath, rule.logMsg)
+
+		return soup
