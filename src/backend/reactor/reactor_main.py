@@ -118,9 +118,6 @@ class Reactor:
 			xmlDataFile.close()
 
 		xmlData = html.unescape_string(xmlData)
-
-		# 去掉非法元素
-		xmlData = self.strip_tags(xmlData)
 		# get rip of something like "&amp;nbsp;"
 		# &amp;nbsp; => &nbsp; => " "
 		xmlData = html.unescape_string(xmlData) 
@@ -179,6 +176,9 @@ class Reactor:
 					img_element['src'] = hashNodeRecords[originUrl][1]
 					img_element['hash'] = hashNodeRecords[originUrl][0]
 
+		# 去掉非法符号
+		soup = self.strip_tags(soup.prettify())
+		soup = BeautifulSoup(html.unescape_string(soup.prettify()))
 		# 去掉注释
 		comments = soup.findAll(text=(lambda text:isinstance(text, Comment)))
 		[comment.extract() for comment in comments]
