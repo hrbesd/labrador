@@ -28,7 +28,7 @@ class Reactor:
 		self.executor = Executor(config_file_path)
 		self.count = 0
 		self.client = tts_client.TTSClient()
-		self.INVALID_TAGS = ['table', 'tr', 'td', 'Comment']
+		self.INVALID_TAGS = ['table', 'tr', 'td']
 
 	def __str__(self):
 		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path
@@ -148,7 +148,7 @@ class Reactor:
 				s = ""
 				for c in tag.contents:
 					if not isinstance(c, NavigableString):
-						c = strip_tags(unicode(c), invalid_tags)
+						c = self.strip_tags(unicode(c), invalid_tags)
 						s += unicode(c)
 				tag.replaceWith(s)
 		return soup
@@ -176,6 +176,10 @@ class Reactor:
 					img_element['src'] = hashNodeRecords[originUrl][1]
 					img_element['hash'] = hashNodeRecords[originUrl][0]
 
+		# 去掉注释
+		comments = soup.findAll(text=(lambda text:isinstance(text, Comment)))
+		[comment.extract() for comment in comments]
+		
 		# 去掉非法元素
 		soup = self.strip_tags(soup)
 
