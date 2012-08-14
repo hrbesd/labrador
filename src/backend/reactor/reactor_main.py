@@ -122,8 +122,8 @@ class Reactor:
 		# &amp;nbsp; => &nbsp; => " "
 		xmlData = html.unescape_string(xmlData) 
 
-		soup = BeautifulSoup(xmlData)
-		soup = BeautifulSoup(soup.prettify())
+		# 去掉非法元素
+		soup = self.strip_tags(xmlData)
 		soup = self.semanticify(soup, resultFilePath)
 
 		# 最后做断句处理
@@ -180,9 +180,6 @@ class Reactor:
 		# 去掉注释
 		comments = soup.findAll(text=(lambda text:isinstance(text, Comment)))
 		[comment.extract() for comment in comments]
-		
-		# 去掉非法元素
-		soup = self.strip_tags(soup.prettify())
 
 		# 利用反射机制，动态调用方法，所有方法的实现都在executor.Executor类中
 		for rule in self.rule_list:
