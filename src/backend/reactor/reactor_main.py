@@ -151,7 +151,7 @@ class Reactor:
 						c = self.strip_tags(unicode(c))
 					s += unicode(c)
 				tag.replaceWith(s)
-		return soup.prettify()
+		return soup
 
 	# 语义化处理
 	def semanticify(self, soup, resultFilePath):
@@ -176,12 +176,14 @@ class Reactor:
 					img_element['src'] = hashNodeRecords[originUrl][1]
 					img_element['hash'] = hashNodeRecords[originUrl][0]
 
-		# 去掉非法符号
-		soup = self.strip_tags(soup.prettify())
-		soup = BeautifulSoup(html.unescape_string(soup.prettify()))
 		# 去掉注释
 		comments = soup.findAll(text=(lambda text:isinstance(text, Comment)))
 		[comment.extract() for comment in comments]
+		
+		# 去掉非法元素
+		soup = self.strip_tags(soup.prettify())
+		xmlData = soup.prettify().encode('utf-8')
+		soup = BeautifulSoup(xmlData)
 
 		# 利用反射机制，动态调用方法，所有方法的实现都在executor.Executor类中
 		for rule in self.rule_list:
