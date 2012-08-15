@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="html" indent="yes"/>
   <xsl:template match="/">
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
@@ -94,14 +95,16 @@
 
           <article>
       			<header>
-              <h1><xsl:copy-of select="article/title"/></h1>
-              <span id="author"><xsl:copy-of select="article/author"/></span>
-              <span id="pubdate"><xsl:copy-of select="article/lastmodified"/></span>
+              <h1 class="title1">
+                <p><xsl:copy-of select="article/title"/></p>
+                <p><xsl:copy-of select="article/author"/></p>
+                <p><xsl:copy-of select="article/lastmodified"/></p>
+              </h1>
             </header>
       			<section>
-              <div class="section1">
-                <xsl:copy-of select="article/bodydata"/>
-              </div>
+        			<div class="section1">
+                <xsl:copy-of select="article/bodydata/*" />
+        			</div>
     			  </section>
     		  </article>
         </div>
