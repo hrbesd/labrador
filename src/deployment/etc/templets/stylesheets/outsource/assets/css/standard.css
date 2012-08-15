@@ -17,7 +17,6 @@ h3{font-size:100%; margin:0px; padding:0px;}
 h4{font-size:100%; margin:0px; padding:0px;}
 h5{font-size:100%; margin:0px; padding:0px;}
 h6{font-size:100%; margin:0px; padding:0px;}
-p{ margin:0px; padding:0px;}
 form{ margin:0px; padding:0px;}
 th{ margin:0px; padding:0px;}
 td{ margin:0px; padding:0px;}
@@ -185,7 +184,7 @@ i{ font-style:normal;}
 .mol .ml{ margin-left:10px;}
 
 /* header h1*/
-.title1{width:99.75%; height:28px; margin-top:10px; text-align:center;}
+.title1{width:99.75%; height:auto; margin-top:10px; text-align:center;}
 /* header h1 end*/
 
 
