@@ -88,7 +88,7 @@
                 <li><b>></b></li>
               </xsl:for-each>
               <li>
-                <a href="#"><xsl:copy-of select="article/title"/></a>
+                <a href="#"><xsl:copy-of select="article/title/*"/></a>
               </li>
             </ul>
           </nav>
@@ -96,9 +96,9 @@
           <article>
       			<header>
               <h1 class="title1">
-                <p><xsl:copy-of select="article/title"/></p>
-                <p><xsl:copy-of select="article/author"/></p>
-                <p><xsl:copy-of select="article/lastmodified"/></p>
+                <p><xsl:copy-of select="article/title/*"/></p>
+                <p><xsl:copy-of select="article/author/*"/></p>
+                <p><xsl:copy-of select="article/lastmodified/*"/></p>
               </h1>
             </header>
       			<section>
