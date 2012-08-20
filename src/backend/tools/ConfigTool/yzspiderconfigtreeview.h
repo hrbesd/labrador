@@ -15,7 +15,10 @@ public:
 signals:
     
 public slots:
-    
+private slots:
+    void doubleClickedSlot( const QModelIndex & index );
+private:
+    void initConnections();
 };
 
 #endif // YZSPIDERCONFIGTREEVIEW_H

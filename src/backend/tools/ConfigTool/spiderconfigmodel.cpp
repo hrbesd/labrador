@@ -1,5 +1,7 @@
 #include "spiderconfigmodel.h"
 #include <QDebug>
+#include <QColor>
+#include <QBrush>
 
 SpiderConfigModel::SpiderConfigModel(QObject *parent) :
     QAbstractItemModel(parent)
@@ -26,7 +28,6 @@ QVariant SpiderConfigModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     TreeItem *item = getItem(index);
-
     return item->data(index.column());
 }
 
@@ -35,7 +36,7 @@ Qt::ItemFlags SpiderConfigModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return 0;
 
-    return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
 TreeItem *SpiderConfigModel::getItem(const QModelIndex &index) const
