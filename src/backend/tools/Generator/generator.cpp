@@ -180,8 +180,9 @@ void Generator::generateIndexFile()
     writer.writeTextElement("info",m_website.info);
     writer.writeTextElement("url",m_website.node.url);
     writer.writeStartElement("nodeList");
-    foreach(Node node, m_website.node.nodeList)
+    for(int i=0;i<m_website.node.nodeList.size();i++)
     {
+        const Node &node = m_website.node.nodeList[i];
         writer.writeStartElement("indexNode");
         writer.writeStartElement("node");
         writer.writeTextElement("name",node.name);
@@ -202,7 +203,7 @@ void Generator::generateIndexFile()
         }
 
         writer.writeTextElement("pageUrl",node.pageUrl);
-
+        m_nodeStack.push(&node);
         writer.writeEndElement();
         if(getNodeType(node)!=ArticleNode)
         {
