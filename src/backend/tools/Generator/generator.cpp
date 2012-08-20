@@ -180,13 +180,59 @@ void Generator::generateIndexFile()
     writer.writeTextElement("info",m_website.info);
     writer.writeTextElement("url",m_website.node.url);
     writer.writeStartElement("nodeList");
-    for(int i=0;i<m_website.node.nodeList.size();i++)
+    foreach(Node node, m_website.node.nodeList)
     {
         writer.writeStartElement("indexNode");
-        writeNodeXml(writer,m_website.node.nodeList[i]);
-        if(getNodeType(m_website.node.nodeList[i])!=ArticleNode)
+        writer.writeStartElement("node");
+        writer.writeTextElement("name",node.name);
+        writer.writeTextElement("url",node.url);
+        NodeType type = getNodeType(node);
+
+        if(type==ArticleNode)
         {
-            writeNodeListXml(writer,m_website.node.nodeList[i].nodeList);
+            node.pageUrl = "./a/"+node.hashName.left(2)+"/"+ node.hashName+".xml";
+        }
+        else if(type==ListNode)
+        {
+            node.pageUrl = "./l/"+ node.hashName+".xml";
+        }
+        else
+        {
+            node.pageUrl = "./c/"+ node.hashName+".xml";
+        }
+
+        writer.writeTextElement("pageUrl",node.pageUrl);
+
+        writer.writeEndElement();
+        if(getNodeType(node)!=ArticleNode)
+        {
+            writer.writeStartElement("nodeList");
+            const QList<Node> &nodeList = node.nodeList;
+            foreach(Node node, nodeList)
+            {
+                writer.writeStartElement("node");
+                writer.writeTextElement("name",node.name);
+                writer.writeTextElement("url",node.url);
+                NodeType type = getNodeType(node);
+
+                if(type==ArticleNode)
+                {
+                    node.pageUrl = "./a/"+node.hashName.left(2)+"/"+ node.hashName+".xml";
+                }
+                else if(type==ListNode)
+                {
+                    node.pageUrl = "./l/"+ node.hashName+".xml";
+                }
+                else
+                {
+                    node.pageUrl = "./c/"+ node.hashName+".xml";
+                }
+
+                writer.writeTextElement("pageUrl",node.pageUrl);
+
+                writer.writeEndElement();
+            }
+            writer.writeEndElement();
         }
         writer.writeEndElement();
     }
@@ -201,36 +247,20 @@ void Generator::writeNodeXml(QXmlStreamWriter &writer, const Node &node)
     writer.writeTextElement("name",node.name);
     writer.writeTextElement("url",node.url);
     NodeType type = getNodeType(node);
-    if(node.parentNode==&m_website.node)
+
+    if(type==ArticleNode)
     {
-        if(type==ArticleNode)
-        {
-            node.pageUrl = "./a/"+node.hashName.left(2)+"/"+ node.hashName+".xml";
-        }
-        else if(type==ListNode)
-        {
-            node.pageUrl = "./l/"+ node.hashName+".xml";
-        }
-        else
-        {
-            node.pageUrl = "./c/"+ node.hashName+".xml";
-        }
+        node.pageUrl = "../a/"+node.hashName.left(2)+"/"+ node.hashName+".xml";
+    }
+    else if(type==ListNode)
+    {
+        node.pageUrl = "../l/"+ node.hashName+".xml";
     }
     else
     {
-        if(type==ArticleNode)
-        {
-            node.pageUrl = "../a/"+node.hashName.left(2)+"/"+ node.hashName+".xml";
-        }
-        else if(type==ListNode)
-        {
-            node.pageUrl = "../l/"+ node.hashName+".xml";
-        }
-        else
-        {
-            node.pageUrl = "../c/"+ node.hashName+".xml";
-        }
+        node.pageUrl = "../c/"+ node.hashName+".xml";
     }
+
     writer.writeTextElement("pageUrl",node.pageUrl);
 
     m_nodeStack.push(&node);
