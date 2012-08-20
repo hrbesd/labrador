@@ -8,7 +8,7 @@ QT       += core xml
 
 QT       -= gui
 
-TARGET = Generator
+TARGET = producer
 CONFIG   += console
 CONFIG   -= app_bundle
 
