@@ -18,7 +18,7 @@ YZSpiderConfigWidget::YZSpiderConfigWidget(QWidget *parent) :
 
 void YZSpiderConfigWidget::initConnections()
 {
-
+    connect(m_spiderConfigTreeView,SIGNAL(treeItemDoubleClickedSignal(TreeItem*)),m_configStackWidget,SLOT(treeItemDoubleClickedSlot(TreeItem*)));
 }
 
 void YZSpiderConfigWidget::loadSpiderConfigFile(QString fileName)
