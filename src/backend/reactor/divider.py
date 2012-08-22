@@ -24,7 +24,6 @@ class Divider:
 					right = min(sentenceLength, left + self.MAX_STEP)
 					currentLength = right
 					words = sentence[left:right]
-					sentenceTag = Tag(self.soup, 'data', [('class', 'tts_data')])
 					sentenceTag = self.soup.new_tag('data')
 					sentenceTag['class'] = 'tts_data'
 					sentenceTag.string = words
