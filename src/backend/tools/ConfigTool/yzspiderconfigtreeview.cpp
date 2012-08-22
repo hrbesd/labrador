@@ -1,5 +1,6 @@
 #include "yzspiderconfigtreeview.h"
 #include <QDebug>
+#include "DataInterface.h"
 
 YZSpiderConfigTreeView::YZSpiderConfigTreeView(QWidget *parent) :
     QTreeView(parent)
@@ -12,7 +13,8 @@ YZSpiderConfigTreeView::YZSpiderConfigTreeView(QWidget *parent) :
 
 void YZSpiderConfigTreeView::doubleClickedSlot(const QModelIndex &index)
 {
-    qDebug()<<index;
+    TreeItem *itemPointer = (TreeItem*)index.internalPointer();
+    emit treeItemDoubleClickedSignal(itemPointer);
 }
 
 void YZSpiderConfigTreeView::initConnections()

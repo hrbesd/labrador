@@ -10,7 +10,7 @@ class YZSpiderRuleConfigWidget : public QWidget
     Q_OBJECT
 public:
     explicit YZSpiderRuleConfigWidget(QWidget *parent = 0);
-    
+    void loadRuleItem(Rule* ruleItem);
 signals:
     
 public slots:

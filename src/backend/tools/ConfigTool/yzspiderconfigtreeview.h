@@ -5,6 +5,7 @@
 #include <QTreeView>
 #include <QFileSystemModel>
 #include "spiderconfigmodel.h"
+#include "DataInterface.h"
 
 class YZSpiderConfigTreeView : public QTreeView
 {
@@ -13,7 +14,7 @@ public:
     explicit YZSpiderConfigTreeView(QWidget *parent = 0);
     SpiderConfigModel *model;
 signals:
-    
+    void treeItemDoubleClickedSignal(TreeItem* treeItem);
 public slots:
 private slots:
     void doubleClickedSlot( const QModelIndex & index );

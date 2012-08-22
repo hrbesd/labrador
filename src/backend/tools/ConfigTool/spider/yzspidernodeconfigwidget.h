@@ -12,7 +12,7 @@ class YZSpiderNodeConfigWidget : public QWidget
     Q_OBJECT
 public:
     explicit YZSpiderNodeConfigWidget(QWidget *parent = 0);
-    void show(Node *node);
+    void loadNodeItem(Node* node);
 signals:
     
 public slots:

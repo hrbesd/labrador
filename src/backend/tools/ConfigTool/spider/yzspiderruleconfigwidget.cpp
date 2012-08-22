@@ -5,3 +5,9 @@ YZSpiderRuleConfigWidget::YZSpiderRuleConfigWidget(QWidget *parent) :
 {
     ui.setupUi(this);
 }
+
+void YZSpiderRuleConfigWidget::loadRuleItem(Rule *ruleItem)
+{
+    ui.lineEdit->clear();
+    ui.lineEdit->setText(ruleItem->maxPageCount);
+}

@@ -4,6 +4,7 @@
 #include <QStackedWidget>
 #include "yzspidernodeconfigwidget.h"
 #include "yzspiderruleconfigwidget.h"
+#include "DataInterface.h"
 
 class YZConfigStackWidget : public QStackedWidget
 {
@@ -14,7 +15,10 @@ public:
 signals:
     
 public slots:
+    void treeItemDoubleClickedSlot(TreeItem *treeItem);
 private:
+    void loadNodeConfigWidget(TreeItem *item);
+    void loadRuleConfigWidget(TreeItem *item);
     YZSpiderNodeConfigWidget *nodeConfigWidget;
     YZSpiderRuleConfigWidget *ruleConfigWidget;
 };
