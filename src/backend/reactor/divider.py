@@ -25,7 +25,9 @@ class Divider:
 					currentLength = right
 					words = sentence[left:right]
 					sentenceTag = Tag(self.soup, 'data', [('class', 'tts_data')])
-					sentenceTag.insert(0, words)
+					sentenceTag = self.soup.new_tag('data')
+					sentenceTag['class'] = 'tts_data'
+					sentenceTag.string = words
 					resultSentence.append(sentenceTag)
 		return resultSentence
 
@@ -34,7 +36,7 @@ class Divider:
 			results = self.divide(element)
 			if len(results) == 0:
 				return
-			resultTag = Tag(self.soup, 'p')
+			resultTag = self.soup.new_tag('p')
 			for result in results:
 				resultTag.append(result)
 			element.replaceWith(resultTag)
@@ -48,16 +50,17 @@ class Divider:
 		soup = self.soup
 		# first of all, process the fixed elements, like `title', `author', `lastmodified'
 		# `lastmodified' need to be changed to human readable text
-		bodyData = soup.findAll('bodydata')
+		bodyData = soup.find_all('bodydata')
 		if len(bodyData) > 0: # data files
 			# TODO 修改设计方式
-			for element in soup.findAll(['title', 'author']):
+			for element in soup.find_all(['title', 'author']):
 				content = element.contents[0].strip()
-				dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
-				dataTag.insert(0, content)
+				dataTag = self.soup.new_tag('data')
+			  dataTag['class'] = 'tts_data'
+			  dataTag.string = content
 				element.contents[0] = dataTag
 
-			for element in soup.findAll('lastmodified'):
+			for element in soup.find_all('lastmodified'):
 				content = element.contents[0].strip()
 				try:
 					modifiedDate = datetime.datetime.fromtimestamp(long(content) / 1000)
@@ -65,18 +68,20 @@ class Divider:
 					content = dateStr.decode('utf-8')
 				except:
 					content = u"未知"
-				dataTag = Tag(self.soup, 'data', [('class', 'tts_data')])
-				dataTag.insert(0, content)
+				dataTag = self.soup.new_tag('data')
+				dataTag['class'] = 'tts_data'
+				dataTag.string = content
 				element.contents[0] = dataTag
 
 			for element in bodyData:
 				self.processSentence(element)
 		else: # navigation files
-			for element in soup.findAll('name'):
+			for element in soup.find_all('name'):
 			  if len(element.contents) > 0:
 			    content = element.contents[0].strip()
-			    dataTag = Tag(soup, 'data', [('class', 'tts_data')])
-			    dataTag.insert(0, content)
+			    dataTag = self.soup.new_tag('data')
+			    dataTag['class'] = 'tts_data'
+			    dataTag.string = content
 			    element.contents[0] = dataTag
 
 		return soup

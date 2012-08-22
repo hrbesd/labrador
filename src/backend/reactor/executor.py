@@ -1,6 +1,5 @@
 # -*- encoding:utf-8 -*-
 # 真正执行命令的Python文件
-from bs4 import BeautifulSoup, Comment, Tag
 import logger
 from config_parser import ConfigParser
 

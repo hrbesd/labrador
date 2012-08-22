@@ -111,7 +111,7 @@ class Reactor:
 
 		xmlData = ''
 		if self.dataFileExists(fileName):
-			xmlData = self.integrateParentWithData(fileName, srcFile).decode('utf-8')
+			xmlData = self.integrateParentWithData(fileName, srcFile)
 		else:
 			xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
 			xmlData = xmlDataFile.read()
@@ -130,7 +130,7 @@ class Reactor:
 		soup = divider.doWork()
 
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
-		resultData = soup.prettify().decode('utf-8')
+		resultData = soup.prettify()
 		resultFile.write(resultData)
 		resultFile.close()
 
