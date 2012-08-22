@@ -56,8 +56,8 @@ class Divider:
 			for element in soup.find_all(['title', 'author']):
 				content = element.contents[0].strip()
 				dataTag = self.soup.new_tag('data')
-			  dataTag['class'] = 'tts_data'
-			  dataTag.string = content
+				dataTag['class'] = 'tts_data'
+				dataTag.string = content
 				element.contents[0] = dataTag
 
 			for element in soup.find_all('lastmodified'):
