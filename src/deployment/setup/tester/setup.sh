@@ -64,15 +64,15 @@ test -f $UPDATE_CHANNEL_FILE && UPDATE_CHANNEL="`cat $UPDATE_CHANNEL_FILE`"
 usage()
 {
 	printf "
-	
+
 Usage
 
 	`basename $0` [options]
-	
+
 Options
 
 	--check-env		Check environment for essential modules
-	
+
 	User and tester only:
 
 	--make-dirs		Create required directories
@@ -89,7 +89,7 @@ Options
 	--create-user	Create an operating user
 	--create-tester	Create a tester
 	--install-dev	Install development modules
-	
+
 Note
 
 	Check the first few lines of this script for basic settings.
@@ -102,17 +102,17 @@ log()
 	printf "$*\n"
 }
 
-log_item() 
+log_item()
 {
 	printf "\t * $*\n"
 }
 
-log_error() 
+log_error()
 {
 	printf "Error: $*\n"
 }
 
-fail() 
+fail()
 {
 	printf "\nError: $*\n"
 	exit 1
@@ -122,7 +122,7 @@ root_or_fail()
 {
 	# Check if current user is root
 	if test `id -u` -ne 0; then
-		printf "\nYou must be root to use option: $*\n"; exit 1 
+		printf "\nYou must be root to use option: $*\n"; exit 1
 	fi
 }
 
@@ -130,7 +130,7 @@ user_or_fail()
 {
 	# Check if current user is labrador
 	if test `id -u` -eq 0 -o ! -f ~/.labrador-user; then
-		printf "\nYou must be a regular user to use option: $*\n"; exit 1 
+		printf "\nYou must be a regular user to use option: $*\n"; exit 1
 	fi
 }
 
@@ -197,7 +197,7 @@ check_bash_version()
 check_python_version()
 {
 	test -z "`which python`" && log_item "Python not detected." && return 1
-	
+
 	python -c 'import sys; sys.exit(sys.version_info.major * sys.version_info.minor - 14)'
 	if test $? -eq 0; then
 		log_item "Your python is okay."
@@ -237,7 +237,7 @@ create_user()
 		else
 			/usr/sbin/useradd -m -s /bin/bash -g users $username
 		fi
-		
+
 		# Share this script with user
 		local script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 		local script_path=$script_dir"/`basename $0`"
@@ -277,7 +277,7 @@ do
 	case "$token" in
 		--check-env)
 			failed=1
-			log "\nCheck environment ..." 
+			log "\nCheck environment ..."
 			check_ssh_server || failed=0
 			check_web_server || failed=0
 			check_bash_version || failed=0
@@ -341,7 +341,7 @@ do
 				echo 'export PATH='$LABRADOR_BIN':$PATH' >>~/.profile
 				log_item "Updated PATH!\n To make this change take effect now, type '. ~/.profile'"
 			fi
-			
+
 			# Add $LABRADOR_CONFIG to .profile
 			grep "LABRADOR_CONFIG" ~/.profile >/dev/null
 			if test $? -ne 0; then
@@ -354,7 +354,7 @@ do
 				echo "EDITOR=/usr/bin/nano" >>~/.profile
 				log "Added EDITOR variable."
 			fi
-			
+
 			# Set up aliases
 			test -f ~/.bash_aliases && grep "setup" ~/.bash_aliases >/dev/null
 			if test $? -ne 0; then
@@ -425,32 +425,32 @@ do
 			log "Refreshing apt cache ...\n\n"
 			sleep 1
 			apt-get update
-			# python2.7-dev: 
+			# python2.7-dev:
 			apt-get -y install python2.7-dev
-			# python-pip: 
+			# python-pip:
 			apt-get -y install python-pip
-			# python-dateutil html5lib : 
+			# python-dateutil html5lib :
 			easy_install python-dateutil html5lib
 			# PyParsing:
 			easy_install pyparsing
-			# BeautifulSoup:
-			easy_install BeautifulSoup
+			# BeautifulSoup4:
+			easy_install beautifulsoup4
 			# HTML
 			# easy_install html
 			# soap lib
 			easy_install soaplib
 			#suds
 			easy_install suds
-			# libxml2-dev: 
+			# libxml2-dev:
 			apt-get -y install libxml2-dev
-			# libxslt1-dev: 
+			# libxslt1-dev:
 			apt-get -y install libxslt1-dev
 			# twisted
 			easy_install twisted
-			
+
 			# QT
 			apt-get -y install qt4-dev-tools
-			
+
 			# Ruby 1.8
 			apt-get -y install ruby1.8
 			# Gems
