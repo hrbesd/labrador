@@ -5,7 +5,7 @@ import Queue
 import bottle
 from bottle import run, route, request
 from threading import Thread
-from BeautifulSoup import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup, NavigableString
 
 NUM_WORKER_THREADS = 8
 taskQueue = Queue.Queue(0)
