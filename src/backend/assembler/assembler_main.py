@@ -1,7 +1,6 @@
 #!/usr/local/bin
 # -*- coding: utf-8 -*-
 import sys, os, shutil
-from BeautifulSoup import BeautifulSoup
 import utils
 
 VERSION_NAME = "0.3.1.SERVER"

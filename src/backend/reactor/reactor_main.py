@@ -1,7 +1,7 @@
 #!/usr/local/bin
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, Comment, Tag, NavigableString
+from bs4 import BeautifulSoup, Comment, Tag, NavigableString
 from xml.dom.minidom import parseString
 from reactor_rule_parser import *
 from executor import Executor
@@ -111,7 +111,7 @@ class Reactor:
 
 		xmlData = ''
 		if self.dataFileExists(fileName):
-			xmlData = self.integrateParentWithData(fileName, srcFile).decode('utf-8')
+			xmlData = self.integrateParentWithData(fileName, srcFile)
 		else:
 			xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
 			xmlData = xmlDataFile.read()
@@ -120,7 +120,7 @@ class Reactor:
 		xmlData = html.unescape_string(xmlData)
 		# get rip of something like "&amp;nbsp;"
 		# &amp;nbsp; => &nbsp; => " "
-		xmlData = html.unescape_string(xmlData) 
+		xmlData = html.unescape_string(xmlData)
 
 		soup = BeautifulSoup(xmlData)
 		soup = self.semanticify(soup, resultFilePath)
@@ -130,7 +130,7 @@ class Reactor:
 		soup = divider.doWork()
 
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
-		resultData = soup.prettify().decode('utf-8')
+		resultData = soup.prettify()
 		resultFile.write(resultData)
 		resultFile.close()
 

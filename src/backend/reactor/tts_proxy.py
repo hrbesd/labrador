@@ -5,7 +5,7 @@ import Queue
 import bottle
 from bottle import run, route, request
 from threading import Thread
-from BeautifulSoup import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup, NavigableString
 
 NUM_WORKER_THREADS = 8
 taskQueue = Queue.Queue(0)
@@ -18,8 +18,8 @@ def doWork(url):
 	xmlDataFile.close()
 
 	soup = BeautifulSoup(xmlData)
-	for data_element in soup.findAll('data'):
-		if data_element.has_key('class') and data_element['class'] == 'tts_data':
+	for data_element in soup.find_all('data'):
+		if data_element.has_attr('class') and data_element['class'] == 'tts_data':
 			for element in data_element:
 				if type(element) == NavigableString:
 					urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(element.encode('utf-8')))

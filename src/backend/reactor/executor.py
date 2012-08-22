@@ -1,6 +1,5 @@
 # -*- encoding:utf-8 -*-
 # 真正执行命令的Python文件
-from BeautifulSoup import BeautifulSoup, Comment, Tag
 import logger
 from config_parser import ConfigParser
 
@@ -53,12 +52,12 @@ class Executor:
 		element, attr = targetElement.split(' ')
 		if target.has_key('hash'):
 			targetHash = target['hash'].encode('ascii')
-			if alt_dict.has_key(targetHash): # 对于未经过配置的内容，不做替换处理 
+			if alt_dict.has_key(targetHash): # 对于未经过配置的内容，不做替换处理
 				target[attr] = alt_dict[targetHash]
 
 
 	def replace(self, target, args):
-		targetElement, content = args 
+		targetElement, content = args
 		parts = targetElement.split(' ')
 		if len(parts) == 1: # element
 			for sub_element in soup.findAll(target):
