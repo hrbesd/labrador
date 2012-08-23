@@ -43,6 +43,7 @@ public:
                     const QModelIndex &parent = QModelIndex());
 public slots:
     void loadConfigFile(QString fileName);
+    void saveConfigFile(QString fileName);
 private:
     //parse website
     void refreshModelWithWebsiteData();

@@ -1,6 +1,7 @@
 #include "spiderconfigmodel.h"
 #include <QDebug>
 #include <QColor>
+#include "spider/yzxmlwriter.h"
 #include <QBrush>
 
 SpiderConfigModel::SpiderConfigModel(QObject *parent) :
@@ -186,5 +187,13 @@ void SpiderConfigModel::parseRule(TreeItem *parentTreeItem, Rule *ruleItem)
         {
             parseNode(newTreeItem,ruleItem->nodeList[i]);
         }
+    }
+}
+
+void SpiderConfigModel::saveConfigFile(QString fileName)
+{
+    if(!fileName.isEmpty())
+    {
+        YZXmlWriter::writeWebsiteItemToXml(m_website,fileName);
     }
 }
