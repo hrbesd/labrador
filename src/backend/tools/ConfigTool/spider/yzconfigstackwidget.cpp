@@ -39,4 +39,14 @@ void YZConfigStackWidget::loadRuleConfigWidget(TreeItem *item)
     ruleConfigWidget->loadRuleItem(ruleItem);
 }
 
+void YZConfigStackWidget::save()
+{
+
+}
+
+void YZConfigStackWidget::cancel()
+{
+
+}
+
 

@@ -16,6 +16,8 @@ signals:
     
 public slots:
     void treeItemDoubleClickedSlot(TreeItem *treeItem);
+    void save();
+    void cancel();
 private:
     void loadNodeConfigWidget(TreeItem *item);
     void loadRuleConfigWidget(TreeItem *item);
