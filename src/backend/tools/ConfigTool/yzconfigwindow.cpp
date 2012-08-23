@@ -19,13 +19,17 @@ YZConfigWindow::~YZConfigWindow()
 
 void YZConfigWindow::createMenus()
 {
+    m_fileMenu = menuBar()->addMenu(tr("&File"));
+    m_fileMenu->addAction(m_saveAction);
     m_spiderMenu = menuBar()->addMenu(tr("&Spider"));
     m_spiderMenu->addAction(m_loadAction);
 }
 
 void YZConfigWindow::createActions()
 {
+    m_saveAction = new QAction(tr("Save"),this);
     m_loadAction = new QAction(tr("Load Config File"),this);
+    connect(m_saveAction,SIGNAL(triggered()),this,SLOT(saveSpiderConfigFile()));
     connect(m_loadAction,SIGNAL(triggered()),this,SLOT(loadSpiderConfigFile()));
 }
 
@@ -35,6 +39,12 @@ void YZConfigWindow::loadSpiderConfigFile()
                                                     tr("Open Spider Config File"), "~/", tr("Config Files (*.xml);;Any File(*)"));
     if(!fileName.isEmpty())
     {
+        m_spiderConfigFileName = fileName;
         m_spiderConfigWidget->loadSpiderConfigFile(fileName);
     }
+}
+
+void YZConfigWindow::saveSpiderConfigFile()
+{
+    m_spiderConfigWidget->saveSpiderConfigFile(m_spiderConfigFileName);
 }

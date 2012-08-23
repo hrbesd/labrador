@@ -18,12 +18,19 @@ public:
 
 private slots:
     void loadSpiderConfigFile();
+    void saveSpiderConfigFile();
 private:
     void createActions();
     void createMenus();
+    //menus and actions
+    QMenu* m_fileMenu;
+    QAction* m_saveAction;
 
     QMenu* m_spiderMenu;
     QAction *m_loadAction;
+
+    //properties
+    QString m_spiderConfigFileName;
 
     YZSpiderConfigWidget *m_spiderConfigWidget;
 };

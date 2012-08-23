@@ -11,6 +11,7 @@ YZSpiderConfigWidget::YZSpiderConfigWidget(QWidget *parent) :
     m_configStackWidget = new YZConfigStackWidget(this);
     splitter->addWidget(m_configStackWidget);
     vboxLayout->addWidget(splitter);
+
     this->setLayout(vboxLayout);
 
     initConnections();
@@ -24,4 +25,9 @@ void YZSpiderConfigWidget::initConnections()
 void YZSpiderConfigWidget::loadSpiderConfigFile(QString fileName)
 {
     m_spiderConfigTreeView->model->loadConfigFile(fileName);
+}
+
+void YZSpiderConfigWidget::saveSpiderConfigFile(QString fileName)
+{
+    m_spiderConfigTreeView->model->saveConfigFile(fileName);
 }

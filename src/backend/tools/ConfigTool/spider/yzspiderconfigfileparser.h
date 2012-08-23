@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDir>
 #include <QFile>
 #include <iostream>

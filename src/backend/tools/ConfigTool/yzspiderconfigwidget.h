@@ -6,6 +6,8 @@
 #include "spider/yzconfigstackwidget.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QPushButton>
+#include <QSpacerItem>
 #include <QSplitter>
 
 class YZSpiderConfigWidget : public QWidget
@@ -18,6 +20,7 @@ signals:
 
 public slots:
     void loadSpiderConfigFile(QString fileName);
+    void saveSpiderConfigFile(QString fileName);
 private slots:
 
 private:
