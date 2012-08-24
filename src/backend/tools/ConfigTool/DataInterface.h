@@ -31,7 +31,7 @@ public:
     int columnCount() const;
     QVariant data(int column) const;
     bool appendChild(TreeItem *childItem);
-    bool insertChildren(int position, int count, int columns);
+    bool insertChildren(int position, int count = 1, int columns = 0);
     bool insertColumns(int position, int columns);
     TreeItem *parent()
     {
