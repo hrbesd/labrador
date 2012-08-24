@@ -6,6 +6,7 @@
 #include <QFileSystemModel>
 #include "spiderconfigmodel.h"
 #include "DataInterface.h"
+#include <QAction>
 
 class YZSpiderConfigTreeView : public QTreeView
 {
@@ -18,8 +19,12 @@ signals:
 public slots:
 private slots:
     void doubleClickedSlot( const QModelIndex & index );
+    void addChildSlot();
+    void deleteSlot();
 private:
     void initConnections();
+    QAction *addChildAction;
+    QAction *deleteAction;
 };
 
 #endif // YZSPIDERCONFIGTREEVIEW_H
