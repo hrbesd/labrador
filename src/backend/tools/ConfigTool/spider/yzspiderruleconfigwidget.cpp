@@ -1,5 +1,6 @@
 #include "yzspiderruleconfigwidget.h"
 #include <QDebug>
+#include <QMessageBox>
 #include "yzspiderexpressionconfigwidget.h"
 YZSpiderRuleConfigWidget::YZSpiderRuleConfigWidget(QWidget *parent, Rule *rule) :
     QWidget(parent)
@@ -22,14 +23,7 @@ void YZSpiderRuleConfigWidget::loadRuleItem(Rule *ruleItem)
         ui.lineEdit->clear();
         ui.lineEdit->setText(ruleItem->maxPageCount);
         refreshExpressionList();
-        if(m_ruleItem&&m_ruleItem->childRule)
-        {
-            ui.pushButton->setEnabled(true);
-        }
-        else
-        {
-            ui.pushButton->setEnabled(false);
-        }
+
     }
     else
     {
@@ -69,6 +63,7 @@ void YZSpiderRuleConfigWidget::refreshExpressionList()
     {
         ui.listWidget->addItem(m_ruleItem->expressionList[i].label);
     }
+
 }
 
 void YZSpiderRuleConfigWidget::loadExpressionItem(const QModelIndex &modelIndex)
@@ -82,6 +77,27 @@ void YZSpiderRuleConfigWidget::loadExpressionItem(const QModelIndex &modelIndex)
 
 void YZSpiderRuleConfigWidget::loadChildRuleItem()
 {
+    if(m_ruleItem&&m_ruleItem->childRule)
+    {
+
+    }
+    else
+    {
+        QMessageBox box;
+        box.setText("child rule is empty, do you want to create a new one?");
+        box.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+        box.setDefaultButton(QMessageBox::Yes);
+        int result = box.exec();
+        if(result==QMessageBox::Yes)
+        {
+            Rule* childRule= new Rule();
+            m_ruleItem->childRule = childRule;
+        }
+        else
+        {
+            return;
+        }
+    }
     YZSpiderRuleConfigDialog configDialog(0,m_ruleItem->childRule);
     configDialog.exec();
 }
@@ -91,7 +107,6 @@ YZSpiderRuleConfigDialog::YZSpiderRuleConfigDialog(QWidget *parent, Rule *rule):
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     YZSpiderRuleConfigWidget *widget = new YZSpiderRuleConfigWidget(this,rule);
-    widget->ui.pushButton->setEnabled(false);
     layout->addWidget(widget);
     this->setLayout(layout);
 }
