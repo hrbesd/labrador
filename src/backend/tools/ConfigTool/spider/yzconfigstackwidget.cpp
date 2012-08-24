@@ -8,7 +8,6 @@ YZConfigStackWidget::YZConfigStackWidget(QWidget *parent) :
     ruleConfigWidget = new YZSpiderRuleConfigWidget(this);
     this->addWidget(nodeConfigWidget);
     this->addWidget(ruleConfigWidget);
-    this->setCurrentIndex(1);
 }
 
 void YZConfigStackWidget::treeItemDoubleClickedSlot(TreeItem *treeItem)

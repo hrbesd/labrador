@@ -11,7 +11,7 @@ class YZSpiderNodeConfigWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit YZSpiderNodeConfigWidget(QWidget *parent = 0);
+    explicit YZSpiderNodeConfigWidget(QWidget *parent = 0,Node *node = 0);
     void loadNodeItem(Node* node);
 signals:
     
@@ -20,7 +20,7 @@ public slots:
     void cancel();
 private:
     Ui::Form ui;
-
+    Node *m_nodeItem;
 };
 
 #endif // YZSPIDERNODECONFIGWIDGET_H
