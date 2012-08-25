@@ -20,6 +20,99 @@
                 <childRule/>
                 <nodeList>
                     <node>
+                        <name>服务三农 </name>
+                        <url>http://www.hlj.gov.cn/fwsn/</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <expressionList>
+                                    <expression type="" executeOnlyOnce="" label="nextPage" value=""/>
+                                    <expression type="" executeOnlyOnce="" label="url" value=""/>
+                                    <expression type="" executeOnlyOnce="" label="title" value=""/>
+                                </expressionList>
+                                <maxPageCount></maxPageCount>
+                                <childRule>
+                                    <rule>
+                                        <expressionList>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                            <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                        </expressionList>
+                                        <maxPageCount></maxPageCount>
+                                        <childRule/>
+                                        <nodeList/>
+                                    </rule>
+                                </childRule>
+                                <nodeList>
+                                    <node>
+                                        <name>图片新闻</name>
+                                        <url>http://www.hlj.gov.cn/fwsn/tpxw/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList>
+                                            <rule>
+                                                <expressionList>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;div align=&quot;center&quot; class=&quot;f12black&quot;&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;div align=&quot;center&quot; class=&quot;f12black&quot;&gt;&lt;a href=&quot;[^&quot;]*&quot; title=&quot;([^&quot;]*)&quot;"/>
+                                                </expressionList>
+                                                <maxPageCount></maxPageCount>
+                                                <childRule/>
+                                                <nodeList/>
+                                            </rule>
+                                        </ruleList>
+                                    </node>
+                                    <node>
+                                        <name>社保服务</name>
+                                        <url>http://www.hlj.gov.cn/fwsn/nmfw/sbfw/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>义务教育 </name>
+                                        <url>http://www.hlj.gov.cn/fwsn/ncfw/ywjy/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>农作物种植</name>
+                                        <url>http://www.hlj.gov.cn/fwsn/nyfw/nwzz/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>最新动态</name>
+                                        <url>http://www.hlj.gov.cn/fwsn/zxdt/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>政策法规</name>
+                                        <url>http://www.hlj.gov.cn/fwsn/zcfg/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>领导讲话</name>
+                                        <url>http://www.hlj.gov.cn/fwsn/ldjh/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                </nodeList>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+            <rule>
+                <expressionList>
+                    <expression type="" executeOnlyOnce="" label="nextPage" value=""/>
+                    <expression type="" executeOnlyOnce="" label="url" value=""/>
+                    <expression type="" executeOnlyOnce="" label="title" value=""/>
+                </expressionList>
+                <maxPageCount></maxPageCount>
+                <childRule/>
+                <nodeList>
+                    <node>
                         <name>网上办事</name>
                         <url>http://www.hlj.gov.cn/wsbs/index.shtml</url>
                         <refreshRate></refreshRate>
