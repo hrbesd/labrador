@@ -20,6 +20,71 @@
                 <childRule/>
                 <nodeList>
                     <node>
+                        <name>中俄热线</name>
+                        <url>http://www.hlj.gov.cn/zerx/</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <expressionList>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt; · &lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt; · &lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                </expressionList>
+                                <maxPageCount></maxPageCount>
+                                <childRule/>
+                                <nodeList>
+                                    <node>
+                                        <name>出行信息</name>
+                                        <url>http://www.hlj.gov.cn/zerx/cxxx/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>中俄留学</name>
+                                        <url>http://www.hlj.gov.cn/zerx/zelx/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>口岸介绍</name>
+                                        <url>http://www.hlj.gov.cn/zerx/kajs/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>动态信息</name>
+                                        <url>http://www.hlj.gov.cn/zerx/dtxx/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>今日俄罗斯</name>
+                                        <url>http://www.hlj.gov.cn/zerx/jrels/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                    <node>
+                                        <name>俄罗斯概况</name>
+                                        <url>http://www.hlj.gov.cn/zerx/lgs/</url>
+                                        <refreshRate></refreshRate>
+                                        <ruleList/>
+                                    </node>
+                                </nodeList>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+            <rule>
+                <expressionList>
+                    <expression type="" executeOnlyOnce="" label="nextPage" value=""/>
+                    <expression type="" executeOnlyOnce="" label="url" value=""/>
+                    <expression type="" executeOnlyOnce="" label="title" value=""/>
+                </expressionList>
+                <maxPageCount></maxPageCount>
+                <childRule/>
+                <nodeList>
+                    <node>
                         <name>服务三农 </name>
                         <url>http://www.hlj.gov.cn/fwsn/</url>
                         <refreshRate></refreshRate>
