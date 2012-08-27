@@ -161,7 +161,7 @@ class Reactor:
 		for img_element in soup.find_all('img'):
 			if img_element.has_attr('src'):
 				originUrl = img_element['src']
-				if hashNodeRecords.has_attr(originUrl) and hashNodeRecords[originUrl]:
+				if hashNodeRecords.has_key(originUrl) and hashNodeRecords[originUrl]:
 					img_element['src'] = hashNodeRecords[originUrl][1]
 					img_element['hash'] = hashNodeRecords[originUrl][0]
 
