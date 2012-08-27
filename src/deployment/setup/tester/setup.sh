@@ -435,6 +435,8 @@ do
 			easy_install pyparsing
 			# BeautifulSoup4:
 			easy_install beautifulsoup4
+			# XML parser for BS4
+			easy_install lxml
 			# HTML
 			# easy_install html
 			# soap lib
