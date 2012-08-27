@@ -5,3 +5,4 @@
 # Actual path may be: $DEV_SERVER_REPO_ROOT/src/backend/reactor/reactor.py
 
 ln -s $DEV_SERVER_REPO_ROOT/src/backend/reactor/* $TMP_DIR/butts/reactor/
+ln -s /home/gof/labrador_bin/producer $TMP_DIR/butts/reactor/producer

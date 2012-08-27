@@ -5,4 +5,3 @@
 # Actual path may be: $DEV_SERVER_REPO_ROOT/src/backend/assembler/assembler.py
 
 ln -s $DEV_SERVER_REPO_ROOT/src/backend/assembler/* $TMP_DIR/butts/assembler/
-ln -s /home/gof/labrador_bin/producer $TMP_DIR/butts/assembler/producer
