@@ -1,6 +1,5 @@
 #!/usr/local/bin
 # -*- encoding: utf-8 -*-
-
 from bs4 import BeautifulSoup, Comment, Tag, NavigableString
 from xml.dom.minidom import parseString
 from reactor_rule_parser import *
@@ -94,7 +93,7 @@ class Reactor:
 
 		dataSoup.article.insert(0, parentSoup.parentpageurl)
 
-		return dataSoup.prettify()
+		return unicode(dataSoup)
 
 	# 递归处理文件
 	def processFilesRecursively(self, processFunction):
@@ -118,20 +117,19 @@ class Reactor:
 			xmlDataFile.close()
 
 		xmlData = html.unescape_string(xmlData)
-		# get rip of something like "&amp;nbsp;"
+		# get rid of something like "&amp;nbsp;"
 		# &amp;nbsp; => &nbsp; => " "
 		xmlData = html.unescape_string(xmlData)
 
 		soup = BeautifulSoup(xmlData)
-		soup = self.semanticify(soup, resultFilePath)
+		soup = self.semantify(soup, resultFilePath)
 
 		# 最后做断句处理
 		divider = Divider(soup, self.config_file_path)
 		soup = divider.doWork()
 
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
-		resultData = soup.prettify()
-		resultFile.write(resultData)
+		resultFile.write(unicode(soup))
 		resultFile.close()
 
 		# 文章内容生成之后，向Proxy发送文章URL，请求生成语音内容
@@ -141,11 +139,11 @@ class Reactor:
 		print 'Processed: %d' % self.count
 
 	# 语义化处理
-	def semanticify(self, soup, resultFilePath):
+	def semantify(self, soup, resultFilePath):
 		# 建立originUrl为key，[hash, absoluteUrl]为value的字典
 		hashNodeRecords = {}
 		try:
-			dom = parseString(soup.prettify())
+			dom = parseString(unicode(soup))
 			hashNodes = dom.getElementsByTagName('hashnode')
 			for hashNode in hashNodes:
 				hashValue = (hashNode.getElementsByTagName('hash')[0]).toprettyxml()[7:-8].strip()
@@ -155,21 +153,21 @@ class Reactor:
 		except Exception as e:
 			pass
 
+		# 去掉注释
+		comments = soup.find_all(text=(lambda text:isinstance(text, Comment)))
+		[comment.extract() for comment in comments]
+
 		# 将相对URL替换为绝对URL，并添加hash属性
-		for img_element in soup.findAll('img'):
-			if img_element.has_key('src'):
+		for img_element in soup.find_all('img'):
+			if img_element.has_attr('src'):
 				originUrl = img_element['src']
-				if hashNodeRecords.has_key(originUrl) and hashNodeRecords[originUrl]:
+				if hashNodeRecords.has_attr(originUrl) and hashNodeRecords[originUrl]:
 					img_element['src'] = hashNodeRecords[originUrl][1]
 					img_element['hash'] = hashNodeRecords[originUrl][0]
 
-		# 去掉注释
-		comments = soup.findAll(text=(lambda text:isinstance(text, Comment)))
-		[comment.extract() for comment in comments]
-
 		# 利用反射机制，动态调用方法，所有方法的实现都在executor.Executor类中
 		for rule in self.rule_list:
-			for script_code in soup.findAll(rule.target.split(' ')[0]):
+			for script_code in soup.find_all(rule.target.split(' ')[0]):
 				# 默认所有对象都需要处理
 				# 当指定条件的对象不能满足的时候，再跳过处理过程
 				needToProcess = True
