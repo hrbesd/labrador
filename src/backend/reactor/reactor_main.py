@@ -88,8 +88,8 @@ class Reactor:
 		parentContent = parent.read()
 		parent.close()
 
-		dataSoup = BeautifulSoup(dataContent)
-		parentSoup = BeautifulSoup(parentContent)
+		dataSoup = BeautifulSoup(dataContent, 'xml')
+		parentSoup = BeautifulSoup(parentContent, 'xml')
 
 		dataSoup.article.insert(0, parentSoup.parentpageurl)
 
@@ -121,7 +121,7 @@ class Reactor:
 		# &amp;nbsp; => &nbsp; => " "
 		xmlData = html.unescape_string(xmlData)
 
-		soup = BeautifulSoup(xmlData)
+		soup = BeautifulSoup(xmlData, 'xml')
 		soup = self.semantify(soup, resultFilePath)
 
 		# 最后做断句处理
