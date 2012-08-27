@@ -67,7 +67,8 @@ class Reactor:
 		indexPath = self.shared_dir + "/dir.xml"
 
 		if len(indexPath) > 0:
-			command = '../../butts/reactor/producer --index-file=%s --webroot-dir=%s --log-file=%s' % (indexPath, self.out_folder_path, self.log_file)
+			homePath = os.getenv('HOME')
+			command = '%s/labrador/butts/reactor/producer --index-file=%s --webroot-dir=%s --log-file=%s' % (homePath, indexPath, self.out_folder_path, self.log_file)
 			os.system(command)
 		else:
 			print 'Index file not found!'
