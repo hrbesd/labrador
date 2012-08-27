@@ -11,19 +11,19 @@ class Executor:
 	def missing(self, target, args):
 		if len(args) < 1:
 			return False
-		return not target.has_key(args[0])
+		return not target.has_attr(args[0])
 
 	def has(self, target, args):
 		if len(args) < 1:
 			return False
-		return target.has_key(args[0])
+		return target.has_attr(args[0])
 
 	def equal(self, target, args):
 		if len(args) != 2:
 			return False
 
 		attrName, attrValue = args
-		return target.has_key(attrName) and str(target[attrName]) == str(attrValue)
+		return target.has_attr(attrName) and str(target[attrName]) == str(attrValue)
 
 	def let(self, target, args):
 		if len(args) != 2:
@@ -50,9 +50,9 @@ class Executor:
 		parser = ConfigParser(filePath)
 		alt_dict = parser.parseFile()
 		element, attr = targetElement.split(' ')
-		if target.has_key('hash'):
+		if target.has_attr('hash'):
 			targetHash = target['hash'].encode('ascii')
-			if alt_dict.has_key(targetHash): # 对于未经过配置的内容，不做替换处理
+			if alt_dict.has_attr(targetHash): # 对于未经过配置的内容，不做替换处理
 				target[attr] = alt_dict[targetHash]
 
 
@@ -67,7 +67,7 @@ class Executor:
 				sub_element.replaceWith(target_tag)
 		else: # attribute
 			element, attr = parts
-			if target.has_key(attr):
+			if target.has_attr(attr):
 				target[attr] = ''.join(content)
 
 	def set(self, target, args):
@@ -79,7 +79,7 @@ class Executor:
 			content = methodName(self, value)
 		elif content.find('[') != -1:
 			attrName = content[1:-1]
-			if target.has_key(attrName):
+			if target.has_attr(attrName):
 				content = target[attrName]
 			else:
 				content = ''
