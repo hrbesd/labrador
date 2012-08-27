@@ -17,7 +17,7 @@ def doWork(url):
 	xmlData = xmlDataFile.read()
 	xmlDataFile.close()
 
-	soup = BeautifulSoup(xmlData)
+	soup = BeautifulSoup(xmlData, 'xml')
 	for data_element in soup.find_all('data'):
 		if data_element.has_attr('class') and data_element['class'] == 'tts_data':
 			for element in data_element:
