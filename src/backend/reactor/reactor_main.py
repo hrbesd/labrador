@@ -91,7 +91,7 @@ class Reactor:
 		dataSoup = BeautifulSoup(dataContent, 'xml')
 		parentSoup = BeautifulSoup(parentContent, 'xml')
 
-		dataSoup.article.insert(0, parentSoup.parentpageurl)
+		dataSoup.article.insert(0, parentSoup.parentPageUrl)
 
 		return unicode(dataSoup)
 
