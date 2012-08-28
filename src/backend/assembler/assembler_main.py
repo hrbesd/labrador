@@ -114,7 +114,7 @@ class Assembler:
 		firstLine = header + firstLine[firstLine.rindex('<'):]
 		lastLine = contents[-1]
 		lastLine = lastLine[:lastLine.index('>') + 1]
-		contents = [firstLine] + contents[1:-2] + [lastLine]
+		contents = [firstLine] + contents[1:-1] + [lastLine]
 		# 2. Add the xml tag and xslt tag
 		contents = [self.XML_PREFIX, content] + contents
 		writeFile = open(outFilePath, 'w')
