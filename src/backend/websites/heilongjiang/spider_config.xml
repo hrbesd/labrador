@@ -20,6 +20,34 @@
                 <childRule/>
                 <nodeList>
                     <node>
+                        <name>视频</name>
+                        <url>http://www.hlj.gov.cn/zwdt/spxw/index.shtml</url>
+                        <refreshRate></refreshRate>
+                        <ruleList>
+                            <rule>
+                                <expressionList>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="nextPage" value="&lt;a href=&quot;([^&quot;]*)&quot;&gt;下一页"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="url" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;([^&quot;]*)&quot;"/>
+                                    <expression type="RegExp" executeOnlyOnce="false" label="title" value="&lt;td&gt;&lt;ul&gt;&lt;a href=&quot;[^&quot;]*&quot; Title=&quot;([^&quot;]*)&quot;"/>
+                                </expressionList>
+                                <maxPageCount></maxPageCount>
+                                <childRule/>
+                                <nodeList/>
+                            </rule>
+                        </ruleList>
+                    </node>
+                </nodeList>
+            </rule>
+            <rule>
+                <expressionList>
+                    <expression type="" executeOnlyOnce="" label="nextPage" value=""/>
+                    <expression type="" executeOnlyOnce="" label="url" value=""/>
+                    <expression type="" executeOnlyOnce="" label="title" value=""/>
+                </expressionList>
+                <maxPageCount></maxPageCount>
+                <childRule/>
+                <nodeList>
+                    <node>
                         <name>专题</name>
                         <url>http://www.hlj.gov.cn/zt/zt/</url>
                         <refreshRate></refreshRate>
