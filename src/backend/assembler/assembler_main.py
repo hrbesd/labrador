@@ -17,6 +17,7 @@ class Assembler:
 		self.webroot_dir = webroot_dir
 		self.log_file = log_file
 		self.count = 0
+		self.XML_PREFIX = '<?xml version="1.0" encoding="UTF-8"?>'
 
 	def __str__(self):
 		return getVersionStr()
@@ -70,34 +71,34 @@ class Assembler:
 		lFolderPath = self.in_folder_path + "/l"
 
 		# index first
-		self.addContentAtLineNumber(self.in_folder_path, self.temp_out_dir, 'index.xml', self.xsltPath('./xml_stylesheets/index.xsl'), 2)
+		self.changeContent(self.in_folder_path, self.temp_out_dir, 'index.xml', self.xsltPath('./xml_stylesheets/index.xsl'))
 
 		# c
 		for root, dirs, files in os.walk(cFolderPath):
 			for fileName in files:
 				inFolder = root
 				outFilePath = self.temp_out_dir + root[len(self.in_folder_path):]
-				self.addContentAtLineNumber(inFolder, outFilePath, fileName, self.xsltPath('../xml_stylesheets/column.xsl'), 2)
+				self.changeContent(inFolder, outFilePath, fileName, self.xsltPath('../xml_stylesheets/column.xsl'))
 
 		# l
 		for root, dirs, files in os.walk(lFolderPath):
 			for fileName in files:
 				inFolder = root
 				outFilePath = self.temp_out_dir + root[len(self.in_folder_path):]
-				self.addContentAtLineNumber(inFolder, outFilePath, fileName, self.xsltPath('../xml_stylesheets/list.xsl'), 2)
+				self.changeContent(inFolder, outFilePath, fileName, self.xsltPath('../xml_stylesheets/list.xsl'))
 
 		# a
 		for root, dirs, files in os.walk(aFolderPath):
 			for fileName in files:
 				inFolder = root
 				outFilePath = self.temp_out_dir + root[len(self.in_folder_path):]
-				self.addContentAtLineNumber(inFolder, outFilePath, fileName, self.xsltPath('../../xml_stylesheets/article.xsl'), 2)
+				self.changeContent(inFolder, outFilePath, fileName, self.xsltPath('../../xml_stylesheets/article.xsl'))
 
 				self.count = self.count + 1
 				print 'Processed %d' % self.count
 		pass
 
-	def addContentAtLineNumber(self, inPath, outPath, fileName, content, lineNo):
+	def changeContent(self, inPath, outPath, fileName, content):
 		if not os.path.exists(outPath):
 			os.makedirs(outPath)
 
@@ -107,7 +108,15 @@ class Assembler:
 		readFile.close()
 
 		outFilePath = outPath + "/" + fileName
-		contents = contents[:lineNo - 1] + [content] + contents[lineNo - 1:]
+		# process the document in 2 steps
+		# 1. Strip the html tags
+		firstLine = contents[0]
+		firstLine = firstLine[firstLine.rindex('<'):]
+		lastLine = contents[-1]
+		lastLine = lastLine[:lastLine.index('>')]
+		contents = [firstLine] + contents[1:-2] + [lastLine]
+		# 2. Add the xml tag and xslt tag
+		contents = [self.XML_PREFIX, content] + contents
 		writeFile = open(outFilePath, 'w')
 		writeFile.write(''.join(contents))
 		writeFile.close()
