@@ -24,6 +24,7 @@
 
 .fixed-bottom {
   position: fixed;
+  _position:absolute;
   right: 0;
   left: 0;
   bottom: 0;
