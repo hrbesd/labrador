@@ -85,6 +85,11 @@ class Reactor:
 		dataContent = data.read()
 		data.close()
 
+		dataContent = html.unescape_string(dataContent)
+		# get rid of something like "&amp;nbsp;"
+		# &amp;nbsp; => &nbsp; => " "
+		dataContent = html.unescape_string(dataContent)
+
 		parent = codecs.open(parentFile, 'r', 'utf-8')
 		parentContent = parent.read()
 		parent.close()
@@ -94,7 +99,7 @@ class Reactor:
 
 		dataSoup.article.insert(0, parentSoup.parentPageUrl)
 
-		return unicode(dataSoup)
+		return dataSoup
 
 	# 递归处理文件
 	def processFilesRecursively(self, processFunction):
@@ -109,20 +114,14 @@ class Reactor:
 		srcFile = root + "/" + fileName
 		resultFilePath = srcFile
 
-		xmlData = ''
 		if self.dataFileExists(fileName):
-			xmlData = self.integrateParentWithData(fileName, srcFile)
+			soup = self.integrateParentWithData(fileName, srcFile)
 		else:
 			xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
 			xmlData = xmlDataFile.read()
 			xmlDataFile.close()
+			soup = BeautifulSoup(xmlData, 'xml')
 
-		xmlData = html.unescape_string(xmlData)
-		# get rid of something like "&amp;nbsp;"
-		# &amp;nbsp; => &nbsp; => " "
-		xmlData = html.unescape_string(xmlData)
-
-		soup = BeautifulSoup(xmlData, 'xml')
 		soup = self.semantify(soup, resultFilePath)
 
 		# 最后做断句处理
