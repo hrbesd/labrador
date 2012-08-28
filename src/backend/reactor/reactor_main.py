@@ -94,10 +94,10 @@ class Reactor:
 		parentContent = parent.read()
 		parent.close()
 
-		dataSoup = BeautifulSoup(dataContent, 'xml')
-		parentSoup = BeautifulSoup(parentContent, 'xml')
+		dataSoup = BeautifulSoup(dataContent, 'lxml')
+		parentSoup = BeautifulSoup(parentContent, 'lxml')
 
-		dataSoup.article.insert(0, parentSoup.parentPageUrl)
+		dataSoup.article.insert(0, parentSoup.parentpageurl)
 
 		return dataSoup
 
@@ -120,7 +120,7 @@ class Reactor:
 			xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
 			xmlData = xmlDataFile.read()
 			xmlDataFile.close()
-			soup = BeautifulSoup(xmlData, 'xml')
+			soup = BeautifulSoup(xmlData, 'lxml')
 
 		soup = self.semantify(soup, resultFilePath)
 
