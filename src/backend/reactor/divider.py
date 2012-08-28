@@ -54,7 +54,7 @@ class Divider:
 			# TODO 修改设计方式
 			for element in soup.find_all(['title', 'author']):
 				if len(element.contents) == 0:
-					pass
+					continue
 				content = element.contents[0].strip()
 				dataTag = self.soup.new_tag('data')
 				dataTag['class'] = 'tts_data'
@@ -63,7 +63,7 @@ class Divider:
 
 			for element in soup.find_all('lastmodified'):
 				if len(element.contents) == 0:
-					pass
+					continue
 				content = element.contents[0].strip()
 				try:
 					modifiedDate = datetime.datetime.fromtimestamp(long(content) / 1000)

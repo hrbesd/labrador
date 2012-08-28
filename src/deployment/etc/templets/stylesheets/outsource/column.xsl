@@ -8,8 +8,8 @@
         <meta name="robots" content="noindex" />
         <!-- Stylesheets -->
         <link rel="stylesheet" type="text/css" title="standard" href="../assets/css/standard.css" />
-        <link rel="stylesheet" type="text/css" title="dark" href="../assets/css/dark.css" />
-        <link rel="stylesheet" type="text/css" title="high_contrast" href="../assets/css/highcontrast.css" />
+<!--        <link rel="stylesheet" type="text/css" title="dark" href="../assets/css/dark.css" />
+        <link rel="stylesheet" type="text/css" title="high_contrast" href="../assets/css/highcontrast.css" /> -->
         <link href="../assets/css/accessible.css" rel="stylesheet" />
         <!-- JavaScript -->
         <script type="text/javascript" src="../assets/js/jquery.js"></script>
