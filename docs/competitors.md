@@ -40,3 +40,14 @@
 
 [三年前的招聘](http://www.yingjiesheng.com/job-000-636-599.html)
 [另一则](http://gdjy.hfut.edu.cn/viewcomp.jsp?id=AEZuAAC)
+
+### 泰得利通网站信息无障碍平台
+
+2010年，泰得利通为推动政府门户网站信息无障碍建设，为残障人士提供服务，组建了拥有技术创新和社会责任的专项研发团队，历时350天，研发了含有多项核心技术，全新的网站信息无障碍产品，于2011年发布。
+
+[官方网站](http://www.intertid.com/wzazixun.shtml)
+ 
+已经有19家使用了这个平台。
+第三项里的19家。19个图标单击就可以进入。
+
+[这个是其中之一](http://cl.wuxi.gov.cn/voiceweb/amblyopia.html )
