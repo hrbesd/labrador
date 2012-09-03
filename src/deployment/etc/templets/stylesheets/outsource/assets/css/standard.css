@@ -1,8 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
 
+
 html{ margin:0px; padding:0px;}
-body{ margin:0px; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px ;background:#FFF url(../img/4_02.gif) repeat-x; position:relative;}
+body{ text-align:center; margin:0 auto; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px ;background:#FFF url(../img/4_02.gif) repeat-x; position:relative;}
 *{ margin:0px; padding:0px;}
 div{ margin:0px; padding:0px;}
 ul{ margin:0px; padding:0px; list-style:none}

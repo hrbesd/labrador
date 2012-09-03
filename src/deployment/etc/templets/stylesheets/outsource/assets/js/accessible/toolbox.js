@@ -28,11 +28,18 @@ var initSM2 = function() {
         });
     }
 
-    soundManager.setup({
-        useFlashBlock: false,
-        url: 'assets/swf/',
-        debugMode: true,
-    });
+ //   soundManager.setup({
+ //       useFlashBlock: false,
+ //       url: 'assets/swf/',
+  //      debugMode: true,
+  //  });
+  //consoleOnly: false
+	  soundManager.setup({
+	  useFlashBlock: false,
+	  url: 'assets/swf/', // path to SoundManager2 SWF files (note trailing slash)
+	  debugMode: true,
+	  consoleOnly: false
+	});
 }
 
 initSM2();
