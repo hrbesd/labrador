@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui script
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     spider/yzspiderruleconfigwidget.cpp \
     spider/yzconfigstackwidget.cpp \
     spider/yzspiderexpressionconfigwidget.cpp \
-    spider/yzxmlwriter.cpp
+    spider/yzxmlwriter.cpp \
+    parser/yzparserconfigwidget.cpp
 
 HEADERS  += yzconfigwindow.h \
     yzspiderconfigwidget.h \
@@ -35,9 +36,13 @@ HEADERS  += yzconfigwindow.h \
     spider/yzspiderruleconfigwidget.h \
     spider/yzconfigstackwidget.h \
     spider/yzspiderexpressionconfigwidget.h \
-    spider/yzxmlwriter.h
+    spider/yzxmlwriter.h \
+    parser/yzparserconfigwidget.h
 
 FORMS += \
     spider/NodeConfigWidget.ui \
     spider/RuleConfig.ui \
-    spider/ExpressionConfig.ui
+    spider/ExpressionConfig.ui \
+    parser/parserConfigWidget.ui \
+    parser/parserTargetWidget.ui \
+    parser/parserResultWidget.ui
