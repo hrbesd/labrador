@@ -11,5 +11,5 @@
  */
 
 keybinding.config = {
-	'83' : accessible, // 'S'键，对应打开工具箱
+	'83':accessible
 };
