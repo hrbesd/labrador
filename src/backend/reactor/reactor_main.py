@@ -6,7 +6,7 @@ from reactor_rule_parser import *
 from executor import Executor
 from divider import Divider
 from rule_item import *
-import re, sys, os, codecs, html
+import re, sys, os, codecs, html, threading
 import utils, tts_client
 
 VERSION_NAME = "0.3.1.SERVER"
@@ -40,6 +40,16 @@ class Reactor:
 		if not self.ensureInputFolderExists():
 			print "Error: Input folder does not exists."
 			return
+
+		# try to start tts proxy
+		print 'Try starting proxy...'
+		try:
+			homePath = os.getenv('HOME')
+			command = 'python %s/labrador/butts/reactor/producer' % homePath
+			os.popen(command)
+			threading.sleep(2000)
+		finally:
+			print 'Proxy started...'
 
 		self.ensureOutputFolderExists()
 
