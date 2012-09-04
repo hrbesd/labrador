@@ -42,15 +42,7 @@ class Reactor:
 		result = os.system(command)
 		return result == 0
 
-	def startProxy(self, cmd, args):
-
-		# Default daemon parameters.
-		# File mode creation mask of the daemon.
-		UMASK = 0
-
-		# Default working directory for the daemon.
-		WORKDIR = "/"
-
+	def startProxy(self, path):
 		if (hasattr(os, "devnull")):
 			REDIRECT_TO = os.devnull
 		else:
@@ -76,12 +68,10 @@ class Reactor:
 			os._exit(0)
 			return
 
-		os.chdir(WORKDIR)
-		os.umask(UMASK)
-
 		# and finally let's execute the executable for the daemon!
 		try:
-			os.execl('/usr/bin/nohup', cmd, args)
+			Popen(['nohup', 'python', path])
+			os._exit(0)
 		except Exception, e:
 			# oops, we're cut off from the world, let's just give up
 			os._exit(255)
@@ -93,9 +83,8 @@ class Reactor:
 
 		if not self.isProxyRunning():
 			homePath = os.getenv('HOME')
-			command = '/usr/bin/python'
-			args = '%s/labrador/butts/reactor/tts_proxy.py' % homePath
-			self.startProxy(command, args)
+			path = '%s/labrador/butts/reactor/tts_proxy.py' % homePath
+			self.startProxy(path)
 			print 'Starting...'
 
 		# waiting for the proxy to be started
