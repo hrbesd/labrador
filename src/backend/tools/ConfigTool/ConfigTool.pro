@@ -45,4 +45,5 @@ FORMS += \
     spider/ExpressionConfig.ui \
     parser/parserConfigWidget.ui \
     parser/parserTargetWidget.ui \
-    parser/parserResultWidget.ui
+    parser/parserResultWidget.ui \
+    spider/Website.ui
