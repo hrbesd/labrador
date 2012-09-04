@@ -36,19 +36,27 @@ class Reactor:
 		parser = RuleParser()
 		self.rule_list = parser.parseFile(self.rule_file_path)
 
+	def isProxyRunning(self):
+		command = "nc -z -w 2 127.0.0.1 7800"
+		result = os.system(command)
+		return result == 0
+
 	def doReactorWork(self):
 		if not self.ensureInputFolderExists():
 			print "Error: Input folder does not exists."
 			return
 
-		command = "nc -z -w 2 127.0.0.1 7800"
-		result = os.system(command)
-		if result != 0:
+		if not self.isProxyRunning()
 			homePath = os.getenv('HOME')
 			command = 'python %s/labrador/butts/reactor/tts_proxy.py' % homePath
 			os.spawnl(os.P_NOWAIT, command)
 			print 'Starting...'
 			time.sleep(2)
+
+		# waiting for the proxy to be started
+		while not self.isProxyRunning():
+			time.sleep(1)
+
 		print "Proxy started..."
 
 		self.ensureOutputFolderExists()
