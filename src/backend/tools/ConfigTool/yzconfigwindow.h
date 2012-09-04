@@ -6,8 +6,11 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QFileDialog>
+#include "DataInterface.h"
+#include "spider/yzxmlwriter.h"
 #include "yzspiderconfigwidget.h"
 #include "parser/yzparserconfigwidget.h"
+#include "ui_Website.h"
 
 class YZConfigWindow : public QMainWindow
 {
@@ -24,6 +27,7 @@ private slots:
     void saveParserConfigFile();
     void createSpiderConfigFile();
     void createParserConfigFile();
+    void createWebsite();
 private:
     void createActions();
     void createMenus();
@@ -45,6 +49,7 @@ private:
     YZSpiderConfigWidget *m_spiderConfigWidget;
     YZParserConfigWidget *m_parserConfigWidget;
     QTabWidget *tabwidget;
+    Ui::Website websiteUi;
 };
 
 #endif // YZCONFIGWINDOW_H
