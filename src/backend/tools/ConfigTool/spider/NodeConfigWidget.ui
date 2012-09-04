@@ -85,7 +85,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_2">
        <property name="text">
-        <string>取消</string>
+        <string>重置</string>
        </property>
       </widget>
      </item>
