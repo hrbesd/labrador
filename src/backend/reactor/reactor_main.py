@@ -6,8 +6,9 @@ from reactor_rule_parser import *
 from executor import Executor
 from divider import Divider
 from rule_item import *
-import re, sys, os, codecs, html, time
+import re, sys, os, codecs, html, time, socket
 import utils, tts_client
+from subprocess import Popen
 
 VERSION_NAME = "0.3.1.SERVER"
 
@@ -42,11 +43,15 @@ class Reactor:
 			return
 
 		# try to start tts proxy
-		print 'Try starting proxy...'
+		s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 		try:
+			s.connect(('127.0.0.1', 7800))
+			# succeeded? Server already started
+		except socket.error, e:
 			homePath = os.getenv('HOME')
-			command = 'python %s/labrador/butts/reactor/tts_proxy.py&' % homePath
-			os.popen(command)
+			command = '%s/labrador/butts/reactor/tts_proxy.py&' % homePath
+			p = Popen(['python', command])
+			print 'Starting...'
 			time.sleep(2)
 		finally:
 			print 'Proxy started...'
