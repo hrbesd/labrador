@@ -42,6 +42,56 @@ class Reactor:
 		result = os.system(command)
 		return result == 0
 
+	def startProxy(self, path):
+		if (hasattr(os, "devnull")):
+			REDIRECT_TO = os.devnull
+		else:
+			REDIRECT_TO = "/dev/null"
+
+		# fork the first time (to make a non-session-leader child process)
+		try:
+			pid = os.fork()
+		except OSError, e:
+			raise RuntimeError("1st fork failed: %s [%d]" % (e.strerror, e.errno))
+		if pid != 0:
+			return
+
+		# detach from controlling terminal (to make child a session-leader)
+		os.setsid()
+		try:
+			pid = os.fork()
+		except OSError, e:
+			raise RuntimeError("2nd fork failed: %s [%d]" % (e.strerror, e.errno))
+			raise Exception, "%s [%d]" % (e.strerror, e.errno)
+		if pid != 0:
+			# child process is all done
+			os._exit(0)
+
+		# grandchild process now non-session-leader, detached from parent
+		# grandchild process must now close all open files
+		try:
+			maxfd = os.sysconf("SC_OPEN_MAX")
+		except (AttributeError, ValueError):
+			maxfd = 1024
+
+		for fd in range(maxfd):
+			try:
+				os.close(fd)
+			except OSError: # ERROR, fd wasn't open to begin with (ignored)
+				pass
+
+		# redirect stdin, stdout and stderr to /dev/null
+		os.open(REDIRECT_TO, os.O_RDWR) # standard input (0)
+		os.dup2(0, 1)
+		os.dup2(0, 2)
+
+		# and finally let's execute the executable for the daemon!
+		try:
+			os.execv(path)
+		except Exception, e:
+			# oops, we're cut off from the world, let's just give up
+			os._exit(255)
+
 	def doReactorWork(self):
 		if not self.ensureInputFolderExists():
 			print "Error: Input folder does not exists."
@@ -49,8 +99,8 @@ class Reactor:
 
 		if not self.isProxyRunning():
 			homePath = os.getenv('HOME')
-			command = '%s/labrador/butts/reactor/tts_proxy.py' % homePath
-			p = Popen(['nohup', 'python', command])
+			command = 'nohup python %s/labrador/butts/reactor/tts_proxy.py' % homePath
+			self.startProxy(command)
 			print 'Starting...'
 
 		# waiting for the proxy to be started
