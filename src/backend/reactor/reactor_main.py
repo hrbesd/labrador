@@ -42,17 +42,16 @@ class Reactor:
 			return
 
 		# try to start tts proxy
-		print 'Try starting proxy...'
+		s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 		try:
-			s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
-			s.bind(('1.1.1.1', 7740))
-			homePath = os.getenv('HOME')
-			command = 'python %s/labrador/butts/reactor/tts_proxy.py&' % homePath
-			os.popen(command)
-			time.sleep(2)
+			s.connect(('127.0.0.1', 7800))
+			# succeeded? Server already started
 		except socket.error, e:
-			print 'Port in use...'
-			pass
+		  homePath = os.getenv('HOME')
+		  command = 'python %s/labrador/butts/reactor/tts_proxy.py&' % homePath
+		  os.popen(command)
+		  print 'Starting...'
+		  time.sleep(2)
 		finally:
 			print 'Proxy started...'
 
