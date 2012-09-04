@@ -42,7 +42,7 @@ class Reactor:
 		result = os.system(command)
 		return result == 0
 
-	def startProxy(self, path):
+	def startProxy(self, cmd, args):
 		if (hasattr(os, "devnull")):
 			REDIRECT_TO = os.devnull
 		else:
@@ -77,6 +77,7 @@ class Reactor:
 		for fd in range(maxfd):
 			try:
 				os.close(fd)
+				print fd
 			except OSError: # ERROR, fd wasn't open to begin with (ignored)
 				pass
 
@@ -87,7 +88,7 @@ class Reactor:
 
 		# and finally let's execute the executable for the daemon!
 		try:
-			os.execv(path)
+			os.execv(cmd, args)
 		except Exception, e:
 			# oops, we're cut off from the world, let's just give up
 			os._exit(255)
@@ -99,8 +100,9 @@ class Reactor:
 
 		if not self.isProxyRunning():
 			homePath = os.getenv('HOME')
-			command = 'nohup python %s/labrador/butts/reactor/tts_proxy.py' % homePath
-			self.startProxy(command)
+			command = 'nohup python'
+			args = '%s/labrador/butts/reactor/tts_proxy.py' % homePath
+			self.startProxy(command, args)
 			print 'Starting...'
 
 		# waiting for the proxy to be started
