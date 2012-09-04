@@ -22,7 +22,16 @@ void YZParserConfigWidget::loadParserConfigFile(QString fileName)
 
 void YZParserConfigWidget::saveParserConfigFile(QString fileName)
 {
-
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        qWarning()<<"can't open file";
+        return;
+    }
+    QTextStream out(&file);
+    out<<configUi.plainTextEdit->toPlainText();
+    out.flush();
+    file.close();
 }
 
 void YZParserConfigWidget::initUI()
