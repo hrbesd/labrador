@@ -99,10 +99,56 @@ void YZConfigWindow::saveParserConfigFile()
 
 void YZConfigWindow::createSpiderConfigFile()
 {
+    QDialog *dialog = new QDialog(this);
+    websiteUi.setupUi(dialog);
+    connect(websiteUi.buttonBox,SIGNAL(accepted()),this,SLOT(createWebsite()));
+    connect(websiteUi.buttonBox,SIGNAL(rejected()),dialog,SLOT(close()));
+    dialog->exec();
 
 }
 
 void YZConfigWindow::createParserConfigFile()
 {
+    QString fileName = QFileDialog::getSaveFileName(this,
+                                                    tr("Save Parser Config File"), m_parserConfigFileName, tr("Config Files (*.js);;Any File(*)"));
+    if(!fileName.isEmpty())
+    {
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            qWarning()<<"can't open file";
+            return;
+        }
+        QTextStream out(&file);
+        out<<"function parseArticle(content,url) {\n"
+             "    var articleItem = { title: '', body: '', lastModified: '', author: '' , version: '0.1.0' , refreshTag:''};\n\n\n"
+             "    return articleItem;\n"
+             "}";
+        out.flush();
+        file.close();
+        m_parserConfigFileName = fileName;
+        m_parserConfigWidget->loadParserConfigFile(fileName);
+        this->tabwidget->setCurrentIndex(1);
+    }
+}
+
+void YZConfigWindow::createWebsite()
+{
+    WebSite website;
+    website.editor = websiteUi.lineEdit->text();
+    website.info = websiteUi.lineEdit_2->text();
+    website.crawlTime = websiteUi.lineEdit_4->text();
+    website.threadLimit = websiteUi.lineEdit_5->text();
+    website.node.name = websiteUi.lineEdit_3->text();
+    website.node.url = websiteUi.lineEdit_6->text();
+    QString fileName = QFileDialog::getSaveFileName(this,
+                                                    tr("Save Spider Config File"), m_spiderConfigFileName, tr("Config Files (*.xml);;Any File(*)"));
+    if(!fileName.isEmpty())
+    {
+        YZXmlWriter::writeWebsiteItemToXml(website,fileName);
+        m_spiderConfigFileName = fileName;
+        m_spiderConfigWidget->loadSpiderConfigFile(fileName);
+        this->tabwidget->setCurrentIndex(0);
+    }
 
 }

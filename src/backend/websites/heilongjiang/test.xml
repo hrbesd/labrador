@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<website>
+    <editor>Hailong</editor>
+    <info>dasffsda</info>
+    <version>0.1.0</version>
+    <crawlTime></crawlTime>
+    <threadLimit>11</threadLimit>
+    <node>
+        <name>test</name>
+        <url>www.baidu.com</url>
+        <refreshRate></refreshRate>
+        <ruleList/>
+    </node>
+</website>
