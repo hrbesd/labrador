@@ -8,6 +8,7 @@ from divider import Divider
 from rule_item import *
 import re, sys, os, codecs, html, time, socket
 import utils, tts_client
+from subprocess import Popen
 
 VERSION_NAME = "0.3.1.SERVER"
 
@@ -46,12 +47,11 @@ class Reactor:
 			print "Error: Input folder does not exists."
 			return
 
-		if not self.isProxyRunning()
+		if not self.isProxyRunning():
 			homePath = os.getenv('HOME')
-			command = 'python %s/labrador/butts/reactor/tts_proxy.py' % homePath
-			os.spawnl(os.P_NOWAIT, command)
+			command = '%s/labrador/butts/reactor/tts_proxy.py' % homePath
+			p = Popen(['nohup', 'python', command])
 			print 'Starting...'
-			time.sleep(2)
 
 		# waiting for the proxy to be started
 		while not self.isProxyRunning():
