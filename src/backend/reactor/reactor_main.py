@@ -43,6 +43,14 @@ class Reactor:
 		return result == 0
 
 	def startProxy(self, cmd, args):
+
+		# Default daemon parameters.
+		# File mode creation mask of the daemon.
+		UMASK = 0
+
+		# Default working directory for the daemon.
+		WORKDIR = "/"
+
 		if (hasattr(os, "devnull")):
 			REDIRECT_TO = os.devnull
 		else:
@@ -66,29 +74,14 @@ class Reactor:
 		if pid != 0:
 			# child process is all done
 			os._exit(0)
+			return
 
-		# grandchild process now non-session-leader, detached from parent
-		# grandchild process must now close all open files
-		try:
-			maxfd = os.sysconf("SC_OPEN_MAX")
-		except (AttributeError, ValueError):
-			maxfd = 1024
-
-		for fd in range(maxfd):
-			try:
-				os.close(fd)
-				print fd
-			except OSError: # ERROR, fd wasn't open to begin with (ignored)
-				pass
-
-		# redirect stdin, stdout and stderr to /dev/null
-		os.open(REDIRECT_TO, os.O_RDWR) # standard input (0)
-		os.dup2(0, 1)
-		os.dup2(0, 2)
+		os.chdir(WORKDIR)
+		os.umask(UMASK)
 
 		# and finally let's execute the executable for the daemon!
 		try:
-			os.execv(cmd, args)
+			os.execl('/usr/bin/nohup', cmd, args)
 		except Exception, e:
 			# oops, we're cut off from the world, let's just give up
 			os._exit(255)
@@ -100,7 +93,7 @@ class Reactor:
 
 		if not self.isProxyRunning():
 			homePath = os.getenv('HOME')
-			command = 'nohup python'
+			command = '/usr/bin/python'
 			args = '%s/labrador/butts/reactor/tts_proxy.py' % homePath
 			self.startProxy(command, args)
 			print 'Starting...'
