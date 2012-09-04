@@ -41,19 +41,15 @@ class Reactor:
 			print "Error: Input folder does not exists."
 			return
 
-		# try to start tts proxy
-		s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-		try:
-			s.connect(('127.0.0.1', 7800))
-			# succeeded? Server already started
-		except socket.error, e:
+		command = "nc -z -w 2 127.0.0.1 7800"
+		result = os.system(command)
+		if result != 0:
 			homePath = os.getenv('HOME')
 			command = 'python %s/labrador/butts/reactor/tts_proxy.py' % homePath
 			os.spawnl(os.P_NOWAIT, command)
 			print 'Starting...'
 			time.sleep(2)
-		finally:
-			print 'Proxy started...'
+		print "Proxy started..."
 
 		self.ensureOutputFolderExists()
 
