@@ -181,7 +181,7 @@ class Reactor:
 		soup = divider.doWork()
 
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
-		resultFile.write(unicode(soup))
+		resultFile.write(beautiful_soup_tag_to_unicode(soup))
 		resultFile.close()
 
 		# 文章内容生成之后，向Proxy发送文章URL，请求生成语音内容
@@ -190,12 +190,28 @@ class Reactor:
 		self.count += 1
 		print 'Processed: %d' % self.count
 
+	# try to resolve the maximum-recursion problem
+	def beautiful_soup_tag_to_unicode(tag):
+		try:
+    	return unicode(tag)
+    except RuntimeError as e:
+    	if not str(e).startswith('maximum recursion'):
+    		raise
+			# If you have more than 480 level of nested tags you can hit the maximum recursion level
+			out=[]
+			for mystring in tag.findAll(text=True):
+				mystring=mystring.strip()
+				if not mystring:
+				    continue
+				out.append(mystring)
+			return u'<pre>%s</pre>' % '\n'.join(out)
+
 	# 语义化处理
 	def semantify(self, soup, resultFilePath):
 		# 建立originUrl为key，[hash, absoluteUrl]为value的字典
 		hashNodeRecords = {}
 		try:
-			dom = parseString(unicode(soup))
+			dom = parseString(beautiful_soup_tag_to_unicode(soup))
 			hashNodes = dom.getElementsByTagName('hashnode')
 			for hashNode in hashNodes:
 				hashValue = (hashNode.getElementsByTagName('hash')[0]).toprettyxml()[7:-8].strip()
