@@ -58,6 +58,7 @@ QVariant TreeItem::data(int column) const
 bool TreeItem::appendChild(TreeItem *childItem)
 {
     this->childItems.append(childItem);
+    return true;
 }
 
 bool TreeItem::insertChildren(int position, int count, int columns)
