@@ -41,6 +41,9 @@ class Assembler:
 		print 'Moving to webroot...'
 		self.mv2webroot()
 
+		# 6.移动样式表
+		self.mvAssets()
+
 		print 'Done!'
 
 		return
@@ -123,3 +126,8 @@ class Assembler:
 
 	def mv2webroot(self):
 		utils.fileMover(self.temp_out_dir, self.webroot_dir)
+
+	def mvAssets(self):
+		homePath = os.getenv('HOME')
+		assetsPath = '%s/labrador/etc/templets/stylesheets/outsource/assets/' % homePath
+		utils.fileMover(assets, self.webroot_dir)
