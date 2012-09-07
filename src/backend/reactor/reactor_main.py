@@ -103,9 +103,6 @@ class Reactor:
 
 		self.executor.finished()
 
-		if p:
-			p.terminate()
-
 		print 'Done!'
 		return
 
