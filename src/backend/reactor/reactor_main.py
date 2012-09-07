@@ -193,16 +193,16 @@ class Reactor:
 	# try to resolve the maximum-recursion problem
 	def beautiful_soup_tag_to_unicode(tag):
 		try:
-    	return unicode(tag)
-    except RuntimeError as e:
-    	if not str(e).startswith('maximum recursion'):
-    		raise
+			return unicode(tag)
+		except RuntimeError as e:
+			if not str(e).startswith('maximum recursion'):
+				raise
 			# If you have more than 480 level of nested tags you can hit the maximum recursion level
 			out=[]
 			for mystring in tag.findAll(text=True):
 				mystring=mystring.strip()
 				if not mystring:
-				    continue
+					continue
 				out.append(mystring)
 			return u'<pre>%s</pre>' % '\n'.join(out)
 
