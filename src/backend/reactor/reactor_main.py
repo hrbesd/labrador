@@ -181,7 +181,7 @@ class Reactor:
 		soup = divider.doWork()
 
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
-		resultFile.write(beautiful_soup_tag_to_unicode(soup))
+		resultFile.write(self.beautiful_soup_tag_to_unicode(soup))
 		resultFile.close()
 
 		# 文章内容生成之后，向Proxy发送文章URL，请求生成语音内容
@@ -191,7 +191,7 @@ class Reactor:
 		print 'Processed: %d' % self.count
 
 	# try to resolve the maximum-recursion problem
-	def beautiful_soup_tag_to_unicode(tag):
+	def beautiful_soup_tag_to_unicode(self, tag):
 		try:
 			return unicode(tag)
 		except RuntimeError as e:
@@ -211,7 +211,7 @@ class Reactor:
 		# 建立originUrl为key，[hash, absoluteUrl]为value的字典
 		hashNodeRecords = {}
 		try:
-			dom = parseString(beautiful_soup_tag_to_unicode(soup))
+			dom = parseString(self.beautiful_soup_tag_to_unicode(soup))
 			hashNodes = dom.getElementsByTagName('hashnode')
 			for hashNode in hashNodes:
 				hashValue = (hashNode.getElementsByTagName('hash')[0]).toprettyxml()[7:-8].strip()
