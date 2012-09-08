@@ -1,0 +1,593 @@
+Launching reactor for test_harbin...
+
+Profiler result:
+Wed Jul 18 03:05:18 2012    profiler.log
+
+         65754699 function calls (63990618 primitive calls) in 7196.995 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    77954 3695.875    0.047 3695.875    0.047 {method 'recv' of '_socket.socket' objects}
+    77954 2998.951    0.038 2998.951    0.038 {method 'connect' of '_socket.socket' objects}
+   545678   20.954    0.000 3733.575    0.007 socket.py:406(readline)
+    77954   17.760    0.000   62.447    0.001 httplib.py:234(readheaders)
+    79223   16.523    0.000   99.745    0.001 {built-in method Parse}
+   954828   15.958    0.000   50.532    0.000 expatbuilder.py:743(start_element_handler)
+   467718    9.844    0.000   17.129    0.000 expatbuilder.py:116(_parse_ns_name)
+    77954    8.926    0.000 6887.742    0.088 urllib2.py:1126(do_open)
+    38977    7.890    0.000 3538.715    0.091 profiler.py:6(newFunc)
+    41517    7.749    0.000    7.749    0.000 {method 'close' of 'file' objects}
+    77954    7.706    0.000    7.706    0.000 {method 'sendall' of '_socket.socket' objects}
+  4495444    7.486    0.000    7.486    0.000 {method 'append' of 'list' objects}
+  1066140    7.432    0.000    8.860    0.000 {hasattr}
+    77954    7.131    0.000 3801.497    0.049 httplib.py:400(begin)
+   954828    6.738    0.000    6.738    0.000 minidom.py:646(__init__)
+1533685/79597    6.709    0.000    6.959    0.000 minidom.py:299(_get_elements_by_tagName_helper)
+    77954    6.555    0.000   10.304    0.000 {_socket.getaddrinfo}
+  1450991    6.423    0.000    8.660    0.000 minidom.py:274(_append_child)
+    77954    6.250    0.000 3715.668    0.048 httplib.py:363(_read_status)
+    79223    5.864    0.000  136.381    0.002 minidom.py:1920(parseString)
+  3269876    5.804    0.000    5.804    0.000 {isinstance}
+   954761    5.544    0.000   14.283    0.000 expatbuilder.py:801(end_element_handler)
+2934126/2934072    5.483    0.000    5.483    0.000 {len}
+   233859    5.182    0.000    6.043    0.000 socket.py:276(close)
+    77954    4.705    0.000 3817.233    0.049 httplib.py:991(getresponse)
+  2027600    4.488    0.000    4.488    0.000 {method 'setdefault' of 'dict' objects}
+    35874    4.433    0.000   13.175    0.000 BeautifulSoup.py:348(_findAll)
+   935437    4.326    0.000    4.326    0.000 {method 'split' of 'unicode' objects}
+    77954    4.323    0.000 3036.612    0.039 httplib.py:769(send)
+  1325215    4.309    0.000    4.309    0.000 {method 'seek' of 'cStringIO.StringO' objects}
+    77954    4.012    0.000   10.623    0.000 urlparse.py:160(urlsplit)
+   954828    3.801    0.000   55.991    0.000 pyexpat.c:569(StartElement)
+    77954    3.692    0.000 6934.422    0.089 urllib2.py:376(open)
+   779538    3.672    0.000    3.672    0.000 {method 'write' of 'cStringIO.StringO' objects}
+    79223    3.665    0.000    3.665    0.000 expatbuilder.py:174(install)
+   389770    3.635    0.000    6.031    0.000 rfc822.py:197(isheader)
+   496163    3.488    0.000    5.802    0.000 expatbuilder.py:274(character_data_handler_cdata)
+  1001461    3.476    0.000    4.526    0.000 {getattr}
+    79223    3.445    0.000    3.445    0.000 {pyexpat.ParserCreate}
+   155908    3.376    0.000    4.263    0.000 socket.py:246(__init__)
+  1324937    3.341    0.000    3.341    0.000 {method 'get' of 'dict' objects}
+   404109    3.341    0.000    3.341    0.000 {method 'match' of '_sre.SRE_Pattern' objects}
+   315555    3.220    0.000    3.308    0.000 {method 'sub' of '_sre.SRE_Pattern' objects}
+105789/3809    3.206    0.000   13.733    0.004 BeautifulSoup.py:696(__str__)
+   155908    3.105    0.000 3010.499    0.019 socket.py:223(meth)
+    77954    3.088    0.000   74.530    0.001 mimetools.py:24(__init__)
+    77954    3.087    0.000 3051.280    0.039 httplib.py:974(_send_request)
+   857492    3.015    0.000    3.015    0.000 {cStringIO.StringIO}
+155906/77953    2.988    0.000   10.740    0.000 socket.py:336(read)
+  1522253    2.982    0.000    2.982    0.000 {method 'lower' of 'str' objects}
+    79223    2.958    0.000  130.517    0.002 expatbuilder.py:932(parseString)
+   954761    2.950    0.000   17.233    0.000 pyexpat.c:621(EndElement)
+   311816    2.945    0.000    5.008    0.000 httplib.py:927(putheader)
+    38977    2.924    0.000 3594.175    0.092 tts_client.py:30(getAudioPath)
+   313384    2.724    0.000    4.543    0.000 StringIO.py:208(write)
+    77954    2.697    0.000    4.297    0.000 socket.py:185(__init__)
+   158445    2.662    0.000   12.343    0.000 expatbuilder.py:155(getParser)
+    77954    2.623    0.000    8.506    0.000 httplib.py:335(__init__)
+   158427    2.564    0.000    8.285    0.000 expatbuilder.py:166(reset)
+105789/3809    2.544    0.000   13.617    0.004 BeautifulSoup.py:801(renderContents)
+   158427    2.521    0.000   11.449    0.000 expatbuilder.py:821(reset)
+    77954    2.510    0.000    9.616    0.000 urllib2.py:1097(do_request_)
+   389770    2.494    0.000    3.535    0.000 httplib.py:220(addheader)
+   955643    2.488    0.000    2.488    0.000 {method 'join' of 'str' objects}
+    77954    2.453    0.000 3017.263    0.039 socket.py:537(create_connection)
+  1026434    2.399    0.000    2.399    0.000 {method 'strip' of 'str' objects}
+  1439282    2.379    0.000    3.086    0.000 BeautifulSoup.py:878(recursiveChildGenerator)
+   623953    2.336    0.000    2.336    0.000 {method 'find' of 'str' objects}
+    77954    2.328    0.000   23.016    0.000 urllib2.py:189(__init__)
+    77954    2.328    0.000    5.883    0.000 socket.py:212(makefile)
+   160762    2.273    0.000    2.637    0.000 minidom.py:343(__init__)
+    79223    2.263    0.000   11.182    0.000 expatbuilder.py:137(__init__)
+   623630    2.242    0.000    2.242    0.000 {method 'read' of 'cStringIO.StringO' objects}
+   467724    2.232    0.000    3.765    0.000 rfc822.py:285(getheader)
+    78346    2.197    0.000   10.385    0.000 minidom.py:794(writexml)
+   158427    2.142    0.000    5.721    0.000 minidom.py:1357(createDocument)
+    77954    2.128    0.000    3.764    0.000 mimetools.py:33(parsetype)
+    77542    2.104    0.000    3.644    0.000 urlparse.py:152(_splitnetloc)
+   477587    2.072    0.000    2.072    0.000 {method 'startswith' of 'str' objects}
+    87732    1.995    0.000    5.262    0.000 BeautifulSoup.py:535(__init__)
+    38977    1.981    0.000 3518.857    0.090 tts_client.py:17(sendJobRequest)
+   155906    1.961    0.000    6.563    0.000 minidom.py:852(_set_attribute_node)
+   266770    1.919    0.000    1.919    0.000 {method 'split' of 'str' objects}
+    78803    1.919    0.000    5.651    0.000 BeautifulSoup.py:204(insert)
+    77954    1.864    0.000 3019.127    0.039 httplib.py:751(connect)
+    79223    1.862    0.000  116.378    0.001 expatbuilder.py:219(parseString)
+    42921    1.860    0.000    1.860    0.000 {open}
+    77954    1.835    0.000   16.691    0.000 urllib2.py:171(request_host)
+   158427    1.835    0.000    3.580    0.000 minidom.py:1417(_create_document)
+   155906    1.791    0.000    2.909    0.000 minidom.py:1462(_clear_id_cache)
+   158427    1.745    0.000    1.745    0.000 minidom.py:1496(__init__)
+   450340    1.701    0.000    1.701    0.000 {method 'encode' of 'unicode' objects}
+    67574    1.693    0.000    3.963    0.000 BeautifulSoup.py:1239(endData)
+    77954    1.673    0.000   13.041    0.000 urlparse.py:129(urlparse)
+   469394    1.644    0.000    1.644    0.000 {method 'endswith' of 'str' objects}
+    77954    1.596    0.000 3039.236    0.039 httplib.py:796(_send_output)
+   623631    1.588    0.000    1.588    0.000 {method 'tell' of 'cStringIO.StringO' objects}
+   496163    1.585    0.000    7.387    0.000 pyexpat.c:444(CharacterData)
+   467724    1.575    0.000    1.575    0.000 {method 'readline' of 'cStringIO.StringO' objects}
+   935463    1.542    0.000    1.542    0.000 {setattr}
+    77954    1.531    0.000 6892.430    0.088 urllib2.py:404(_open)
+    77954    1.521    0.000   63.968    0.001 rfc822.py:88(__init__)
+   467724    1.453    0.000    1.453    0.000 rfc822.py:209(islast)
+    77954    1.450    0.000    2.653    0.000 urllib.py:1062(splittype)
+   389770    1.416    0.000    2.029    0.000 httplib.py:789(_output)
+    79223    1.405    0.000    4.850    0.000 expatbuilder.py:726(createParser)
+    77954    1.390    0.000    1.875    0.000 httplib.py:710(_set_hostport)
+   155910    1.388    0.000 6890.731    0.044 urllib2.py:364(_call_chain)
+    79222    1.381    0.000   20.077    0.000 expatbuilder.py:350(first_element_handler)
+    39003    1.368    0.000 7134.313    0.183 tts_client.py:41(generateSound)
+    77954    1.365    0.000    2.237    0.000 mimetools.py:50(parseplist)
+    77954    1.364    0.000    3.336    0.000 httplib.py:817(putrequest)
+    78346    1.321    0.000    2.360    0.000 minidom.py:1898(_get_StringIO)
+   467724    1.288    0.000    1.288    0.000 rfc822.py:219(iscomment)
+   954767    1.284    0.000    1.284    0.000 {id}
+   155908    1.278    0.000    4.960    0.000 urllib2.py:251(get_host)
+    14681    1.264    0.000 6432.308    0.438 divider.py:15(divide)
+    77954    1.250    0.000    2.560    0.000 urllib.py:1076(splithost)
+    77954    1.240    0.000 3052.520    0.039 httplib.py:953(request)
+   155906    1.235    0.000    4.763    0.000 httplib.py:516(close)
+    77954    1.222    0.000    1.988    0.000 socket.py:192(close)
+   311816    1.220    0.000    1.700    0.000 urllib2.py:1155(<genexpr>)
+    39042    1.199    0.000   10.998    0.000 sgmllib.py:238(parse_starttag)
+   126709    1.198    0.000    2.550    0.000 {map}
+    77954    1.189    0.000 3040.426    0.039 httplib.py:938(endheaders)
+    79223    1.166    0.000    4.831    0.000 expatbuilder.py:732(install)
+   216467    1.165    0.000    2.358    0.000 BeautifulSoup.py:421(toEncoding)
+   252891    1.165    0.000    1.165    0.000 BeautifulSoup.py:466(__getattr__)
+    38977    1.131    0.000    3.739    0.000 idna.py:147(encode)
+     2540    1.128    0.000   16.607    0.007 sgmllib.py:116(goahead)
+   155906    1.120    0.000    7.777    0.000 httplib.py:532(read)
+   256487    1.104    0.000    1.104    0.000 {built-in method __new__ of type object at 0x827eec0}
+   155906    1.065    0.000    2.601    0.000 pyexpat.c:804(StartNamespaceDecl)
+    77954    1.042    0.000 6935.465    0.089 urllib2.py:122(urlopen)
+    39042    1.036    0.000    7.064    0.000 BeautifulSoup.py:1330(unknown_starttag)
+   155906    1.028    0.000    1.537    0.000 expatbuilder.py:739(start_namespace_decl_handler)
+   155908    0.955    0.000    0.955    0.000 {method 'find' of 'unicode' objects}
+   155908    0.948    0.000    3.600    0.000 urllib2.py:244(get_type)
+    77955    0.944    0.000    1.466    0.000 urllib.py:947(__init__)
+    77954    0.931    0.000    2.806    0.000 httplib.py:680(__init__)
+    77954    0.929    0.000    1.170    0.000 urllib.py:1053(unwrap)
+    77954    0.924    0.000 6888.666    0.088 urllib2.py:1200(http_open)
+   155906    0.920    0.000    1.694    0.000 minidom.py:357(_get_localName)
+   155908    0.912    0.000    1.739    0.000 idna.py:62(ToASCII)
+    78346    0.909    0.000    2.682    0.000 minidom.py:292(_write_data)
+   155906    0.902    0.000    3.918    0.000 socket.py:285(__del__)
+    78346    0.880    0.000   14.615    0.000 minidom.py:47(toprettyxml)
+   149166    0.880    0.000    1.021    0.000 BeautifulSoup.py:132(setup)
+   165816    0.861    0.000    1.330    0.000 BeautifulSoup.py:1208(isSelfClosingTag)
+    61434    0.843    0.000    0.843    0.000 {method 'translate' of 'unicode' objects}
+   233859    0.831    0.000    1.425    0.000 minidom.py:661(_get_localName)
+    84910    0.817    0.000    1.570    0.000 BeautifulSoup.py:977(_matches)
+     1270    0.794    0.001 7197.288    5.667 reactor_main.py:59(doWork)
+   155908    0.790    0.000    1.187    0.000 urllib2.py:283(add_unredirected_header)
+   261592    0.758    0.000    0.758    0.000 {method 'group' of '_sre.SRE_Match' objects}
+   155906    0.749    0.000    0.749    0.000 minidom.py:284(_in_document)
+    39042    0.744    0.000    9.179    0.000 sgmllib.py:331(finish_starttag)
+    40246    0.741    0.000    0.741    0.000 {method 'write' of 'file' objects}
+   155906    0.738    0.000    1.184    0.000 expatbuilder.py:113(_intern)
+   104431    0.725    0.000    3.555    0.000 BeautifulSoup.py:950(search)
+   269225    0.722    0.000    0.722    0.000 {min}
+    77954    0.703    0.000    1.971    0.000 httplib.py:486(_check_close)
+    78346    0.703    0.000    1.039    0.000 StringIO.py:54(__init__)
+   317190    0.702    0.000    0.702    0.000 {method 'replace' of 'unicode' objects}
+   151749    0.695    0.000    2.392    0.000 BeautifulSoup.py:197(_lastRecursiveChild)
+    77954    0.684    0.000    2.561    0.000 urllib.py:1164(splittag)
+    41650    0.681    0.000    3.402    0.000 codecs.py:841(open)
+   100174    0.675    0.000    1.265    0.000 BeautifulSoup.py:1195(__getattr__)
+   155907    0.661    0.000    0.661    0.000 {method 'getvalue' of 'cStringIO.StringO' objects}
+    78346    0.660    0.000    3.342    0.000 minidom.py:1033(writexml)
+   186741    0.652    0.000    0.652    0.000 {method 'lower' of 'unicode' objects}
+   158427    0.643    0.000    0.643    0.000 expatbuilder.py:721(_initNamespaces)
+   120581    0.640    0.000    1.878    0.000 BeautifulSoup.py:478(__str__)
+    77954    0.636    0.000    1.121    0.000 urllib.py:1201(unquote)
+   236509    0.625    0.000    0.625    0.000 {method 'items' of 'dict' objects}
+    78346    0.598    0.000    0.990    0.000 StringIO.py:258(getvalue)
+   155906    0.567    0.000    0.567    0.000 socket.py:292(flush)
+   159784    0.563    0.000    0.563    0.000 {method 'clear' of 'dict' objects}
+   393333    0.562    0.000    0.562    0.000 BeautifulSoup.py:626(__nonzero__)
+   233862    0.556    0.000    0.556    0.000 {method 'capitalize' of 'str' objects}
+    77954    0.538    0.000    2.525    0.000 httplib.py:759(close)
+   100410    0.527    0.000    1.033    0.000 BeautifulSoup.py:451(__new__)
+    40247    0.525    0.000    0.525    0.000 {method 'split' of '_sre.SRE_Pattern' objects}
+   155908    0.524    0.000    0.524    0.000 urllib2.py:287(has_header)
+   391730    0.516    0.000    0.516    0.000 StringIO.py:38(_complain_ifclosed)
+   303407    0.510    0.000    0.510    0.000 {method 'has_key' of 'dict' objects}
+    78346    0.497    0.000    0.756    0.000 minidom.py:816(_get_attributes)
+    41516    0.484    0.000    0.716    0.000 codecs.py:651(__init__)
+    38977    0.483    0.000    1.501    0.000 urllib.py:1230(quote)
+    77955    0.482    0.000    1.949    0.000 urllib.py:1001(__init__)
+   233862    0.480    0.000    0.480    0.000 {method 'title' of 'str' objects}
+    77954    0.478    0.000    0.746    0.000 <string>:8(__new__)
+   128153    0.472    0.000    0.472    0.000 {method 'search' of '_sre.SRE_Pattern' objects}
+    77953    0.442    0.000   14.994    0.000 minidom.py:44(toxml)
+   147073    0.438    0.000    0.438    0.000 {range}
+   155909    0.436    0.000    0.436    0.000 urllib2.py:238(get_full_url)
+    44122    0.418    0.000    0.586    0.000 BeautifulSoup.py:1232(pushTag)
+27218/1269    0.387    0.000 6435.711    5.071 divider.py:36(processSentence)
+    77954    0.384    0.000    0.493    0.000 urllib2.py:506(http_response)
+    79204    0.380    0.000    7.324    0.000 minidom.py:1721(getElementsByTagName)
+     1270    0.372    0.000    0.828    0.001 html_tags.py:151(unescape_string)
+   155908    0.369    0.000    0.369    0.000 urllib2.py:232(has_data)
+    20908    0.365    0.000    3.191    0.000 sgmllib.py:311(parse_endtag)
+   149064    0.364    0.000    0.364    0.000 {method 'strip' of 'unicode' objects}
+   155908    0.351    0.000    0.351    0.000 {method 'index' of 'str' objects}
+    20954    0.350    0.000    0.584    0.000 BeautifulSoup.py:1284(_smartPop)
+   118207    0.347    0.000    0.534    0.000 BeautifulSoup.py:615(__iter__)
+    67511    0.337    0.000    0.337    0.000 {method 'startswith' of 'unicode' objects}
+    82982    0.334    0.000    0.334    0.000 {method 'encode' of 'str' objects}
+    22243    0.333    0.000    0.651    0.000 BeautifulSoup.py:1262(_popToTag)
+    77954    0.329    0.000    0.329    0.000 {method 'rfind' of 'unicode' objects}
+    48742    0.324    0.000    1.099    0.000 re.py:144(sub)
+    77954    0.324    0.000    0.475    0.000 urllib2.py:221(get_method)
+    78346    0.316    0.000    0.447    0.000 minidom.py:499(keys)
+    52591    0.315    0.000    0.498    0.000 re.py:228(_compile)
+   155916    0.305    0.000    0.305    0.000 {max}
+    78032    0.283    0.000    0.283    0.000 {time.time}
+    40246    0.282    0.000    1.205    0.000 codecs.py:347(write)
+    77954    0.276    0.000    0.276    0.000 {built-in method fromkeys}
+    20908    0.264    0.000    2.664    0.000 sgmllib.py:349(finish_endtag)
+    78346    0.260    0.000    0.260    0.000 minidom.py:467(__init__)
+    77954    0.259    0.000    0.259    0.000 urllib2.py:270(has_proxy)
+    48742    0.252    0.000    1.351    0.000 BeautifulSoup.py:558(<lambda>)
+    39042    0.238    0.000    0.308    0.000 BeautifulSoup.py:1224(popTag)
+    14681    0.235    0.000    0.235    0.000 {method 'findall' of '_sre.SRE_Pattern' objects}
+    35874    0.231    0.000   13.406    0.000 BeautifulSoup.py:835(findAll)
+    62177    0.227    0.000    0.318    0.000 BeautifulSoup.py:1373(handle_data)
+    40246    0.222    0.000    1.427    0.000 codecs.py:689(write)
+    19509    0.207    0.000    0.710    0.000 BeautifulSoup.py:913(searchTag)
+   125614    0.202    0.000    0.202    0.000 {method 'start' of '_sre.SRE_Match' objects}
+    42785    0.197    0.000    0.198    0.000 {_codecs.lookup}
+    77954    0.193    0.000    0.193    0.000 httplib.py:727(set_debuglevel)
+    78803    0.187    0.000    0.187    0.000 {method 'insert' of 'list' objects}
+    78175    0.187    0.000    0.187    0.000 {method 'update' of 'dict' objects}
+   118305    0.187    0.000    0.187    0.000 {iter}
+    78346    0.183    0.000    0.183    0.000 {method 'sort' of 'list' objects}
+    40246    0.183    0.000    0.183    0.000 {_codecs.utf_8_encode}
+    35193    0.174    0.000    2.223    0.000 BeautifulSoup.py:263(append)
+    79204    0.174    0.000    0.174    0.000 expatbuilder.py:232(_setup_subset)
+    20908    0.172    0.000    1.988    0.000 BeautifulSoup.py:1360(unknown_endtag)
+    77988    0.162    0.000    0.162    0.000 {method 'extend' of 'list' objects}
+    36942    0.162    0.000    0.162    0.000 {unichr}
+    79539    0.161    0.000    0.161    0.000 {method 'rfind' of 'str' objects}
+     3797    0.156    0.000    0.156    0.000 {_codecs.utf_8_decode}
+    77954    0.155    0.000    0.155    0.000 urllib2.py:258(get_selector)
+    41516    0.151    0.000    0.151    0.000 codecs.py:395(__init__)
+    77954    0.151    0.000    0.151    0.000 {method 'iteritems' of 'dict' objects}
+     1270    0.149    0.000 7149.917    5.630 divider.py:51(doWork)
+    77954    0.147    0.000    0.147    0.000 urllib2.py:1144(<genexpr>)
+    41516    0.146    0.000    0.215    0.000 codecs.py:708(__getattr__)
+    78439    0.131    0.000    0.131    0.000 {method 'keys' of 'dict' objects}
+     5080    0.124    0.000    0.521    0.000 BeautifulSoup.py:1214(reset)
+   104419    0.119    0.000    0.119    0.000 {callable}
+     2540    0.111    0.000   18.375    0.007 BeautifulSoup.py:1083(__init__)
+    77954    0.109    0.000    0.109    0.000 urllib.py:1007(info)
+     2540    0.109    0.000   17.857    0.007 BeautifulSoup.py:1162(_feed)
+    38977    0.109    0.000    0.109    0.000 {method 'rstrip' of 'str' objects}
+        1    0.105    0.105 7197.473 7197.473 reactor_main.py:54(processFilesRecursively)
+     4715    0.102    0.000    0.211    0.000 BeautifulSoup.py:168(extract)
+     1271    0.100    0.000    0.100    0.000 {method 'read' of 'file' objects}
+    32540    0.094    0.000    0.147    0.000 reactor_main.py:95(<lambda>)
+    61434    0.085    0.000    0.085    0.000 {method 'join' of 'unicode' objects}
+    41516    0.081    0.000    0.081    0.000 codecs.py:322(__init__)
+     1270    0.078    0.000    0.281    0.000 codecs.py:424(read)
+    35206    0.071    0.000    0.071    0.000 {method 'intersection' of 'set' objects}
+    39046    0.070    0.000    0.070    0.000 {method 'pop' of 'list' objects}
+    52106    0.069    0.000    0.069    0.000 {method 'end' of '_sre.SRE_Match' objects}
+     5080    0.066    0.000    0.085    0.000 sgmllib.py:71(reset)
+    17202    0.063    0.000    0.088    0.000 BeautifulSoup.py:1064(<lambda>)
+     9349    0.062    0.000    0.062    0.000 BeautifulSoup.py:601(index)
+     4634    0.062    0.000    0.588    0.000 BeautifulSoup.py:144(replaceWith)
+     1584    0.053    0.000    0.262    0.000 BeautifulSoup.py:661(__getattr__)
+     1270    0.053    0.000    0.150    0.000 tts_client.py:10(__init__)
+     2540    0.052    0.000   18.432    0.007 BeautifulSoup.py:1518(__init__)
+     1269    0.048    0.000    0.048    0.000 {built-in method fromtimestamp}
+     2538    0.046    0.000    0.298    0.000 sgmllib.py:222(parse_pi)
+     2837    0.045    0.000    0.045    0.000 {posix.stat}
+     3877    0.039    0.000    0.232    0.000 urlparse.py:63(clear_cache)
+     3806    0.038    0.000    0.106    0.000 BeautifulSoup.py:492(__str__)
+     1258    0.036    0.000    0.036    0.000 {method 'strftime' of 'datetime.date' objects}
+     4124    0.034    0.000    0.034    0.000 BeautifulSoup.py:1012(__init__)
+     2540    0.032    0.000    0.063    0.000 BeautifulSoup.py:1018(buildTagMap)
+     1270    0.029    0.000    0.029    0.000 {method 'readlines' of 'file' objects}
+     2542    0.028    0.000    0.225    0.000 BeautifulSoup.py:1376(_toStringSubclass)
+     1270    0.026    0.000    0.058    0.000 BeautifulSoup.py:1867(_detectEncoding)
+     1270    0.026    0.000    0.307    0.000 codecs.py:669(read)
+     1270    0.025    0.000    0.232    0.000 re.py:164(split)
+     1270    0.025    0.000    0.183    0.000 BeautifulSoup.py:1769(__init__)
+     1269    0.024    0.000    0.027    0.000 BeautifulSoup.py:1842(_toUnicode)
+     2540    0.022    0.000    0.331    0.000 sgmllib.py:66(__init__)
+     3807    0.022    0.000    0.092    0.000 BeautifulSoup.py:1814(_convertFrom)
+     3807    0.020    0.000    0.038    0.000 BeautifulSoup.py:1935(find_codec)
+     5080    0.019    0.000    0.019    0.000 markupbase.py:37(reset)
+     4124    0.019    0.000    0.030    0.000 BeautifulSoup.py:893(__init__)
+     3809    0.018    0.000   13.751    0.004 BeautifulSoup.py:798(prettify)
+     1584    0.018    0.000    0.189    0.000 BeautifulSoup.py:824(find)
+     1270    0.017    0.000    0.187    0.000 divider.py:10(__init__)
+     2540    0.016    0.000   16.623    0.007 sgmllib.py:95(feed)
+     2527    0.015    0.000    0.069    0.000 utf_8.py:15(decode)
+     2527    0.015    0.000    0.084    0.000 {method 'decode' of 'str' objects}
+     3806    0.015    0.000    0.027    0.000 BeautifulSoup.py:417(substituteEncoding)
+     2538    0.013    0.000    0.238    0.000 BeautifulSoup.py:1383(handle_pi)
+    80/28    0.012    0.000    0.080    0.003 os.py:209(walk)
+       27    0.011    0.000    0.011    0.000 {posix.listdir}
+     1592    0.011    0.000    0.016    0.000 posixpath.py:60(join)
+     1530    0.010    0.000    0.037    0.000 genericpath.py:38(isdir)
+   1129/1    0.010    0.000    0.039    0.039 pyparsing.py:858(_parseNoCache)
+     2546    0.010    0.000    0.063    0.000 BeautifulSoup.py:864(_getAttrMap)
+     1307    0.009    0.000    0.040    0.000 genericpath.py:15(exists)
+     3807    0.009    0.000    0.014    0.000 BeautifulSoup.py:1941(_codec)
+     2572    0.008    0.000    0.054    0.000 re.py:188(compile)
+     1556    0.008    0.000    0.008    0.000 stat.py:24(S_IFMT)
+      541    0.007    0.000    0.014    0.000 BeautifulSoup.py:630(__setitem__)
+     1269    0.007    0.000    0.010    0.000 pyexpat.c:686(XmlDecl)
+       78    0.006    0.000    0.006    0.000 {time.localtime}
+        4    0.006    0.001    0.010    0.003 sre_compile.py:301(_optimize_unicode)
+     1530    0.005    0.000    0.013    0.000 stat.py:40(S_ISDIR)
+      995    0.005    0.000    0.065    0.000 BeautifulSoup.py:607(has_key)
+      630    0.004    0.000    0.007    0.000 BeautifulSoup.py:1403(handle_entityref)
+  889/774    0.004    0.000    0.008    0.000 pyparsing.py:285(__init__)
+      271    0.004    0.000    0.012    0.000 executor.py:12(missing)
+     1269    0.003    0.000    0.003    0.000 expatbuilder.py:448(xml_decl_handler)
+      134    0.003    0.000    0.014    0.000 executor.py:46(fill)
+    35/21    0.003    0.000    0.009    0.000 sre_parse.py:379(_parse)
+   228/23    0.003    0.000    0.035    0.002 pyparsing.py:2348(parseImpl)
+      889    0.003    0.000    0.004    0.000 pyparsing.py:276(__new__)
+     1269    0.002    0.000    0.002    0.000 {method 'groups' of '_sre.SRE_Match' objects}
+      214    0.002    0.000    0.004    0.000 pyparsing.py:423(__iadd__)
+      177    0.002    0.000    0.045    0.000 executor.py:22(equal)
+       26    0.002    0.000    0.003    0.000 posixpath.py:130(islink)
+      134    0.002    0.000    0.008    0.000 executor.py:72(set)
+      205    0.002    0.000    0.003    0.000 pyparsing.py:327(__setitem__)
+      145    0.002    0.000    0.008    0.000 executor.py:58(replace)
+      482    0.002    0.000    0.003    0.000 sre_parse.py:182(__next)
+       22    0.002    0.000    0.012    0.001 sre_compile.py:207(_optimize_charset)
+       78    0.002    0.000    0.009    0.000 logger.py:23(log)
+      469    0.001    0.000    0.003    0.000 BeautifulSoup.py:610(__getitem__)
+      393    0.001    0.000    0.016    0.000 minidom.py:784(getElementsByTagName)
+    63/17    0.001    0.000    0.011    0.001 sre_compile.py:32(_compile)
+       19    0.001    0.000    0.001    0.000 sre_compile.py:258(_mk_bitmap)
+    389/1    0.001    0.000    0.039    0.039 pyparsing.py:2621(parseImpl)
+      360    0.001    0.000    0.002    0.000 pyparsing.py:839(preParse)
+      134    0.001    0.000    0.005    0.000 config_parser.py:10(parseFile)
+       78    0.001    0.000    0.001    0.000 {time.strftime}
+      436    0.001    0.000    0.003    0.000 sre_parse.py:201(get)
+      781    0.001    0.000    0.001    0.000 pyparsing.py:262(__getitem__)
+       26    0.001    0.000    0.001    0.000 {posix.lstat}
+      137    0.001    0.000    0.001    0.000 pyparsing.py:1680(parseImpl)
+    88/42    0.001    0.000    0.001    0.000 sre_parse.py:140(getwidth)
+      307    0.001    0.000    0.001    0.000 pyparsing.py:366(__bool__)
+      217    0.001    0.000    0.001    0.000 pyparsing.py:1508(parseImpl)
+       44    0.001    0.000    0.008    0.000 BeautifulSoup.py:1576(start_meta)
+    89/69    0.001    0.000    0.019    0.000 pyparsing.py:2732(parseImpl)
+      236    0.001    0.000    0.001    0.000 sre_parse.py:130(__getitem__)
+        1    0.001    0.001    0.041    0.041 reactor_rule_parser.py:49(parseFile)
+        1    0.001    0.001    0.009    0.009 idna.py:3(<module>)
+        9    0.001    0.000    0.001    0.000 urllib2.py:313(add_handler)
+       78    0.001    0.000    0.001    0.000 logger.py:34(formatLog)
+      127    0.000    0.000    0.001    0.000 pyparsing.py:318(__getitem__)
+       78    0.000    0.000    0.010    0.000 executor.py:94(doLog)
+      354    0.000    0.000    0.001    0.000 sre_parse.py:195(match)
+        1    0.000    0.000    0.000    0.000 expat.py:1(<module>)
+      507    0.000    0.000    0.000    0.000 pyparsing.py:854(postParse)
+       17    0.000    0.000    0.006    0.000 sre_compile.py:361(_compile_info)
+        9    0.000    0.000    0.000    0.000 {dir}
+        3    0.000    0.000    0.003    0.001 gettext.py:421(find)
+        9    0.000    0.000    0.001    0.000 gettext.py:130(_expand_lang)
+    29/17    0.000    0.000    0.009    0.001 sre_parse.py:301(_parse_sub)
+      7/1    0.000    0.000    0.039    0.039 pyparsing.py:2767(parseImpl)
+       80    0.000    0.000    0.002    0.000 executor.py:43(remove)
+      101    0.000    0.000    0.000    0.000 pyparsing.py:407(__getattr__)
+       56    0.000    0.000    0.007    0.000 pyparsing.py:2817(parseImpl)
+        1    0.000    0.000    0.001    0.001 expatbuilder.py:5(<module>)
+      205    0.000    0.000    0.000    0.000 pyparsing.py:260(__init__)
+      121    0.000    0.000    0.000    0.000 sre_parse.py:138(append)
+      134    0.000    0.000    0.000    0.000 config_parser.py:6(__init__)
+        9    0.000    0.000    0.003    0.000 argparse.py:1250(add_argument)
+       22    0.000    0.000    0.013    0.001 sre_compile.py:178(_compile_charset)
+      123    0.000    0.000    0.000    0.000 sre_parse.py:126(__len__)
+        9    0.000    0.000    0.001    0.000 argparse.py:154(__init__)
+        4    0.000    0.000    0.009    0.002 {__import__}
+      304    0.000    0.000    0.000    0.000 {ord}
+       37    0.000    0.000    0.000    0.000 pyparsing.py:708(__init__)
+        1    0.000    0.000    0.001    0.001 argparse.py:1694(parse_known_args)
+       17    0.000    0.000    0.027    0.002 sre_compile.py:495(compile)
+      274    0.000    0.000    0.000    0.000 sre_compile.py:24(_identityfunction)
+     18/1    0.000    0.000    0.000    0.000 pyparsing.py:2279(streamline)
+       10    0.000    0.000    0.000    0.000 pyparsing.py:108(<lambda>)
+       93    0.000    0.000    0.000    0.000 pyparsing.py:370(keys)
+        9    0.000    0.000    0.000    0.000 locale.py:341(normalize)
+       17    0.000    0.000    0.010    0.001 sre_parse.py:663(parse)
+        1    0.000    0.000    0.000    0.000 stringprep.py:6(<module>)
+       97    0.000    0.000    0.000    0.000 pyparsing.py:368(__iter__)
+      148    0.000    0.000    0.000    0.000 pyparsing.py:3037(postParse)
+       44    0.000    0.000    0.008    0.000 sgmllib.py:380(handle_starttag)
+        9    0.000    0.000    0.000    0.000 argparse.py:1387(_get_optional_kwargs)
+        9    0.000    0.000    0.000    0.000 argparse.py:1307(_add_action)
+       25    0.000    0.000    0.000    0.000 sre_compile.py:354(_simple)
+       17    0.000    0.000    0.017    0.001 sre_compile.py:480(_code)
+     29/1    0.000    0.000    0.000    0.000 pyparsing.py:2646(streamline)
+       15    0.000    0.000    0.000    0.000 pyparsing.py:2337(__init__)
+        6    0.000    0.000    0.000    0.000 markupbase.py:373(_scan_name)
+       16    0.000    0.000    0.000    0.000 pyparsing.py:2606(__init__)
+       74    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
+       26    0.000    0.000    0.000    0.000 stat.py:55(S_ISLNK)
+      113    0.000    0.000    0.000    0.000 pyparsing.py:3076(postParse)
+       90    0.000    0.000    0.000    0.000 pyparsing.py:426(<lambda>)
+       34    0.000    0.000    0.000    0.000 argparse.py:1221(register)
+        1    0.000    0.000    0.007    0.007 reactor_rule_parser.py:21(__init__)
+       52    0.000    0.000    0.000    0.000 pyparsing.py:365(__len__)
+        4    0.000    0.000    0.010    0.002 __init__.py:71(search_function)
+       63    0.000    0.000    0.000    0.000 sre_parse.py:90(__init__)
+        3    0.000    0.000    0.002    0.001 argparse.py:1169(__init__)
+        5    0.000    0.000    0.005    0.001 pyparsing.py:1626(__init__)
+        6    0.000    0.000    0.000    0.000 {method '__reduce_ex__' of 'object' objects}
+       34    0.000    0.000    0.000    0.000 sre_compile.py:474(isstring)
+        7    0.000    0.000    0.001    0.000 argparse.py:1797(consume_optional)
+       25    0.000    0.000    0.000    0.000 sre_parse.py:134(__setitem__)
+        6    0.000    0.000    0.000    0.000 copy.py:306(_reconstruct)
+        9    0.000    0.000    0.000    0.000 argparse.py:197(__init__)
+        9    0.000    0.000    0.000    0.000 argparse.py:571(_format_args)
+        2    0.000    0.000    0.001    0.000 markupbase.py:65(parse_declaration)
+        7    0.000    0.000    0.000    0.000 argparse.py:1776(take_action)
+       33    0.000    0.000    0.000    0.000 pyparsing.py:1419(__getattr__)
+       28    0.000    0.000    0.000    0.000 argparse.py:1225(_registry_get)
+       68    0.000    0.000    0.000    0.000 pyparsing.py:1386(streamline)
+       15    0.000    0.000    0.000    0.000 pyparsing.py:1136(__add__)
+        1    0.000    0.000    0.049    0.049 reactor_main.py:31(buildRules)
+        1    0.000    0.000    0.001    0.001 argparse.py:1729(_parse_known_args)
+        9    0.000    0.000    0.002    0.000 argparse.py:2299(_get_formatter)
+        1    0.000    0.000    0.002    0.002 urllib2.py:444(build_opener)
+        1    0.000    0.000    0.000    0.000 utf_8.py:8(<module>)
+       28    0.000    0.000    0.000    0.000 argparse.py:95(_callable)
+        4    0.000    0.000    0.000    0.000 sre_parse.py:128(__delitem__)
+       12    0.000    0.000    0.000    0.000 UserDict.py:18(__getitem__)
+       17    0.000    0.000    0.000    0.000 {_sre.compile}
+        6    0.000    0.000    0.000    0.000 pyparsing.py:1787(parseImpl)
+       10    0.000    0.000    0.000    0.000 argparse.py:2225(_get_value)
+        9    0.000    0.000    0.000    0.000 argparse.py:1495(_add_action)
+        8    0.000    0.000    0.000    0.000 {_bisect.insort}
+        6    0.000    0.000    0.000    0.000 copy.py:66(copy)
+       15    0.000    0.000    0.000    0.000 pyparsing.py:2227(__init__)
+       14    0.000    0.000    0.000    0.000 sre_parse.py:257(_escape)
+       11    0.000    0.000    0.000    0.000 pyparsing.py:111(_ustr)
+        1    0.000    0.000    0.001    0.001 pyparsing.py:3226(oneOf)
+       17    0.000    0.000    0.000    0.000 sre_parse.py:178(__init__)
+        1    0.000    0.000    0.000    0.000 urllib.py:1340(getproxies_environment)
+        1    0.000    0.000 7197.531 7197.531 reactor:8(main)
+        7    0.000    0.000    0.000    0.000 argparse.py:2176(_get_values)
+        5    0.000    0.000    0.000    0.000 pyparsing.py:3218(_escapeRegexRangeChars)
+        7    0.000    0.000    0.000    0.000 argparse.py:1996(_match_argument)
+        7    0.000    0.000    0.000    0.000 argparse.py:805(__init__)
+        1    0.000    0.000    0.006    0.006 argparse.py:1543(__init__)
+        9    0.000    0.000    0.000    0.000 argparse.py:1422(_pop_action_class)
+       13    0.000    0.000    0.000    0.000 urllib2.py:493(__lt__)
+        6    0.000    0.000    0.000    0.000 pyparsing.py:731(copy)
+        5    0.000    0.000    0.000    0.000 pyparsing.py:1725(__str__)
+        7    0.000    0.000    0.000    0.000 argparse.py:2031(_parse_optional)
+        9    0.000    0.000    0.000    0.000 argparse.py:763(__init__)
+       31    0.000    0.000    0.000    0.000 pyparsing.py:1336(setWhitespaceChars)
+       18    0.000    0.000    0.000    0.000 rule_item.py:17(addAction)
+       22    0.000    0.000    0.000    0.000 rule_item.py:4(__init__)
+        9    0.000    0.000    0.000    0.000 argparse.py:1667(_add_action)
+        1    0.000    0.000    0.049    0.049 reactor_main.py:18(__init__)
+        4    0.000    0.000    0.000    0.000 re.py:206(escape)
+       12    0.000    0.000    0.000    0.000 sre_parse.py:72(opengroup)
+        9    0.000    0.000    0.000    0.000 argparse.py:564(format)
+       12    0.000    0.000    0.000    0.000 sre_parse.py:83(closegroup)
+        4    0.000    0.000    0.000    0.000 __init__.py:49(normalize_encoding)
+        3    0.000    0.000    0.003    0.001 gettext.py:542(dgettext)
+       17    0.000    0.000    0.000    0.000 sre_parse.py:67(__init__)
+        9    0.000    0.000    0.000    0.000 pyparsing.py:1416(getException)
+        2    0.000    0.000    0.000    0.000 argparse.py:1473(__init__)
+        9    0.000    0.000    0.000    0.000 argparse.py:1435(_check_conflict)
+        6    0.000    0.000    0.000    0.000 pyparsing.py:1380(__str__)
+        2    0.000    0.000    0.000    0.000 markupbase.py:165(parse_comment)
+        7    0.000    0.000    0.000    0.000 re.py:134(match)
+        7    0.000    0.000    0.000    0.000 argparse.py:2132(_get_nargs_pattern)
+        6    0.000    0.000    0.000    0.000 pyparsing.py:749(setResultsName)
+        4    0.000    0.000    0.000    0.000 codecs.py:77(__new__)
+        3    0.000    0.000    0.003    0.001 gettext.py:476(translation)
+        9    0.000    0.000    0.000    0.000 argparse.py:555(_metavar_formatter)
+        6    0.000    0.000    0.000    0.000 copy_reg.py:92(__newobj__)
+        9    0.000    0.000    0.000    0.000 {method 'lstrip' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+       18    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
+       12    0.000    0.000    0.000    0.000 rule_item.py:14(addCondition)
+        6    0.000    0.000    0.000    0.000 pyparsing.py:1453(__init__)
+        8    0.000    0.000    0.000    0.000 pyparsing.py:2984(__init__)
+        2    0.000    0.000    0.001    0.000 BeautifulSoup.py:1450(parse_declaration)
+        2    0.000    0.000    0.000    0.000 utf_8.py:33(getregentry)
+        8    0.000    0.000    0.000    0.000 pyparsing.py:3033(__init__)
+        3    0.000    0.000    0.000    0.000 UserDict.py:58(get)
+        6    0.000    0.000    0.000    0.000 sre_parse.py:225(_class_escape)
+        1    0.000    0.000    0.000    0.000 StringIO.py:30(<module>)
+       12    0.000    0.000    0.000    0.000 {method 'remove' of 'list' objects}
+       13    0.000    0.000    0.000    0.000 {method 'translate' of 'str' objects}
+        1    0.000    0.000    0.039    0.039 pyparsing.py:990(parseString)
+       14    0.000    0.000    0.000    0.000 {method 'add' of 'set' objects}
+        9    0.000    0.000    0.000    0.000 pyparsing.py:172(__init__)
+        6    0.000    0.000    0.000    0.000 {method 'groupdict' of '_sre.SRE_Match' objects}
+        1    0.000    0.000    0.001    0.001 pyparsing.py:1753(__init__)
+        3    0.000    0.000    0.000    0.000 BeautifulSoup.py:503(__str__)
+        2    0.000    0.000    0.000    0.000 argparse.py:1297(add_argument_group)
+        3    0.000    0.000    0.003    0.001 gettext.py:580(gettext)
+        1    0.000    0.000    0.000    0.000 pyparsing.py:1803(__str__)
+        7    0.000    0.000    0.000    0.000 argparse.py:834(__call__)
+        6    0.000    0.000    0.000    0.000 pyparsing.py:3244(<lambda>)
+       19    0.000    0.000    0.000    0.000 {_sre.getlower}
+        4    0.000    0.000    0.000    0.000 pyparsing.py:2728(__init__)
+        3    0.000    0.000    0.000    0.000 argparse.py:1426(_get_handler)
+        8    0.000    0.000    0.000    0.000 urllib2.py:486(add_parent)
+        5    0.000    0.000    0.000    0.000 pyparsing.py:1734(charsAsStr)
+        3    0.000    0.000    0.000    0.000 {method 'tolist' of 'array.array' objects}
+        1    0.000    0.000    0.000    0.000 {method 'expandtabs' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 idna.py:279(getregentry)
+        9    0.000    0.000    0.000    0.000 minidom.py:614(__init__)
+        9    0.000    0.000    0.000    0.000 {method 'reverse' of 'list' objects}
+        2    0.000    0.000    0.000    0.000 BeautifulSoup.py:499(__str__)
+        6    0.000    0.000    0.000    0.000 pyparsing.py:3243(<lambda>)
+        1    0.000    0.000    0.000    0.000 urllib2.py:419(error)
+        2    0.000    0.000    0.000    0.000 pyparsing.py:2812(__init__)
+        1    0.000    0.000    0.000    0.000 urllib2.py:153(__init__)
+       10    0.000    0.000    0.000    0.000 argparse.py:1589(identity)
+        6    0.000    0.000    0.000    0.000 rule_item.py:20(setLog)
+        1    0.000    0.000    0.000    0.000 urllib2.py:520(http_error_default)
+        2    0.000    0.000    0.000    0.000 BeautifulSoup.py:1391(handle_comment)
+        2    0.000    0.000    0.000    0.000 BeautifulSoup.py:1446(handle_decl)
+        4    0.000    0.000    0.000    0.000 sre_compile.py:51(fixup)
+        1    0.000    0.000    0.000    0.000 StringIO.py:42(StringIO)
+        7    0.000    0.000    0.000    0.000 argparse.py:2250(_check_value)
+        1    0.000    0.000    0.000    0.000 urllib2.py:704(__init__)
+        1    0.000    0.000    0.000    0.000 argparse.py:1874(consume_positionals)
+        1    0.000    0.000    0.000    0.000 ascii.py:41(getregentry)
+        1    0.000    0.000    0.000    0.000 posixpath.py:110(basename)
+        3    0.000    0.000    0.000    0.000 UserDict.py:70(__contains__)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:463(FilterVisibilityController)
+        1    0.000    0.000    0.000    0.000 BeautifulSoup.py:443(_sub_entity)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:133(ExpatBuilder)
+        1    0.000    0.000 7197.473 7197.473 reactor_main.py:35(doReactorWork)
+        1    0.000    0.000    0.000    0.000 argparse.py:863(__init__)
+        1    0.000    0.000    0.000    0.000 argparse.py:981(__init__)
+        1    0.000    0.000    0.000    0.000 urllib2.py:302(__init__)
+        1    0.000    0.000    0.000    0.000 reactor_main.py:45(ensureInputFolderExists)
+        1    0.000    0.000    0.000    0.000 argparse.py:840(__init__)
+        1    0.000    0.000 7197.531 7197.531 <string>:1(<module>)
+        1    0.000    0.000    0.000    0.000 executor.py:8(__init__)
+        3    0.000    0.000    0.000    0.000 {method 'tostring' of 'array.array' objects}
+        1    0.000    0.000    0.001    0.001 argparse.py:1687(parse_args)
+        1    0.000    0.000    0.000    0.000 pyparsing.py:964(resetCache)
+        2    0.000    0.000    0.000    0.000 urllib2.py:1091(__init__)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:62(ElementInfo)
+        1    0.000    0.000    0.000    0.000 idna.py:146(Codec)
+        1    0.000    0.000    0.000    0.000 argparse.py:2015(_match_arguments_partial)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:601(FragmentBuilder)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:718(Namespaces)
+        1    0.000    0.000    0.000    0.000 argparse.py:1679(_get_positional_actions)
+        1    0.000    0.000    0.000    0.000 UserDict.py:40(items)
+        1    0.000    0.000    0.000    0.000 reactor_main.py:49(ensureOutputFolderExists)
+        1    0.000    0.000    0.000    0.000 logger.py:8(__init__)
+        1    0.000    0.000    0.000    0.000 argparse.py:1151(__init__)
+        1    0.000    0.000    0.000    0.000 {repr}
+        1    0.000    0.000    0.000    0.000 minidom.py:1930(getDOMImplementation)
+        1    0.000    0.000    0.000    0.000 {zip}
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:533(Rejecter)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:867(InternalSubsetExtractor)
+        1    0.000    0.000    0.000    0.000 utf_8.py:18(IncrementalEncoder)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:521(FilterCrutch)
+        1    0.000    0.000    0.000    0.000 idna.py:197(IncrementalEncoder)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:826(FragmentBuilderNS)
+        1    0.000    0.000    0.000    0.000 __init__.py:8(<module>)
+        1    0.000    0.000    0.000    0.000 idna.py:271(StreamWriter)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:561(Skipper)
+        1    0.000    0.000    0.000    0.000 utf_8.py:22(IncrementalDecoder)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:818(ExpatBuilderNS)
+        1    0.000    0.000    0.000    0.000 idna.py:274(StreamReader)
+        1    0.000    0.000    0.000    0.000 idna.py:231(IncrementalDecoder)
+        1    0.000    0.000    0.000    0.000 expatbuilder.py:863(ParseEscape)
+        1    0.000    0.000    0.000    0.000 utf_8.py:28(StreamReader)
+        1    0.000    0.000    0.000    0.000 utf_8.py:25(StreamWriter)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+

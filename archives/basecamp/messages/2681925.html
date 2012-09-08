@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Labrador: spider生成的目录结构</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="../../../application.css">
+</head>
+
+<body class="projects messages">
+  <header>
+    <nav class="global">
+      <a href="../../../index.html" class="home">Home</a> |
+      <a href="../../../projects/index.html" class="projects">Projects</a> |
+      <a href="../../../calendars/index.html" class="calendars">Calendars</a> |
+      <a href="../../../people/index.html" class="people">People</a>
+    </nav>
+
+    <header>
+      <h1>Labrador</h1>
+    </header>
+
+      <nav><a href="../topics/index.html">&larr; See all discussions</a></nav>
+  </header>
+
+  
+<article class="message">
+  <header>
+    <h2>spider生成的目录结构</h1>
+    <p>Posted by hailong geng on June 17, 2012</p>
+  </header>
+
+  <div class="content">
+    大家看看这个结构有没有问题
+  </div>
+
+    <ul class="attachments">
+      <li>
+          <a href="../attachments/7161066-chinese harbin_dir.xml">chinese harbin_dir.xml</a>
+      </li>
+  </ul>
+
+    <div class="comments">
+    <h3>Comments</h3>
+
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June 17, 2012:</p>
+
+        <div class="content">
+          海龙，XML结构挺清楚的，下面几个问题不知你是不是已经考虑过了：<br><br>1. 还是对性能的担忧。这个栏目的XML有1.1M，对于大网站，如果所有所有的栏目都包括，更新时能不能造成性能问题。有的XML解析器要把所有对象都建在内存里。<br><br>对于更大的网站，这个XML可能会有几百兆。<br><br>2. 这个栏目的起始地址是：<br><a data-behavior="truncate" href="http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm" target="_blank">http://www.harbin.gov.cn/zwxxgk/zfgg/zfgg2012.htm</a><br>也是本年度子栏目的URL。<br><br>因为栏目是关于多个年份的，我们希望的起始地址是:<br><span><a data-behavior="truncate" href="http://www.harbin.gov.cn/zwxxgk/zfgg/" target="_blank">http://www.harbin.gov.cn/zwxxgk/zfgg/</a> （Error 403）<br></span><br>其他程序根据URL反向查询Node的时候有没有可能出错。<br><br>3. 特殊字符Quote的问题。比如标题中如果有大于号，会不会造成解析错误。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>hailong geng</b> on June 17, 2012:</p>
+
+        <div class="content">
+          1. 目前后端所有XML处理都是基于SAX，不用在内存保存DOM树，内存占用很小，还不知道用什么结构会更好些<br>2. 用这个是因为这个页面的正则最好写，可以替换成真正地栏目首页，只要改下正则规则就好。 至于根据URL反查Node只会在动态URL中存在问题，这版没考虑动态URL<br>3. 这个应该不会，因为标题需要先遇到引号再马上遇到大于号才会匹配。这个也可以通过修改正则表达式得到修正，不是spider的逻辑错误
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June 17, 2012:</p>
+
+        <div class="content">
+          Assembler和Reactor会频繁访问这个文件来获得和结构有关的信息。<br><br>目前这个规模，每秒能不能用hash定位1000个Node?<br><br>如果花费不超过10分钟，写个小程序测试最好了。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June 17, 2012:</p>
+
+        <div class="content">
+          <div>除了Assembler 和Reactor之外，未来还有Mobile App也需要访问这个文件。当然，Mobile App也可以对这个进行优化，否则每次更新都下载这么大的文件，流量上吃不消。</div>
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June 17, 2012:</p>
+
+        <div class="content">
+          Mobile App是访问Assembler或Reactor的排泄物吧？
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June 17, 2012:</p>
+
+        <div class="content">
+          是的。如果这个文件友好一点，也可以直接获取。Mobile App获取的数据，我的设计是通过 RSS来完成，每个栏目输出对应的RSS，App获取栏目的RSS列表即可。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>鹏 孙</b> on June 17, 2012:</p>
+
+        <div class="content">
+          现在这个文件结构，在assembler里面，只能通过层级来找到目录的内容，能不能在node里面加一些属性来区分栏目名称呢？
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>鹏 孙</b> on June 17, 2012:</p>
+
+        <div class="content">
+          现在这个文件结构，在assembler里面，只能通过层级来找到目录的内容，能不能在node里面加一些属性来区分栏目名称呢？
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>鹏 孙</b> on June 17, 2012:</p>
+
+        <div class="content">
+          还有就是这个xml文件与页面内容的xml文件之间的关系是怎么样的，是放在同一个文件夹下面么？还是单独的位置？命名有何区分呢？
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June 18, 2012:</p>
+
+        <div class="content">
+          这个xml就是一个栏目的数据
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June 18, 2012:</p>
+
+        <div class="content">
+          <span><pre>这个xml就是一个栏目的数据</pre>
+<br>&lt;Website&gt;可以有多个栏目吧？请海龙更新一下文档。<br>站内链接应该是Reactor里面做吧？<br></span>
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June 18, 2012:</p>
+
+        <div class="content">
+          &lt;Website&gt; 里可以有多个栏目，区分栏目名称，如果在node里增加属性的话，获取整个Website的栏目，需要遍历所有的node才可以。这样会否有效率问题？
+        </div>
+
+        
+      </div>
+  </div>
+
+</article>
+
+</body>
+
+</html>

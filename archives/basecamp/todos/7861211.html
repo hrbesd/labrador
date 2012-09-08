@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Labrador: Windows TTS速度和质量测试</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="../../../application.css">
+</head>
+
+<body class="projects todos">
+  <header>
+    <nav class="global">
+      <a href="../../../index.html" class="home">Home</a> |
+      <a href="../../../projects/index.html" class="projects">Projects</a> |
+      <a href="../../../calendars/index.html" class="calendars">Calendars</a> |
+      <a href="../../../people/index.html" class="people">People</a>
+    </nav>
+
+    <header>
+      <h1>Labrador</h1>
+    </header>
+
+      <nav><a href="../todolists/1330801.html">&larr; Back to the to-do list</a></nav>
+  </header>
+
+  
+<article class="todo">
+  <p>From the to-do list: 实验性工作</p>
+  <h3><span class="content">
+  &#10004; Windows TTS速度和质量测试
+</span>
+
+
+<span class="metadata">
+    (Completed by HONGFENG ZHANG on June 11, 2012)
+</span>
+</h3>
+
+    <div class="comments">
+    <h3>Comments</h3>
+
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June  6, 2012:</p>
+
+        <div class="content">
+          <b>补充几个链接：<br></b><br>微软：<br><a data-behavior="truncate" href="http://www.microsoft.com/en-us/download/details.aspx?id=3971" target="_blank">http://www.microsoft.com/en-us/download/details.aspx?id=3971</a><br><br>高质量的中文语音，不过云服务只支持英文：<br><a data-behavior="truncate" href="http://www.neospeech.com/products.aspx" target="_blank">http://www.neospeech.com/products.aspx</a>
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June  7, 2012:</p>
+
+        <div class="content">
+          上午做了个测试，用PowerShell朗读:<br><br><div><pre>Add-Type -AssemblyName System.speech</pre></div><div><pre>$syn=New-Object System.Speech.Synthesis.SpeechSynthesizer</pre></div><div><pre>$syn.Speak("银行行长")</pre></div><div>
+<br><div><pre>#设置朗读的语速</pre></div>
+<div><pre>$syn.Rate=-5</pre></div>
+<div><pre>$syn.Speak("银行行长")</pre></div>
+</div><div>
+<br><div><pre>#将文本转换成音频</pre></div>
+<div><pre>$syn.SetOutputToWaveFile("$pwd\a.wav")</pre></div>
+<div><pre>$syn.Speak("银行行长")</pre></div>
+<div>
+<pre>$syn.SetOutputToDefaultAudioDevice()
+
+
+</pre>
+<span>在台式机上没有问题，在服务器上没有声卡，会报错。即使单纯生成文件也需要声卡。今后服务的网站上了规模，不得不用云计算。EC2的Windows虚拟机也没有声卡。虽然可以有第三方模拟声卡，但目前看来并不稳定可靠。<br><br>我问了陈总公司的人，他们用的迅飞嵌入式方案实现的，不需要声卡。不过他们现在还没有经验能够把方案升级到云计算。</span>
+</div>
+</div>
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June  7, 2012:</p>
+
+        <div class="content">
+          他们能把现有的方案做一个描述吗？我们看一下能不能移植到云端。<br>另外，不知道未来微软的Azure是否会提供云端的TTS 服务。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June  7, 2012:</p>
+
+        <div class="content">
+          那个工程师不爱说话，我问两句话他答一句，呵呵。下次如果有需要，我让陈总把他带来。让他当面谈方案。<br><br>他们现有的方案：<br><ul>
+<li>一个几年前的迅飞的DLL，用于TTS</li>
+<li>一个自己用C++写的Transcoder，生成MP3</li>
+<li>考虑了HTML5和Flash</li>
+<li>前端后端开发端客户服务器全是在Windows平台</li>
+<li>只问出这么多</li>
+</ul>
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June  7, 2012:</p>
+
+        <div class="content">
+          晚上做了一个TTS Web Service原型，WS和TTS服务都是单线程，在Mac上可以跑起来。<br><br>只实现一个方法：<br>text2speech(string)<br><br>请各位看看，这次演示能不能集成进去。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June  7, 2012:</p>
+
+        <div class="content">
+          手头没有Mac，遭受歧视啊，哈哈<br>上午的时候，我和孙鹏一起看一下。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June  8, 2012:</p>
+
+        <div class="content">
+          正在下载tingting，学校的下载速度好慢
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June  8, 2012:</p>
+
+        <div class="content">
+          进展如何了？我还是希望这次演示能有声音出来。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June  8, 2012:</p>
+
+        <div class="content">
+          昨天孙鹏在调试用js调用web service ，暂时还没调通，等今天看一下。
+        </div>
+
+        
+      </div>
+  </div>
+
+</article>
+
+</body>
+
+</html>

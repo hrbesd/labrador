@@ -1,0 +1,37 @@
+<html><head></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; "><br><div><br><div>Begin forwarded message:</div><br class="Apple-interchange-newline"><blockquote type="cite"><div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;"><span style="font-family:'Helvetica'; font-size:medium; color:rgba(0, 0, 0, 1.0);"><b>From: </b></span><span style="font-family:'Helvetica'; font-size:medium;">jianzong zhang &lt;<a href="mailto:zjianzong@gmail.com">zjianzong@gmail.com</a>&gt;<br></span></div><div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;"><span style="font-family:'Helvetica'; font-size:medium; color:rgba(0, 0, 0, 1.0);"><b>Subject: </b></span><span style="font-family:'Helvetica'; font-size:medium;"><b>TTS 服务更新</b><br></span></div><div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;"><span style="font-family:'Helvetica'; font-size:medium; color:rgba(0, 0, 0, 1.0);"><b>Date: </b></span><span style="font-family:'Helvetica'; font-size:medium;">July 2, 2012 1:30:18 PM GMT+08:00<br></span></div><div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;"><span style="font-family:'Helvetica'; font-size:medium; color:rgba(0, 0, 0, 1.0);"><b>To: </b></span><span style="font-family:'Helvetica'; font-size:medium;">张鸿峰 &lt;<a href="mailto:hf@zhanghongfeng.com">hf@zhanghongfeng.com</a>&gt;<br></span></div><div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;"><span style="font-family:'Helvetica'; font-size:medium; color:rgba(0, 0, 0, 1.0);"><b>Cc: </b></span><span style="font-family:'Helvetica'; font-size:medium;">Wu Jin &lt;<a href="mailto:cliffwoo@gmail.com">cliffwoo@gmail.com</a>&gt;, 孙鹏 &lt;<a href="mailto:voidmain1313113@gmail.com">voidmain1313113@gmail.com</a>&gt;<br></span></div><br><div><strong>wsdl:</strong></div>
+<div>&nbsp;</div>
+<blockquote style="MARGIN-RIGHT:0px" dir="ltr">
+<div><a href="http://123.165.129.104:8080/TextToSpeech/webservice/text2Speech?wsdl" target="_blank">http://123.165.129.104:8080/TextToSpeech/webservice/text2Speech?wsdl</a></div></blockquote>
+<div>&nbsp;</div>
+<div><strong>soap</strong></div>
+<div>&nbsp;</div>
+<blockquote style="MARGIN-RIGHT:0px" dir="ltr">
+<div>&lt;ns1:text2Speech xmlns:ns1='<a href="http://esd.com/" target="_blank">http://esd.com/</a>'&gt;</div>
+<div>&lt;key&gt;zhangjianzong&lt;/key&gt;</div>
+<div>&lt;text&gt;text&lt;/text&gt;</div>
+<div>&lt;base64&gt;&lt;/base64&gt;</div>
+<div>&lt;/ns1:text2Speech&gt;</div></blockquote>
+<div><strong>备注:</strong></div>
+<blockquote style="MARGIN-RIGHT:0px" dir="ltr">
+<div>请求webService时多了一个参数key是用来校验的。key的值始终为"zhangjianzong" 否则会请求失败，后两个参数和只前没有变化。</div>
+<div>返回的xml格式有所变动，格式如下：</div>
+<div>&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
+<div>&lt;ns2:text2SpeechResponse xmlns:ns2="<a href="http://esd.com/" target="_blank">http://esd.com/</a>"&gt;</div>
+<div>&nbsp;&lt;result&gt;</div>
+<div>&nbsp;&nbsp;&lt;urls&gt;</div>
+<div>&nbsp;&nbsp;&nbsp;&lt;name&gt;befe613b-5288-4947-afe9-5e0830355fab&lt;/name&gt;</div>
+<div>&nbsp;&nbsp;&nbsp;&lt;path&gt;<a href="http://192.168.170.154:8080/WEB/voice/befe613b-5288-4947-afe9-5e0830355fab.mp3" target="_blank">http://192.168.170.154:8080/WEB/voice/befe613b-5288-4947-afe9-5e0830355fab.mp3</a></div>
+<div>&nbsp;&nbsp;&nbsp;&lt;/path&gt;</div>
+<div>&nbsp;&nbsp;&lt;/urls&gt;</div>
+<div>&nbsp;&nbsp;&lt;urls&gt;</div>
+<div>&nbsp;&nbsp;&nbsp;&lt;name&gt;caf0eb3c-f825-4eb7-987b-0162014c7579&lt;/name&gt;</div>
+<div>&nbsp;&nbsp;&nbsp;&lt;path&gt;<a href="http://192.168.170.154:8080/WEB/voice/caf0eb3c-f825-4eb7-987b-0162014c7579.ogg" target="_blank">http://192.168.170.154:8080/WEB/voice/caf0eb3c-f825-4eb7-987b-0162014c7579.ogg</a></div>
+<div>&nbsp;&nbsp;&nbsp;&lt;/path&gt;</div>
+<div>&nbsp;&nbsp;&lt;/urls&gt;</div>
+<div>&nbsp;&lt;/result&gt;</div>
+<div>&lt;/ns2:text2SpeechResponse&gt;</div></div>
+<div>&nbsp;</div>
+<div>请求状态时。用name做为jobID来请求关态。每一种音频格式都有自己的name。</div></blockquote>
+<div>&nbsp;问题：</div>
+<div>目前正在研究一个问题还未解决。就是ogg频率的问题。火狐可以支持44100Hz的ogg音频。可以我的pcm，mp3，ogg都是8000Hz的频率。而且在火狐浏览器里不能播放。用播放软件可以播放。</div>
+</blockquote></div></body></html>

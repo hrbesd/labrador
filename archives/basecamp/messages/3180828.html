@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Labrador: 放弃使用XQuery生成webroot</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="../../../application.css">
+</head>
+
+<body class="projects messages">
+  <header>
+    <nav class="global">
+      <a href="../../../index.html" class="home">Home</a> |
+      <a href="../../../projects/index.html" class="projects">Projects</a> |
+      <a href="../../../calendars/index.html" class="calendars">Calendars</a> |
+      <a href="../../../people/index.html" class="people">People</a>
+    </nav>
+
+    <header>
+      <h1>Labrador</h1>
+    </header>
+
+      <nav><a href="../topics/index.html">&larr; See all discussions</a></nav>
+  </header>
+
+  
+<article class="message">
+  <header>
+    <h2>放弃使用XQuery生成webroot</h1>
+    <p>Posted by hailong geng on July 12, 2012</p>
+  </header>
+
+  <div class="content">
+    经过分析和试验后发现使用XQuery很难管理文件系统，无法满足生成webroot的需求<br>考虑过一些解决方案：<br>    1. 将本地文件系统抽象成XML文件进行操作，通过写入XML文件创建本地文件和文件夹。<br>       缺点： 理论上可以实现，但是工程量太大，只试验了只读的版本，效率很低，无法满足快速处理的需要。<br>    2. 捕获事件来管理本地文件<br>       缺点： XQuery报告的事件很少，主要是错误事件，不利于满足生成webroot的需求，而且也存在效率问题<br><br>结论： XQuery适合做大量数据的查询检索，但在生成结果集的方面表现单薄，而且不太方便实现递归函数，对未知层数的结构解析比较困难。<br><br>解决方案：因为要经常用到兄弟节点和子节点概念，因此决定用domtree的方式进行解析，生成webroot
+  </div>
+
+  
+    <div class="comments">
+    <h3>Comments</h3>
+
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on July 12, 2012:</p>
+
+        <div class="content">
+          好。只要可行，方案就固定下来吧。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on July 12, 2012:</p>
+
+        <div class="content">
+          操作本地文件不是xquery的主要功能，还是用c++做吧
+        </div>
+
+        
+      </div>
+  </div>
+
+</article>
+
+</body>
+
+</html>

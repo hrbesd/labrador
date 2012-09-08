@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Labrador: 准备用python来写Reactor</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="../../../application.css">
+</head>
+
+<body class="projects messages">
+  <header>
+    <nav class="global">
+      <a href="../../../index.html" class="home">Home</a> |
+      <a href="../../../projects/index.html" class="projects">Projects</a> |
+      <a href="../../../calendars/index.html" class="calendars">Calendars</a> |
+      <a href="../../../people/index.html" class="people">People</a>
+    </nav>
+
+    <header>
+      <h1>Labrador</h1>
+    </header>
+
+      <nav><a href="../topics/index.html">&larr; See all discussions</a></nav>
+  </header>
+
+  
+<article class="message">
+  <header>
+    <h2>准备用python来写Reactor</h1>
+    <p>Posted by cliff woo on June 16, 2012</p>
+  </header>
+
+  <div class="content">
+    孙鹏用过beautifulsoup没？<br>不知道这个东西处理会不会简便一点
+  </div>
+
+  
+    <div class="comments">
+    <h3>Comments</h3>
+
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June 16, 2012:</p>
+
+        <div class="content">
+          实现一个A级别的要求还不用建DOM吧。<br><br>如果建DOM，规则可能就不好定义了。<br><br>On Jun 16, 2012, at 4:20 PM, cliff woo (Basecamp) wrote:<br><br>&gt; beautifulsoup
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June 16, 2012:</p>
+
+        <div class="content">
+          java做这个不是很好，所以考虑用脚本语言来实现，修改运行都比较快<br><br>python直接用正则匹配过滤倒是很快。<br>不过我想先看看一些现成的工具和lib是否提供，顺便学习一下python。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>cliff woo</b> on June 17, 2012:</p>
+
+        <div class="content">
+          昨天用正则做了一些处理，今天又和孙鹏一起用beautifulsoup做了测试，我们还是选定用beautifulsoup进行处理
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June 17, 2012:</p>
+
+        <div class="content">
+          这个规则是交给运营方编写的。先写几个规则的样本看看什么形式吧。
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>鹏 孙</b> on June 17, 2012:</p>
+
+        <div class="content">
+          <i>这个规则是指文档里面指定的那些规则么？</i>
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June 17, 2012:</p>
+
+        <div class="content">
+          Reactor类似一个编辑器，与sed的区别是基于标签树的，而不是基于文本流。<br><br>规则就是Reactor需要解释的一个表达式，或者微型语言，比如sed语法的：<br><br><pre>s/abc/xyz/g
+
+</pre>就是典型的规则。<pre> </pre><pre> </pre>如果把HTML标签树建成DOM，就要描述如何定位对象，规则可能就不能这么简洁了。<pre> </pre>
+        </div>
+
+        
+      </div>
+  </div>
+
+</article>
+
+</body>
+
+</html>

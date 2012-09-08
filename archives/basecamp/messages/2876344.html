@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Labrador: 关于数据接口文件</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="../../../application.css">
+</head>
+
+<body class="projects messages">
+  <header>
+    <nav class="global">
+      <a href="../../../index.html" class="home">Home</a> |
+      <a href="../../../projects/index.html" class="projects">Projects</a> |
+      <a href="../../../calendars/index.html" class="calendars">Calendars</a> |
+      <a href="../../../people/index.html" class="people">People</a>
+    </nav>
+
+    <header>
+      <h1>Labrador</h1>
+    </header>
+
+      <nav><a href="../topics/index.html">&larr; See all discussions</a></nav>
+  </header>
+
+  
+<article class="message">
+  <header>
+    <h2>关于数据接口文件</h1>
+    <p>Posted by 鹏 孙 on June 27, 2012</p>
+  </header>
+
+  <div class="content">
+    <div>根据周一的讨论手写了一份数据接口文件的目录结构，主要用于验证接口是否正确以及面向app的数据是否全面。</div><div>目录结构基本是：index.xml用于记录页面名称、栏目；c为栏目文件夹，里面每一个xml文件对应一个从index指过来的栏目，栏目中包括子栏目数据。l为文章列表，如果子栏目包括的就是文章列表，那么就将文章列表的内容显示出来。a表示具体的文章。</div><div>由于是手写的，所以没有生成hash，而且没有存放具体的文章内容（a文件夹为空）。<br><br>大家看看有什么问题么？<br>
+</div>
+  </div>
+
+    <ul class="attachments">
+      <li>
+          <a href="../attachments/7766726-nav.zip">nav.zip</a>
+      </li>
+  </ul>
+
+    <div class="comments">
+    <h3>Comments</h3>
+
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June 27, 2012:</p>
+
+        <div class="content">
+          我没看出存在什么问题。有一点需要和你确定，pageUrl里面是相对路径。我们生成的网站的所有网页都是相对路径。上线后的baseurl目前不保障是site.yunmd.net/这种形式。可能是host.domain.com/basedir/a/&lt;hash&gt;.html
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>鹏 孙</b> on June 27, 2012:</p>
+
+        <div class="content">
+          如果是相对路径的话，无论页面的baseURL如何，应该都可以保证定位的吧~
+        </div>
+
+        
+      </div>
+      <div class="comment">
+        <p><b>鹏 孙</b> on June 27, 2012:</p>
+
+        <div class="content">
+          更新了一个小问题，index.xml里面的nodeList结构有问题。
+        </div>
+
+          <ul class="attachments">
+      <li>
+          <a href="../attachments/7778056-nav_updated.zip">nav_updated.zip</a>
+      </li>
+  </ul>
+
+      </div>
+      <div class="comment">
+        <p><b>HONGFENG ZHANG</b> on June 27, 2012:</p>
+
+        <div class="content">
+          对。<br>Assembler建模板时负责baseUrl。注意baseUrl可以有多个。
+        </div>
+
+        
+      </div>
+  </div>
+
+</article>
+
+</body>
+
+</html>
