@@ -130,4 +130,4 @@ class Assembler:
 	def mvAssets(self):
 		homePath = os.getenv('HOME')
 		assetsPath = '%s/labrador/etc/templets/stylesheets/outsource/assets/' % homePath
-		utils.fileMover(assets, self.webroot_dir)
+		utils.fileMover(assetsPath, self.webroot_dir)

@@ -81,10 +81,13 @@ class Divider:
 		else: # navigation files
 			for element in soup.find_all('name'):
 				if len(element.contents) > 0 and element.contents[0]:
-					content = element.contents[0].strip()
-					dataTag = self.soup.new_tag('data')
-					dataTag['class'] = 'tts_data'
-					dataTag.string = content
-					element.contents[0] = dataTag
+					try:
+						content = element.contents[0].strip()
+						dataTag = self.soup.new_tag('data')
+						dataTag['class'] = 'tts_data'
+						dataTag.string = content
+						element.contents[0] = dataTag
+					except Exception, e:
+						print e
 
 		return soup
