@@ -75,6 +75,7 @@ private:
 
     QSet<QString> m_nodeUrlSet;
     QSet<QString> m_resolvedNodes;  //扫描过的url集合
+    QSet<QString> m_resolvedRules;  // 扫描过的rule集合
 
     int m_webpageRequestThreadNum;
     int m_ruleRequestThreadNum;

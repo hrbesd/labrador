@@ -153,10 +153,15 @@ void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
     QStringList nextPageStringList = parseRuleExpression(ruleItem->nextPageExpression,strData);
     for(int i=0;i<nextPageStringList.size();i++)
     {
-        RuleRequest ruleRequest;
-        ruleRequest.url = baseUrl.resolved(nextPageStringList[i]).toString();
-        ruleRequest.rule = ruleItem;
-        m_ruleRequestTask.append(ruleRequest);
+        QString ruleUrl = baseUrl.resolved(nextPageStringList[i]).toString();
+        if(!m_resolvedRules.contains(ruleUrl))
+        {
+            m_resolvedRules.insert(ruleUrl);
+            RuleRequest ruleRequest;
+            ruleRequest.url = ruleUrl;
+            ruleRequest.rule = ruleItem;
+            m_ruleRequestTask.append(ruleRequest);
+        }
     }
 }
 
