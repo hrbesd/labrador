@@ -7,6 +7,7 @@
 #include <iostream>
 #include <QRegExp>
 #include <QDir>
+#include <QRegExp>
 #include <QMap>
 #include "DataInterface.h"
 #include "../xmlWriter/yzxmlwriter.h"
@@ -35,6 +36,7 @@ private:
     //init
     void initParameters();
 
+    void removeStyles(QString &data);
     QScriptEngine m_engine;
     QScriptValue m_globalValue;
     QScriptValue m_parserValue;
