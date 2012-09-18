@@ -73,7 +73,7 @@ int YZParser::parseFile(QString fileName)
     {
         YZLogger::Logger()->log(YZLogger::Warning,articleInterface.url,"contains: http-equiv=\"refresh\"");
     }
-
+    removeStyles(articleInterface.bodyData);
     parseImageFromBody(articleInterface.bodyData,QString(baseUrl),articleInterface);
     QFileInfo fileInfo(file);
     QDir fileDir;
@@ -184,4 +184,11 @@ void YZParser::initParameters()
         std::cerr<<"source dir can't be empty, parser will exit now!"<<endl;
         exit(0);
     }
+}
+
+void YZParser::removeStyles(QString &data)
+{
+    QRegExp regExp("style=\"[^\"]*\"");
+    regExp.setMinimal(true);
+    data.replace(regExp,"");
 }
