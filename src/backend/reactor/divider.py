@@ -24,7 +24,7 @@ class Divider:
 					right = min(sentenceLength, left + self.MAX_STEP)
 					currentLength = right
 					words = sentence[left:right]
-					sentenceTag = self.soup.new_tag('data')
+					sentenceTag = self.soup.new_tag('span')
 					sentenceTag['class'] = 'tts_data'
 					sentenceTag.string = words
 					resultSentence.append(sentenceTag)
@@ -56,7 +56,7 @@ class Divider:
 				if len(element.contents) == 0:
 					continue
 				content = element.contents[0].strip()
-				dataTag = self.soup.new_tag('data')
+				dataTag = self.soup.new_tag('span')
 				dataTag['class'] = 'tts_data'
 				dataTag.string = content
 				element.contents[0] = dataTag
@@ -71,7 +71,7 @@ class Divider:
 					content = dateStr.decode('utf-8')
 				except:
 					content = u"未知"
-				dataTag = self.soup.new_tag('data')
+				dataTag = self.soup.new_tag('span')
 				dataTag['class'] = 'tts_data'
 				dataTag.string = content
 				element.contents[0] = dataTag
@@ -83,7 +83,7 @@ class Divider:
 				if len(element.contents) > 0 and element.contents[0]:
 					try:
 						content = element.contents[0].strip()
-						dataTag = self.soup.new_tag('data')
+						dataTag = self.soup.new_tag('span')
 						dataTag['class'] = 'tts_data'
 						dataTag.string = content
 						element.contents[0] = dataTag
