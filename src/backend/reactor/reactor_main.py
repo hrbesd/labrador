@@ -128,8 +128,8 @@ class Reactor:
 	def getDataFilePathForFileName(self, fileName):
 		return self.in_folder_path + "/" + fileName[:2] + "/" + fileName
 
-	def dataFileExists(self, fileName):
-		return os.path.exists(self.getDataFilePathForFileName(fileName))
+	def dataFileExists(self, filePath):
+		return filePath.find('/a/') != -1
 
 	def integrateParentWithData(self, fileName, parentFile):
 		dataFile = self.getDataFilePathForFileName(fileName)
@@ -166,7 +166,7 @@ class Reactor:
 		srcFile = root + "/" + fileName
 		resultFilePath = srcFile
 
-		if self.dataFileExists(fileName):
+		if self.dataFileExists(srcFile):
 			soup = self.integrateParentWithData(fileName, srcFile)
 		else:
 			xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
