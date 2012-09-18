@@ -12,71 +12,82 @@
  */
 var action = {};
 
-action.toggleSpeak = function () {
-	speaker.read_enabled = !speaker.read_enabled;
-    speaker.updateSpeakerStatus();
-}
-
-action.increaseScreenWidth = function() {
-	basic.screenWidth.increaseScreenWidth();
-}
-
-action.decreaseScreenWidth = function() {
-	basic.screenWidth.decreaseScreenWidth();
-}
-
-action.increaseFontSize = function() {
-	basic.fontSize.increaseFont();
-}
-
-action.decreaseFontSize = function() {
-	basic.fontSize.decreaseFont();
-}
-
-action.increaseLineHeight = function() {
-	basic.lineHeight.increaseHeight();
-}
-
-action.decreaseLineHeight = function() {
-	basic.lineHeight.decreaseHeight();
-}
-
+//标准
 action.changeToStandardTheme = function() {
 	basic.changeTheme.changeToStandard();
 }
-
+//夜视
 action.changeToDarkTheme = function() {
 	basic.changeTheme.changeToDark();
 }
-
+//高对比度
 action.changeToHightContrastTheme = function() {
 	basic.changeTheme.chageToHightContrast();
 }
-
+//文字放大 
+action.increaseFontSize = function() {
+	basic.fontSize.increaseFont();
+}
+//文字缩小
+action.decreaseFontSize = function() {
+	basic.fontSize.decreaseFont();
+}
+//增加页宽
+action.increaseScreenWidth = function() {
+	basic.screenWidth.increaseScreenWidth();
+}
+//减少页宽
+action.decreaseScreenWidth = function() {
+	basic.screenWidth.decreaseScreenWidth();
+}
+//增加行宽
+action.increaseLineHeight = function() {
+	basic.lineHeight.increaseHeight();
+}
+//减少行宽
+action.decreaseLineHeight = function() {
+	basic.lineHeight.decreaseHeight();
+}
+//显示放大镜
+var bMagnifier = true;
+action.showMagnifier = function() {
+	if(bMagnifier){
+		basic.magnifier.showMagnifier();
+		bMagnifier=false;
+	}else{
+		basic.magnifier.hideMagnifier();
+		bMagnifier=true;
+	}
+}
+//隐藏放大镜
+action.hideMagnifier = function() {
+	basic.magnifier.hideMagnifier();
+}
+//放大镜
+action.toggleMagnifier = function() {
+	basic.magnifier.toggleMagnifier();
+}
+//辅助线
 action.toggleGuides = function() {
 	basic.guides.toggleGuides();
 }
 
-action.toggleMagnifier = function() {
-	basic.magnifier.toggleMagnifier();
-}
-
-action.showMagnifier = function() {
-	basic.magnifier.showMagnifier();
-}
-
-action.hideMagnifier = function() {
-	basic.magnifier.hideMagnifier();
-}
-
+//显示帮助
 action.showHelp = function() {
+	alert("播放语音帮助");
 	basic.help.showHelp();
 }
-
+//隐藏帮助
 action.hideHelp = function() {
 	basic.help.hideHelp();
 }
-
+//朗读
+action.toggleSpeak = function () {
+	alert("朗读文字");
+	speaker.read_enabled = !speaker.read_enabled;
+    speaker.updateSpeakerStatus();
+}
+//横竖工具栏切换
 action.toggleStyle = function() {
 	basic.styleSwitcher.toggleStyle();
 }

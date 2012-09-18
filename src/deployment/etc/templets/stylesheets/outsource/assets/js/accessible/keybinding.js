@@ -1,3 +1,4 @@
+
 /**
  * 键盘绑定模块
  *
@@ -8,16 +9,19 @@
  *
  * Author: Void Main
  */
- var keybinding = {}
+var keybinding = {};
 
 // 处理对应的按键时间的函数
 // 参数：event - document.keyDown函数中的对应参数
 // 首先判断是否已经按下了ctrl+shift键，之后再根据keybinding.config里面的内容进行按键功能匹配
-keybinding.processKeyEvent = function(event) {
-	if (event.ctrlKey && event.shiftKey) {
+keybinding.processKeyEvent = function (event) {
+	//if (event.ctrlKey && event.shiftKey) {
+	if (event.altKey) {
 		bindingResult = keybinding.config[event.keyCode];
-		if(bindingResult) {
-			bindingResult(); // 最后的括号才是真正的调用方法
+		if (bindingResult) {
+			//bindingResult();
+			action[bindingResult](); // 最后的括号才是真正的调用方法
 		}
-    }
-}
+	}
+};
+

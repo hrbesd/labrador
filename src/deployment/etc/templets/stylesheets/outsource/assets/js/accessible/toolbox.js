@@ -37,7 +37,7 @@ var initSM2 = function() {
 	  soundManager.setup({
 	  useFlashBlock: false,
 	  url: 'assets/swf/', // path to SoundManager2 SWF files (note trailing slash)
-	  debugMode: true,
+	  debugMode: false,
 	  consoleOnly: false
 	});
 }
@@ -83,8 +83,8 @@ var bindActions = function() {
     $('#toggle_magnifier').click(action.toggleMagnifier);
     $('#toggle_speaker').click(action.toggleSpeak);
     $('#switch_hori_vert').click(action.toggleStyle);
-
-    $('data').each(function() {
+    
+    $('span[class=tts_data]').each(function() {
         $(this).bind("mouseover", function() {
             basic.magnifier.magnifyIt(this.innerHTML);  
         });

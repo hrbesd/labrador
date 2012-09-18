@@ -2,7 +2,7 @@
 /* CSS Document */
 
 html{ margin:0px; padding:0px;}
-body{ margin:0px; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:12px; background:#FFF url(../img/4_02.gif) repeat-x; position:relative;}
+body{ margin:0 auto; font-family:Arial, Helvetica, sans-serif; font-size:12px; background:#FFF url(../img/4_02.gif) repeat-x; position:relative;}
 *{ margin:0px; padding:0px; border:0px solid #a0cf8b;}
 div{ margin:0px; padding:0px;}
 ul{ margin:0px; padding:0px; list-style:none}
@@ -59,8 +59,9 @@ i{ font-style:normal;}
 .mol li ul li{ background:url(../img/2_09.gif) no-repeat left center; height:28px; line-height:28px;}
 .mol li ul li a{ padding-left:10px;}
 .mol h2{width:383px; height:28px; position:relative; line-height:28px;  font-size:14px; padding-left:10px;}
-.mol h2 span{ position:absolute; right:10px; font-size:12px; _bottom:1px; *bottom:1px;}
-.mol h2 span a{ font-weight:normal;}
+/*.mol h2 span{ position:absolute; right:10px; font-size:100%; _bottom:1px; *bottom:1px;}*/
+.mol h2 a{ position:absolute; right:10px; font-size:100%; _bottom:1px; *bottom:1px;font-weight:normal;}
+/*.mol h2 span a{ font-weight:normal;}*/
 .mol .ml{ margin-left:10px;}
 /*index mol end*/
 /*footer*/
