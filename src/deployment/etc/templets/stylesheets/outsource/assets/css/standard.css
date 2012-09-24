@@ -3,7 +3,7 @@
 
 
 html{ margin:0px; padding:0px;}
-body{ text-align:center; margin:0 auto; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px ;background:#FFF url(../img/4_02.gif) repeat-x; position:relative;}
+body{ *text-align:center; margin:0 auto; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:20px ;background:#FFF url(../img/4_02.gif) repeat-x; position:relative;}
 *{ margin:0px; padding:0px;}
 div{ margin:0px; padding:0px;}
 ul{ margin:0px; padding:0px; list-style:none}
@@ -42,7 +42,7 @@ em{ font-style:normal}
 i{ font-style:normal;}
 
 
-#main{width:800px; margin:0 auto;}
+#main{*text-align:left;width:800px; margin:0 auto;}
 .clr{clear:both;}
 .main-ti{width:100%; height:100px; }/*banner 样式*/
 .nav-main{width:98.5%; height:30px; line-height: 30px; margin-top:10px; padding-left:10px; background:#ddebfb;}
@@ -173,15 +173,16 @@ i{ font-style:normal;}
 
 /*mol*/
 .mol{   }
-.molli{float:left;width:49.125%; margin-top:10px;}
+.molli{float:left;width:49%; margin-top:10px;}
 .mol li{height:auto;}
 .mol li ul{ padding:10px;}
 .mol li ul li{ background:url(../img/2_09.gif) no-repeat left center; height:auto;}
 .mol li ul li a{ padding-left:10px;}
 .mol a,.le-box a:visited{}
 .mol h2{width:97%; height:auto; position:relative; font-size:116%; padding-left:3%;}
-.mol h2 span{ position:absolute; right:10px; font-size:100%; _bottom:1px; *bottom:1px;}
-.mol h2 span a{ font-weight:normal;}
+/*.mol h2 span{ position:absolute; right:10px; font-size:100%; _bottom:1px; *bottom:1px;}*/
+.mol h2 a{ position:absolute; right:10px; font-size:100%; _bottom:1px; *bottom:1px;font-weight:normal;}
+/*.mol h2 span a{ font-weight:normal;}*/
 .mol .ml{ margin-left:10px;}
 
 /* header h1*/

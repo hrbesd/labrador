@@ -160,21 +160,19 @@ basic.guides.toggleGuides = function() {
 basic.magnifier = {};
 // 显示放大镜
 basic.magnifier.showMagnifier = function() {
-	$('.magnifier').css('visibility', 'visible');
-	$('body').css('padding-bottom', '200px');
+	$('.magnifier').css('display', 'block');
 
 	storage.setCookie('magnifier_status', 1, 360);
 }
 // 隐藏放大镜
 basic.magnifier.hideMagnifier = function() {
-	$('.magnifier').css('visibility', 'hidden');
-	$('body').css('padding-bottom', '20px');
-
+	$('.magnifier').css('display', 'none');
+	
 	storage.eraseCookie('magnifier_status');
 }
 // 开关放大镜
 basic.magnifier.toggleMagnifier = function() {
-    if ($('.magnifier').css('visibility') == 'visible') {
+    if ($('.magnifier').css('display') == 'block') {
     	basic.magnifier.hideMagnifier();    
     }
     else {
@@ -183,6 +181,7 @@ basic.magnifier.toggleMagnifier = function() {
 }
 // 使用放大镜放大文字
 basic.magnifier.magnifyIt = function(argument) {
+	//alert(argument);
 	$('#magnified').html(argument);
 }
 // 载入之前的设置
