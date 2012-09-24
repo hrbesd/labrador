@@ -141,6 +141,7 @@ void YZConfigWindow::createWebsite()
     website.threadLimit = websiteUi.lineEdit_5->text();
     website.node.name = websiteUi.lineEdit_3->text();
     website.node.url = websiteUi.lineEdit_6->text();
+    website.codecName = websiteUi.lineEdit_7->text();
     QString fileName = QFileDialog::getSaveFileName(this,
                                                     tr("Save Spider Config File"), m_spiderConfigFileName, tr("Config Files (*.xml);;Any File(*)"));
     if(!fileName.isEmpty())

@@ -91,6 +91,7 @@ private:
     QScriptEngine m_engine;
     QScriptValue m_globalValue;
     QScriptValue m_spiderValue;
+    QTextCodec *codec;
 
     QMap<QString, QString> m_paramenters;
 };

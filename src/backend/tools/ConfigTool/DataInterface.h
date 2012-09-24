@@ -97,5 +97,6 @@ struct WebSite
     QString editor;
     QString crawlTime;
     QString threadLimit;
+    QString codecName;
 };
 #endif // DATAINTERFACE_H

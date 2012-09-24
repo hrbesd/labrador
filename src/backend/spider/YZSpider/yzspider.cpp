@@ -18,6 +18,14 @@ YZSpider::YZSpider(QObject *parent) :
     //because we want columns to be downloaded in order, so only one thread
     m_maxRuleRequestThreadNum = 1;
     m_ruleRequestThreadNum = m_maxRuleRequestThreadNum;
+    if(m_website.codecName.isEmpty())
+    {
+        codec = QTextCodec::codecForName("utf8");
+    }
+    else
+    {
+        codec = QTextCodec::codecForName(m_website.codecName.toUtf8());
+    }
     parseWebsiteData();
 }
 
@@ -66,7 +74,7 @@ void YZSpider::webPageDownloaded()
     file.write("\n");
     file.write(reply->url().toString().toUtf8());
     file.write("\n");
-    file.write(QTextCodec::codecForHtml(result)->toUnicode(result).toUtf8());
+    file.write(codec->toUnicode(result).toUtf8());
     qDebug()<<QString::number(m_webPageCount++)+ " web page downloaded";
     file.close();
     reply->deleteLater();
@@ -116,7 +124,7 @@ void YZSpider::networkError(QNetworkReply::NetworkError error)
 void YZSpider::ruleRequestReply()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
-    QByteArray result = reply->readAll();
+    QByteArray result = codec->toUnicode(reply->readAll()).toUtf8();
     QUrl baseUrl = reply->url();
     RuleRequest ruleRequest = m_ruleDownloadingTask.take(reply);
     parseRuleReply(ruleRequest.rule,result,baseUrl);
@@ -128,7 +136,7 @@ void YZSpider::ruleRequestReply()
 //to do ... for now ,every rule has title regexp
 void YZSpider::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
 {
-    QString strData = QString::fromUtf8(QTextCodec::codecForHtml(data)->toUnicode(data).toUtf8().data());
+    QString strData = QString::fromUtf8(data.data());
     //title && url
     QStringList urlStringList = parseRuleExpression(ruleItem->urlExpression,strData);
     QStringList titleStringList = parseRuleExpression(ruleItem->titleExpression,strData);

@@ -37,6 +37,10 @@ void YZSpiderConfigFileParser::parseWebsiteXml(QXmlStreamReader &reader, WebSite
             {
                 parseNodeXml(reader,m_website.node);
             }
+            else if(reader.name()=="codecName")
+            {
+                m_website.codecName = reader.readElementText();
+            }
         }
         reader.readNext();
     }

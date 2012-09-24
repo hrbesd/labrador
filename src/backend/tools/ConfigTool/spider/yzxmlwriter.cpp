@@ -21,9 +21,10 @@ void YZXmlWriter::writeWebsiteItemToXml(WebSite &websiteItem, QString fileName)
     writer.writeStartElement("website");
     writer.writeTextElement("editor", websiteItem.editor);
     writer.writeTextElement("info",websiteItem.info);
-    writer.writeTextElement("version","0.1.0");
+    writer.writeTextElement("version","0.1.1");
     writer.writeTextElement("crawlTime",websiteItem.crawlTime);
     writer.writeTextElement("threadLimit",websiteItem.threadLimit);
+    writer.writeTextElement("codecName",websiteItem.codecName);
     YZXmlWriter::writeNodeItemToXml(&(websiteItem.node),writer);
 
     writer.writeEndElement();
