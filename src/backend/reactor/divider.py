@@ -65,12 +65,17 @@ class Divider:
 				if len(element.contents) == 0:
 					continue
 				content = element.contents[0].strip()
+
+				# 现在时间是字符串了，reactor只负责显示
+				"""
 				try:
 					modifiedDate = datetime.datetime.fromtimestamp(long(content) / 1000)
 					dateStr = modifiedDate.strftime(u'%Y年%m月%d日'.encode('utf-8'))
 					content = dateStr.decode('utf-8')
 				except:
 					content = u""
+
+				"""
 
 				dataTag = self.soup.new_tag('span')
 				dataTag['class'] = 'tts_data'
