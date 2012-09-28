@@ -70,10 +70,11 @@ class Divider:
 					dateStr = modifiedDate.strftime(u'%Y年%m月%d日'.encode('utf-8'))
 					content = dateStr.decode('utf-8')
 				except:
-					content = u"未知"
+					content = u""
+
 				dataTag = self.soup.new_tag('span')
 				dataTag['class'] = 'tts_data'
-				dataTag.string = content
+				dataTag.string = "<time>" + content + "</time>"
 				element.contents[0] = dataTag
 
 			for element in bodyData:
