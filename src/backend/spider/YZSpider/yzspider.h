@@ -19,8 +19,8 @@
 #include "DataInterface.h"
 #include <QMap>
 #include "version.h"
-#include "core/xmlWriter/yzxmlwriter.h"
-#include "yzspiderconfigfileparser.h"
+#include "dirparser.h"
+
 using namespace std;
 /**************************************************
  * download webpage in whitelist and convert text codec
@@ -39,59 +39,26 @@ protected slots:
     void webPageDownloaded();
     void networkError(QNetworkReply::NetworkError error);
 
-    void ruleRequestReply();
 private:
     //init
     void initParameters();
 
     //download
-    void downloadWebPage(Node* node);
-    void downloadRule(RuleRequest ruleRequest);
+    void downloadWebPage(Node& node);
 
     //scheduler
     void webpageDownloadScheduler();
-    void ruleRequestScheduler();
-
-    //parse website data
-    void parseWebsiteData();
-    void parseNodeData(Node &nodeItem);
-    void parseRuleData(Rule* ruleItem, Node &parentNode);
-    void parseNodeListData(Rule* ruleItem);
-
-    //parse rule reply
-    void parseRuleReply(Rule* ruleItem,QByteArray& data, QUrl &baseUrl);
-    QStringList parseRuleExpression(Expression & expressionItem,const QString& strData);
-
-    //output xml dir and download webpages
-    void outputWebsite(QString fileName);
 
     //tools
-    bool checkWhetherNodeExists(Node &nodeItem);
     QNetworkAccessManager *m_networkAccessManager;
-    QMap<QNetworkReply*,Node*> m_webPageDownloadingTask;
-    QLinkedList<Node*> m_webPageRequestTask;
-    QMap<QNetworkReply*,RuleRequest> m_ruleDownloadingTask;
-    QLinkedList<RuleRequest> m_ruleRequestTask;
-
-    QSet<QString> m_nodeUrlSet;
-    QSet<QString> m_resolvedNodes;  //扫描过的url集合
-    QSet<QString> m_resolvedRules;  // 扫描过的rule集合
+    QMap<QNetworkReply*,Node> m_webPageDownloadingTask;
 
     int m_webpageRequestThreadNum;
-    int m_ruleRequestThreadNum;
-    quint32 m_webPageCount;
-    WebSite m_website;
-    bool m_finishParseRules;
-    QUrl m_websiteUrl;
-    YZSpiderConfigFileParser m_configFileParser;
-
     int m_maxWebPageRequestThreadNum;
-    int m_maxRuleRequestThreadNum;
+    quint32 m_webPageCount;
 
-    QScriptEngine m_engine;
-    QScriptValue m_globalValue;
-    QScriptValue m_spiderValue;
     QTextCodec *codec;
+    WebSite website;
 
     QMap<QString, QString> m_paramenters;
 };

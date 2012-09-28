@@ -1,7 +1,7 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#define BASE_VERSION "0.1.0"
+#define BASE_VERSION "0.2.0"
 
 #define VER_COMPANYNAME_STR         ""
 #define VER_FILEDESCRIPTION_STR     "YZSpider"
