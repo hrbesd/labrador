@@ -28,6 +28,9 @@ public:
     void parseFolder(QString folder);
     void parseImageFromBody(const QString& dataString,QString base, ArticleInterface& articleInterface);
     void parseConfigFile(QString parserConfigFileUrl);
+    void cleanBodyData(QString& bodyData);
+    void removeTags(QString& bodyData, QList<QString> tagList);
+    void removeTag(QString& bodyData, QString tag);
 signals:
     
 public slots:

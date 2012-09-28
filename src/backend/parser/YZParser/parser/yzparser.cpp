@@ -68,6 +68,7 @@ int YZParser::parseFile(QString fileName)
     articleInterface.title = QString::fromUtf8(title.data());
     articleInterface.author = QString::fromUtf8(articleItem.toMap()["author"].toByteArray().data());
     articleInterface.bodyData = QString::fromUtf8(articleItem.toMap()["body"].toByteArray().data());
+    cleanBodyData(articleInterface.bodyData);
     articleInterface.url = QString::fromUtf8((baseUrl.data()));
     if(articleItem.toMap()["refreshTag"].toByteArray().data()=="true")
     {
@@ -191,4 +192,30 @@ void YZParser::removeStyles(QString &data)
     QRegExp regExp("style=\"[^\"]*\"");
     regExp.setMinimal(true);
     data.replace(regExp,"");
+}
+
+void YZParser::cleanBodyData(QString &bodyData)
+{
+    QList<QString> tagList;
+    tagList<<QString("div");
+    tagList<<QString("font");
+    tagList<<QString("br");
+    removeTags(bodyData,tagList);
+}
+
+void YZParser::removeTags(QString &bodyData, QList<QString> tagList)
+{
+    foreach(QString tag, tagList)
+    {
+        removeTag(bodyData,tag);
+    }
+}
+
+void YZParser::removeTag(QString &bodyData, QString tag)
+{
+    QRegExp startRx("<"+tag+"[^>]*>",Qt::CaseInsensitive);
+    QRegExp endRx("</"+tag+">",Qt::CaseInsensitive);
+    bodyData.replace(startRx,"");
+    bodyData.replace(endRx,"");
+
 }
