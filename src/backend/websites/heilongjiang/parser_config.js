@@ -16,6 +16,13 @@ function parseArticle(content,url) {
             articleItem.author = content.substr(authorStartIndex, authorEndIndex - authorStartIndex);
         }
 
+        var lastModifiedStartIndex =  content.lastIndexOf("parse_date=");
+        if (lastModifiedStartIndex != -1) {
+            lastModifiedStartIndex = content.indexOf("=", lastModifiedStartIndex) + 2;
+            var lastModifiedEndIndex = content.indexOf("\"",  lastModifiedStartIndex+2);
+            articleItem.lastModified = content.substr(lastModifiedStartIndex, lastModifiedEndIndex - lastModifiedStartIndex);
+        }
+
         var bodyStartIndex = content.lastIndexOf("<!--function content() parse begin-->");
         if (bodyStartIndex != -1) {
             bodyStartIndex = content.indexOf(">", bodyStartIndex) + 1;

@@ -79,6 +79,7 @@ void YZParserConfigWidget::execute()
     QVariant articleItem = article.toVariant();
 
     resultUi.plainTextEdit->appendPlainText(QString("version:")  + QString::fromUtf8(articleItem.toMap()["version"].toByteArray().data())+"\n");
+    resultUi.plainTextEdit->appendPlainText(QString("lastModified:")  + QString::fromUtf8(articleItem.toMap()["lastModified"].toByteArray().data())+"\n");
     resultUi.plainTextEdit->appendPlainText(QString("refreshTag:")  + QString::fromUtf8(articleItem.toMap()["refreshTag"].toByteArray().data())+"\n");
     resultUi.plainTextEdit->appendPlainText(QString("author:")  + QString::fromUtf8(articleItem.toMap()["author"].toByteArray().data())+"\n");
     resultUi.plainTextEdit->appendPlainText(QString("body:")  + QString::fromUtf8(articleItem.toMap()["body"].toByteArray().data())+"\n");
