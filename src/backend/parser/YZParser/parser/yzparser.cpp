@@ -45,7 +45,6 @@ int YZParser::parseFile(QString fileName)
         return -1;
     }
     ArticleInterface articleInterface;
-    QByteArray lastModifiedTime = file.readLine();
     QByteArray title = file.readLine();
     QByteArray baseUrl = file.readLine();
     QByteArray webData = file.readAll();
@@ -64,7 +63,7 @@ int YZParser::parseFile(QString fileName)
         exit(0);
     }
 
-    articleInterface.lastModified = QString::fromUtf8(lastModifiedTime.trimmed().data());
+    articleInterface.lastModified = QString::fromUtf8(articleItem.toMap()["lastModified"].toByteArray().data());
     articleInterface.title = QString::fromUtf8(title.data());
     articleInterface.author = QString::fromUtf8(articleItem.toMap()["author"].toByteArray().data());
     articleInterface.bodyData = QString::fromUtf8(articleItem.toMap()["body"].toByteArray().data());
