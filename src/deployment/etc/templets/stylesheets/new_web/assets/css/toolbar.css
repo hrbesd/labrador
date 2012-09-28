@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+#toolbar {
+	/*add by zjz start 0920*/
+	width:100%; 
+	margin: 0;
+	position: fixed;
+	left: 0;
+	top: 0;
+	*position: absolute; 
+    *top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop); 
+	height: 43px;
+	text-align: center;
+	padding: 10px 5px 10px 5px;
+	background-color: #666666;
+	border-bottom-width: medium;
+	border-bottom-style: solid;
+	border-bottom-color: #333333;
+  	z-index: 1030;
+  	box-shadow: 0px 0px 12px 5px black;
+	/*add by zjz end 0920*/
+	
+	/*
+	width:100%; 
+	margin: 0;
+	position: fixed;
+	*position: static;
+	top: 0;
+	height: 43px;
+	text-align: center;
+	padding: 15px 5px 15px 5px;	
+	box-shadow: 0px 0px 12px 5px black;
+	
+	/* Adds the transparent background */
+	
+	/*
+	color: inherit;
+	background-color: rgba(102, 102, 102, 0.8753);
+	*background-color: #666;
+	*/
+	white-space: nowrap;
+	/*
+	display: inline-block;
+	*/
+
+
+	
+}
+.btn_group {
+	/*add by zjz start 0921*/
+	position:relative;
+	/*add by zjz end 0921*/
+	width: 126px;
+	/*add by zjz start 0920*/
+	*width: 136px;
+	/*add by zjz end 0920*/
+	height: 43px;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+/*给a标签的统一设置*/
+.item_a { width:42px; height:43px; display:block; position:absolute; left:0; top:0;}
+.item_b { width:42px; height:43px; display:block; position:absolute; left:42px; top:0;}
+.item_c { width:42px; height:43px; display:block; position:absolute; left:84px; top:0;}
+.item_a ,.item_b ,.item_c { background-repeat:no-repeat; opacity:1;}
+.item_a:hover ,.item_b:hover ,.item_c:hover { background-image:url(../img/8_03.gif);}/*鼠标经过*/
+.item_a:active ,.item_b:active ,.item_c:active { background-image:url(../img/active.png);}/*鼠标点击时*/
+.item_a.on ,.item_b.on ,.item_c.on { background-image:url(../img/active.png);}
+
+/*控制按钮位置 1、2、3……控制a标签竖直方向的位置 a、b、c……代表控制a标签的横向位置*/
+.item_11 { background:url(../img/toolbar_icons.png) 0px 0px no-repeat;}/*切换视图*/
+.item_21 { background:url(../img/toolbar_icons.png) 0px -100px no-repeat;}/*文字大小*/
+.item_31 { background:url(../img/toolbar_icons.png) 0px -150px no-repeat;}/*页宽大小*/
+.item_41 { background:url(../img/toolbar_icons.png) 0px -200px no-repeat;}/*行距大小*/
+.item_51 { background:url(../img/toolbar_icons.png) 0px -450px no-repeat;}/*语音朗读*/
+.item_61 { background:url(../img/toolbar_icons.png) 0px -50px no-repeat;}/*放在镜，辅助线，帮助*/
+.item_71 { background:url(../img/toolbar_icons.png) 0px -250px no-repeat;}/*声音，翻译*/
+
+/*切换视图*/
+.item_11 .item_a { background-position:0px 0px; }
+.item_11 .item_b { background-position:-42px 0px; }
+.item_11 .item_c { background-position:-84px 0px; }
+/*文字大小*/
+.item_21 .item_a { background-position:0px -100px; }
+.item_21 .item_b { background-position:-42px -100px; }
+.item_21 .item_c { background-position:-84px -100px; }
+/*页宽大小*/
+.item_31 .item_a { background-position:0px -150px; }
+.item_31 .item_b { background-position:-42px -150px; }
+.item_31 .item_c { background-position:-84px -150px; }
+/*行距大小*/
+.item_41 .item_a { background-position:0px -200px; }
+.item_41 .item_b { background-position:-42px -200px; }
+.item_41 .item_c { background-position:-84px -200px; }
+/*语音朗读*/
+.item_51 .item_a { background-position:-0px -450px;}
+.item_51 .item_b { background-position:-42px -450px;}
+.item_51 .item_c { background-position:-84px -450px;}
+/*复位 语音帮助，翻译*/
+.item_61 .item_a { background-position:-0px -50px;}
+.item_61 .item_b { background-position:-42px -50px;}
+.item_61 .item_c { background-position:-84px -50px;}
+/*放在镜，辅助线，帮助*/
+.item_71 .item_a { background-position:-0px -250px;}
+.item_71 .item_b { background-position:-42px -250px;}
+.item_71 .item_c { background-position:-84px -250px;}
+
+#toggle_translate.toggled {
+	background:url(../img/toolbar_icons.png) -84px -50px no-repeat;
+}
