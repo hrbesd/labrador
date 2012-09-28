@@ -21,6 +21,7 @@ void YZXmlWriter::writeWebsiteItemToXml(WebSite &websiteItem, QString fileName)
     writer.writeStartElement("website");
     writer.writeTextElement("editor", websiteItem.editor);
     writer.writeTextElement("info",websiteItem.info);
+    writer.writeTextElement("codec",websiteItem.codecName);
     YZXmlWriter::writeNodeItemToXml(websiteItem.node,writer);
 
     writer.writeEndElement();

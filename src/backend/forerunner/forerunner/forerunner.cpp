@@ -1,5 +1,4 @@
 #include "forerunner.h"
-
 #include <QDebug>
 #include <QCoreApplication>
 #include <QTextCodec>
@@ -19,19 +18,15 @@ ForeRunner::ForeRunner(QObject *parent) :
     //because we want columns to be downloaded in order, so only one thread
     m_maxRuleRequestThreadNum = 1;
     m_ruleRequestThreadNum = m_maxRuleRequestThreadNum;
+    if(m_website.codecName.isEmpty())
+    {
+        codec = QTextCodec::codecForName("utf8");
+    }
+    else
+    {
+        codec = QTextCodec::codecForName(m_website.codecName.toUtf8());
+    }
     parseWebsiteData();
-}
-
-void ForeRunner::downloadWebPage(Node *node)
-{
-    m_webpageRequestThreadNum--;
-    QNetworkRequest request;
-    QNetworkReply *reply;
-    request.setUrl(QUrl(node->url));
-    reply = m_networkAccessManager->get(request);
-    m_webPageDownloadingTask.insert(reply,node);
-    connect(reply,SIGNAL(finished()),this,SLOT(webPageDownloaded()));
-    connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
 }
 
 void ForeRunner::downloadRule(RuleRequest ruleRequest)
@@ -44,49 +39,6 @@ void ForeRunner::downloadRule(RuleRequest ruleRequest)
     m_ruleDownloadingTask.insert(reply,ruleRequest);
     connect(reply,SIGNAL(finished()),this,SLOT(ruleRequestReply()));
     connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
-}
-
-void ForeRunner::webPageDownloaded()
-{
-    QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
-    QByteArray result = reply->readAll();
-    Node *nodeItem = m_webPageDownloadingTask.take(reply);
-    QString fileName = nodeItem->hashName;
-    QDir folderDir;
-    folderDir.mkpath(m_paramenters.value("--worker-dir"));
-    folderDir.cd(m_paramenters.value("--worker-dir"));
-    folderDir.mkpath(folderDir.absolutePath() + "/"+fileName.left(2));
-    QFile file(folderDir.absolutePath() + "/"+fileName.left(2)+"/"+ fileName);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        qWarning("can't save webpage");
-        return;
-    }
-    file.write((QString::number(reply->header(QNetworkRequest::LastModifiedHeader).toDateTime().toMSecsSinceEpoch())+"\n").toAscii());
-    file.write(nodeItem->name.toUtf8());
-    file.write("\n");
-    file.write(reply->url().toString().toUtf8());
-    file.write("\n");
-    file.write(QTextCodec::codecForHtml(result)->toUnicode(result).toUtf8());
-    qDebug()<<QString::number(m_webPageCount++)+ " web page downloaded";
-    file.close();
-    reply->deleteLater();
-    m_webpageRequestThreadNum++;
-    webpageDownloadScheduler();
-}
-
-void ForeRunner::webpageDownloadScheduler()
-{
-    while(m_webpageRequestThreadNum>0&&m_webPageRequestTask.isEmpty()==false)
-    {
-        Node *nodeItem = m_webPageRequestTask.takeFirst();
-        downloadWebPage(nodeItem);
-    }
-    if(m_webPageRequestTask.isEmpty()&&m_webpageRequestThreadNum==m_maxWebPageRequestThreadNum&& m_finishParseRules == true)
-    {
-        qDebug()<<"finish download webpages";
-        exit(0);
-    }
 }
 
 void ForeRunner::ruleRequestScheduler()
@@ -104,7 +56,7 @@ void ForeRunner::ruleRequestScheduler()
         QDir dir(m_paramenters.value("--shared-dir"));
         dir.mkpath(dir.absolutePath());
         outputWebsite(dir.absolutePath()+"/"+"dir.xml");
-        webpageDownloadScheduler();
+        exit(0);
     }
 }
 
@@ -117,7 +69,7 @@ void ForeRunner::networkError(QNetworkReply::NetworkError error)
 void ForeRunner::ruleRequestReply()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
-    QByteArray result = reply->readAll();
+    QByteArray result = codec->toUnicode(reply->readAll()).toUtf8();
     QUrl baseUrl = reply->url();
     RuleRequest ruleRequest = m_ruleDownloadingTask.take(reply);
     parseRuleReply(ruleRequest.rule,result,baseUrl);
@@ -129,7 +81,7 @@ void ForeRunner::ruleRequestReply()
 //to do ... for now ,every rule has title regexp
 void ForeRunner::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
 {
-    QString strData = QString::fromUtf8(QTextCodec::codecForHtml(data)->toUnicode(data).toUtf8().data());
+    QString strData = QString::fromUtf8(data.data());
     //title && url
     QStringList urlStringList = parseRuleExpression(ruleItem->urlExpression,strData);
     QStringList titleStringList = parseRuleExpression(ruleItem->titleExpression,strData);
@@ -154,10 +106,15 @@ void ForeRunner::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
     QStringList nextPageStringList = parseRuleExpression(ruleItem->nextPageExpression,strData);
     for(int i=0;i<nextPageStringList.size();i++)
     {
-        RuleRequest ruleRequest;
-        ruleRequest.url = baseUrl.resolved(nextPageStringList[i]).toString();
-        ruleRequest.rule = ruleItem;
-        m_ruleRequestTask.append(ruleRequest);
+        QString ruleUrl = baseUrl.resolved(nextPageStringList[i]).toString();
+        if(!m_resolvedRules.contains(ruleUrl))
+        {
+            m_resolvedRules.insert(ruleUrl);
+            RuleRequest ruleRequest;
+            ruleRequest.url = ruleUrl;
+            ruleRequest.rule = ruleItem;
+            m_ruleRequestTask.append(ruleRequest);
+        }
     }
 }
 
@@ -180,7 +137,7 @@ QStringList ForeRunner::parseRuleExpression(Expression &expressionItem, const QS
         {
             m_engine.evaluate(expressionItem.value);
             m_globalValue = m_engine.globalObject();
-            m_spiderValue = m_globalValue.property("getForeRunnerResult");
+            m_spiderValue = m_globalValue.property("getYZSpiderResult");
             QScriptValueList args;
             args<<strData;
             QScriptValue result = m_spiderValue.call(QScriptValue(),args);
@@ -219,19 +176,12 @@ void ForeRunner::parseNodeData(Node &nodeItem)
             YZLogger::Logger()->log(YZLogger::Warning,nodeItem.url,QString("outside link"));
         }
         nodeItem.hashName = QCryptographicHash::hash(QByteArray(nodeItem.url.toUtf8()),QCryptographicHash::Md5).toHex();
-        if(nodeItem.ruleList.isEmpty())
+
+        foreach(Rule *ruleItem,nodeItem.ruleList)
         {
-            if(!checkWhetherNodeExists(nodeItem))
-            {
-                m_webPageRequestTask.append(&nodeItem);
-            }
+            parseRuleData(ruleItem,nodeItem);
         }
-        else{
-            foreach(Rule *ruleItem,nodeItem.ruleList)
-            {
-                parseRuleData(ruleItem,nodeItem);
-            }
-        }
+
         m_resolvedNodes.insert(nodeItem.url);
     }
 }
@@ -302,11 +252,6 @@ void ForeRunner::initParameters()
     if(!m_paramenters.contains("--rule-dir"))
     {
         std::cerr<<"rule dir can't be empty, spider will exit now!"<<endl;
-        exit(0);
-    }
-    if(!m_paramenters.contains("--worker-dir"))
-    {
-        std::cerr<<"worker dir can't be empty, spider will exit now!"<<endl;
         exit(0);
     }
     if(!m_paramenters.contains("--shared-dir"))

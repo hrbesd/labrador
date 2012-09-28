@@ -1,5 +1,5 @@
-#ifndef YZSPIDER_H
-#define YZSPIDER_H
+#ifndef FORERUNNER_H
+#define FORERUNNER_H
 
 #include <QObject>
 #include <QString>
@@ -36,7 +36,6 @@ public:
 signals:
 
 protected slots:
-    void webPageDownloaded();
     void networkError(QNetworkReply::NetworkError error);
 
     void ruleRequestReply();
@@ -45,11 +44,9 @@ private:
     void initParameters();
 
     //download
-    void downloadWebPage(Node* node);
     void downloadRule(RuleRequest ruleRequest);
 
     //scheduler
-    void webpageDownloadScheduler();
     void ruleRequestScheduler();
 
     //parse website data
@@ -68,13 +65,12 @@ private:
     //tools
     bool checkWhetherNodeExists(Node &nodeItem);
     QNetworkAccessManager *m_networkAccessManager;
-    QMap<QNetworkReply*,Node*> m_webPageDownloadingTask;
-    QLinkedList<Node*> m_webPageRequestTask;
     QMap<QNetworkReply*,RuleRequest> m_ruleDownloadingTask;
     QLinkedList<RuleRequest> m_ruleRequestTask;
 
     QSet<QString> m_nodeUrlSet;
     QSet<QString> m_resolvedNodes;  //扫描过的url集合
+    QSet<QString> m_resolvedRules;  // 扫描过的rule集合
 
     int m_webpageRequestThreadNum;
     int m_ruleRequestThreadNum;
@@ -90,9 +86,9 @@ private:
     QScriptEngine m_engine;
     QScriptValue m_globalValue;
     QScriptValue m_spiderValue;
+    QTextCodec *codec;
 
     QMap<QString, QString> m_paramenters;
 };
-
 
 #endif // FORERUNNER_H
