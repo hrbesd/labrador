@@ -54,6 +54,7 @@ void YZSpider::webPageDownloaded()
         qWarning("can't save webpage");
         return;
     }
+    file.write("\n");
     file.write(nodeItem.name.toUtf8());
     file.write("\n");
     file.write(reply->url().toString().toUtf8());
