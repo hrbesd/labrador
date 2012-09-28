@@ -33,6 +33,10 @@ void YZSpiderConfigFileParser::parseWebsiteXml(QXmlStreamReader &reader, WebSite
             {
                 m_website.threadLimit = reader.readElementText();
             }
+            else if(reader.name()=="codecName")
+            {
+                m_website.codecName = reader.readElementText();
+            }
             else if(reader.name()=="node")
             {
                 parseNodeXml(reader,&(m_website.node));
