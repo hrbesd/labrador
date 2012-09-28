@@ -1,0 +1,130 @@
+@charset "utf-8";
+
+/* Theme specialized only */
+
+body {
+	background-color: black;
+}
+
+a {
+	background-color: inherit;
+	color: yellow;
+}
+
+a:visited {
+	color: red; 
+	background-color: inherit;
+}
+
+a:hover {
+	color: white;
+	background-color: black;
+	text-shadow: 1px 1px 2px black;
+}
+
+h2, h3, h4 {
+	color: white;
+}
+
+.loc a:visited {
+	color: yellow;
+}
+
+
+#toolbar {
+	background-color: silver;
+}
+
+#main {
+	color: yellow;
+	background-color: navy;
+}
+
+.banner img {
+	border-bottom: 1px solid yellow;
+}
+
+.loc li {
+	border-right-color: yellow;
+/* 	background: url("../img/divider.png") no-repeat; */
+}
+
+.loc, .column-entrance {
+/* 	text-shadow: 0 1px 1px white; */
+	border: 1px solid;
+	border-color: white;
+	border-radius: 0;
+	background-color: black;
+}
+
+.bulletin ul {
+	list-style-type: square;
+	font-size: 100%;
+	margin: 0 0 0 18px;
+}
+
+.bulletin, .column{
+	border: 1px solid white;
+	background: black;
+}
+
+.column-entrance {
+	position: relative;
+	height: 50px;
+	line-height: 50px;
+	margin-bottom: 10px;
+	padding: 0 15px;
+	color: white;
+	font-size: 120%;
+}
+
+.column-entrance:before, .column-entrance:after {
+  content: '';
+  position: absolute;
+}
+
+.column-entrance:before {
+  top: 17px;
+  right: 18px;
+  width: 15px;
+  height: 15px;
+  background: white;
+}
+
+.column-entrance:after {
+  top: 21px;
+  right: 19px;
+  border: 4px solid transparent;
+  border-left: 4px solid navy;
+}
+
+.column-entrance:hover, .column-entrance.active, .column-entrance.active, .column-entrance.active:active {
+  color: yellow;
+  background-clip: border-box;
+}
+
+.column-entrance:hover {
+  border-color: yellow;
+  background-color: navy;
+}
+.column-entrance:active, .column-entrance.active, .column-entrance.active:active {
+  border-color: white;
+  background-color: black;
+}
+.column-entrance:last-child {
+  margin-bottom: 0;
+}
+
+.column {
+	background: #303030;
+}
+
+
+.list li {
+	list-style-type: square;
+}
+
+
+.tts_reading {
+	background-color: #00595b;	
+}

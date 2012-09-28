@@ -1,0 +1,228 @@
+@charset "utf-8";
+
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 100%;
+	/*注意：csshover3.htc这个文件相对路径是index.html文件,不是当前base.css文件所以相对路径是assets/htc/csshover3.htc*/
+/* 	behavior: url("assets/htc/csshover3.htc"); */
+	*padding-top:90px;	/*IE6 图片遮住解决方法*/
+}
+
+h1 {
+	font-size: 200%;
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 0.2em;
+	padding: 10px;
+}
+
+h2 {
+	font-size: 120%;
+}
+
+h1, h2, h3, h4, h5, li, #author {
+	font-family: sans-serif;
+}
+
+p {
+	font-family: serif;
+	margin: 1em 0px;
+}
+
+ul {
+	list-style-position: outside;
+}
+
+li {
+	margin-left: 1em;
+}
+
+a:link, a:visited, a:active {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#main, .footer {
+	width: 792px;
+	margin-left: auto;
+	margin-right: auto;
+	/*add by zjz start 0921*/
+	line-height: 22px;/*如果这个line-height属性被去掉,工具栏里行距按钮将会失效，因为得不到初始化的值，所以一定要指定行距*/
+	/*add by zjz end 0921*/
+}
+
+#main {
+	margin-top: 70px; /* Leave blank for toolbar to avoid covering banner */
+	*margin-top: 100px; /*  NOT WORKING in IE 6  */
+	border-width: 1px;
+	border-style: solid;
+}
+
+.banner, .banner img {
+	width: 100%;
+	height: auto;
+}
+
+.loc {
+	margin: 10px 20px 20px 20px;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.loc li {
+	list-style: none;
+	display: inline;
+	zoom: 1;
+	margin: 0 6px 0 0;
+	padding: 0px 10px 0px 0px;
+	border-right-style: solid;
+	border-right-width: 1px;
+}
+
+.loc li:first-child {
+	margin-left: 10px;
+}
+
+.loc li:last-child {
+	border-right: none;
+}
+
+.loc, .column-entrance {
+	display: block;
+	font-weight: bold;
+	text-align: left;
+	text-decoration: none;
+	background-clip: padding-box;
+}
+
+.bulletin {
+	width: 217px;
+	*width: 215px;
+	font-size: 120%;
+	padding: 10px;
+	margin: 0 0 20px 20px;
+	*margin: 10px;
+	float: left;
+	list-style-type: none;
+}
+
+.bulletin ul li {
+	margin: 10px 0 10px 0;
+/* 	list-style-type: square; */
+	overflow: visible;
+}
+
+.bulletin ul li a {
+	white-space: nowrap;
+}
+
+/*
+.center_title {
+	margin: 20px;
+}
+*/
+
+.column {
+  padding: 10px;
+  margin: 20px;
+  *width: auto;
+  *height: 100%;
+}
+
+.column li {
+	width: 222px;
+ 	*width: 217px; /* IE6 */
+	font-size: 120%;
+/* 	padding: 10px; */
+	background-color: transparent;
+	margin: 10px;
+	list-style-type: none;
+	float: left;
+}
+
+.list {
+	padding: 10px;
+}
+
+.list li {
+	margin: 10px 10px 10px 30px; /*  IE workaround  */
+/* 	list-style: inside square; */
+}
+
+.article_date {
+	float: right;
+	*float: none;
+	*margin-left: 1em;
+}
+
+#article {
+	padding: 20px;	
+}
+
+.article_text {
+	line-height: 150%
+}
+
+.article_text img {
+	float: right;
+	margin: 20px;
+}
+
+#author {
+	background: rgba(128, 128, 128, 0.2);
+	text-align: center;
+	margin: 20px 0 20px 0;
+}
+
+#author_name, #author_date{
+	display: inline-block;
+	text-align: center;
+	padding: 5px;
+	font-size: 80%;
+}
+
+#footer_links {
+	text-align: center;
+	padding: 20px;
+}
+
+#footer_links li {
+	margin: 0;
+	display: inline;
+	zoom: 1; /* IE workaround*/
+	list-style: none;
+	padding-left: 8px; /* inline-block adds white space of 4 pixels */
+	padding-right: 4px;
+	font-size: 100%;
+	border-left: 1px solid #999;
+}
+
+#footer_links li:first-child {
+	border-left-width: 0;
+}
+
+/*
+.text_drop_shadow {
+	text-shadow: 1px 1px 5px black;
+}
+*/
+/* The famous clearfix */
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+.clearfix {
+  display:block;
+}
