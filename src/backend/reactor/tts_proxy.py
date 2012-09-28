@@ -26,6 +26,14 @@ def doWork(url):
  					conn = urllib2.urlopen(urlPath)
  					conn.close()
 
+	# issue 241
+	for img_element in soup.find_all('img'):
+		if img_element.has_attr('alt') and len(img_element['alt']) > 0:
+			img_alt = img_element['alt']
+			urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(img_alt.encode('utf-8')))
+			conn = urllib2.urlopen(urlPath)
+			conn.close()
+
 def proxyWorker():
 	while True:
 		item = taskQueue.get(True)
