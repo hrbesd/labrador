@@ -105,7 +105,7 @@
 			<h1><xsl:copy-of select="list/name"/></h1>
 			</header>
 			<ul class="list clearfix">
-				<xsl:for-each select="list/nodelist/node">
+				<xsl:for-each select="list/nodelist/node [position() &lt; 1000]">
           <li>
             <a>
               <xsl:attribute name="href">
