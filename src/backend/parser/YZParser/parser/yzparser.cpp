@@ -45,6 +45,7 @@ int YZParser::parseFile(QString fileName)
         return -1;
     }
     ArticleInterface articleInterface;
+    file.readLine();
     QByteArray title = file.readLine();
     QByteArray baseUrl = file.readLine();
     QByteArray webData = file.readAll();
