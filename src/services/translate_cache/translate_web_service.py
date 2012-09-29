@@ -51,4 +51,4 @@ def doTranslate(lang, text):
 	return result
 
 server.bottle.debug(debug)
-run(host='localhost', port='9999')
+run(host='116.255.180.236', port='9999')
