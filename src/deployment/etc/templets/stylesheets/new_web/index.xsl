@@ -115,7 +115,7 @@
 	              </a>
 	            </span>
 	            <ul>
-	              <xsl:for-each select="nodelist/node [position() &lt; 5]">
+	              <xsl:for-each select="nodelist/node [position() &lt; 6]">
 	                <li>
 	                  <a>
 	                    <xsl:attribute name="href">
