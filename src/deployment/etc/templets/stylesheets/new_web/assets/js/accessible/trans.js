@@ -16,6 +16,9 @@ trans.baseURL = "http://116.255.180.236:9999/translate/en/";
 // 参数：text - 要翻译的文字
 //      callback - 翻译的结果，返回的是字符串内容
 trans.doTranslate = function(text, callback, element) {
+  // Allow cross domain tranport.
+  // fix issue #253
+  jQuery.support.cors = true;
 	// 发送AJAX请求
 	//var translateURL = trans.baseURL + text;
 	var translateURL = trans.baseURL + encodeURIComponent(text);

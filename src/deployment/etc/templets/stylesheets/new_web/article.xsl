@@ -26,7 +26,7 @@
 			<script type="text/javascript" src="../../assets/js/accessible/storage.js"></script>
 			<script type="text/javascript" src="../../assets/js/accessible/keybinding.js"></script>
 			<script type="text/javascript" src="../../assets/js/accessible/keybinding.config.js"></script>
-
+			<script type="text/javascript" src="../../assets/js/json2.js"></script>
 
 			<!-- 语音需要加载的js start-->
 			<script type="text/javascript" src="../../assets/script/soundmanager2.js"></script>
