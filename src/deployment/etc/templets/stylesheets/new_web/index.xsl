@@ -42,8 +42,6 @@
 		<script type="text/javascript" src="assets/js/accessible/trans.js"></script>
 		<script type="text/javascript" src="assets/js/accessible/text.js"></script>
 
-
-
 		<title><xsl:value-of select="website/info"/></title>
 	</head>
 	<body>

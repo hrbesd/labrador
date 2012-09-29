@@ -12,9 +12,9 @@
 		<link href="../assets/css/toolbar.css" rel="stylesheet" type="text/css" />
 		<link href="../assets/css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 
-		<link rel="stylesheet" type="text/css" title="highcontrast" href="../assets/css/highcontrast.css" />
+    <link rel="stylesheet" type="text/css" title="standard"   href="assets/css/standard.css" />
 <!--
-		<link rel="stylesheet" type="text/css" title="standard" 	href="assets/css/standard.css" />
+		<link rel="stylesheet" type="text/css" title="highcontrast" href="../assets/css/highcontrast.css" />
 		<link rel="stylesheet" type="text/css" title="dark" 		href="assets/css/dark.css" />
 -->
 

@@ -12,11 +12,11 @@
 				<link href="../assets/css/toolbar.css" rel="stylesheet" type="text/css" />
 				<link href="../assets/css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 
-		<!--
-				<link rel="stylesheet" type="text/css" title="dark" 		href="../assets/css/dark.css" />
 				<link rel="stylesheet" type="text/css" title="standard" 	href="../assets/css/standard.css" />
-		-->
+		<!--
 				<link rel="stylesheet" type="text/css" title="highcontrast" href="../assets/css/highcontrast.css" />
+				<link rel="stylesheet" type="text/css" title="dark" 		href="../assets/css/dark.css" />
+		-->
 
 				<script type="text/javascript" src="../assets/js/jquery.js"></script>
 				<script type="text/javascript" src="../assets/js/jquery-bubble-popup-v3.min.js"></script>
@@ -26,7 +26,6 @@
 				<script type="text/javascript" src="../assets/js/accessible/storage.js"></script>
 				<script type="text/javascript" src="../assets/js/accessible/keybinding.js"></script>
 				<script type="text/javascript" src="../assets/js/accessible/keybinding.config.js"></script>
-
 
 				<!-- 语音需要加载的js start-->
 				<script type="text/javascript" src="../assets/script/soundmanager2.js"></script>
