@@ -15,7 +15,7 @@ var basic = {};
  *
  */
 basic.screenWidth = {};
-basic.screenWidth.widthUnit=100; 
+basic.screenWidth.widthUnit=100;
 // 设置页面宽窄的方法
 basic.screenWidth.setContentWidth = function(width) {
     $('#main').css('width', width + "px");
@@ -47,12 +47,12 @@ basic.screenWidth.loadWidth = function(){
 }
 
 /**
- * 
+ *
  * 设置字体大小
  *
  */
 basic.fontSize = {};
-basic.fontSize.fontUnit=2; 
+basic.fontSize.fontUnit=2;
 // 设置字体大小
 basic.fontSize.setFontSize = function(size) {
 	$('#main').css('font-size', size + 'px');
@@ -83,12 +83,12 @@ basic.fontSize.loadSize = function(){
 	basic.fontSize.resetfont = parseInt($('#main').css('font-size').replace('px', ''));
 }
 /**
- * 
+ *
  * 设置行距大小
  *
  */
 basic.lineHeight = {};
-basic.lineHeight.heightUnit=4; 
+basic.lineHeight.heightUnit=4;
 // 设置行距
 basic.lineHeight.setLineHeight = function(size) {
 	$('#main').css('line-height', size + 'px');
@@ -122,7 +122,7 @@ basic.lineHeight.loadHeight = function() {
 }
 
 /**
- * 
+ *
  * 辅助线开关
  *
  */
@@ -164,7 +164,7 @@ basic.guides.loadGuides = function() {
 // 开关辅助线
 basic.guides.toggleGuides = function() {
     if ($('#guides_horiz')[0]) {
-    	basic.guides.hideGuides();    
+    	basic.guides.hideGuides();
     }
     else {
         basic.guides.showGuides();
@@ -172,7 +172,7 @@ basic.guides.toggleGuides = function() {
 }
 
 /**
- * 
+ *
  * 放大镜开关
  *
  */
@@ -191,7 +191,7 @@ basic.magnifier.hideMagnifier = function() {
 // 开关放大镜
 basic.magnifier.toggleMagnifier = function() {
     if ($('.magnifier').css('display') == 'block') {
-    	basic.magnifier.hideMagnifier();    
+    	basic.magnifier.hideMagnifier();
     }
     else {
         basic.magnifier.showMagnifier();
@@ -212,13 +212,16 @@ basic.magnifier.loadMagnifierStatus = function() {
 }
 
 /**
- * 
+ *
  * 显示主题替换
  *
  */
 basic.changeTheme = {};
+// VOIDMAIN 记录当前的Theme，用来创建bubble的时候指定主题！
+basic.currentTheme = 'standard';
 // 设置最终的CSS
 basic.changeTheme.setActiveStyle = function(title) {
+  basic.currentTheme = title;
 	$('head link[title="standard"]').attr('href','assets/css/'+title+'.css');
 	// theme默认是关闭的
 	/*
@@ -290,6 +293,11 @@ basic.translator.showResult = function(top, left, text) {
 basic.translator.hideResult = function() {
 	$('.mod_translate').css('display', 'none');
 }
+basic.translator.themeDict = {};
+basic.translator.themeDict['standard'] = 'black';
+basic.translator.themeDict['dark'] = 'azure';
+basic.translator.themeDict['highcontrast'] = 'yellow';
+
 basic.translator.toggleTranslate = function() {
 /*
 		if ($('#toggle_translate').hasClass('item_71')) {
@@ -297,7 +305,7 @@ basic.translator.toggleTranslate = function() {
 		};
 */
 	$('#toggle_translate').toggle();
-	
+
 	if ($(".tts_data").HasBubblePopup()) {
 		$(".tts_data").RemoveBubblePopup();
 	} else {
@@ -305,6 +313,8 @@ basic.translator.toggleTranslate = function() {
     $(".tts_data").each(function(index, element) {
       $(this).CreateBubblePopup({
         innerHtml: '<img src="assets/img/translating.gif"/><p>正在翻译...</p>',
+        themePath:'/assets/jquerybubblepopup-theme/',
+        themeName:basic.translator.themeDict[basic.currentTheme],
         position: 'top',
         align: 'left',
         openingDelay: 0,
@@ -337,7 +347,7 @@ basic.translator.showTransResult = function(statusCode, result, element) {
   element.SetBubblePopupInnerHtml(result);
 }
 /**
- * 
+ *
  * 还原页面
  *
  */
@@ -351,12 +361,12 @@ basic.resetpage.reset = function(){
 	speaker.stop();
 	basic.changeTheme.changeToStandard();
 }
- 
- 
- 
- 
+
+
+
+
 /**
- * 
+ *
  * 横竖版式切换
  *
  */
