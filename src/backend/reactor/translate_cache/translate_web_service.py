@@ -11,6 +11,7 @@ GOOGLE_API_KEY = "AIzaSyD_18Z6FkUQI5R-JprYSiDgE87qZB3rjX0"
 # 做对应的翻译工作，其中lang是目标语言，text是要翻译的内容
 @route('/translate/:lang/:text', method="GET")
 def doTranslate(lang, text):
+	text = urllib2.quote(text
 	digest = hashlib.md5()
 	digest.update(text)
 	resultFileName = digest.hexdigest()
