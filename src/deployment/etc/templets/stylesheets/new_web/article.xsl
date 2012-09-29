@@ -44,39 +44,44 @@
 		</head>
 		<body>
 			<div id="toolbar" class="clearfix">
-				<section>
-					<div class="btn_group item_11">
-						<a href="#" id="theme_standard" 	title="正常模式" 	class="item_a"></a>
-						<a href="#" id="theme_dark" 		title="黑夜模式" 	class="item_b"></a>
-						<a href="#" id="theme_highcontrast" title="高对比模式" 	class="item_c"></a>
-					</div>
-					<div class="btn_group item_31">
-						<a href="#" id="text_in" 			title="放大字体" 	class="item_a"></a>
-						<a href="#" id="reset_text" 		title="复位字体" 	class="item_b"></a>
-						<a href="#" id="text_out" 			title="缩小字体" 	class="item_c"></a>
-					</div>
-					<div class="btn_group item_41">
-						<a href="#" id="increase_width" 	title="增加页宽" 	class="item_a"></a>
-						<a href="#" id="reset_width" 		title="复位页宽" 	class="item_b"></a>
-						<a href="#" id="decrease_width" 	title="减少页宽" 	class="item_c"></a>
-					</div>
-					<div class="btn_group item_51">
-						<a href="#" id="line_height_in" 	title="增加行距" 	class="item_a"></a>
-						<a href="#" id="line_height_reset" 	title="复位行距" 	class="item_b"></a>
-						<a href="#" id="line_height_out" 	title="减少行距" 	class="item_c"></a>
-					</div>
-					<div class="btn_group item_71">
-						<a href="#" id="reset_page" 		title="复位页面" 	class="item_a"></a>
-						<a href="#" id="toggle_speaker" 	title="声音开关" 	class="item_b"></a>
-						<a href="#" id="toggle_translate" 	title="翻译开关" 	class="item_c"></a>
-					</div>
-					<div class="btn_group item_61">
-						<a href="#" id="toggle_magnifier" 	title="放大镜" 		class="item_a"></a>
-						<a href="#" id="guides" 			title="辅助线" 		class="item_b"></a>
-						<a href="accessibility.html" 		title="无障碍说明" 	class="item_c"></a>
-					</div>
-				</section>
+		<section>
+			<div class="btn_group item_11">
+				<a href="#" id="theme_standard" 	title="正常模式" 	class="item_a"></a>
+				<a href="#" id="theme_dark" 		title="黑夜模式" 	class="item_b"></a>
+				<a href="#" id="theme_highcontrast" title="高对比模式" 	class="item_c"></a>
 			</div>
+			<div class="btn_group item_21">
+				<a href="#" id="text_in" 			title="放大字体" 	class="item_a"></a>
+				<a href="#" id="reset_text" 		title="复位字体" 	class="item_b"></a>
+				<a href="#" id="text_out" 			title="缩小字体" 	class="item_c"></a>
+			</div>
+			<div class="btn_group item_31">
+				<a href="#" id="increase_width" 	title="增加页宽" 	class="item_a"></a>
+				<a href="#" id="reset_width" 		title="复位页宽" 	class="item_b"></a>
+				<a href="#" id="decrease_width" 	title="减少页宽" 	class="item_c"></a>
+			</div>
+			<div class="btn_group item_41">
+				<a href="#" id="line_height_in" 	title="增加行距" 	class="item_a"></a>
+				<a href="#" id="line_height_reset" 	title="复位行距" 	class="item_b"></a>
+				<a href="#" id="line_height_out" 	title="减少行距" 	class="item_c"></a>
+			</div>
+			<div class="btn_group item_51">
+				<a href="#" id="point_read" 		title="点读" 	class="item_a"></a>
+				<a href="#" id="close_read" 		title="关闭语音功能" 	class="item_b"></a>
+				<a href="#" id="batch_read" 		title="连读" 	class="item_c"></a>
+			</div>
+			<div class="btn_group item_61">
+				<a href="#" id="reset_page" 		title="复位页面" 	class="item_a"></a>
+				<a href="#" id="toggle_speaker" 	title="语音帮助" 	class="item_b"></a>
+				<a href="#" id="toggle_translate" 	title="翻译开关" 	class="item_c"></a>
+			</div>
+			<div class="btn_group item_71">
+				<a href="#" id="toggle_magnifier" 	title="放大镜" 		class="item_a"></a>
+				<a href="#" id="guides" 			title="辅助线" 		class="item_b"></a>
+				<a href="accessibility.html" id="accessibility" 		title="无障碍说明" 	class="item_c"></a>
+			</div>
+		</section>
+		</div>
 			<div id="main" class="bg2 bd1">
 				<header>
 					<div class="banner">
