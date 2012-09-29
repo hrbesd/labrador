@@ -313,7 +313,7 @@ basic.translator.toggleTranslate = function() {
     $(".tts_data").each(function(index, element) {
       $(this).CreateBubblePopup({
         innerHtml: '<img src="assets/img/translating.gif"/><p>正在翻译...</p>',
-        themePath:'/assets/jquerybubblepopup-theme/',
+        themePath:'/assets/jquerybubblepopup-themes/',
         themeName:basic.translator.themeDict[basic.currentTheme],
         position: 'top',
         align: 'left',
