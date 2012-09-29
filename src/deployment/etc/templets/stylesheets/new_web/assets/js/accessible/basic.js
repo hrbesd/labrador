@@ -296,7 +296,7 @@ basic.translator.hideResult = function() {
 basic.translator.themeDict = {};
 basic.translator.themeDict['standard'] = 'black';
 basic.translator.themeDict['dark'] = 'azure';
-basic.translator.themeDict['highcontrast'] = 'yellow';
+basic.translator.themeDict['highcontrast'] = 'all-yellow';
 
 basic.translator.toggleTranslate = function() {
 /*
