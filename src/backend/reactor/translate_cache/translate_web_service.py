@@ -25,7 +25,7 @@ def doTranslate(lang, text):
 		if debug:
 			print "[miss] " + text
 
-		real_url = "https://www.googleapis.com/language/translate/v2?key=%s8&source=zh-CN&target=%s&q=%s" % (GOOGLE_API_KEY, lang, text);
+		real_url = "https://www.googleapis.com/language/translate/v2?key=%s&source=zh-CN&target=%s&q=%s" % (GOOGLE_API_KEY, lang, text);
 
 		if debug:
 			print "[request] " + real_url
