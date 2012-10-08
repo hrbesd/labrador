@@ -2,13 +2,15 @@
 <website>
     <editor>耿海龙</editor>
     <info>黑龙江政府网站</info>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <crawlTime></crawlTime>
     <threadLimit>10</threadLimit>
+    <codecName>GBK</codecName>
     <node>
         <name>中国黑龙江</name>
         <url>http://www.hlj.gov.cn/</url>
         <refreshRate></refreshRate>
+        <level></level>
         <ruleList>
             <rule>
                 <expressionList>
@@ -23,6 +25,7 @@
                         <name>中俄热线</name>
                         <url>http://www.hlj.gov.cn/zerx/</url>
                         <refreshRate></refreshRate>
+                        <level></level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -48,36 +51,42 @@
                                         <name>出行信息</name>
                                         <url>http://www.hlj.gov.cn/zerx/cxxx/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>中俄留学</name>
                                         <url>http://www.hlj.gov.cn/zerx/zelx/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>口岸介绍</name>
                                         <url>http://www.hlj.gov.cn/zerx/kajs/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>动态信息</name>
                                         <url>http://www.hlj.gov.cn/zerx/dtxx/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>今日俄罗斯</name>
                                         <url>http://www.hlj.gov.cn/zerx/jrels/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>俄罗斯概况</name>
                                         <url>http://www.hlj.gov.cn/zerx/lgs/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                 </nodeList>
@@ -99,6 +108,7 @@
                         <name>服务三农 </name>
                         <url>http://www.hlj.gov.cn/fwsn/</url>
                         <refreshRate></refreshRate>
+                        <level>9995</level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -124,6 +134,7 @@
                                         <name>图片新闻</name>
                                         <url>http://www.hlj.gov.cn/fwsn/tpxw/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -141,36 +152,42 @@
                                         <name>社保服务</name>
                                         <url>http://www.hlj.gov.cn/fwsn/nmfw/sbfw/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>义务教育 </name>
                                         <url>http://www.hlj.gov.cn/fwsn/ncfw/ywjy/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>农作物种植</name>
                                         <url>http://www.hlj.gov.cn/fwsn/nyfw/nwzz/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>最新动态</name>
                                         <url>http://www.hlj.gov.cn/fwsn/zxdt/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>政策法规</name>
                                         <url>http://www.hlj.gov.cn/fwsn/zcfg/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>领导讲话</name>
                                         <url>http://www.hlj.gov.cn/fwsn/ldjh/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                 </nodeList>
@@ -192,6 +209,7 @@
                         <name>网上办事</name>
                         <url>http://www.hlj.gov.cn/wsbs/index.shtml</url>
                         <refreshRate></refreshRate>
+                        <level>9994</level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -228,180 +246,210 @@
                                         <name>其他</name>
                                         <url>http://www.hlj.gov.cn/mxgz/zhqt/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>死亡殡仪</name>
                                         <url>http://www.hlj.gov.cn/mxgz/swby/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>纳税</name>
                                         <url>http://www.hlj.gov.cn/mxgz/ns/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>交通</name>
                                         <url>http://www.hlj.gov.cn/mxgz/jt/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>社会保障</name>
                                         <url>http://www.hlj.gov.cn/mxgz/shbz/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>就业</name>
                                         <url>http://www.hlj.gov.cn/mxgz/jiuy/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>兵役</name>
                                         <url>http://www.hlj.gov.cn/mxgz/by/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>出入境</name>
                                         <url>http://www.hlj.gov.cn/mxgz/crj/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>住房</name>
                                         <url>http://www.hlj.gov.cn/mxgz/zf/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>公用事业</name>
                                         <url>http://www.hlj.gov.cn/mxgz/gysy/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>卫生保健</name>
                                         <url>http://www.hlj.gov.cn/mxgz/wsbj/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>文化</name>
                                         <url>http://www.hlj.gov.cn/mxgz/wh/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>教育</name>
                                         <url>http://www.hlj.gov.cn/mxgz/jy/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>户籍管理</name>
                                         <url>http://www.hlj.gov.cn/mxgz/hjgl/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>生育收养</name>
                                         <url>http://www.hlj.gov.cn/mxgz/sysy/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>婚姻登记</name>
                                         <url>http://www.hlj.gov.cn/mxgz/hydj/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>综合其他</name>
                                         <url>http://www.hlj.gov.cn/mxqy/zhqt/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>破产注销</name>
                                         <url>http://www.hlj.gov.cn/mxqy/pczx/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>知识产权</name>
                                         <url>http://www.hlj.gov.cn/mxqy/zscq/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>建设管理</name>
                                         <url>http://www.hlj.gov.cn/mxqy/jsgl/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>资质认证</name>
                                         <url>http://www.hlj.gov.cn/mxqy/zgrz/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>人力资源</name>
                                         <url>http://www.hlj.gov.cn/mxqy/rlzy/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>劳动保障</name>
                                         <url>http://www.hlj.gov.cn/mxqy/ldbz/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>对外交流</name>
                                         <url>http://www.hlj.gov.cn/mxqy/dwjl/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>商务活动</name>
                                         <url>http://www.hlj.gov.cn/mxqy/swhd/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>安全防护</name>
                                         <url>http://www.hlj.gov.cn/mxqy/aqfh/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>质量检查</name>
                                         <url>http://www.hlj.gov.cn/mxqy/zljc/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>年检年审</name>
                                         <url>http://www.hlj.gov.cn/mxqy/njns/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>企业纳税</name>
                                         <url>http://www.hlj.gov.cn/mxqy/qyns/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>设立变更</name>
                                         <url>http://www.hlj.gov.cn/mxqy/slbg/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                 </nodeList>
@@ -423,6 +471,7 @@
                         <name>全省概况</name>
                         <url>http://www.hlj.gov.cn/zjlj/</url>
                         <refreshRate></refreshRate>
+                        <level>9999</level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -451,6 +500,7 @@
                         <name>投资</name>
                         <url>http://www.hlj.gov.cn/tzlj/</url>
                         <refreshRate></refreshRate>
+                        <level>9998</level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -476,6 +526,7 @@
                                         <name>投资指南</name>
                                         <url>http://www.hlj.gov.cn/tzlj/tzzn/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -501,12 +552,14 @@
                                                         <name>办事指南</name>
                                                         <url>http://www.hlj.gov.cn/tzlj/tzzn/bszn/</url>
                                                         <refreshRate></refreshRate>
+                                                        <level></level>
                                                         <ruleList/>
                                                     </node>
                                                     <node>
                                                         <name>在线办理</name>
                                                         <url>http://www.hlj.gov.cn/tzlj/tzzn/zxbl/</url>
                                                         <refreshRate></refreshRate>
+                                                        <level></level>
                                                         <ruleList/>
                                                     </node>
                                                 </nodeList>
@@ -532,6 +585,7 @@
                         <name>旅游</name>
                         <url>http://www.hlj.gov.cn/cylj/</url>
                         <refreshRate></refreshRate>
+                        <level>9997</level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -546,6 +600,7 @@
                                         <name>旅游信息</name>
                                         <url>http://www.hlj.gov.cn/cylj/lvxx/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -563,6 +618,7 @@
                                         <name>旅游胜景</name>
                                         <url>http://www.hlj.gov.cn/cylj/lysj/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -580,6 +636,7 @@
                                         <name>旅游景观</name>
                                         <url>http://www.hlj.gov.cn/cylj/lyjg/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -597,6 +654,7 @@
                                         <name>民俗风情</name>
                                         <url>http://www.hlj.gov.cn/cylj/msfq/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -614,6 +672,7 @@
                                         <name>旅游常识</name>
                                         <url>http://www.hlj.gov.cn/cylj/lycs/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -631,18 +690,21 @@
                                         <name>餐饮服务</name>
                                         <url>http://www.hlj.gov.cn/cylj/cyfw/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>龙江购物</name>
                                         <url>http://www.hlj.gov.cn/cylj/ljgw/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>旅游线路</name>
                                         <url>http://www.hlj.gov.cn/cylj/lyxl/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -660,6 +722,7 @@
                                         <name>龙江特产</name>
                                         <url>http://www.hlj.gov.cn/cylj/ljtc/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -677,6 +740,7 @@
                                         <name>历史中的黑龙江</name>
                                         <url>http://www.hlj.gov.cn/cylj/lslj/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -694,6 +758,7 @@
                                         <name>投诉机构</name>
                                         <url>http://www.hlj.gov.cn/cylj/tsjg/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -726,6 +791,7 @@
                         <name>政务公开</name>
                         <url>http://www.hlj.gov.cn/zwdt/index.shtml</url>
                         <refreshRate></refreshRate>
+                        <level>9996</level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -751,6 +817,7 @@
                                         <name>市县动态</name>
                                         <url>http://www.hlj.gov.cn/zwdt/sxdt/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -779,12 +846,14 @@
                                         <name>厅局动态</name>
                                         <url>http://www.hlj.gov.cn/zwdt/tjdt/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList/>
                                     </node>
                                     <node>
                                         <name>机构设置</name>
                                         <url>http://www.hlj.gov.cn/jgsz/index.shtml</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -802,6 +871,7 @@
                                         <name>领导介绍</name>
                                         <url>http://www.hlj.gov.cn/zwdt/lddt/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -819,6 +889,7 @@
                                         <name>政府文件</name>
                                         <url>http://www.hlj.gov.cn/wjfg/zfwj/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -844,24 +915,28 @@
                                                         <name>省政府文件</name>
                                                         <url>http://www.hlj.gov.cn/wjfg/zfwj/szwj/</url>
                                                         <refreshRate></refreshRate>
+                                                        <level></level>
                                                         <ruleList/>
                                                     </node>
                                                     <node>
                                                         <name>省政府办公厅文件</name>
                                                         <url>http://www.hlj.gov.cn/wjfg/zfwj/sbwj/</url>
                                                         <refreshRate></refreshRate>
+                                                        <level></level>
                                                         <ruleList/>
                                                     </node>
                                                     <node>
                                                         <name>省政府令</name>
                                                         <url>http://www.hlj.gov.cn/wjfg/zfwj/szfl/</url>
                                                         <refreshRate></refreshRate>
+                                                        <level></level>
                                                         <ruleList/>
                                                     </node>
                                                     <node>
                                                         <name>省直部门文件</name>
                                                         <url>http://www.hlj.gov.cn/gkml/zfxx/szwj/</url>
                                                         <refreshRate></refreshRate>
+                                                        <level></level>
                                                         <ruleList/>
                                                     </node>
                                                 </nodeList>
@@ -872,6 +947,7 @@
                                         <name>法律法规</name>
                                         <url>http://www.hlj.gov.cn/wjfg/flfg/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -897,12 +973,14 @@
                                                         <name>国家法律法规</name>
                                                         <url>http://www.hlj.gov.cn/wjfg/flfg/gjfg/</url>
                                                         <refreshRate></refreshRate>
+                                                        <level></level>
                                                         <ruleList/>
                                                     </node>
                                                     <node>
                                                         <name>地方性法规及政府规章</name>
                                                         <url>http://www.hlj.gov.cn/wjfg/flfg/dfgz/</url>
                                                         <refreshRate></refreshRate>
+                                                        <level></level>
                                                         <ruleList/>
                                                     </node>
                                                 </nodeList>
@@ -913,6 +991,7 @@
                                         <name>参政议政</name>
                                         <url>http://www.hlj.gov.cn/zwdt/czyz/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -941,6 +1020,7 @@
                                         <name>人事信息</name>
                                         <url>http://www.hlj.gov.cn/zxxx/rsxx/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -969,6 +1049,7 @@
                                         <name>统计数据</name>
                                         <url>http://www.hlj.gov.cn/zxxx/tjxx/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -997,6 +1078,7 @@
                                         <name>计划规划</name>
                                         <url>http://www.hlj.gov.cn/zwdt/jhgh/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -1025,6 +1107,7 @@
                                         <name>财政信息</name>
                                         <url>http://www.hlj.gov.cn/zxxx/czxx/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -1053,6 +1136,7 @@
                                         <name>执法监督</name>
                                         <url>http://www.hlj.gov.cn/zwdt/zfjd/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
@@ -1081,6 +1165,7 @@
                                         <name>应急管理</name>
                                         <url>http://www.hlj.gov.cn/yjgl/</url>
                                         <refreshRate></refreshRate>
+                                        <level></level>
                                         <ruleList>
                                             <rule>
                                                 <expressionList>
