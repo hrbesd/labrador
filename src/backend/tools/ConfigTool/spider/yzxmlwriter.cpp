@@ -21,7 +21,7 @@ void YZXmlWriter::writeWebsiteItemToXml(WebSite &websiteItem, QString fileName)
     writer.writeStartElement("website");
     writer.writeTextElement("editor", websiteItem.editor);
     writer.writeTextElement("info",websiteItem.info);
-    writer.writeTextElement("version","0.1.1");
+    writer.writeTextElement("version","0.2.0");
     writer.writeTextElement("crawlTime",websiteItem.crawlTime);
     writer.writeTextElement("threadLimit",websiteItem.threadLimit);
     writer.writeTextElement("codecName",websiteItem.codecName);
@@ -38,6 +38,7 @@ void YZXmlWriter::writeNodeItemToXml(const Node *nodeItem, QXmlStreamWriter &wri
     writer.writeTextElement("name",nodeItem->name);
     writer.writeTextElement("url",nodeItem->url);
     writer.writeTextElement("refreshRate",nodeItem->refreshRate);
+    writer.writeTextElement ("level",nodeItem->level);
     writer.writeStartElement("ruleList");
     foreach(Rule * ruleItem, nodeItem->ruleList)
     {
