@@ -46,7 +46,7 @@ void ForeRunner::ruleRequestScheduler()
     while(m_ruleRequestThreadNum>0&&m_ruleRequestTask.isEmpty()==false)
     {
         RuleRequest ruleRequest = m_ruleRequestTask.takeFirst();
-        std::cout<<"parsing rule: "<<ruleRequest.url.toStdString()<<std::endl;
+        qDebug()<<"parsing rule: "<<ruleRequest.url;
         downloadRule(ruleRequest);
     }
     if(m_ruleRequestTask.isEmpty()&&m_ruleRequestThreadNum==m_maxRuleRequestThreadNum)
@@ -242,7 +242,7 @@ void ForeRunner::initParameters()
 
     if(m_paramenters.contains("--version"))
     {
-        std::cout<<"Labrador Spider Version "<<BASE_VERSION<<endl;
+        std::cout<<"Labrador ForeRunner Version "<<BASE_VERSION<<endl;
         exit(0);
     }
     if(m_paramenters.contains("--log-file"))
@@ -251,13 +251,13 @@ void ForeRunner::initParameters()
     }
     if(!m_paramenters.contains("--rule-dir"))
     {
-        std::cerr<<"rule dir can't be empty, spider will exit now!"<<endl;
+        std::cerr<<"rule dir can't be empty, foreRunner will exit now!"<<endl;
         exit(0);
     }
     if(!m_paramenters.contains("--shared-dir"))
     {
-        std::cerr<<"shared dir can't be empty, spider will exit now!"<<endl;
+        std::cerr<<"shared dir can't be empty, foreRunner will exit now!"<<endl;
         exit(0);
     }
-    std::cout<<"spider start to run..."<<std::endl;
+    std::cout<<"ForeRunner start to run..."<<std::endl;
 }

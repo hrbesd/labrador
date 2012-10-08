@@ -36,6 +36,7 @@ void YZXmlWriter::writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter &writer)
     writer.writeTextElement("url",nodeItem.url);
     writer.writeTextElement("refreshRate",nodeItem.refreshRate);
     writer.writeTextElement("hashName",nodeItem.hashName);
+    writer.writeTextElement ("level",nodeItem.level);
     foreach(Rule * ruleItem, nodeItem.ruleList)
     {
         writeRuleItemToXml(ruleItem,writer);
