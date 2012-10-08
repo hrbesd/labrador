@@ -8,6 +8,7 @@ struct Node
     QString url;
     QString name;
     QString hashName;
+    QString level;
     mutable QString pageUrl;
     Node* parentNode;
     QList<Node> nodeList;

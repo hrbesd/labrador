@@ -122,6 +122,10 @@ void Generator::parseNodeXml(QXmlStreamReader &reader, Node &node)
             {
                 node.hashName = reader.readElementText();
             }
+            else if(reader.name()=="level")
+            {
+                node.level = reader.readElementText();
+            }
             else if(reader.name()=="nodeList")
             {
                 parseNodeListXml(reader,node);
@@ -187,6 +191,14 @@ void Generator::generateIndexFile()
         writer.writeStartElement("node");
         writer.writeTextElement("name",node.name);
         writer.writeTextElement("url",node.url);
+        if(node.level.isEmpty ())
+        {
+            writer.writeTextElement ("level","0");
+        }
+        else
+        {
+            writer.writeTextElement ("level",node.level);
+        }
         NodeType type = getNodeType(node);
 
         if(type==ArticleNode)
@@ -214,6 +226,14 @@ void Generator::generateIndexFile()
                 writer.writeStartElement("node");
                 writer.writeTextElement("name",node.name);
                 writer.writeTextElement("url",node.url);
+                if(node.level.isEmpty ())
+                {
+                    writer.writeTextElement ("level","0");
+                }
+                else
+                {
+                    writer.writeTextElement ("level",node.level);
+                }
                 NodeType type = getNodeType(node);
 
                 if(type==ArticleNode)
@@ -247,6 +267,14 @@ void Generator::writeNodeXml(QXmlStreamWriter &writer, const Node &node)
     writer.writeStartElement("node");
     writer.writeTextElement("name",node.name);
     writer.writeTextElement("url",node.url);
+    if(node.level.isEmpty ())
+    {
+        writer.writeTextElement ("level","0");
+    }
+    else
+    {
+        writer.writeTextElement ("level",node.level);
+    }
     NodeType type = getNodeType(node);
 
     if(type==ArticleNode)
