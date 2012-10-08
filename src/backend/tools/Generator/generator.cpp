@@ -193,7 +193,7 @@ void Generator::generateIndexFile()
         writer.writeTextElement("url",node.url);
         if(node.level.isEmpty ())
         {
-            writer.writeTextElement ("level","0");
+            writer.writeTextElement ("level","0000");
         }
         else
         {
@@ -228,7 +228,7 @@ void Generator::generateIndexFile()
                 writer.writeTextElement("url",node.url);
                 if(node.level.isEmpty ())
                 {
-                    writer.writeTextElement ("level","0");
+                    writer.writeTextElement ("level","0000");
                 }
                 else
                 {
@@ -269,7 +269,7 @@ void Generator::writeNodeXml(QXmlStreamWriter &writer, const Node &node)
     writer.writeTextElement("url",node.url);
     if(node.level.isEmpty ())
     {
-        writer.writeTextElement ("level","0");
+        writer.writeTextElement ("level","0000");
     }
     else
     {
