@@ -10,12 +10,13 @@ launch_module()
 		generator)
 			BUTT="$GENERATOR_PATH"
 			;;
-		spider)
-			BUTT="$SPIDER_PATH"
-			need_dirfirl="YES"
-			;;
 		forerunner)
 			BUTT="$FORERUNNER_PATH"
+			;;
+		spider)
+			BUTT="$SPIDER_PATH"
+			need_dirfile="YES"
+			prev_module=forerunner
 			;;
 		parser)
 			BUTT="$PARSER_PATH"
