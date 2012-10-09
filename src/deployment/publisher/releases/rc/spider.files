@@ -7,5 +7,6 @@
 
 ln -s /home/gof/labrador_bin/YZSpider $TMP_DIR/butts/spider/spider
 ln -s /home/gof/labrador_bin/SpiderConfigFileGenerator $TMP_DIR/butts/spider/generator
+ln -s /home/gof/labrador_bin/forerunner $TMP_DIR/butts/spider/forerunner
 ~
 

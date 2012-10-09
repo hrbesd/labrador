@@ -1,4 +1,4 @@
 # Always use relative path as source in this config file
 
 # Assembler
-ln -s ../butts/assembler/src/assembler.py $TMP_DIR/bin/assembler
+ln -s ../butts/assembler/assembler.py $TMP_DIR/bin/assembler
