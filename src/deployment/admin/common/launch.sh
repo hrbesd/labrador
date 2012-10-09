@@ -12,6 +12,7 @@ launch_module()
 			;;
 		spider)
 			BUTT="$SPIDER_PATH"
+			need_dirfirl="YES"
 			;;
 		forerunner)
 			BUTT="$FORERUNNER_PATH"
@@ -43,12 +44,12 @@ launch_module()
 	arguments="--site-config=$site_conf \
 		--worker-dir=$site_root/workers/$module_name \
 		--shared-dir=$site_root/workers/shared \
-		--dir-file=$site_root/workers/shared/dir.xml \
 		--config-dir=$conf_dir/$module_name \
 		--rule-dir=$site_root/rules/$module_name \
 		--log-file=$site_root/logs/$module_name"
 	test -n "$prev_module" && arguments="$arguments --source-dir=$site_root/workers/$prev_module"
 	test -n "$need_webroot" && arguments="$arguments --webroot-dir=$site_root/webroot"
+	test -n "$need_dirfile" && arguments="$arguments --dir-file=$site_root/workers/shared/dir.xml "
 	test -n "$need_stylesheets" && arguments="$arguments --stylesheet-dir=$site_root/stylesheets"
 	$BUTT $arguments
 }
