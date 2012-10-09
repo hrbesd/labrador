@@ -43,6 +43,7 @@ launch_module()
 	arguments="--site-config=$site_conf \
 		--worker-dir=$site_root/workers/$module_name \
 		--shared-dir=$site_root/workers/shared \
+		--dir-file=$site_root/workers/shared/dir.xml \
 		--config-dir=$conf_dir/$module_name \
 		--rule-dir=$site_root/rules/$module_name \
 		--log-file=$site_root/logs/$module_name"
