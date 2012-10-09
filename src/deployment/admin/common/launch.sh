@@ -13,6 +13,9 @@ launch_module()
 		spider)
 			BUTT="$SPIDER_PATH"
 			;;
+		forerunner)
+			BUTT="$FORERUNNER_PATH"
+			;;
 		parser)
 			BUTT="$PARSER_PATH"
 			prev_module=spider
