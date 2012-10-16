@@ -8,6 +8,13 @@
  */
 
 var basic = {};
+basic.defaults={};
+basic.defaults.theme='standard';
+basic.defaults.screenWidth=792;
+basic.defaults.fontSize=16;
+basic.defaults.lineHeight=22;
+basic.defaults.guides='hide';
+basic.defaults.magnifier='hide';
 
 /**
  *
@@ -15,44 +22,52 @@ var basic = {};
  *
  */
 basic.screenWidth = {};
-basic.screenWidth.widthUnit=100;
+basic.screenWidth.widthUnit=100; 
 // 设置页面宽窄的方法
 basic.screenWidth.setContentWidth = function(width) {
     $('#main').css('width', width + "px");
 }
 // 复位页宽
 basic.screenWidth.resetScreenWidth = function(){
-	basic.screenWidth.setContentWidth(basic.screenWidth.resetWidth);
+	basic.screenWidth.setContentWidth(basic.defaults.screenWidth);
+	storage.setCookie("screenWidth",basic.defaults.screenWidth,360);
 }
 // 增加页宽
 basic.screenWidth.increaseScreenWidth = function() {
     var pxSize = parseInt($('#main').css('width').replace('px', ''));
-    if(pxSize>basic.screenWidth.resetWidth+basic.screenWidth.widthUnit*5){
+    if(pxSize>basic.defaults.screenWidth+basic.screenWidth.widthUnit*5){
     	return;
     }
 	pxSize = pxSize + basic.screenWidth.widthUnit;
     basic.screenWidth.setContentWidth(pxSize);
+    storage.setCookie("screenWidth",pxSize,360);
 }
 // 减少页宽
 basic.screenWidth.decreaseScreenWidth = function() {
 	var pxSize = parseInt($('#main').css('width').replace('px', ''));
-	if(pxSize<basic.screenWidth.resetWidth-basic.screenWidth.widthUnit*4){
+	if(pxSize<basic.defaults.screenWidth-basic.screenWidth.widthUnit*4){
 		return;
 	}
 	pxSize = pxSize - basic.screenWidth.widthUnit;
     basic.screenWidth.setContentWidth(pxSize);
+    storage.setCookie("screenWidth",pxSize,360);
 }
 basic.screenWidth.loadWidth = function(){
-	basic.screenWidth.resetWidth = parseInt($('#main').css('width').replace('px', ''));
+ 	var pxSize = storage.getCookie("screenWidth");
+ 	if(pxSize){
+ 	 	basic.screenWidth.setContentWidth(pxSize);
+ 	}else{
+ 		storage.setCookie("screenWidth",basic.defaults.screenWidth,360);
+ 	}
 }
 
 /**
- *
+ * 
  * 设置字体大小
  *
  */
 basic.fontSize = {};
-basic.fontSize.fontUnit=2;
+basic.fontSize.fontUnit=2; 
 // 设置字体大小
 basic.fontSize.setFontSize = function(size) {
 	$('#main').css('font-size', size + 'px');
@@ -60,35 +75,43 @@ basic.fontSize.setFontSize = function(size) {
 // 增加字号
 basic.fontSize.increaseFont = function() {
 	var pxSize = parseInt($('#main').css('font-size').replace('px', ''));
-	if(pxSize>basic.fontSize.resetfont+basic.fontSize.fontUnit*6){
+	if(pxSize>basic.defaults.fontSize+basic.fontSize.fontUnit*6){
 		return;
 	}
 	pxSize = pxSize + basic.fontSize.fontUnit;
     basic.fontSize.setFontSize(pxSize);
+    storage.setCookie("fontSize",pxSize,360);
 }
 // 复位字体
 basic.screenWidth.resetFont = function(){
-	basic.fontSize.setFontSize(basic.fontSize.resetfont);
+	basic.fontSize.setFontSize(basic.defaults.fontSize);
+	storage.setCookie("fontSize",basic.defaults.fontSize,360);
 }
 // 减少字号
 basic.fontSize.decreaseFont = function() {
 	var pxSize = parseInt($('#main').css('font-size').replace('px', ''));
-	if(pxSize<basic.fontSize.resetfont-basic.fontSize.fontUnit*2){
+	if(pxSize<basic.defaults.fontSize-basic.fontSize.fontUnit*2){
 		return;
 	}
 	pxSize = pxSize - basic.fontSize.fontUnit;
     basic.fontSize.setFontSize(pxSize);
+    storage.setCookie("fontSize",pxSize,360);
 }
 basic.fontSize.loadSize = function(){
-	basic.fontSize.resetfont = parseInt($('#main').css('font-size').replace('px', ''));
+ 	var pxSize = storage.getCookie("fontSize");
+ 	if(pxSize){
+ 	 	basic.fontSize.setFontSize(pxSize);
+ 	}else{
+ 		storage.setCookie("fontSize",basic.defaults.fontSize,360);
+ 	}
 }
 /**
- *
+ * 
  * 设置行距大小
  *
  */
 basic.lineHeight = {};
-basic.lineHeight.heightUnit=4;
+basic.lineHeight.heightUnit=4; 
 // 设置行距
 basic.lineHeight.setLineHeight = function(size) {
 	$('#main').css('line-height', size + 'px');
@@ -96,33 +119,41 @@ basic.lineHeight.setLineHeight = function(size) {
 // 增加行距
 basic.lineHeight.increaseHeight = function() {
 	var pxHeight = parseInt($('#main').css('line-height').replace('px', ''));
-	if(pxHeight>basic.lineHeight.resetHeight+basic.lineHeight.heightUnit*6){
+	if(pxHeight>basic.defaults.lineHeight+basic.lineHeight.heightUnit*6){
 		return;
 	}
 	pxHeight = pxHeight + basic.lineHeight.heightUnit;
     basic.lineHeight.setLineHeight(pxHeight);
+    storage.setCookie("lineHeight",pxHeight,360);
 }
 
 basic.lineHeight.resetLineHeight= function() {
-	basic.lineHeight.setLineHeight(basic.lineHeight.resetHeight);
+	basic.lineHeight.setLineHeight(basic.defaults.lineHeight);
+ 	storage.setCookie("lineHeight",basic.defaults.lineHeight,360);
 }
 // 减少行距
 basic.lineHeight.decreaseHeight = function() {
 	var pxHeight = parseInt($('#main').css('line-height').replace('px', ''));
-	if(pxHeight<basic.lineHeight.resetHeight-basic.lineHeight.heightUnit*5){
+	if(pxHeight<basic.defaults.lineHeight-basic.lineHeight.heightUnit*5){
 		return;
 	}
 	pxHeight = pxHeight - basic.lineHeight.heightUnit;
     basic.lineHeight.setLineHeight(pxHeight);
+     storage.setCookie("lineHeight",pxHeight,360);
 }
 // 载入之前的值
 basic.lineHeight.loadHeight = function() {
-	//$('body').css('line-height','24px');
-    basic.lineHeight.resetHeight = parseInt($('#main').css('line-height').replace('px', ''));
+ 	var pxSize = storage.getCookie("lineHeight");
+ 	if(pxSize){
+ 	 	basic.lineHeight.setLineHeight(pxSize);
+ 	}else{
+ 		storage.setCookie("lineHeight",basic.defaults.lineHeight,360);
+ 	}
+	 
 }
 
 /**
- *
+ * 
  * 辅助线开关
  *
  */
@@ -154,25 +185,29 @@ basic.guides.hideGuides = function() {
 }
 // 载入之前的设置
 basic.guides.loadGuides = function() {
-	//var shouldLoad = storage.getCookie('show_guides');
-	//if(shouldLoad) {
-		basic.guides.showGuides();
-	//} else {
-		//basic.guides.hideGuides();
-	//}
+    var guides = storage.getCookie('guides');
+    if(guides=='show'){
+        basic.guides.showGuides();
+    	storage.setCookie("guides",'show',360);
+    }else{
+    	basic.guides.hideGuides();
+        storage.setCookie("guides",'hide',360);
+    }
 }
 // 开关辅助线
 basic.guides.toggleGuides = function() {
     if ($('#guides_horiz')[0]) {
     	basic.guides.hideGuides();
+    	storage.setCookie("guides",'hide',360);
     }
     else {
         basic.guides.showGuides();
+        storage.setCookie("guides",'show',360);
     }
 }
 
 /**
- *
+ * 
  * 放大镜开关
  *
  */
@@ -181,20 +216,26 @@ basic.magnifier = {};
 basic.magnifier.showMagnifier = function() {
 	$('.magnifier').css('display', 'block');
 	$('body').css('padding-bottom', '200px');
+	
+	$('#toggle_magnifier').addClass('on');
 
 }
 // 隐藏放大镜
 basic.magnifier.hideMagnifier = function() {
 	$('.magnifier').css('display', 'none');
 	$('body').css('padding-bottom', '0px');
+	
+	$('#toggle_magnifier').removeClass('on');
 }
 // 开关放大镜
 basic.magnifier.toggleMagnifier = function() {
     if ($('.magnifier').css('display') == 'block') {
     	basic.magnifier.hideMagnifier();
+    	storage.setCookie("magnifier",'hide',360);  
     }
     else {
         basic.magnifier.showMagnifier();
+        storage.setCookie("magnifier",'show',360);
     }
 }
 // 使用放大镜放大文字
@@ -203,31 +244,31 @@ basic.magnifier.magnifyIt = function(argument) {
 }
 // 载入之前的设置
 basic.magnifier.loadMagnifierStatus = function() {
-	//var status = storage.getCookie('magnifier_status');
-	//if(status == 1) {
+	var status = storage.getCookie('magnifier');
+	if(status=='show') {
 		basic.magnifier.showMagnifier();
-	//} else {
-		//basic.magnifier.hideMagnifier();
-	//}
+		storage.setCookie("magnifier",'show',360);
+	} else {
+		basic.magnifier.hideMagnifier();
+		storage.setCookie("magnifier",'hide',360);
+	}
 }
 
 /**
- *
+ * 
  * 显示主题替换
  *
  */
 basic.changeTheme = {};
-// VOIDMAIN 记录当前的Theme，用来创建bubble的时候指定主题！
-basic.currentTheme = 'standard';
 // 设置最终的CSS
 basic.changeTheme.setActiveStyle = function(title) {
-  basic.currentTheme = title;
 	$('head link[title="standard"]').attr('href','assets/css/'+title+'.css');
+	storage.setCookie("theme",title,360);
 	// theme默认是关闭的
-	/*
 	$('#theme_standard').removeClass('on');
 	$('#theme_dark').removeClass('on');
 	$('#theme_highcontrast').removeClass('on');
+	/*
 
 	var i, a;
 	for(i=0; (a = document.getElementsByTagName("link")[i]); i++) {
@@ -240,17 +281,14 @@ basic.changeTheme.setActiveStyle = function(title) {
 		}
 	}
 
+	*/
 	if(title == 'standard') {
 		$('#theme_standard').addClass('on');
-		//$('.magnifier').css('background', '#EEE');
 	} else if(title == 'dark') {
 		$('#theme_dark').addClass('on');
-		//$('.magnifier').css('background', '#333');
 	} else {
 		$('#theme_highcontrast').addClass('on');
-		//$('.magnifier').css('background', 'navy');
 	}
-	*/
 
 }
 // 设为正常主题
@@ -267,12 +305,10 @@ basic.changeTheme.chageToHightContrast = function() {
 }
 // 载入之前的值
 basic.changeTheme.loadStyle = function() {
-/*
-	var savedStyle = storage.getCookie('active_style');
+	var savedStyle = storage.getCookie('theme');
     if(savedStyle) {
         basic.changeTheme.setActiveStyle(savedStyle);
     }
-*/
 }
 
 /**
@@ -282,6 +318,20 @@ basic.changeTheme.loadStyle = function() {
  *
  */
 basic.translator = {}
+basic.translator.status=false;
+basic.translator.loadTranslator = function(){
+	var translator = storage.getCookie('translator');
+    if(translator=='open'){
+    	basic.translator.status=true;
+		storage.setCookie("translator",'open',360);
+		$('#toggle_translate').addClass('on');
+    }else{
+    	basic.translator.status=false;
+		storage.setCookie("translator",'close',360);
+		$('#toggle_translate').removeClass('on');
+    }
+    basic.translator.translate();
+}
 basic.translator.showResult = function(top, left, text) {
 	$('.mod_translate').css('top', (top - 100) + 'px');
 	$('.mod_translate').css('left', left + 'px');
@@ -293,19 +343,27 @@ basic.translator.showResult = function(top, left, text) {
 basic.translator.hideResult = function() {
 	$('.mod_translate').css('display', 'none');
 }
-basic.translator.themeDict = {};
-basic.translator.themeDict['standard'] = 'black';
-basic.translator.themeDict['dark'] = 'azure';
-basic.translator.themeDict['highcontrast'] = 'all-yellow';
 
 basic.translator.toggleTranslate = function() {
-/*
-		if ($('#toggle_translate').hasClass('item_71')) {
-			$('#toggle_translate').removeClass('item_71').addClass('item_21');
-		};
-*/
-	$('#toggle_translate').toggle();
-
+	if(basic.translator.status==false){
+		basic.translator.status=true;
+		storage.setCookie("translator",'open',360);
+		$('#toggle_translate').addClass('on');
+	}else{
+		basic.translator.status=false;
+		storage.setCookie("translator",'close',360);
+		$('#toggle_translate').removeClass('on');
+	}
+	basic.translator.translate();
+}
+basic.translator.translate = function() {
+	if(basic.translator.status==false){
+		$(".tts_data").each(function(){
+			$(this).RemoveBubblePopup();
+		})
+		return;
+	}
+	//翻译功能
 	if ($(".tts_data").HasBubblePopup()) {
 		$(".tts_data").RemoveBubblePopup();
 	} else {
@@ -313,8 +371,6 @@ basic.translator.toggleTranslate = function() {
     $(".tts_data").each(function(index, element) {
       $(this).CreateBubblePopup({
         innerHtml: '<img src="assets/img/translating.gif"/><p>正在翻译...</p>',
-        themePath:'/assets/jquerybubblepopup-themes/',
-        themeName:basic.translator.themeDict[basic.currentTheme],
         position: 'top',
         align: 'left',
         openingDelay: 0,
@@ -347,7 +403,7 @@ basic.translator.showTransResult = function(statusCode, result, element) {
   element.SetBubblePopupInnerHtml(result);
 }
 /**
- *
+ * 
  * 还原页面
  *
  */
@@ -361,49 +417,20 @@ basic.resetpage.reset = function(){
 	speaker.stop();
 	basic.changeTheme.changeToStandard();
 }
-
-
-
-
-/**
- *
- * 横竖版式切换
- *
- */
- /*
-basic.styleSwitcher = {};
-// 切换为竖版
-basic.styleSwitcher.changeToVert = function() {
-	$('#xory').removeClass('top-y');
-	$('#xory').removeClass('top-x');
-	$('#xory').addClass('top-y');
-
-	//storage.setCookie('hori_vert_status', 'y');
+//动态更改图标
+basic.dynamicIcon={}
+basic.dynamicIcon.change = function(toolbar_id){
+	if (toolbar_id=="null" || 
+		toolbar_id=="toggle_translate" || 
+		toolbar_id=="batch_read" || 
+		toolbar_id=="point_read") {
+	   	var dyID="";
+	   	speaker.batchStatus==false?dyID="0":dyID="1";
+	   	speaker.speakerStatus==false?dyID=dyID+"0":dyID=dyID+"1";
+		basic.translator.status==false?dyID=dyID+"0":dyID=dyID+"1";
+		//$("div").filter(".btn_group .").removeClass();
+		$('#dynamicIcon').removeClass();
+		$('#dynamicIcon').addClass('btn_group');
+		$('#dynamicIcon').addClass('item_61_'+dyID);
+   	}
 }
-// 切换为横版
-basic.styleSwitcher.changeToHori = function() {
-	$('#xory').removeClass('top-x');
-	$('#xory').removeClass('top-y');
-	$('#xory').addClass('top-x');
-
-	//storage.setCookie('hori_vert_status', 'x');
-}
-// 开关放大镜
-basic.styleSwitcher.toggleStyle = function() {
-    if ($('#xory').hasClass('top-x')) {
-    	basic.styleSwitcher.changeToVert();
-    }
-    else {
-        basic.styleSwitcher.changeToHori();
-    }
-}
-*/
-// 载入之前的设置
-//basic.styleSwitcher.loadStyleStatus = function() {
-	//var status = storage.getCookie('hori_vert_status');
-	//if(status == 'y') {
-		//basic.styleSwitcher.changeToVert();
-	//} else {
-		//basic.styleSwitcher.changeToHori();
-	//}
-//}

@@ -11,7 +11,7 @@
     *top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop); 
 	height: 43px;
 	text-align: center;
-	padding: 10px 5px 10px 5px;
+	padding: 10px 0px 10px 0px;
 	background-color: #666666;
 	border-bottom-width: medium;
 	border-bottom-style: solid;
@@ -59,6 +59,7 @@
 	*display: inline;
 	*zoom: 1;
 }
+
 /*给a标签的统一设置*/
 .item_a { width:42px; height:43px; display:block; position:absolute; left:0; top:0;}
 .item_b { width:42px; height:43px; display:block; position:absolute; left:42px; top:0;}
@@ -74,8 +75,17 @@
 .item_31 { background:url(../img/toolbar_icons.png) 0px -150px no-repeat;}/*页宽大小*/
 .item_41 { background:url(../img/toolbar_icons.png) 0px -200px no-repeat;}/*行距大小*/
 .item_51 { background:url(../img/toolbar_icons.png) 0px -450px no-repeat;}/*语音朗读*/
-.item_61 { background:url(../img/toolbar_icons.png) 0px -50px no-repeat;}/*放在镜，辅助线，帮助*/
-.item_71 { background:url(../img/toolbar_icons.png) 0px -250px no-repeat;}/*声音，翻译*/
+/*动态切换*/
+.item_61_000 { background:url(../img/toolbar_icons.png) -0px -50px no-repeat;}/*声音，翻译*/
+.item_61_001 { background:url(../img/toolbar_icons.png) -0px -500px no-repeat;}
+.item_61_010 { background:url(../img/toolbar_icons.png) -0px -550px no-repeat;}
+.item_61_100 { background:url(../img/toolbar_icons.png) -0px -600px no-repeat;}
+.item_61_011 { background:url(../img/toolbar_icons.png) -0px -650px no-repeat;}
+.item_61_110 { background:url(../img/toolbar_icons.png) -0px -700px no-repeat;}
+.item_61_101 { background:url(../img/toolbar_icons.png) -0px -750px no-repeat;}
+.item_61_111 { background:url(../img/toolbar_icons.png) -0px -300px no-repeat;}
+
+.item_71 { background:url(../img/toolbar_icons.png) 0px -250px no-repeat;}/*放在镜，辅助线，帮助*/
 
 /*切换视图*/
 .item_11 .item_a { background-position:0px 0px; }
@@ -98,9 +108,44 @@
 .item_51 .item_b { background-position:-42px -450px;}
 .item_51 .item_c { background-position:-84px -450px;}
 /*复位 语音帮助，翻译*/
+/*
 .item_61 .item_a { background-position:-0px -50px;}
 .item_61 .item_b { background-position:-42px -50px;}
 .item_61 .item_c { background-position:-84px -50px;}
+*/
+/*.item_61_000 { background:url(../img/toolbar_icons.png) -0px -50px no-repeat;}*/
+.item_61_000 .item_a { background-position:-0px -50px;}
+.item_61_000 .item_b { background-position:-42px -50px;}
+.item_61_000 .item_c { background-position:-84px -50px;}
+/*.item_61_001 { background:url(../img/toolbar_icons.png) -0px -500px no-repeat;}*/
+.item_61_001 .item_a { background-position:-0px -500px;}
+.item_61_001 .item_b { background-position:-42px -500px;}
+.item_61_001 .item_c { background-position:-84px -500px;}
+/*.item_61_010 { background:url(../img/toolbar_icons.png) -0px -550px no-repeat;}*/
+.item_61_010 .item_a { background-position:-0px -550px;}
+.item_61_010 .item_b { background-position:-42px -550px;}
+.item_61_010 .item_c { background-position:-84px -550px;}
+/*.item_61_100 { background:url(../img/toolbar_icons.png) -0px -600px no-repeat;}*/
+.item_61_100 .item_a { background-position:-0px -600px;}
+.item_61_100 .item_b { background-position:-42px -600px;}
+.item_61_100 .item_c { background-position:-84px -600px;}
+/*.item_61_011 { background:url(../img/toolbar_icons.png) -0px -650px no-repeat;}*/
+.item_61_011 .item_a { background-position:-0px -650px;}
+.item_61_011 .item_b { background-position:-42px -650px;}
+.item_61_011 .item_c { background-position:-84px -650px;}
+/*.item_61_010 { background:url(../img/toolbar_icons.png) -0px -700px no-repeat;}*/
+.item_61_110 .item_a { background-position:-0px -700px;}
+.item_61_110 .item_b { background-position:-42px -700px;}
+.item_61_110 .item_c { background-position:-84px -700px;}
+/*.item_61_101 { background:url(../img/toolbar_icons.png) -0px -750px no-repeat;}*/
+.item_61_101 .item_a { background-position:-0px -750px;}
+.item_61_101 .item_b { background-position:-42px -750px;}
+.item_61_101 .item_c { background-position:-84px -750px;}
+/*.item_61_111 { background:url(../img/toolbar_icons.png) -0px -300px no-repeat;}*/
+.item_61_111 .item_a { background-position:-0px -300px;}
+.item_61_111 .item_b { background-position:-42px -300px;}
+.item_61_111 .item_c { background-position:-84px -300px;}
+
 /*放在镜，辅助线，帮助*/
 .item_71 .item_a { background-position:-0px -250px;}
 .item_71 .item_b { background-position:-42px -250px;}

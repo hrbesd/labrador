@@ -10,24 +10,23 @@
 
 var trans = {};
 // VOIDMAIN 修改了对应的TransCache的IP
-trans.baseURL = "http://116.255.180.236:9999/translate/en/";
+trans.baseURL = "http://yunmd.mangren.com:9999/translate/en/";
 
 // 翻译对应的内容
 // 参数：text - 要翻译的文字
 //      callback - 翻译的结果，返回的是字符串内容
 trans.doTranslate = function(text, callback, element) {
-  // Allow cross domain tranport.
-  // fix issue #253
-  jQuery.support.cors = true;
 	// 发送AJAX请求
 	//var translateURL = trans.baseURL + text;
 	var translateURL = trans.baseURL + encodeURIComponent(text);
 	$.ajax({
     url:translateURL,
+    dataType: 'jsonp',
+    jsonp: false,
+    jsonpCallback: 'trans_result',
     type:'GET',
-    success: function(data)
+    success: function(dataJSON)
     {
-      dataJSON = JSON.parse(data);
       if(callback) {
       	callback(0, dataJSON.data.translations[0].translatedText, element);
       }
