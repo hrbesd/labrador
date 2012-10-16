@@ -88,6 +88,7 @@ public:
     QString name;
     QString refreshRate;
     QList<Rule*> ruleList;
+    QString level;
 };
 
 struct WebSite

@@ -46,6 +46,7 @@ struct Node
     QString name;
     QString hashName;
     QString refreshRate;
+    QString level;
     QList<Rule*> ruleList;
 };
 

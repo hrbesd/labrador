@@ -5,7 +5,7 @@
     <version>0.2.0</version>
     <crawlTime></crawlTime>
     <threadLimit>10</threadLimit>
-    <codecName>GBK</codecName>
+    <codecName></codecName>
     <node>
         <name>中国黑龙江</name>
         <url>http://www.hlj.gov.cn/</url>
@@ -25,7 +25,7 @@
                         <name>中俄热线</name>
                         <url>http://www.hlj.gov.cn/zerx/</url>
                         <refreshRate></refreshRate>
-                        <level></level>
+                        <level>99</level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -108,7 +108,7 @@
                         <name>服务三农 </name>
                         <url>http://www.hlj.gov.cn/fwsn/</url>
                         <refreshRate></refreshRate>
-                        <level>9995</level>
+                        <level></level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -209,7 +209,7 @@
                         <name>网上办事</name>
                         <url>http://www.hlj.gov.cn/wsbs/index.shtml</url>
                         <refreshRate></refreshRate>
-                        <level>9994</level>
+                        <level></level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -471,7 +471,7 @@
                         <name>全省概况</name>
                         <url>http://www.hlj.gov.cn/zjlj/</url>
                         <refreshRate></refreshRate>
-                        <level>9999</level>
+                        <level></level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -500,7 +500,7 @@
                         <name>投资</name>
                         <url>http://www.hlj.gov.cn/tzlj/</url>
                         <refreshRate></refreshRate>
-                        <level>9998</level>
+                        <level></level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -585,7 +585,7 @@
                         <name>旅游</name>
                         <url>http://www.hlj.gov.cn/cylj/</url>
                         <refreshRate></refreshRate>
-                        <level>9997</level>
+                        <level></level>
                         <ruleList>
                             <rule>
                                 <expressionList>
@@ -791,7 +791,7 @@
                         <name>政务公开</name>
                         <url>http://www.hlj.gov.cn/zwdt/index.shtml</url>
                         <refreshRate></refreshRate>
-                        <level>9996</level>
+                        <level></level>
                         <ruleList>
                             <rule>
                                 <expressionList>

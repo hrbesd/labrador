@@ -289,15 +289,15 @@ do
 		--sync-etc)
 			user_or_fail "$token"
 			log "\nUpdating settings ..."
-			rsync -av --delete --copy-links $UPDATER_URL/$UPDATE_CHANNEL/etc/ $LABRADOR_ETC/
+			rsync --checksum -av --delete --copy-links $UPDATER_URL/$UPDATE_CHANNEL/etc/ $LABRADOR_ETC/
 			test $? -eq 0 && log_item "Sucessfully done." || log_error "Failed!"
 			;;
 
 		--sync-bin)
 			user_or_fail "$token"
 			log "\nUpdating programs ..."
-			rsync -av --delete --copy-links $UPDATER_URL/$UPDATE_CHANNEL/$UPDATER_BUTTS/ $LABRADOR_BUTTS/
-			test $? -eq 0 && rsync -av --delete $UPDATER_URL/$UPDATE_CHANNEL/$UPDATER_BIN/ $LABRADOR_BIN/
+			rsync --checksum -av --delete --copy-links $UPDATER_URL/$UPDATE_CHANNEL/$UPDATER_BUTTS/ $LABRADOR_BUTTS/
+			test $? -eq 0 && rsync --checksum -av --delete $UPDATER_URL/$UPDATE_CHANNEL/$UPDATER_BIN/ $LABRADOR_BIN/
 			test $? -eq 0 && log_item "Sucessfully done." || log_error "Update failed!"
 			;;
 

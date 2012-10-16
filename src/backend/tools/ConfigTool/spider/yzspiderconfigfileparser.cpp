@@ -74,6 +74,10 @@ void YZSpiderConfigFileParser::parseNodeXml(QXmlStreamReader &reader, Node *node
             {
                 parseRuleListXml(reader,node->ruleList);
             }
+            else if(reader.name ()=="level")
+            {
+                node->level = reader.readElementText ();
+            }
         }
         reader.readNext();
     }

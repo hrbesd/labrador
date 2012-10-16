@@ -3,3 +3,4 @@
 # spider
 ln -s ../butts/spider/spider $TMP_DIR/bin/spider
 ln -s ../butts/spider/generator $TMP_DIR/bin/generator
+ln -s ../butts/spider/forerunner $TMP_DIR/bin/forerunner

@@ -10,8 +10,13 @@ launch_module()
 		generator)
 			BUTT="$GENERATOR_PATH"
 			;;
+		forerunner)
+			BUTT="$FORERUNNER_PATH"
+			;;
 		spider)
 			BUTT="$SPIDER_PATH"
+			need_dirfile="YES"
+			prev_module=forerunner
 			;;
 		parser)
 			BUTT="$PARSER_PATH"
@@ -45,6 +50,7 @@ launch_module()
 		--log-file=$site_root/logs/$module_name"
 	test -n "$prev_module" && arguments="$arguments --source-dir=$site_root/workers/$prev_module"
 	test -n "$need_webroot" && arguments="$arguments --webroot-dir=$site_root/webroot"
+	test -n "$need_dirfile" && arguments="$arguments --dir-file=$site_root/workers/shared/dir.xml "
 	test -n "$need_stylesheets" && arguments="$arguments --stylesheet-dir=$site_root/stylesheets"
 	$BUTT $arguments
 }

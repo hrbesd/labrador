@@ -17,6 +17,7 @@ void YZSpiderNodeConfigWidget::save()
         m_nodeItem->name=ui.lineEdit->text();
         m_nodeItem->url=ui.lineEdit_2->text();
         m_nodeItem->refreshRate=ui.lineEdit_3->text();
+        m_nodeItem->level = ui.lineEdit_4->text ();
     }
 }
 
@@ -31,7 +32,9 @@ void YZSpiderNodeConfigWidget::loadNodeItem(Node *node)
     ui.lineEdit->clear();
     ui.lineEdit_2->clear();
     ui.lineEdit_3->clear();
+    ui.lineEdit_4->clear ();
     ui.lineEdit->setText(node->name);
     ui.lineEdit_2->setText(node->url);
     ui.lineEdit_3->setText(node->refreshRate);
+    ui.lineEdit_4->setText (node->level);
 }
