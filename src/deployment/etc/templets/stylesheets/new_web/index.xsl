@@ -11,37 +11,31 @@
 		<link href="assets/css/accessible.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/toolbar.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
-
 		<link rel="stylesheet" type="text/css" title="standard" 	href="assets/css/standard.css" />
 <!--
 		<link rel="stylesheet" type="text/css" title="highcontrast" href="assets/css/highcontrast.css" />
 		<link rel="stylesheet" type="text/css" title="dark" 		href="assets/css/dark.css" />
 -->
-
+   		<!-- 通用的js -->
 		<script type="text/javascript" src="assets/js/jquery.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/swfobject.js"></script>
 		<script type="text/javascript" src="assets/js/jquery-bubble-popup-v3.min.js"></script>
-		<script type="text/javascript" src="assets/js/md5.js"></script>
-		<script type="text/javascript" src="assets/js/soapclient.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/speaker.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/storage.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/keybinding.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/keybinding.config.js"></script>
-		<script type="text/javascript" src="assets/js/json2.js"></script>
-
-
-		<!-- 语音需要加载的js start-->
-		<!--
-		<script type="text/javascript" src="assets/script/soundmanager2.js"></script>
-		-->
-    	<script type="text/javascript" src="assets/js/accessible/JSXML.js"></script>
-    	<script type="text/javascript" src="assets/js/accessible/speaker.js"></script>
-    	<!-- 语音需要加载的js end-->
+		<script type="text/javascript" src="assets/js/accessible/swfobject.js"></script>
 		<script type="text/javascript" src="assets/js/accessible/basic.js"></script>
 		<script type="text/javascript" src="assets/js/accessible/action.js"></script>
+		<script type="text/javascript" src="assets/js/accessible/storage.js"></script>
+		<!-- 语音加载的2个js -->
+    	<script type="text/javascript" src="assets/js/accessible/JSXML.js"></script>
+    	<script type="text/javascript" src="assets/js/accessible/speaker.js"></script>
+    	<!-- 工具栏 -->
 		<script type="text/javascript" src="assets/js/accessible/toolbox.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/trans.js"></script>
 		<script type="text/javascript" src="assets/js/accessible/text.js"></script>
+		<!-- 快捷键绑定用的3个js -->
+		<script type="text/javascript" src="assets/js/accessible/shortcut.js"></script>
+		<script type="text/javascript" src="assets/js/accessible/keybinding.js"></script>
+		<script type="text/javascript" src="assets/js/accessible/keybinding.config.js"></script>
+
+    	<!-- 翻译功能的1个js-->
+		<script type="text/javascript" src="assets/js/accessible/trans.js"></script>
 
 		<title><xsl:value-of select="website/info"/></title>
 	</head>
@@ -68,15 +62,10 @@
 				<a href="#" id="line_height_reset" 	title="复位行距" 	class="item_b"></a>
 				<a href="#" id="line_height_out" 	title="减少行距" 	class="item_c"></a>
 			</div>
-			<div class="btn_group item_51">
-				<a href="#" id="point_read" 		title="点读" 	class="item_a"></a>
-				<a href="#" id="close_read" 		title="关闭语音功能" 	class="item_b"></a>
-				<a href="#" id="batch_read" 		title="连读" 	class="item_c"></a>
-			</div>
-			<div class="btn_group item_61">
-				<a href="#" id="reset_page" 		title="复位页面" 	class="item_a"></a>
-				<a href="#" id="toggle_speaker" 	title="语音帮助" 	class="item_b"></a>
-				<a href="#" id="toggle_translate" 	title="翻译开关" 	class="item_c"></a>
+			<div id="dynamicIcon" class="btn_group">
+				<a href="#" id="batch_read" 		title="自动朗读" 	class="item_a"></a>
+				<a href="#" id="point_read" 		title="即指即读" 	class="item_b"></a>
+				<a href="#" id="toggle_translate" 	title="翻译/Translator" 	class="item_c"></a>
 			</div>
 			<div class="btn_group item_71">
 				<a href="#" id="toggle_magnifier" 	title="放大镜" 		class="item_a"></a>
@@ -101,33 +90,36 @@
 			<!-- debug -->
 			<div id="myDiv"></div>
 			<nav>
-				<ul class="clearfix">
-					<xsl:for-each select="website/nodelist/indexnode">
-	          <li class="bulletin">
-	            <span>
-	              <a>
-	                <xsl:attribute name="href">
-	                  <xsl:value-of select="node/pageurl"/>
-	                </xsl:attribute>
-	                <xsl:attribute name="class">column-entrance</xsl:attribute>
-	                <xsl:copy-of select="node/name"/>
-	              </a>
-	            </span>
-	            <ul>
-	              <xsl:for-each select="nodelist/node [position() &lt; 6]">
-	                <li>
-	                  <a>
-	                    <xsl:attribute name="href">
-	                      <xsl:value-of select="pageurl"/>
-	                    </xsl:attribute>
-	                    <xsl:copy-of select="name" />
-	                  </a>
-	                </li>
-	              </xsl:for-each>
-	            </ul>
-	          </li>
-	        </xsl:for-each>
-	      </ul>
+			<ul class="clearfix">
+				<xsl:for-each select="website/nodelist/indexnode">
+          <li class="bulletin">
+            <span>
+              <a>
+                <xsl:attribute name="href">
+                  <xsl:value-of select="node/pageurl"/>
+                </xsl:attribute>
+                <xsl:attribute name="class">column-entrance</xsl:attribute>
+                <xsl:copy-of select="node/name"/>
+              </a>
+            </span>
+            <ul>
+              <xsl:for-each select="nodelist/node [position() &lt; 6]">
+                <li>
+                  <a>
+                    <xsl:attribute name="href">
+                      <xsl:value-of select="pageurl"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="title">
+                      <xsl:value-of select="name"/>
+                    </xsl:attribute>
+                    <xsl:copy-of select="name" />
+                  </a>
+                </li>
+              </xsl:for-each>
+            </ul>
+          </li>
+        </xsl:for-each>
+			</ul>
 			</nav>
 		</div>
 		<div>
@@ -162,5 +154,3 @@
 		</div>
 	</body>
 </html>
-  </xsl:template>
-</xsl:stylesheet>
