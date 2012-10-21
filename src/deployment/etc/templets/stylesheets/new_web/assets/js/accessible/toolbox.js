@@ -10,7 +10,6 @@
 var initSM2 = function() {
 	//载入flash
 	speaker.flashvars = { allowScriptAccess:"always"}; 
-	document.write("<div id=\"esd_voice_div\"></div>");
 	speaker.swf="assets/swf/httpService.swf";
 	swfobject.embedSWF(speaker.swf, "esd_voice_div", "0", "0",
 	                   "9.0.0", "expressInstall.swf",
