@@ -262,7 +262,7 @@ basic.magnifier.loadMagnifierStatus = function() {
 basic.changeTheme = {};
 // 设置最终的CSS
 basic.changeTheme.setActiveStyle = function(title) {
-	$('head link[title="standard"]').attr('href','assets/css/'+title+'.css');
+	$('head link[title="standard"]').attr('href','/assets/css/'+title+'.css');
 	storage.setCookie("theme",title,360);
 	// theme默认是关闭的
 	$('#theme_standard').removeClass('on');
@@ -375,7 +375,7 @@ basic.translator.translate = function() {
 	    // VOIDMAIN
     $(".tts_data").each(function(index, element) {
       $(this).CreateBubblePopup({
-        innerHtml: '<img src="assets/img/translating.gif"/><p>正在翻译...</p>',
+        innerHtml: '<img src="/assets/img/translating.gif"/><p>正在翻译...</p>',
         themePath: '/assets/jquerybubblepopup-themes/',
         themeName: 'black',
         position: 'top',

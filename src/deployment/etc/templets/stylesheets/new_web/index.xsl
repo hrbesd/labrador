@@ -8,35 +8,35 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="robots" content="noindex, nofollow" />
 		<!-- Order does matter -->
-		<link href="assets/css/base.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/accessible.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/toolbar.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" title="standard" 	href="assets/css/standard.css" />
+		<link href="/assets/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="/assets/css/accessible.css" rel="stylesheet" type="text/css" />
+		<link href="/assets/css/toolbar.css" rel="stylesheet" type="text/css" />
+		<link href="/assets/css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" title="standard" 	href="/assets/css/standard.css" />
 <!--
-		<link rel="stylesheet" type="text/css" title="highcontrast" href="assets/css/highcontrast.css" />
-		<link rel="stylesheet" type="text/css" title="dark" 		href="assets/css/dark.css" />
+		<link rel="stylesheet" type="text/css" title="highcontrast" href="/assets/css/highcontrast.css" />
+		<link rel="stylesheet" type="text/css" title="dark" 		href="/assets/css/dark.css" />
 -->
    		<!-- 通用的js -->
-		<script type="text/javascript" src="assets/js/jquery.js"></script>
-		<script type="text/javascript" src="assets/js/jquery-bubble-popup-v3.min.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/swfobject.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/basic.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/action.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/storage.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery-bubble-popup-v3.min.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/swfobject.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/basic.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/action.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/storage.js"></script>
 		<!-- 语音加载的2个js -->
-    	<script type="text/javascript" src="assets/js/accessible/JSXML.js"></script>
-    	<script type="text/javascript" src="assets/js/accessible/speaker.js"></script>
+    	<script type="text/javascript" src="/assets/js/accessible/JSXML.js"></script>
+    	<script type="text/javascript" src="/assets/js/accessible/speaker.js"></script>
     	<!-- 工具栏 -->
-		<script type="text/javascript" src="assets/js/accessible/toolbox.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/text.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/toolbox.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/text.js"></script>
 		<!-- 快捷键绑定用的3个js -->
-		<script type="text/javascript" src="assets/js/accessible/shortcut.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/keybinding.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/keybinding.config.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/shortcut.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/keybinding.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/keybinding.config.js"></script>
 
     	<!-- 翻译功能的1个js-->
-		<script type="text/javascript" src="assets/js/accessible/trans.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/trans.js"></script>
 
 		<title><xsl:value-of select="website/info"/></title>
 	</head>
