@@ -64,15 +64,10 @@
         <a href="#" id="line_height_reset"  title="复位行距"  class="item_b"></a>
         <a href="#" id="line_height_out"  title="减少行距"  class="item_c"></a>
       </div>
-      <div class="btn_group item_51">
-        <a href="#" id="point_read"     title="点读"  class="item_a"></a>
-        <a href="#" id="close_read"     title="关闭语音功能"  class="item_b"></a>
-        <a href="#" id="batch_read"     title="连读"  class="item_c"></a>
-      </div>
-      <div class="btn_group item_61">
-        <a href="#" id="reset_page"     title="复位页面"  class="item_a"></a>
-        <a href="#" id="toggle_speaker"   title="语音帮助"  class="item_b"></a>
-        <a href="#" id="toggle_translate"   title="翻译开关"  class="item_c"></a>
+      <div id="dynamicIcon" class="btn_group">
+        <a href="#" id="batch_read"     title="自动朗读"  class="item_a"></a>
+        <a href="#" id="point_read"     title="即指即读"  class="item_b"></a>
+        <a href="#" id="toggle_translate"   title="翻译/Translator"   class="item_c"></a>
       </div>
       <div class="btn_group item_71">
         <a href="#" id="toggle_magnifier"   title="放大镜"     class="item_a"></a>
