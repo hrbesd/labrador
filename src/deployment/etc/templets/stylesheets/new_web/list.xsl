@@ -20,7 +20,7 @@
 
 				<script type="text/javascript" src="../assets/js/jquery.js"></script>
 				<script type="text/javascript" src="../assets/js/jquery-bubble-popup-v3.min.js"></script>
-				<script type="text/javascript" src="assets/js/accessible/swfobject.js"></script>
+				<script type="text/javascript" src="../assets/js/accessible/swfobject.js"></script>
 				<script type="text/javascript" src="../assets/js/accessible/basic.js"></script>
 				<script type="text/javascript" src="../assets/js/accessible/action.js"></script>
 				<script type="text/javascript" src="../assets/js/accessible/storage.js"></script>
