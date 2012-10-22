@@ -82,6 +82,8 @@ var bindActions = function() {
 		//鼠标进入事件
         $(this).bind("mouseenter", function() {
 	        if(speaker.speakerStatus==true){
+                $(this).parent('a').focus();
+                speaker.point.speak(this.innerHTML);
 	        	$(this).addClass("tts_reading");
 	        }
         });
@@ -93,8 +95,6 @@ var bindActions = function() {
         });
         //鼠标右键屏蔽菜单
         $(this).bind("contextmenu", function() {
-        	$(this).parent('a').focus();
-        	speaker.point.speak(this.innerHTML);
         	return false;
         });
     });
