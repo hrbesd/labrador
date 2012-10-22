@@ -1,16 +1,16 @@
 /**
  * 工具箱的调度模块
- * 
+ *
  * 主要完成的功能是工具栏界面显示与对应JS功能实现的绑定
  * 而具体模块功能的实现，则是放到单独的实现文件之中
  * 工具箱主要的功能就是将界面上html标签中的id与对应的实现代码绑定起来
- * 
+ *
  * Author： Void Main
  */
 var initSM2 = function() {
 	//载入flash
-	speaker.flashvars = { allowScriptAccess:"always"}; 
-	speaker.swf="assets/swf/httpService.swf";
+	speaker.flashvars = { allowScriptAccess:"always"};
+	speaker.swf="/assets/swf/httpService.swf";
 	swfobject.embedSWF(speaker.swf, "esd_voice_div", "0", "0",
 	                   "9.0.0", "expressInstall.swf",
 	                    speaker.flashvars,null, null, null);
@@ -25,7 +25,7 @@ jQuery(document).ready(function(){
 
     // 绑定界面元素事件
     bindActions();
-	
+
 	// 绑定键盘快捷键
 	$(document).keydown(function(event){
         keybinding.processKeyEvent(event);
@@ -68,15 +68,15 @@ var bindActions = function() {
    // $('#switch_hori_vert').click(action.toggleStyle);
     $('#reset_page').click(action.restPage);
     $('#toggle_translate').click(action.toggleTranslate);
-    
+
     $('#point_read').click(action.point_read);
     $('#close_read').click(action.close_read);
     $('#batch_read').click(action.batch_read);
-    
+
     $('span[class=tts_data]').each(function() {
         $(this).bind("mouseover", function() {
     		//放大镜添加事件
-            basic.magnifier.magnifyIt(this.innerHTML); 
+            basic.magnifier.magnifyIt(this.innerHTML);
             $('.magnifier').textfill({ maxFontPixels: 160 });
         });
 		//鼠标进入事件
@@ -132,7 +132,7 @@ var bindActions = function() {
     $('#theme_standard').click(action.changeToStandardTheme);
     $('#theme_dark').click(action.changeToDarkTheme);
     $('#theme_highcontrast').click(action.changeToHightContrastTheme);
-    
+
 };
 
 var transCallback = function(result, element) {
@@ -158,7 +158,7 @@ function accessible(){
                 $('#acctoolbar').css('top', $(window).scrollTop());
             })
         }
-        
+
         //close button
         $('#accclose').click(function(){
             accessible_enable = false;
@@ -169,11 +169,11 @@ function accessible(){
 
             // change back to standard style
             setActiveStyleSheet('standard');
-            
+
             if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
                 $(window).unbind("scroll");
             }
-            
+
             if ($('#guides_horiz')[0]) {
                 $('#guides_horiz,#guides_verti').remove();
                 $('body').unbind("mousemove");
@@ -181,14 +181,14 @@ function accessible(){
                     $(window).unbind("resize");
                 }
             }
-            
+
             $('#acctoolbar').remove();
             $('#wrapper').css('padding-top', 0);
-            
+
             //remove cookie
             storage.eraseCookie('accessible');
         });
-        
+
         //save cookie
         storage.setCookie('accessible', 1, 360);
     }
