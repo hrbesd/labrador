@@ -82,7 +82,7 @@ var bindActions = function() {
 		//鼠标进入事件
         $(this).bind("mouseenter", function() {
 	        if(speaker.speakerStatus==true){
-                $(this).parent('a').focus();
+                $(this).parents('a').focus();
                 speaker.point.speak(this.innerHTML);
 	        	$(this).addClass("tts_reading");
 	        }
