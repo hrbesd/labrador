@@ -20,7 +20,7 @@ speaker.audioPlaying = false;
 speaker.read_enabled = true;
 //载入通信和播放的flash
 /*
-speaker.flashvars = { allowScriptAccess:"always"}; 
+speaker.flashvars = { allowScriptAccess:"always"};
 document.write("<div id="esd_voice_div"></div>");
 speaker.swf="assets/swf/httpService.swf";
 swfobject.embedSWF(speaker.swf, "esd_voice_div", "0", "0",
@@ -93,7 +93,7 @@ speaker.loadBatchRead = function(){
 		storage.setCookie("batch_read",'close',360);
 		$('#batch_read').removeClass('on');
     }
-  
+
 }
 speaker.batchRead = function(){
 	if(speaker.batchStatus==false){
@@ -109,7 +109,7 @@ speaker.batchRead = function(){
 		speaker.index=0;
 		speaker.batch.speak(speaker.index);
    },3000);
-   
+
 }
 speaker.batch.speak = function (index) {
 	if (speaker.batchStatus == false) {
@@ -136,7 +136,7 @@ speaker.loadPointRead = function(){
 		storage.setCookie("point_read",'close',360);
 		$('#point_read').removeClass('on');
     }
-   
+
 }
 speaker.pointRead = function(){
 	if(speaker.speakerStatus==false){
@@ -157,7 +157,7 @@ speaker.point.speak = function (text) {
 };
 speaker.toolbar = {};
 speaker.toolbar.speak = function (toolbar_id) {
-	var url = "assets/mp3/" + toolbar_id + ".mp3";
+	var url = "/assets/mp3/" + toolbar_id + ".mp3";
 	if (speaker.ws) {
 	    //document.getElementById("myDiv").innerHTML = url;
 		speaker.ws.esdStart(url);
@@ -201,7 +201,7 @@ speaker.toolbar.click = function (toolbar_id) {
 	}
 
 
-	var tool_url = "assets/mp3/click/" + toolbar_id + "_click.mp3";
+	var tool_url = "/assets/mp3/click/" + toolbar_id + "_click.mp3";
 	if (speaker.ws) {
 		//document.getElementById("myDiv").innerHTML = tool_url;
 		speaker.ws.esdStart(tool_url);
