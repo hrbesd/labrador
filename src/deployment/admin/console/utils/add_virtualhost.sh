@@ -101,7 +101,7 @@ else
     echo $INFO_ADDHOST
 fi
 
-mkdir $docroot
+#mkdir $docroot
 chmod 755 $docroot
 #enable the virtual host with a2ensite
 cd ${VIRTUALHOST_ROOT}
