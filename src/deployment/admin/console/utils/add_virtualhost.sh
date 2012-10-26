@@ -63,11 +63,12 @@ if [ -e $virtualhost ];then
     exit
 fi
 
-if [ -d $docroot ]; then
-    echo $docroot
-    echo $ERROR_WEBROOTEXIST
-    exit
-fi
+#docroot had been copied from the templates
+#if [ -d $docroot ]; then
+#    echo $docroot
+#    echo $ERROR_WEBROOTEXIST
+#    exit
+#fi
 
 
 if ! touch $virtualhost
