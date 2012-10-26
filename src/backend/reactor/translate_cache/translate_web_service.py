@@ -49,7 +49,9 @@ def doTranslate(lang, text):
 
 	server.bottle.response.set_header('Access-Control-Allow-Origin', '*')
 
-	return result
+	jsonp_result = "trans_result(" + result + ")"
+
+	return jsonp_result
 
 server.bottle.debug(debug)
 run(host='116.255.180.236', port='9999')

@@ -8,16 +8,45 @@
  *
  * Author: Void Main
  */
- var keybinding = {}
+ var keybinding = {};
 
 // 处理对应的按键时间的函数
 // 参数：event - document.keyDown函数中的对应参数
 // 首先判断是否已经按下了ctrl+shift键，之后再根据keybinding.config里面的内容进行按键功能匹配
 keybinding.processKeyEvent = function(event) {
-	if (event.ctrlKey && event.shiftKey) {
-		bindingResult = keybinding.config[event.keyCode];
-		if(bindingResult) {
-			bindingResult(); // 最后的括号才是真正的调用方法
+	//if (event.ctrlKey && event.shiftKey) {
+	if (event.altKey) {
+		//alt+~ 复位页面
+		//alt+1 标准视图
+		//alt+2 黑夜视图
+		//alt+3 高对比度视图
+		//alt+[ 增加页宽
+		//alt+] 减少页宽
+		//alt+' 复位页宽
+		//alt+; 放大镜
+		//alt+\ 辅助线
+		bindingResult = keybinding.alt.config[event.keyCode];
+		if (bindingResult) {
+			action[bindingResult]();
 		}
-    }
+	}
+	if(event.ctrlKey){
+		//ctrl+{ 增加字体
+		//ctrl+} 减少字体
+		//ctrl+' 复位字体
+		bindingResult = keybinding.ctrl.config[event.keyCode];
+		if (bindingResult) {
+			action[bindingResult]();
+		}
+	}
+	if(event.shiftKey){
+		//shift+{ 增加行距
+		//shift+} 减少行距
+		//shift+' 复位行距
+		bindingResult = keybinding.shift.config[event.keyCode];
+		if (bindingResult) {
+			action[bindingResult](); 
+		}
+	}
+
 }

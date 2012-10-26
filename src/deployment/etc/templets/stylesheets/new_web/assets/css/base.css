@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-* {
+* { 
 	margin: 0;
 	padding: 0;
 }
@@ -9,7 +9,6 @@ body {
 	font-size: 100%;
 	/*注意：csshover3.htc这个文件相对路径是index.html文件,不是当前base.css文件所以相对路径是assets/htc/csshover3.htc*/
 /* 	behavior: url("assets/htc/csshover3.htc"); */
-	*padding-top:90px;	/*IE6 图片遮住解决方法*/
 }
 
 h1 {
@@ -59,7 +58,7 @@ a:hover {
 }
 
 #main {
-	margin-top: 90px; /* Leave blank for toolbar to avoid covering banner */
+	margin-top: 70px; /* Leave blank for toolbar to avoid covering banner */
 	*margin-top: 100px; /*  NOT WORKING in IE 6  */
 	border-width: 1px;
 	border-style: solid;
@@ -163,8 +162,7 @@ a:hover {
 }
 
 #article {
-	padding: 20px;
-	overflow: auto;
+	padding: 20px;	
 }
 
 .article_text {

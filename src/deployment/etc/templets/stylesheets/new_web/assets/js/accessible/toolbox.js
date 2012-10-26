@@ -1,41 +1,19 @@
 /**
  * 工具箱的调度模块
- * 
+ *
  * 主要完成的功能是工具栏界面显示与对应JS功能实现的绑定
  * 而具体模块功能的实现，则是放到单独的实现文件之中
  * 工具箱主要的功能就是将界面上html标签中的id与对应的实现代码绑定起来
- * 
+ *
  * Author： Void Main
  */
 var initSM2 = function() {
-    // flash version URL switch (for this demo page)
-    /*
-    var winLoc = window.location.toString();
-    soundManager.setup({
-      preferFlash: (winLoc.match(/usehtml5audio=1/i) ? false : true)
-    });
-    if (winLoc.match(/flash9/i)) {
-        soundManager.setup({
-            flashVersion: 9
-        });
-        if (winLoc.match(/highperformance/i)) {
-            soundManager.setup({
-              useHighPerformance: true
-            });
-        }
-    } else if (winLoc.match(/flash8/i)) {
-        soundManager.setup({
-            flashVersion: 8
-        });
-    }
-
-    soundManager.setup({
-        useFlashBlock: false,
-        url: 'assets/swf/',
-        debugMode: false,
-        consoleOnly: true
-    });
-    */
+	//载入flash
+	speaker.flashvars = { allowScriptAccess:"always"};
+	speaker.swf="/assets/swf/httpService.swf";
+	swfobject.embedSWF(speaker.swf, "esd_voice_div", "0", "0",
+	                   "9.0.0", "expressInstall.swf",
+	                    speaker.flashvars,null, null, null);
 
 }
 
@@ -47,11 +25,11 @@ jQuery(document).ready(function(){
 
     // 绑定界面元素事件
     bindActions();
-	
+
 	// 绑定键盘快捷键
-	//$(document).keydown(function(event){
-       // keybinding.processKeyEvent(event);
-    //});
+	$(document).keydown(function(event){
+        keybinding.processKeyEvent(event);
+    });
 });
 
 // 载入之前保存的修改
@@ -62,7 +40,12 @@ var loadStatus = function() {
     basic.fontSize.loadSize();
     basic.lineHeight.loadHeight();
     basic.changeTheme.loadStyle();
-    //basic.magnifier.loadMagnifierStatus();
+    basic.guides.loadGuides();
+    basic.magnifier.loadMagnifierStatus();
+    speaker.loadPointRead();
+    speaker.loadBatchRead();
+    basic.translator.loadTranslator();
+    basic.dynamicIcon.change("null");//初始化动态更换的图标
     //basic.styleSwitcher.loadStyleStatus();
 };
 
@@ -85,73 +68,64 @@ var bindActions = function() {
    // $('#switch_hori_vert').click(action.toggleStyle);
     $('#reset_page').click(action.restPage);
     $('#toggle_translate').click(action.toggleTranslate);
-    
+
     $('#point_read').click(action.point_read);
     $('#close_read').click(action.close_read);
     $('#batch_read').click(action.batch_read);
-    
-    
 
     $('span[class=tts_data]').each(function() {
         $(this).bind("mouseover", function() {
-	        // Known bug: Text may be too long to fit in the magnifier -- fixed!
-    		speaker.point.speak(this.innerHTML);
-    		//speaker.continuous(0);
-            basic.magnifier.magnifyIt(this.innerHTML); 
+    		//放大镜添加事件
+            basic.magnifier.magnifyIt(this.innerHTML);
             $('.magnifier').textfill({ maxFontPixels: 160 });
-           // trans.doTranslate(this.innerHTML, $(this), transCallback);
-        
         });
+		//鼠标进入事件
+        $(this).bind("mouseenter", function() {
+	        if(speaker.speakerStatus==true){
+                $(this).parents('a').focus();
+                speaker.point.speak(this.innerHTML);
+	        	$(this).addClass("tts_reading");
+	        }
+        });
+        //鼠标移出事件
+        $(this).bind("mouseleave", function() {
+	        if(speaker.speakerStatus==true){
+	        	$(this).removeClass("tts_reading");
+	        }
+        });
+        //鼠标右键屏蔽菜单
         $(this).bind("contextmenu", function() {
-        	$(this).addClass("tts_reading");
-/* 			this.style.backgroundImage = 'assets/img/paper.png'; */
         	return false;
         });
     });
+	//朗读功具栏语音
     $('div[id=toolbar] a').each(function() {
         $(this).bind("mouseover", function() {
         	speaker.toolbar.speak($(this).attr("id"));
         });
-    });
-	/**
-	 * 文字被选择时提示颜色
-	 */
-	 /*
-    $('span[class=tts_data]').each(function() {
-        $(this).bind("mouseenter", function() {
-        	//intervalId = setInterval(transCallback(this.innerHTML,$(this)),2000);
-        	intervalId = setInterval(transCallback(this.innerHTML,$(this)),2000);
-			//$(this).css("background-color","yellow");
+        $(this).bind("click", function() {
+        	var toolbar_id = $(this).attr("id")
+        	speaker.toolbar.click(toolbar_id);
+        	basic.dynamicIcon.change(toolbar_id);
         });
-    }); 
-     $('span[class=tts_data]').each(function() {
-        $(this).bind("mouseleave", function() {
-        	clearInterval(intervalId);
-			//$(this).css("background-color","#E9E9E4");
-        });
-    }); 
-    */
-/*
-    $('span[class=tts_data]').each(function() {
-        $(this).bind("mouseover", function() {
-            trans.doTranslate(this.innerHTML, $(this), transCallback);  
-        });
-    }); 
-    */
-/*
-    $('span[class=tts_data]').each(function() {
-        $(this).bind("mouseover", function() {
-            speaker.speak(this.innerHTML);
+        $(this).bind("focus", function() {
+			speaker.toolbar.speak($(this).attr("id"));
         });
     });
-*/
-    /*
-    $('data').each(function() {
-        $(this).bind("mouseleave", function() {
-            basic.translator.hideResult();
+    //切换焦点
+    $('span[class=tts_data]').parent('a').each(function() {
+    	$(this).bind("focus", function() {
+    		//如果批量朗读开起不会读取，因为连读会焦点跟随产生重读。
+    		if(speaker.batchStatus==false){
+    			var children = $(this).contents('.tts_data')
+    			children.addClass("tts_reading");
+    			speaker.point.speak(children.html());
+    		}
+        });
+    	$(this).bind("blur", function() {
+    		$(this).contents('.tts_data').removeClass("tts_reading");
         });
     });
-    */
 
     // change themes
     // change stylesheet button
@@ -184,7 +158,7 @@ function accessible(){
                 $('#acctoolbar').css('top', $(window).scrollTop());
             })
         }
-        
+
         //close button
         $('#accclose').click(function(){
             accessible_enable = false;
@@ -195,11 +169,11 @@ function accessible(){
 
             // change back to standard style
             setActiveStyleSheet('standard');
-            
+
             if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
                 $(window).unbind("scroll");
             }
-            
+
             if ($('#guides_horiz')[0]) {
                 $('#guides_horiz,#guides_verti').remove();
                 $('body').unbind("mousemove");
@@ -207,14 +181,14 @@ function accessible(){
                     $(window).unbind("resize");
                 }
             }
-            
+
             $('#acctoolbar').remove();
             $('#wrapper').css('padding-top', 0);
-            
+
             //remove cookie
             storage.eraseCookie('accessible');
         });
-        
+
         //save cookie
         storage.setCookie('accessible', 1, 360);
     }

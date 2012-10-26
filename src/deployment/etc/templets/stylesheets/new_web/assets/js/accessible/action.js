@@ -11,25 +11,13 @@
  * Author: Void Main
  */
 var action = {};
-
 //点读
 action.point_read = function(){
-	speaker.batchStatus=false;
-	if(speaker.speakerStatus==false){
-		speaker.speakerStatus = true;
-	}else{
-		speaker.speakerStatus = false
-	}
+	speaker.pointRead();
 }
 //连读
 action.batch_read = function(){
-	if(speaker.batchStatus==false){
-		speaker.batchStatus=true;
-		speaker.batch.speak(speaker.index);
-	}else{
-		speaker.batchStatus=false;
-	}
-	
+	speaker.batchRead();
 }
 action.close_read = function(){
 	speaker.stop();
