@@ -51,9 +51,9 @@ then
 fi
 
 virtualhost=${VIRTUALHOST_ROOT}/${hostname}
-# docroot=${webroot}/${hostname}
+docroot=${webroot}/${hostname}
 # Modified by zhf
-docroot=${webroot}
+#docroot=${webroot}
 
 domainname=${hostname}.${DOMAIN}
 #Check the hostname file and webroot dir
