@@ -61,15 +61,14 @@
                 GDataXMLElement *rootElem = [_xmlDoc rootElement];
                 
                 if (type == XMLDataType_List) {
-                    NSArray *nodes = [rootElem elementsForName:@"node"];
+                    rootElem = [[rootElem elementsForName:@"nodelist"] objectAtIndex:0];
+
+                    self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"indexnode"]];
                     
-                    if ([nodes count] != 0) {
-                        // TEMP: deal with index.xml
-                        rootElem = [nodes objectAtIndex:0];
+                    if ([_listData count] == 0) {
+                        // not an index.xml
+                        self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"node"]];
                     }
-                    
-                    rootElem = [[rootElem elementsForName:@"nodeList"] objectAtIndex:0];
-                    self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"node"]];
                 }
                 else {
                     self.articleElem = rootElem;
@@ -167,15 +166,13 @@
         GDataXMLElement *rootElem = [_xmlDoc rootElement];
         
         if (_type == XMLDataType_List) {
-            NSArray *nodes = [rootElem elementsForName:@"node"];
+            rootElem = [[rootElem elementsForName:@"nodelist"] objectAtIndex:0];
+            self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"indexnode"]];
             
-            if ([nodes count] != 0) {
-                // TEMP: deal with index.xml
-                rootElem = [nodes objectAtIndex:0];
+            if ([_listData count] == 0) {
+                // not an index.xml
+                self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"node"]];
             }
-            
-            rootElem = [[rootElem elementsForName:@"nodeList"] objectAtIndex:0];
-            self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"node"]];
         }
         else {
             self.articleElem = rootElem;

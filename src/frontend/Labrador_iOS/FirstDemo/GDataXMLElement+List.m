@@ -29,23 +29,23 @@
 }
 
 - (NSString *)pageURL {
-    NSString *str = [[[self elementsForName:@"pageUrl"] objectAtIndex:0] stringValue];
+    NSString *str = [[[self elementsForName:@"pageurl"] objectAtIndex:0] stringValue];
     return str;
 }
 
 - (NSString *)hashName {
-    NSString *str = [[[self elementsForName:@"hashName"] objectAtIndex:0] stringValue];
+    NSString *str = [[[self elementsForName:@"hashname"] objectAtIndex:0] stringValue];
     return str;
 }
 
 - (NSArray *)nodeList {
     //return [(GDataXMLElement *)[[self elementsForName:@"nodeList"] objectAtIndex:0] elementsForName:@"node"];
-    return [[[self elementsForName:@"nodeList"] objectAtIndex:0] elementsForName:@"node"];
+    return [[[self elementsForName:@"nodelist"] objectAtIndex:0] elementsForName:@"node"];
     //return [self nodesForXPath:@"/nodeList" error:nil];
 }
 
 - (NSString *)imageUrl {
-    NSString *imageUrl = [[[self elementsForName:@"imgUrl"] objectAtIndex:0] stringValue];
+    NSString *imageUrl = [[[self elementsForName:@"imgurl"] objectAtIndex:0] stringValue];
     return imageUrl;
 }
 

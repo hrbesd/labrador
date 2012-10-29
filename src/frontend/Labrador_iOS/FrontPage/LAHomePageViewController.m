@@ -94,8 +94,9 @@
     NSMutableArray *itemsArr = [NSMutableArray arrayWithCapacity:[_list.listData count]];
     
     for (GDataXMLElement *xmlElem in _list.listData) {
+        GDataXMLElement *tempElem = [[xmlElem elementsForName:@"node"] objectAtIndex:0];
         LACategoryItem *item = [[LACategoryItem alloc] init];
-        item.text = xmlElem.nodeName;
+        item.text = tempElem.nodeName;
         [itemsArr addObject:item];
     }
     
@@ -141,7 +142,7 @@
     [super viewDidLoad];
     self.list = [[LAXMLData alloc] initWithURL:_categoryURLStr type:XMLDataType_List delegate:self];
     
-    self.headLines = [[LAXMLData alloc] initWithURL:_headLinesURLStr type:XMLDataType_List delegate:self];
+    //self.headLines = [[LAXMLData alloc] initWithURL:_headLinesURLStr type:XMLDataType_List delegate:self];
     
     [self loadItems];
     [self loadHeadlines];
@@ -188,8 +189,9 @@
 - (void)categoryView:(LACategoryView *)categoryView selectedItemAtIndex:(NSUInteger)index {
     DLog(@"%d selected", index);
     GDataXMLElement *currentElem = (GDataXMLElement *)[_list.listData objectAtIndex:index];
+    GDataXMLElement *tempElem = [[currentElem elementsForName:@"node"] objectAtIndex:0];
     
-    NSString *url = [NSString URLWithPath:currentElem.pageURL];
+    NSString *url = [NSString URLWithPath:tempElem.pageURL];
     
     LAListViewController *listVC = [[LAListViewController alloc] initWithStyle:UITableViewStylePlain url:url];
     [listVC setTitle:currentElem.nodeName];
