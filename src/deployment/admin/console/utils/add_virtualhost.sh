@@ -1,7 +1,7 @@
 #!/bin/bash
 
 EMAIL='admin@yunmd.info'
-DOMAIN='yunmd.info'
+DOMAIN='mangren.com'
 VIRTUALHOST_ROOT='/etc/apache2/sites-available'
 
 ERROR_NOPERMISSON='你没有权限运行该脚本，请使用sudo运行！'
