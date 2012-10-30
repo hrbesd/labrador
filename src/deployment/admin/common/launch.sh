@@ -51,6 +51,6 @@ launch_module()
 	test -n "$prev_module" && arguments="$arguments --source-dir=$site_root/workers/$prev_module"
 	test -n "$need_webroot" && arguments="$arguments --webroot-dir=$site_root/webroot"
 	test -n "$need_dirfile" && arguments="$arguments --dir-file=$site_root/workers/shared/dir.xml "
-	test -n "$need_stylesheets" && arguments="$arguments --stylesheet-dir=$site_root/stylesheets"
+	test -n "$need_stylesheets" && arguments="$arguments --stylesheet-dir=$site_root/stylesheets/new_web"
 	$BUTT $arguments
 }
