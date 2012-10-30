@@ -139,7 +139,7 @@
     
     url = [NSString URLWithPath:rebuildPath];
     
-    DLog(@"%@", url);
+    //DLog(@"%@", url);
     
     if ([dir isEqualToString:@"a"]) {
         // this is article

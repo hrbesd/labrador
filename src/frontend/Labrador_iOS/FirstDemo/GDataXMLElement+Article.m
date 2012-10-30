@@ -10,12 +10,12 @@
 
 @implementation GDataXMLElement (Article)
 
-@dynamic title;
+@dynamic articleTitle;
 @dynamic author;
 @dynamic lastModified;
 @dynamic bodyData;
 
-- (NSString *)title {
+- (NSString *)articleTitle {
     NSString *title = [[[[[self elementsForName:@"title"] objectAtIndex:0] elementsForName:@"span"] objectAtIndex:0] stringValue];
     //NSLog(@"title[%@]", title);
     return title;

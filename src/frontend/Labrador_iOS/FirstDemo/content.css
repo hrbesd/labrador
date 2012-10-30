@@ -25,3 +25,5 @@ hr{display: block;position: relative;padding:0;margin: 0px auto;width: 95%;clear
     #title_section {
         background:transparent url('comment_topline@2x.png') repeat-x scroll center bottom;}
 }
+
+img{max-width:100%;height:auto;}

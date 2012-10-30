@@ -2379,6 +2379,9 @@
 		C17BDD36159DA61500C3D490 /* GDataXMLElement+List.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5980B159494FF007ED9FA /* GDataXMLElement+List.m */; };
 		C17BDD37159DA61500C3D490 /* GDataXMLElement+Article.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5AA38159555FF007ED9FA /* GDataXMLElement+Article.m */; };
 		C17BDD38159DA61A00C3D490 /* LAXMLData.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB226159AD4D800A46C6A /* LAXMLData.m */; };
+		C18E1D62163EB3D900B4154E /* libGRMustache5-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C18E1D60163EB3D900B4154E /* libGRMustache5-iOS.a */; };
+		C18E1D63163EB3D900B4154E /* libGRMustache5-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C18E1D60163EB3D900B4154E /* libGRMustache5-iOS.a */; };
+		C18E1D64163EB3D900B4154E /* libGRMustache5-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C18E1D60163EB3D900B4154E /* libGRMustache5-iOS.a */; };
 		C19AB223159AD1B100A46C6A /* LAXMLDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB222159AD1B100A46C6A /* LAXMLDownloader.m */; };
 		C19AB227159AD4D800A46C6A /* LAXMLData.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB226159AD4D800A46C6A /* LAXMLData.m */; };
 		C19AB22A159AD4FE00A46C6A /* LAListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C19AB229159AD4FE00A46C6A /* LAListCell.m */; };
@@ -2402,8 +2405,6 @@
 		C1C4B2BA15A2B31F00C0B507 /* TestIcon3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C4B2B815A2B31F00C0B507 /* TestIcon3@2x.png */; };
 		C1CABDE215A3130800F9DA3F /* LAArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CABDE115A3130800F9DA3F /* LAArticleViewController.m */; };
 		C1CABDE315A3130800F9DA3F /* LAArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CABDE115A3130800F9DA3F /* LAArticleViewController.m */; };
-		C1CABDE515A31A6F00F9DA3F /* libGRMustache4-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5AA341595554F007ED9FA /* libGRMustache4-iOS.a */; };
-		C1CABDE715A31A7200F9DA3F /* libGRMustache4-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5AA341595554F007ED9FA /* libGRMustache4-iOS.a */; };
 		C1CABDE815A31A8900F9DA3F /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5AA4F15959921007ED9FA /* NSString+HTML.m */; };
 		C1CABDE915A31A8A00F9DA3F /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5AA4F15959921007ED9FA /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C1CABDEA15A31AC300F9DA3F /* content_template2.html in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA601595B8EF007ED9FA /* content_template2.html */; };
@@ -2454,7 +2455,6 @@
 		C1E5980C159494FF007ED9FA /* GDataXMLElement+List.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5980B159494FF007ED9FA /* GDataXMLElement+List.m */; };
 		C1E598101594A0A7007ED9FA /* LADetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5980F1594A0A7007ED9FA /* LADetailViewController.m */; };
 		C1E5AA2F1594BCF5007ED9FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA311594BCF5007ED9FA /* Localizable.strings */; };
-		C1E5AA351595554F007ED9FA /* libGRMustache4-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5AA341595554F007ED9FA /* libGRMustache4-iOS.a */; };
 		C1E5AA39159555FF007ED9FA /* GDataXMLElement+Article.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5AA38159555FF007ED9FA /* GDataXMLElement+Article.m */; };
 		C1E5AA3F15955B16007ED9FA /* comment_topline.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3B15955B16007ED9FA /* comment_topline.png */; };
 		C1E5AA4015955B16007ED9FA /* comment_topline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E5AA3C15955B16007ED9FA /* comment_topline@2x.png */; };
@@ -2490,9 +2490,6 @@
 		C1F6012815B3DF920052463F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F6012515B3DF910052463F /* Icon.png */; };
 		C1F6012915B3DF920052463F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F6012615B3DF910052463F /* Icon@2x.png */; };
 		C1F6012A15B3DF920052463F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F6012615B3DF910052463F /* Icon@2x.png */; };
-		C1F6012C15B3DFA10052463F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F6012B15B3DFA10052463F /* Icon@2x.png */; };
-		C1F6012E15B3DFAA0052463F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F6012D15B3DFA90052463F /* Icon.png */; };
-		C1F6012F15B3DFB60052463F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F6012B15B3DFA10052463F /* Icon@2x.png */; };
 		C1FC5CA3159FD617003A9832 /* LAListCellBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FC5CA2159FD617003A9832 /* LAListCellBgView.m */; };
 		C1FC5CA4159FD617003A9832 /* LAListCellBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FC5CA2159FD617003A9832 /* LAListCellBgView.m */; };
 		C1FC5CAE159FE8F2003A9832 /* LAAccessoryView.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FC5CAC159FE8F2003A9832 /* LAAccessoryView.png */; };
@@ -4888,6 +4885,27 @@
 		C17BDD1A159D7B7500C3D490 /* UIImageView+WebStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebStorage.m"; sourceTree = "<group>"; };
 		C17BDD1D159D7B8600C3D490 /* UIButton+WebStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WebStorage.h"; sourceTree = "<group>"; };
 		C17BDD1E159D7B8600C3D490 /* UIButton+WebStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebStorage.m"; sourceTree = "<group>"; };
+		C18E1D4C163EB3BF00B4154E /* GRMustache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustache.h; sourceTree = "<group>"; };
+		C18E1D4D163EB3BF00B4154E /* GRMustacheAvailabilityMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheAvailabilityMacros.h; sourceTree = "<group>"; };
+		C18E1D4E163EB3BF00B4154E /* GRMustacheDynamicPartial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheDynamicPartial.h; sourceTree = "<group>"; };
+		C18E1D4F163EB3BF00B4154E /* GRMustacheError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheError.h; sourceTree = "<group>"; };
+		C18E1D50163EB3BF00B4154E /* GRMustacheFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheFilter.h; sourceTree = "<group>"; };
+		C18E1D51163EB3BF00B4154E /* GRMustacheHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheHelper.h; sourceTree = "<group>"; };
+		C18E1D52163EB3BF00B4154E /* GRMustacheInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheInvocation.h; sourceTree = "<group>"; };
+		C18E1D53163EB3BF00B4154E /* GRMustacheProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheProxy.h; sourceTree = "<group>"; };
+		C18E1D54163EB3BF00B4154E /* GRMustacheSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheSection.h; sourceTree = "<group>"; };
+		C18E1D55163EB3BF00B4154E /* GRMustacheSectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheSectionHelper.h; sourceTree = "<group>"; };
+		C18E1D56163EB3BF00B4154E /* GRMustacheSectionTagHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheSectionTagHelper.h; sourceTree = "<group>"; };
+		C18E1D57163EB3BF00B4154E /* GRMustacheSectionTagRenderingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheSectionTagRenderingContext.h; sourceTree = "<group>"; };
+		C18E1D58163EB3BF00B4154E /* GRMustacheTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheTemplate.h; sourceTree = "<group>"; };
+		C18E1D59163EB3BF00B4154E /* GRMustacheTemplateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheTemplateDelegate.h; sourceTree = "<group>"; };
+		C18E1D5A163EB3BF00B4154E /* GRMustacheTemplateRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheTemplateRepository.h; sourceTree = "<group>"; };
+		C18E1D5B163EB3BF00B4154E /* GRMustacheVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheVariable.h; sourceTree = "<group>"; };
+		C18E1D5C163EB3BF00B4154E /* GRMustacheVariableHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheVariableHelper.h; sourceTree = "<group>"; };
+		C18E1D5D163EB3BF00B4154E /* GRMustacheVariableTagHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheVariableTagHelper.h; sourceTree = "<group>"; };
+		C18E1D5E163EB3BF00B4154E /* GRMustacheVariableTagRenderingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheVariableTagRenderingContext.h; sourceTree = "<group>"; };
+		C18E1D5F163EB3BF00B4154E /* GRMustacheVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheVersion.h; sourceTree = "<group>"; };
+		C18E1D60163EB3D900B4154E /* libGRMustache5-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGRMustache5-iOS.a"; sourceTree = "<group>"; };
 		C19AB220159AD00B00A46C6A /* LogTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogTools.h; sourceTree = "<group>"; };
 		C19AB221159AD1B100A46C6A /* LAXMLDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAXMLDownloader.h; sourceTree = "<group>"; };
 		C19AB222159AD1B100A46C6A /* LAXMLDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAXMLDownloader.m; sourceTree = "<group>"; };
@@ -4907,7 +4925,7 @@
 		C1C4B2B815A2B31F00C0B507 /* TestIcon3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TestIcon3@2x.png"; sourceTree = "<group>"; };
 		C1CABDE015A3130800F9DA3F /* LAArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAArticleViewController.h; sourceTree = "<group>"; };
 		C1CABDE115A3130800F9DA3F /* LAArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAArticleViewController.m; sourceTree = "<group>"; };
-		C1D2FA00159BF473008D3A67 /* 中国哈尔滨.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "中国哈尔滨.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1D2FA00159BF473008D3A67 /* 中国黑龙江.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "中国黑龙江.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1D2FA07159BF473008D3A67 /* FrontPage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FrontPage-Info.plist"; sourceTree = "<group>"; };
 		C1D2FA09159BF473008D3A67 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C1D2FA0B159BF473008D3A67 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -4948,23 +4966,12 @@
 		C1E5980F1594A0A7007ED9FA /* LADetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LADetailViewController.m; sourceTree = "<group>"; };
 		C1E5AA301594BCF5007ED9FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C1E5AA321594BCFF007ED9FA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		C1E5AA341595554F007ED9FA /* libGRMustache4-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGRMustache4-iOS.a"; sourceTree = "<group>"; };
-		C1E5AA3615955559007ED9FA /* GRMustache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustache.h; sourceTree = "<group>"; };
 		C1E5AA37159555FF007ED9FA /* GDataXMLElement+Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GDataXMLElement+Article.h"; sourceTree = "<group>"; };
 		C1E5AA38159555FF007ED9FA /* GDataXMLElement+Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GDataXMLElement+Article.m"; sourceTree = "<group>"; };
 		C1E5AA3B15955B16007ED9FA /* comment_topline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_topline.png; sourceTree = "<group>"; };
 		C1E5AA3C15955B16007ED9FA /* comment_topline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_topline@2x.png"; sourceTree = "<group>"; };
 		C1E5AA3D15955B16007ED9FA /* content.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = content.css; sourceTree = "<group>"; };
 		C1E5AA3E15955B16007ED9FA /* content_template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = content_template.html; sourceTree = "<group>"; };
-		C1E5AA4315955C39007ED9FA /* GRMustacheAvailabilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustacheAvailabilityMacros.h; sourceTree = "<group>"; };
-		C1E5AA4415955C39007ED9FA /* GRMustacheError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustacheError.h; sourceTree = "<group>"; };
-		C1E5AA4515955C39007ED9FA /* GRMustacheHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustacheHelper.h; sourceTree = "<group>"; };
-		C1E5AA4615955C39007ED9FA /* GRMustacheInvocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustacheInvocation.h; sourceTree = "<group>"; };
-		C1E5AA4715955C39007ED9FA /* GRMustacheSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustacheSection.h; sourceTree = "<group>"; };
-		C1E5AA4815955C3A007ED9FA /* GRMustacheTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustacheTemplate.h; sourceTree = "<group>"; };
-		C1E5AA4915955C3A007ED9FA /* GRMustacheTemplateDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustacheTemplateDelegate.h; sourceTree = "<group>"; };
-		C1E5AA4A15955C3A007ED9FA /* GRMustacheTemplateRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustacheTemplateRepository.h; sourceTree = "<group>"; };
-		C1E5AA4B15955C3A007ED9FA /* GRMustacheVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GRMustacheVersion.h; sourceTree = "<group>"; };
 		C1E5AA4C15956210007ED9FA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C1E5AA4E1595991F007ED9FA /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
 		C1E5AA4F15959921007ED9FA /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
@@ -4984,8 +4991,6 @@
 		C1F6012215B3D8CC0052463F /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		C1F6012515B3DF910052463F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		C1F6012615B3DF910052463F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		C1F6012B15B3DFA10052463F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		C1F6012D15B3DFA90052463F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		C1FC5CA1159FD617003A9832 /* LAListCellBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAListCellBgView.h; sourceTree = "<group>"; };
 		C1FC5CA2159FD617003A9832 /* LAListCellBgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAListCellBgView.m; sourceTree = "<group>"; };
 		C1FC5CAC159FE8F2003A9832 /* LAAccessoryView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LAAccessoryView.png; sourceTree = "<group>"; };
@@ -5011,7 +5016,7 @@
 				C127391115989CDE002D9BD8 /* Foundation.framework in Frameworks */,
 				C127391215989CDE002D9BD8 /* CoreGraphics.framework in Frameworks */,
 				C17BDCFB159D42AA00C3D490 /* ImageIO.framework in Frameworks */,
-				C1CABDE515A31A6F00F9DA3F /* libGRMustache4-iOS.a in Frameworks */,
+				C18E1D62163EB3D900B4154E /* libGRMustache5-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5023,7 +5028,7 @@
 				C12C080715944ABA0083FC75 /* UIKit.framework in Frameworks */,
 				C12C080815944ABA0083FC75 /* Foundation.framework in Frameworks */,
 				C12C080915944ABA0083FC75 /* CoreGraphics.framework in Frameworks */,
-				C1E5AA351595554F007ED9FA /* libGRMustache4-iOS.a in Frameworks */,
+				C18E1D63163EB3D900B4154E /* libGRMustache5-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5037,7 +5042,7 @@
 				C1D2FA04159BF473008D3A67 /* CoreGraphics.framework in Frameworks */,
 				C17BDCD1159C9F4900C3D490 /* QuartzCore.framework in Frameworks */,
 				C17BDD32159DA5D600C3D490 /* libxml2.dylib in Frameworks */,
-				C1CABDE715A31A7200F9DA3F /* libGRMustache4-iOS.a in Frameworks */,
+				C18E1D64163EB3D900B4154E /* libGRMustache5-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7399,10 +7404,8 @@
 		C12C07901591BB9F0083FC75 = {
 			isa = PBXGroup;
 			children = (
-				C1F6012D15B3DFA90052463F /* Icon.png */,
-				C1F6012B15B3DFA10052463F /* Icon@2x.png */,
-				C127391315989CDE002D9BD8 /* Labrador */,
 				C1D2FA05159BF473008D3A67 /* FrontPage */,
+				C127391315989CDE002D9BD8 /* Labrador */,
 				C12C080A15944ABA0083FC75 /* FirstDemo */,
 				C12C079E1591BB9F0083FC75 /* Frameworks */,
 				C12C079C1591BB9F0083FC75 /* Products */,
@@ -7414,7 +7417,7 @@
 			children = (
 				C12C080515944ABA0083FC75 /* FirstDemo.app */,
 				C127390E15989CDE002D9BD8 /* Labrador.app */,
-				C1D2FA00159BF473008D3A67 /* 中国哈尔滨.app */,
+				C1D2FA00159BF473008D3A67 /* 中国黑龙江.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7492,7 +7495,6 @@
 			children = (
 				C1F6012515B3DF910052463F /* Icon.png */,
 				C1F6012615B3DF910052463F /* Icon@2x.png */,
-				C1F6012215B3D8CC0052463F /* test.txt */,
 				C1FC5CAC159FE8F2003A9832 /* LAAccessoryView.png */,
 				C1FC5CAD159FE8F2003A9832 /* LAAccessoryView@2x.png */,
 				C1FC5CB615A03F73003A9832 /* nav-bar-bg-silver.png */,
@@ -7555,6 +7557,7 @@
 		C17BDD0B159D731200C3D490 /* Useless */ = {
 			isa = PBXGroup;
 			children = (
+				C1F6012215B3D8CC0052463F /* test.txt */,
 				C19AB221159AD1B100A46C6A /* LAXMLDownloader.h */,
 				C19AB222159AD1B100A46C6A /* LAXMLDownloader.m */,
 			);
@@ -7622,13 +7625,13 @@
 			name = Useless;
 			sourceTree = "<group>";
 		};
-		C1A5963615B9A8F8009B927D /* Headlines */ = {
+		C1A5963615B9A8F8009B927D /* Useless */ = {
 			isa = PBXGroup;
 			children = (
 				C1D2FA3A159C18AB008D3A67 /* LAHeadlinesView.h */,
 				C1D2FA3B159C18AB008D3A67 /* LAHeadlinesView.m */,
 			);
-			name = Headlines;
+			name = Useless;
 			sourceTree = "<group>";
 		};
 		C1A5964A15BA2FB3009B927D /* MBProgressHUD */ = {
@@ -7648,15 +7651,15 @@
 				C17BDCD8159D421800C3D490 /* SDWebImage */,
 				C17BDCD3159D3AED00C3D490 /* StyledPageControl */,
 				C1D2FA19159BFA60008D3A67 /* BHTabBar */,
-				C1FC5CBC15A0453C003A9832 /* PopOver */,
 				C1A5964A15BA2FB3009B927D /* MBProgressHUD */,
 				C1D2FA0E159BF473008D3A67 /* AppDelegate.h */,
 				C1D2FA0F159BF473008D3A67 /* AppDelegate.m */,
 				C1D2FA15159BFA5A008D3A67 /* LAHomePageViewController.h */,
 				C1D2FA16159BFA5A008D3A67 /* LAHomePageViewController.m */,
+				C1FC5CBC15A0453C003A9832 /* PopOver */,
 				C1D2FA3E159C1D73008D3A67 /* CategoryView */,
 				C1375C4C15B924E000F3761B /* Highlights */,
-				C1A5963615B9A8F8009B927D /* Headlines */,
+				C1A5963615B9A8F8009B927D /* Useless */,
 				C1D2FA06159BF473008D3A67 /* Supporting Files */,
 			);
 			path = FrontPage;
@@ -7746,17 +7749,27 @@
 		C1E5AA331595553E007ED9FA /* GRMustache */ = {
 			isa = PBXGroup;
 			children = (
-				C1E5AA3615955559007ED9FA /* GRMustache.h */,
-				C1E5AA4315955C39007ED9FA /* GRMustacheAvailabilityMacros.h */,
-				C1E5AA4415955C39007ED9FA /* GRMustacheError.h */,
-				C1E5AA4515955C39007ED9FA /* GRMustacheHelper.h */,
-				C1E5AA4615955C39007ED9FA /* GRMustacheInvocation.h */,
-				C1E5AA4715955C39007ED9FA /* GRMustacheSection.h */,
-				C1E5AA4815955C3A007ED9FA /* GRMustacheTemplate.h */,
-				C1E5AA4915955C3A007ED9FA /* GRMustacheTemplateDelegate.h */,
-				C1E5AA4A15955C3A007ED9FA /* GRMustacheTemplateRepository.h */,
-				C1E5AA4B15955C3A007ED9FA /* GRMustacheVersion.h */,
-				C1E5AA341595554F007ED9FA /* libGRMustache4-iOS.a */,
+				C18E1D4C163EB3BF00B4154E /* GRMustache.h */,
+				C18E1D4D163EB3BF00B4154E /* GRMustacheAvailabilityMacros.h */,
+				C18E1D4E163EB3BF00B4154E /* GRMustacheDynamicPartial.h */,
+				C18E1D4F163EB3BF00B4154E /* GRMustacheError.h */,
+				C18E1D50163EB3BF00B4154E /* GRMustacheFilter.h */,
+				C18E1D51163EB3BF00B4154E /* GRMustacheHelper.h */,
+				C18E1D52163EB3BF00B4154E /* GRMustacheInvocation.h */,
+				C18E1D53163EB3BF00B4154E /* GRMustacheProxy.h */,
+				C18E1D54163EB3BF00B4154E /* GRMustacheSection.h */,
+				C18E1D55163EB3BF00B4154E /* GRMustacheSectionHelper.h */,
+				C18E1D56163EB3BF00B4154E /* GRMustacheSectionTagHelper.h */,
+				C18E1D57163EB3BF00B4154E /* GRMustacheSectionTagRenderingContext.h */,
+				C18E1D58163EB3BF00B4154E /* GRMustacheTemplate.h */,
+				C18E1D59163EB3BF00B4154E /* GRMustacheTemplateDelegate.h */,
+				C18E1D5A163EB3BF00B4154E /* GRMustacheTemplateRepository.h */,
+				C18E1D5B163EB3BF00B4154E /* GRMustacheVariable.h */,
+				C18E1D5C163EB3BF00B4154E /* GRMustacheVariableHelper.h */,
+				C18E1D5D163EB3BF00B4154E /* GRMustacheVariableTagHelper.h */,
+				C18E1D5E163EB3BF00B4154E /* GRMustacheVariableTagRenderingContext.h */,
+				C18E1D5F163EB3BF00B4154E /* GRMustacheVersion.h */,
+				C18E1D60163EB3D900B4154E /* libGRMustache5-iOS.a */,
 			);
 			name = GRMustache;
 			sourceTree = "<group>";
@@ -7821,9 +7834,9 @@
 			productReference = C12C080515944ABA0083FC75 /* FirstDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C1D2F9FF159BF473008D3A67 /* 中国哈尔滨 */ = {
+		C1D2F9FF159BF473008D3A67 /* 中国黑龙江 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1D2FA13159BF473008D3A67 /* Build configuration list for PBXNativeTarget "中国哈尔滨" */;
+			buildConfigurationList = C1D2FA13159BF473008D3A67 /* Build configuration list for PBXNativeTarget "中国黑龙江" */;
 			buildPhases = (
 				C1D2F9FC159BF473008D3A67 /* Sources */,
 				C1D2F9FD159BF473008D3A67 /* Frameworks */,
@@ -7833,9 +7846,9 @@
 			);
 			dependencies = (
 			);
-			name = "中国哈尔滨";
+			name = "中国黑龙江";
 			productName = FrontPage;
-			productReference = C1D2FA00159BF473008D3A67 /* 中国哈尔滨.app */;
+			productReference = C1D2FA00159BF473008D3A67 /* 中国黑龙江.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -7860,9 +7873,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				C1D2F9FF159BF473008D3A67 /* 中国黑龙江 */,
 				C127390D15989CDE002D9BD8 /* Labrador */,
 				C12C080415944ABA0083FC75 /* FirstDemo */,
-				C1D2F9FF159BF473008D3A67 /* 中国哈尔滨 */,
 			);
 		};
 /* End PBXProject section */
@@ -7903,8 +7916,6 @@
 				C1F6012315B3D8CC0052463F /* test.txt in Resources */,
 				C1F6012715B3DF920052463F /* Icon.png in Resources */,
 				C1F6012915B3DF920052463F /* Icon@2x.png in Resources */,
-				C1F6012C15B3DFA10052463F /* Icon@2x.png in Resources */,
-				C1F6012E15B3DFAA0052463F /* Icon.png in Resources */,
 				C1A5965115BA6E64009B927D /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10275,7 +10286,6 @@
 				C1F6012415B3D8CC0052463F /* test.txt in Resources */,
 				C1F6012815B3DF920052463F /* Icon.png in Resources */,
 				C1F6012A15B3DF920052463F /* Icon@2x.png in Resources */,
-				C1F6012F15B3DFB60052463F /* Icon@2x.png in Resources */,
 				C1A5965215BA6E64009B927D /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10620,7 +10630,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1D2FA13159BF473008D3A67 /* Build configuration list for PBXNativeTarget "中国哈尔滨" */ = {
+		C1D2FA13159BF473008D3A67 /* Build configuration list for PBXNativeTarget "中国黑龙江" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1D2FA11159BF473008D3A67 /* Debug */,

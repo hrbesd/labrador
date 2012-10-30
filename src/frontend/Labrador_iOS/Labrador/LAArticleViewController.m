@@ -52,7 +52,7 @@
     //NSLog(@"%@", [_xmlData.articleElem.bodyData stringWithNewLinesAsBRs]);
     
     NSDictionary *contentDic = [NSDictionary dictionaryWithObjectsAndKeys:
-                                _xmlData.articleElem.title, @"title",
+                                _xmlData.articleElem.articleTitle, @"title",
                                 _xmlData.articleElem.lastModified, @"ptime",
                                 _xmlData.articleElem.author, @"author",
                                 @"", @"content_image",
