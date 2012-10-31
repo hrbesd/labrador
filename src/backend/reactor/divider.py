@@ -79,7 +79,7 @@ class Divider:
 
 				dataTag = self.soup.new_tag('span')
 				dataTag['class'] = 'tts_data'
-				dataTag.string = "<time>" + content + "</time>"
+				dataTag.string = content
 				element.contents[0] = dataTag
 
 			for element in bodyData:
