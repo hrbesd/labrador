@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-* { 
+* {
 	margin: 0;
 	padding: 0;
 }
@@ -110,6 +110,7 @@ a:hover {
 	*margin: 10px;
 	float: left;
 	list-style-type: none;
+	overflow: hidden;
 }
 
 .bulletin ul li {
@@ -162,7 +163,7 @@ a:hover {
 }
 
 #article {
-	padding: 20px;	
+	padding: 20px;
 }
 
 .article_text {

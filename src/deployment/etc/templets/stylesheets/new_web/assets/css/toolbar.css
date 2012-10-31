@@ -2,13 +2,13 @@
 
 #toolbar {
 	/*add by zjz start 0920*/
-	width:100%; 
+	width:100%;
 	margin: 0;
 	position: fixed;
 	left: 0;
 	top: 0;
-	*position: absolute; 
-    *top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop); 
+	*position: absolute;
+    *top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop);
 	height: 43px;
 	text-align: center;
 	padding: 10px 0px 10px 0px;
@@ -19,20 +19,20 @@
   	z-index: 1030;
   	box-shadow: 0px 0px 12px 5px black;
 	/*add by zjz end 0920*/
-	
+
 	/*
-	width:100%; 
+	width:100%;
 	margin: 0;
 	position: fixed;
 	*position: static;
 	top: 0;
 	height: 43px;
 	text-align: center;
-	padding: 15px 5px 15px 5px;	
+	padding: 15px 5px 15px 5px;
 	box-shadow: 0px 0px 12px 5px black;
-	
+
 	/* Adds the transparent background */
-	
+
 	/*
 	color: inherit;
 	background-color: rgba(102, 102, 102, 0.8753);
@@ -44,7 +44,7 @@
 	*/
 
 
-	
+
 }
 .btn_group {
 	/*add by zjz start 0921*/
@@ -58,6 +58,8 @@
 	display: inline-block;
 	*display: inline;
 	*zoom: 1;
+	padding: 0;
+	margin: 0 3px 0 3px;
 }
 
 /*给a标签的统一设置*/
