@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="xml_stylesheets/statement.xsl"?>
 <article>
+	<parentpageurl>
+		<node>
+			<name>返回主页</name>
+			<pageurl>index.xml</pageurl>
+		</node>
+	</parentpageurl>
 	<title>无障碍声明</title>
 	<body>
 

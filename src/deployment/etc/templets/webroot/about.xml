@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="xml_stylesheets/statement.xsl"?>
 <article>
+	<parentpageurl>
+		<node>
+			<name>返回主页</name>
+			<pageurl>index.xml</pageurl>
+		</node>
+	</parentpageurl>
 	<title>关于本站</title>
 	<body>本网站为原网站的映射网页，方便弱势人群或盲人浏览原网站信息，盲人可通过纯键盘操作，其它视障碍人士可通过工具栏，根据需求进行操作</body>
 </article>
