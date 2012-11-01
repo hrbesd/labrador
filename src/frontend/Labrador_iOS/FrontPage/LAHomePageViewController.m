@@ -168,7 +168,7 @@
     //[self.tabVC.view.layer setBorderWidth:2];
     //[self.tabVC.view.layer setBorderColor:[[UIColor redColor] CGColor]];
     
-    [self.view addSubview:_highlightsView];
+    //[self.view addSubview:_highlightsView];
     [self.view addSubview:_cycleScrollView];
     [self.view addSubview:_tabVC.view];
     
@@ -187,7 +187,7 @@
 #pragma mark - LACategoryView Delegate
 
 - (void)categoryView:(LACategoryView *)categoryView selectedItemAtIndex:(NSUInteger)index {
-    DLog(@"%d selected", index);
+    //DLog(@"%d selected", index);
     GDataXMLElement *currentElem = (GDataXMLElement *)[_list.listData objectAtIndex:index];
     GDataXMLElement *tempElem = [[currentElem elementsForName:@"node"] objectAtIndex:0];
     

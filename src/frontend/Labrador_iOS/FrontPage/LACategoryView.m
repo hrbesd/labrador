@@ -35,6 +35,8 @@
     self = [super initWithFrame:CGRectZero];
     if (self) {
         
+        categoryImageCounter = 0;
+        
         _numberOfRows = 2;
         _numberOfCols = 3;
         

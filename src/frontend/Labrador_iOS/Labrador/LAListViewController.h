@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "LAXMLData.h"
 
+/**
+ * LAListViewController
+ * Show the category as a list
+ */
+
 @interface LAListViewController : UITableViewController  <LAXMLDataDelegate>
 
 @property (strong, nonatomic) LAXMLData *xmlData;

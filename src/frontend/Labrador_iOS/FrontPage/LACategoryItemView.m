@@ -32,7 +32,9 @@
             
         self.button = [[UIButton alloc] initWithFrame:buttonFrame];
         
-        UIImage *placeholderImage = [UIImage imageNamed:[NSString stringWithFormat:@"TempIcon%d.png", item.text.length % 5 + 1]]; 
+        
+        // Use local image temporaryly, butter get image from server and apply it using SDWebImageStrage
+        UIImage *placeholderImage = [UIImage imageNamed:[NSString stringWithFormat:@"TempIcon%d.png", categoryImageCounter++ % 5 + 1]];
         
         [_button setStorageImageWithURL:[NSURL URLWithString:item.imageURL] placeholderImage:placeholderImage];
         //[_button setBackgroundImage:[UIImage imageNamed:@"TestIcon3.png"] forState:UIControlStateNormal];

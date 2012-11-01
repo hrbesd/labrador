@@ -12,6 +12,13 @@
 
 @protocol LACategoryItemViewDelegate;
 
+static NSInteger categoryImageCounter = 0; // Temporarily used
+
+/**
+ * LACategoryItemView
+ * Items place in the LACategoryView
+ */
+
 @interface LACategoryItemView : UIView
 
 @property (weak, nonatomic) id<LACategoryItemViewDelegate> delegate;

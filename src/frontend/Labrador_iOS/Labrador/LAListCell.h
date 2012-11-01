@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * LAListCell
+ * Cell of the tableView(list)
+ */
+
 @interface LAListCell : UITableViewCell
-
-
-
 
 @end

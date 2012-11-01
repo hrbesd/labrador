@@ -16,6 +16,12 @@ typedef enum {
 
 @protocol LAXMLDataDelegate;
 
+/**
+ * LAXMLData
+ * Get XML data from server or local storage
+ * Basically parse the xml file
+ */
+
 @interface LAXMLData : NSObject <NSURLConnectionDataDelegate>
 
 @property (weak, nonatomic) id<LAXMLDataDelegate> delegate;

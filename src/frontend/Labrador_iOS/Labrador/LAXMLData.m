@@ -40,6 +40,24 @@
     self.delegate = nil;
 }
 
+- (void)parseData {
+    GDataXMLElement *rootElem = [_xmlDoc rootElement];
+    
+    if (_type == XMLDataType_List) {
+        rootElem = [[rootElem elementsForName:@"nodelist"] objectAtIndex:0];
+        
+        self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"indexnode"]];
+        
+        if ([_listData count] == 0) {
+            // not an index.xml
+            self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"node"]];
+        }
+    }
+    else {
+        self.articleElem = rootElem;
+    }
+}
+
 - (id)initWithURL:(NSString *)urlStr type:(XMLDataType)type delegate:(id<LAXMLDataDelegate>)delegate{
     self = [super init];
     if (self) {
@@ -58,21 +76,7 @@
             self.xmlDoc = [[GDataXMLDocument alloc] initWithData:xmlData options:0 error:&err];
             
             if (err == nil) {
-                GDataXMLElement *rootElem = [_xmlDoc rootElement];
-                
-                if (type == XMLDataType_List) {
-                    rootElem = [[rootElem elementsForName:@"nodelist"] objectAtIndex:0];
-
-                    self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"indexnode"]];
-                    
-                    if ([_listData count] == 0) {
-                        // not an index.xml
-                        self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"node"]];
-                    }
-                }
-                else {
-                    self.articleElem = rootElem;
-                }
+                [self parseData];
                 
             }
             else {
@@ -163,27 +167,15 @@
     self.xmlDoc = [[GDataXMLDocument alloc] initWithData:_data options:0 error:&err];
     
     if (err == nil) {
-        GDataXMLElement *rootElem = [_xmlDoc rootElement];
-        
-        if (_type == XMLDataType_List) {
-            rootElem = [[rootElem elementsForName:@"nodelist"] objectAtIndex:0];
-            self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"indexnode"]];
-            
-            if ([_listData count] == 0) {
-                // not an index.xml
-                self.listData = [NSMutableArray arrayWithArray:[rootElem elementsForName:@"node"]];
-            }
-        }
-        else {
-            self.articleElem = rootElem;
-        }
-        
         // save data to disk
         NSString *path = [self docPathForKey:_urlStr];
         //DLog(@"%@", path);
         if (![_data writeToFile:path atomically:YES]) {
-            NSLog(@"errrrr");
+            NSLog(@"save file error");
         }
+        
+        [self parseData];
+        
         if ([_delegate respondsToSelector:@selector(listDidFinishLoading:)]) {
             [_delegate listDidFinishLoading:self];
         }

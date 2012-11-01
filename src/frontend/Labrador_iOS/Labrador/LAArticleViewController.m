@@ -14,7 +14,9 @@
 #import "GDataXMLElement+Article.h"
 #import "MBProgressHUD.h"
 
-@interface LAArticleViewController ()
+@interface LAArticleViewController () {
+    //BOOL webViewLoaded;
+}
 
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) NSString *urlStr;
@@ -231,9 +233,15 @@
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.subtype == UIEventSubtypeMotionShake) {
-        NSLog(@"shake");
+        //NSLog(@"shake");
         [_webView stringByEvaluatingJavaScriptFromString:@"changeStyle()"];
     }
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    //
 }
 
 @end

@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "GSPopOverView.h"
 
+/**
+ * GSBarButtonItemWithPopOver
+ * SubClass of UIBarButtonItem, show a PopOver view when the BarButtonItem is tapped
+ */
+
 @interface GSBarButtonItemWithPopOver : UIBarButtonItem <GSPopOverViewDelegate>
 
 @property (strong, nonatomic) UIView *popOverView;

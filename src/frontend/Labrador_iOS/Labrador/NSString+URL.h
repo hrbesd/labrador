@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * NSString+URL
+ * Change this method to change the base part of all the urls in the project
+ */
+
 @interface NSString (URL)
 
 + (NSString *)URLWithPath:(NSString *)path;
