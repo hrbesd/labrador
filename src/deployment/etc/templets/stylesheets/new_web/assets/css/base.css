@@ -227,3 +227,7 @@ a:hover {
 .clearfix {
   display:block;
 }
+
+.translating {
+	border-radius: 2px;
+}
