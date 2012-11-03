@@ -25,6 +25,7 @@ h2 {
 
 h1, h2, h3, h4, h5, li, #author {
 	font-family: sans-serif;
+	line-height: normal;
 }
 
 p {
@@ -225,4 +226,8 @@ a:hover {
 
 .clearfix {
   display:block;
+}
+
+.translating {
+	border-radius: 2px;
 }

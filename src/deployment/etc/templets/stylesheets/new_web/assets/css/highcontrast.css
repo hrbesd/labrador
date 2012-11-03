@@ -126,5 +126,9 @@ h2, h3, h4 {
 
 
 .tts_reading {
-	background-color: #00595b;	
+	background-color: #005b5d;	
+}
+
+.translating {
+	background-color: #005d2d;	
 }

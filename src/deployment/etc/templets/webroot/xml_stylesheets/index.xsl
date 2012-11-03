@@ -72,7 +72,7 @@
 			<div class="btn_group item_71">
 				<a href="#" id="toggle_magnifier" 	title="放大镜" 		class="item_a"></a>
 				<a href="#" id="guides" 			title="辅助线" 		class="item_b"></a>
-				<a href="accessibility.html" id="accessibility" 		title="无障碍说明" 	class="item_c"></a>
+				<a href="accessible.xml" id="accessibility" 		title="无障碍说明" 	class="item_c"></a>
 			</div>
 		</section>
 		</div>
@@ -128,13 +128,13 @@
 			<footer>
 			<ul id="footer_links">
 				<li>
-					<a href="about.html">关于本站</a>
+					<a href="about.xml">关于本站</a>
 				</li>
 				<li>
-					<a href="accessibility.html">无障碍说明</a>
+					<a href="accessibility.xml">无障碍说明</a>
 				</li>
 				<li>
-					<a href="browsers.html">浏览器支持</a>
+					<a href="browsers.xml">浏览器支持</a>
 				</li>
 				<li>
 					<a>
