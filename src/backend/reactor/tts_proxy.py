@@ -18,7 +18,7 @@ def doWork(url):
 	xmlDataFile.close()
 
 	soup = BeautifulSoup(xmlData, 'xml')
-	for data_element in soup.find_all('data'):
+	for data_element in soup.find_all('span'):
 		if data_element.has_attr('class') and data_element['class'] == 'tts_data':
 			for element in data_element:
 				if type(element) == NavigableString:
