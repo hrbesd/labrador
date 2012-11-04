@@ -9,6 +9,7 @@
 #import "LACategoryItemView.h"
 #import "LACategoryItem.h"
 #import "UIButton+WebStorage.h"
+#import "LogTools.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation LACategoryItemView
@@ -16,6 +17,16 @@
 @synthesize delegate = _delegate;
 @synthesize button = _button;
 @synthesize textLabel = _textLabel;
+
+static NSInteger categoryImageCounter = 0;
+
+/**
+ * The image of LACategoryItemView s
+ */
+
++ (void)resetCategoryImageCounter {
+    categoryImageCounter = 0;
+}
 
 - (id)initWithFrame:(CGRect)frame item:(LACategoryItem *)item {
     self = [super initWithFrame:frame];
@@ -31,8 +42,7 @@
         buttonFrame.origin.y = 5;
             
         self.button = [[UIButton alloc] initWithFrame:buttonFrame];
-        
-        
+
         // Use local image temporaryly, butter get image from server and apply it using SDWebImageStrage
         UIImage *placeholderImage = [UIImage imageNamed:[NSString stringWithFormat:@"TempIcon%d.png", categoryImageCounter++ % 5 + 1]];
         

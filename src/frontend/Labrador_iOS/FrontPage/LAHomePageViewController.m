@@ -91,6 +91,9 @@
 }
 
 - (void)loadItems {
+    
+    [LACategoryItemView resetCategoryImageCounter]; // !!!: Temporary add
+
     NSMutableArray *itemsArr = [NSMutableArray arrayWithCapacity:[_list.listData count]];
     
     for (GDataXMLElement *xmlElem in _list.listData) {
@@ -116,7 +119,7 @@
         LAHighlightsItem *item = [[LAHighlightsItem alloc] init];
         item.title = xmlElem.title;
         item.imageURL = xmlElem.imageUrl;
-        item.url = xmlElem.url;
+        item.url = xmlElem.pageURL;
         
         if (item.imageURL != nil) {
             [highlightsArr addObject:item];
@@ -142,7 +145,7 @@
     [super viewDidLoad];
     self.list = [[LAXMLData alloc] initWithURL:_categoryURLStr type:XMLDataType_List delegate:self];
     
-    //self.headLines = [[LAXMLData alloc] initWithURL:_headLinesURLStr type:XMLDataType_List delegate:self];
+    self.headLines = [[LAXMLData alloc] initWithURL:_headLinesURLStr type:XMLDataType_List delegate:self];
     
     [self loadItems];
     [self loadHeadlines];
@@ -285,11 +288,11 @@
     
     GDataXMLElement *currentElem = (GDataXMLElement *)[_headLines.listData objectAtIndex:indexPath.row];
     
-    NSString *url = [NSString URLWithPath:currentElem.url];
+    NSString *url = [NSString URLWithPath:currentElem.pageURL];
     
     //DLog(@"%@", currentElem.url);
     
-    NSArray *urlElements = [currentElem.url componentsSeparatedByString:@"/"];
+    NSArray *urlElements = [currentElem.pageURL componentsSeparatedByString:@"/"];
     
     NSString *dir = [urlElements objectAtIndex:1];
     

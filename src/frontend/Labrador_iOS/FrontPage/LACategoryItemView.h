@@ -12,8 +12,6 @@
 
 @protocol LACategoryItemViewDelegate;
 
-static NSInteger categoryImageCounter = 0; // Temporarily used
-
 /**
  * LACategoryItemView
  * Items place in the LACategoryView
@@ -25,6 +23,7 @@ static NSInteger categoryImageCounter = 0; // Temporarily used
 @property (strong, nonatomic) UIButton *button;
 @property (strong, nonatomic) UILabel *textLabel;
 
++ (void)resetCategoryImageCounter;
 - (id)initWithFrame:(CGRect)frame item:(LACategoryItem *)item;
 
 @end

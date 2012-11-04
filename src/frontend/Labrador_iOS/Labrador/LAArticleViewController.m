@@ -112,7 +112,7 @@
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480 - 20 -44)];
     [self.view addSubview:_webView];
     
-    GSBarButtonItemWithPopOver *popOverBarButton = [[GSBarButtonItemWithPopOver alloc] initWithTitle:@"工具栏" style:UIBarButtonItemStyleBordered popUpBounds:CGRectMake(0, 0, 200, 100)];
+    GSBarButtonItemWithPopOver *popOverBarButton = [[GSBarButtonItemWithPopOver alloc] initWithTitle:@"工具栏" style:UIBarButtonItemStyleBordered popUpBounds:CGRectMake(0, 0, 200, 80)];
     
     [self.navigationItem setRightBarButtonItem:popOverBarButton];
     

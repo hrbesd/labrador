@@ -45,7 +45,7 @@
 }
 
 - (NSString *)imageUrl {
-    NSString *imageUrl = [[[self elementsForName:@"imgurl"] objectAtIndex:0] stringValue];
+    NSString *imageUrl = [[[self elementsForName:@"imageUrl"] objectAtIndex:0] stringValue];
     return imageUrl;
 }
 
