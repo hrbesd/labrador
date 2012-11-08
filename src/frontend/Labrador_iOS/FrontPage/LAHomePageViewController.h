@@ -15,6 +15,11 @@
 @class LAHeadlinesView;
 @class LAHighlightsView;
 
+/**
+ * LAHomePageViewController
+ * The home page of the app
+ */
+
 @interface LAHomePageViewController : UIViewController <LACategoryViewDelegae, LAXMLDataDelegate, UITableViewDelegate, UITableViewDataSource, CycleScrollViewDelegate>
 
 @property (strong, nonatomic) BHTabsViewController *tabVC;

@@ -71,7 +71,8 @@ echo "IdentityFile ~/.ssh/`basename $SSH_KEY`" >>$SSH_CONFIG
 echo "StrictHostKeyChecking no" >>$SSH_CONFIG
 echo "UserKnownHostsFile=/dev/null" >>$SSH_CONFIG
 
-chmod 600 $SSH_DIR/*
+chmod 644 $SSH_DIR/*
+chmod 600 $SSH_DIR/*_rsa
 chown -R updater:users /home/$USERNAME/*
 chown -R updater:users /home/$USERNAME/.ssh
 

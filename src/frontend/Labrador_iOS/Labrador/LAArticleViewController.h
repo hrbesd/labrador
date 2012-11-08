@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "LAXMLData.h"
 
-@interface LAArticleViewController : UIViewController <LAXMLDataDelegate>
+/**
+ * LAArticleViewController
+ * Show the article as a webpage
+ */
+
+@interface LAArticleViewController : UIViewController <LAXMLDataDelegate, UIWebViewDelegate>
 
 @property (strong, nonatomic) LAXMLData *xmlData;
 

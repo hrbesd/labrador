@@ -91,11 +91,15 @@
 }
 
 - (void)loadItems {
+    
+    [LACategoryItemView resetCategoryImageCounter]; // !!!: Temporary add
+
     NSMutableArray *itemsArr = [NSMutableArray arrayWithCapacity:[_list.listData count]];
     
     for (GDataXMLElement *xmlElem in _list.listData) {
+        GDataXMLElement *tempElem = [[xmlElem elementsForName:@"node"] objectAtIndex:0];
         LACategoryItem *item = [[LACategoryItem alloc] init];
-        item.text = xmlElem.nodeName;
+        item.text = tempElem.nodeName;
         [itemsArr addObject:item];
     }
     
@@ -115,7 +119,7 @@
         LAHighlightsItem *item = [[LAHighlightsItem alloc] init];
         item.title = xmlElem.title;
         item.imageURL = xmlElem.imageUrl;
-        item.url = xmlElem.url;
+        item.url = xmlElem.pageURL;
         
         if (item.imageURL != nil) {
             [highlightsArr addObject:item];
@@ -167,7 +171,7 @@
     //[self.tabVC.view.layer setBorderWidth:2];
     //[self.tabVC.view.layer setBorderColor:[[UIColor redColor] CGColor]];
     
-    [self.view addSubview:_highlightsView];
+    //[self.view addSubview:_highlightsView];
     [self.view addSubview:_cycleScrollView];
     [self.view addSubview:_tabVC.view];
     
@@ -186,10 +190,11 @@
 #pragma mark - LACategoryView Delegate
 
 - (void)categoryView:(LACategoryView *)categoryView selectedItemAtIndex:(NSUInteger)index {
-    DLog(@"%d selected", index);
+    //DLog(@"%d selected", index);
     GDataXMLElement *currentElem = (GDataXMLElement *)[_list.listData objectAtIndex:index];
+    GDataXMLElement *tempElem = [[currentElem elementsForName:@"node"] objectAtIndex:0];
     
-    NSString *url = [NSString URLWithPath:currentElem.pageURL];
+    NSString *url = [NSString URLWithPath:tempElem.pageURL];
     
     LAListViewController *listVC = [[LAListViewController alloc] initWithStyle:UITableViewStylePlain url:url];
     [listVC setTitle:currentElem.nodeName];
@@ -283,11 +288,11 @@
     
     GDataXMLElement *currentElem = (GDataXMLElement *)[_headLines.listData objectAtIndex:indexPath.row];
     
-    NSString *url = [NSString URLWithPath:currentElem.url];
+    NSString *url = [NSString URLWithPath:currentElem.pageURL];
     
     //DLog(@"%@", currentElem.url);
     
-    NSArray *urlElements = [currentElem.url componentsSeparatedByString:@"/"];
+    NSArray *urlElements = [currentElem.pageURL componentsSeparatedByString:@"/"];
     
     NSString *dir = [urlElements objectAtIndex:1];
     

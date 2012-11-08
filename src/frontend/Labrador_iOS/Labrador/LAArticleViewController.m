@@ -14,7 +14,9 @@
 #import "GDataXMLElement+Article.h"
 #import "MBProgressHUD.h"
 
-@interface LAArticleViewController ()
+@interface LAArticleViewController () {
+    //BOOL webViewLoaded;
+}
 
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) NSString *urlStr;
@@ -52,7 +54,7 @@
     //NSLog(@"%@", [_xmlData.articleElem.bodyData stringWithNewLinesAsBRs]);
     
     NSDictionary *contentDic = [NSDictionary dictionaryWithObjectsAndKeys:
-                                _xmlData.articleElem.title, @"title",
+                                _xmlData.articleElem.articleTitle, @"title",
                                 _xmlData.articleElem.lastModified, @"ptime",
                                 _xmlData.articleElem.author, @"author",
                                 @"", @"content_image",
@@ -110,7 +112,7 @@
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480 - 20 -44)];
     [self.view addSubview:_webView];
     
-    GSBarButtonItemWithPopOver *popOverBarButton = [[GSBarButtonItemWithPopOver alloc] initWithTitle:@"工具栏" style:UIBarButtonItemStyleBordered popUpBounds:CGRectMake(0, 0, 200, 100)];
+    GSBarButtonItemWithPopOver *popOverBarButton = [[GSBarButtonItemWithPopOver alloc] initWithTitle:@"工具栏" style:UIBarButtonItemStyleBordered popUpBounds:CGRectMake(0, 0, 200, 80)];
     
     [self.navigationItem setRightBarButtonItem:popOverBarButton];
     
@@ -231,9 +233,15 @@
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.subtype == UIEventSubtypeMotionShake) {
-        NSLog(@"shake");
+        //NSLog(@"shake");
         [_webView stringByEvaluatingJavaScriptFromString:@"changeStyle()"];
     }
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    //
 }
 
 @end

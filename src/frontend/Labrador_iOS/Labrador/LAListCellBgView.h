@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * LAListCellBgView
+ * Background View of the cell of the tableView(list)
+ */
+
 @interface LAListCellBgView : UIView
 
 @property (strong, nonatomic) UIColor *rectColor;

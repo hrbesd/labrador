@@ -10,7 +10,7 @@
 
 @interface GDataXMLElement (Article)
 
-@property (readonly, nonatomic) NSString *title;
+@property (readonly, nonatomic) NSString *articleTitle;
 @property (readonly, nonatomic) NSString *author;
 @property (readonly, nonatomic) NSString *lastModified;
 @property (readonly, nonatomic) NSString *bodyData;

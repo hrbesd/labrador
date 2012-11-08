@@ -168,7 +168,8 @@ a:hover {
 }
 
 .article_text {
-	line-height: 150%
+	line-height: 150%;
+	overflow: auto;
 }
 
 .article_text img {

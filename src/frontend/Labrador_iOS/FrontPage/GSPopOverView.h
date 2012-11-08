@@ -10,6 +10,11 @@
 
 @protocol GSPopOverViewDelegate;
 
+/**
+ * GSPopOverView
+ * A basic PopOver view used by GSBarButtonItemWithPopOver
+ */
+
 @interface GSPopOverView : UIView
 
 @property (assign, nonatomic) CGPoint point;

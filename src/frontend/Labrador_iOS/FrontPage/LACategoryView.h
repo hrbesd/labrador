@@ -11,6 +11,11 @@
 
 @protocol LACategoryViewDelegae;
 
+/**
+ * LACategoryView
+ * A gird like view
+ */
+
 @interface LACategoryView : UIView <UIScrollViewDelegate, LACategoryItemViewDelegate>
 
 @property (weak, nonatomic) id<LACategoryViewDelegae> delegate;

@@ -10,19 +10,19 @@
 
 @implementation GDataXMLElement (Article)
 
-@dynamic title;
+@dynamic articleTitle;
 @dynamic author;
 @dynamic lastModified;
 @dynamic bodyData;
 
-- (NSString *)title {
-    NSString *title = [[[[[self elementsForName:@"title"] objectAtIndex:0] elementsForName:@"data"] objectAtIndex:0] stringValue];
+- (NSString *)articleTitle {
+    NSString *title = [[[[[self elementsForName:@"title"] objectAtIndex:0] elementsForName:@"span"] objectAtIndex:0] stringValue];
     //NSLog(@"title[%@]", title);
     return title;
 }
 
 - (NSString *)author {
-    NSString *author = [[[[[self elementsForName:@"author"] objectAtIndex:0] elementsForName:@"data"] objectAtIndex:0] stringValue];
+    NSString *author = [[[[[self elementsForName:@"author"] objectAtIndex:0] elementsForName:@"span"] objectAtIndex:0] stringValue];
     //NSLog(@"author[%@]", author);
     return author;
 }
@@ -36,7 +36,7 @@
     
     return [dateFormatter stringFromDate:date];*/
     
-    NSString *lastModified = [[[[[self elementsForName:@"lastmodified"] objectAtIndex:0] elementsForName:@"data"] objectAtIndex:0] stringValue];
+    NSString *lastModified = [[[[[self elementsForName:@"lastmodified"] objectAtIndex:0] elementsForName:@"span"] objectAtIndex:0] stringValue];
     //NSLog(@"lastModified[%@]", lastModified);
     return lastModified;
 }

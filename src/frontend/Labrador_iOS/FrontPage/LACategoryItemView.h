@@ -12,12 +12,18 @@
 
 @protocol LACategoryItemViewDelegate;
 
+/**
+ * LACategoryItemView
+ * Items place in the LACategoryView
+ */
+
 @interface LACategoryItemView : UIView
 
 @property (weak, nonatomic) id<LACategoryItemViewDelegate> delegate;
 @property (strong, nonatomic) UIButton *button;
 @property (strong, nonatomic) UILabel *textLabel;
 
++ (void)resetCategoryImageCounter;
 - (id)initWithFrame:(CGRect)frame item:(LACategoryItem *)item;
 
 @end

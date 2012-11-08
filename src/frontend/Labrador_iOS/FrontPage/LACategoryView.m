@@ -34,7 +34,6 @@
 - (id)initWithItems:(NSArray *)items {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        
         _numberOfRows = 2;
         _numberOfCols = 3;
         
@@ -59,8 +58,6 @@
         
         [self addSubview:_scrollView];
         [self addSubview:_pageControl];
-        
-        
     }
     return self;
 }
