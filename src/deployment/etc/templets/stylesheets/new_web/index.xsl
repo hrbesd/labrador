@@ -100,6 +100,9 @@
                 <xsl:attribute name="href">
                   <xsl:value-of select="node/pageurl"/>
                 </xsl:attribute>
+                <xsl:attribute name="title">
+                  <xsl:value-of select="node/name"/>
+                </xsl:attribute>
                 <xsl:attribute name="class">column-entrance</xsl:attribute>
                 <xsl:copy-of select="node/name"/>
               </a>
