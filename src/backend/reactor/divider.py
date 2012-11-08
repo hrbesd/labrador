@@ -21,13 +21,33 @@ class Divider:
 				currentLength = 0
 				while currentLength < sentenceLength:
 					left = currentLength
-					right = min(sentenceLength, left + self.MAX_STEP)
-					currentLength = right
-					words = sentence[left:right]
-					sentenceTag = self.soup.new_tag('span')
-					sentenceTag['class'] = 'tts_data'
-					sentenceTag.string = words
-					resultSentence.append(sentenceTag)
+					#right = min(sentenceLength, left + self.MAX_STEP)
+					if sentenceLength > (left + self.MAX_STEP): # try to split with ","
+						sub_sentence = sentence[left:sentenceLength]
+						too_long_pattern = re.compile(ur"([^，,]+)([，,])", re.UNICODE)
+						short_sentences = too_long_pattern.findall(sub_sentence)
+						if len(short_sentences) == 1: # not splited
+							currentLength = left + self.MAX_STEP
+							words = sentence[left:currentLength]
+							sentenceTag = self.soup.new_tag('span')
+							sentenceTag['class'] = 'tts_data'
+							sentenceTag.string = words
+							resultSentence.append(sentenceTag)
+						else:
+							currentLength = sentenceLength
+							for s in short_sentences:
+								ss = s[0].strip() + s[1].strip()
+								sentenceTag = self.soup.new_tag('span')
+								sentenceTag['class'] = 'tts_data'
+								sentenceTag.string = ss
+								resultSentence.append(sentenceTag)
+					else:
+						currentLength = sentenceLength
+						words = sentence[left:sentenceLength]
+						sentenceTag = self.soup.new_tag('span')
+						sentenceTag['class'] = 'tts_data'
+						sentenceTag.string = words
+						resultSentence.append(sentenceTag)
 		return resultSentence
 
 	def processSentence(self, element):
