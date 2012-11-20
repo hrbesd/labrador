@@ -182,6 +182,10 @@ a:hover {
 	margin-left: 2em;
 }
 
+.article_text ul, .article_text ol{
+	margin: 1em;
+}
+
 #author {
 	background: rgba(128, 128, 128, 0.2);
 	text-align: center;
