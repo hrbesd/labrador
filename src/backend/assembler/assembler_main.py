@@ -140,4 +140,4 @@ class Assembler:
 		xmlPath = '%s/labrador/etc/templets/webroot/*.xml' % homePath
 		targetXmlPath = self.webroot_dir
 		cmdMoveXml = "cp " + xmlPath + " " + targetXmlPath
-		os.system(cmdMoveXsl)
+		os.system(cmdMoveXml)
