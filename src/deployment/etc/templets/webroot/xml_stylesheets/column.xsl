@@ -120,7 +120,7 @@
 			<a href="../about.xml">关于本站</a>
 		</li>
 		<li>
-			<a href="../accessibility.xml">无障碍说明</a>
+			<a href="../accessible.xml">无障碍说明</a>
 		</li>
 		<li>
 			<a href="../browsers.xml">浏览器支持</a>
