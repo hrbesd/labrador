@@ -100,6 +100,7 @@ a:hover {
 	text-align: left;
 	text-decoration: none;
 	background-clip: padding-box;
+	overflow: hidden;
 }
 
 .bulletin {
