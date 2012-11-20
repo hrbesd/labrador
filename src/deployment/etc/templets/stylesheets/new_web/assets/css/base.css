@@ -178,6 +178,10 @@ a:hover {
 	margin: 20px;
 }
 
+.article_text li {
+	margin-left: 2em;
+}
+
 #author {
 	background: rgba(128, 128, 128, 0.2);
 	text-align: center;
