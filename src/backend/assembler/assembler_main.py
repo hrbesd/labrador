@@ -34,6 +34,8 @@ class Assembler:
 		# 3.将所有stylesheet_path中文件复制到temp_out_dir中
 		self.copyResourceFiles()
 
+		# 3.5 将footer需要的三个xml移动到webroot_dir中
+		self.mvFooterXML()
 		# 4.分别为index.xml、a、c、l文件夹下的文件添加对应的xslt引用语句
 		self.processFilesRecursively()
 
@@ -132,3 +134,10 @@ class Assembler:
 		assetsPath = '%s/labrador/etc/templets/stylesheets/new_web/assets/' % homePath
 		targetAssetsPath = '%s/assets/' % self.webroot_dir
 		utils.fileMover(assetsPath, targetAssetsPath)
+
+	def mvFooterXML(self):
+		homePath = os.getenv('HOME')
+		xmlPath = '%s/labrador/etc/templets/webroot/*.xml' % homePath
+		targetXmlPath = self.webroot_dir
+		cmdMoveXml = "cp " + xmlPath + " " + targetXmlPath
+		os.system(cmdMoveXsl)
