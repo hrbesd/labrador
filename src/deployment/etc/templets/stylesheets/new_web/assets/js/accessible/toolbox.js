@@ -113,7 +113,7 @@ var bindActions = function() {
         });
     });
     //切换焦点
-    $('span[class=tts_data]').parent('a').each(function() {
+    $('span[class=tts_data]').parents('a').each(function() {
     	$(this).bind("focus", function() {
     		//如果批量朗读开起不会读取，因为连读会焦点跟随产生重读。
     		if(speaker.batchStatus==false){
