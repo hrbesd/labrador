@@ -79,7 +79,7 @@
 <div id="main">
 	<header>
 	<div class="banner">
-		<img src="../assets/img/top_banner.jpg" alt="网站横幅"/>
+		<img src="../assets/custom/top_banner.jpg" alt="网站横幅"/>
 	</div>
 	<nav>
 	<ul class="loc">
