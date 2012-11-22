@@ -52,8 +52,12 @@ class Assembler:
 		return
 
 	def ensureInputFolderExists(self):
+		if not os.path.exists(self.custom_dir):
+			os.makedirs(self.custom_dir)
+
 		baseFolderPath = self.in_folder_path
 		stylesheetPath = self.stylesheet_path
+
 		return os.path.exists(self.in_folder_path) and os.path.exists(stylesheetPath)
 
 	def xsltPath(self, type):
