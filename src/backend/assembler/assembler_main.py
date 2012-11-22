@@ -9,10 +9,11 @@ def getVersionStr():
 	return 'Labrador Assembler Version %s' % VERSION_NAME
 
 class Assembler:
-	def __init__(self, in_folder_path, stylesheet_path, share_dir, temp_out_dir, webroot_dir, log_file):
+	def __init__(self, in_folder_path, stylesheet_path, share_dir, custom_dir, temp_out_dir, webroot_dir, log_file):
 		self.in_folder_path = in_folder_path
 		self.stylesheet_path = stylesheet_path
 		self.share_dir = share_dir
+		self.custom_dir = custom_dir
 		self.temp_out_dir = temp_out_dir
 		self.webroot_dir = webroot_dir
 		self.log_file = log_file
@@ -134,6 +135,9 @@ class Assembler:
 		assetsPath = '%s/labrador/etc/templets/stylesheets/new_web/assets/' % homePath
 		targetAssetsPath = '%s/assets/' % self.webroot_dir
 		utils.fileMover(assetsPath, targetAssetsPath)
+
+		targetCustomPath = targetAssetsPath + "custom/"
+		utils.fileMover(self.custom_dir, targetCustomPath)
 
 	def mvFooterXML(self):
 		homePath = os.getenv('HOME')

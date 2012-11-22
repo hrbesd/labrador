@@ -28,6 +28,7 @@ def main():
 	assemblerObj = assembler_main.Assembler(args.source_dir,
 		args.stylesheet_dir,
 		args.shared_dir,
+		config_path,
 		args.worker_dir,
 		args.webroot_dir,
 		args.log_file)
