@@ -211,7 +211,7 @@ class Reactor:
 		# 建立originUrl为key，[hash, absoluteUrl]为value的字典
 		hashNodeRecords = {}
 		try:
-			dom = parseString(self.beautiful_soup_tag_to_unicode(soup))
+			dom = parseString(self.beautiful_soup_tag_to_unicode(soup).encode('utf-8'))
 			hashNodes = dom.getElementsByTagName('hashnode')
 			for hashNode in hashNodes:
 				hashValue = (hashNode.getElementsByTagName('hash')[0]).toprettyxml()[7:-8].strip()

@@ -52,7 +52,7 @@ class Executor:
 		element, attr = targetElement.split(' ')
 		if target.has_attr('hash'):
 			targetHash = target['hash'].encode('ascii')
-			if alt_dict.has_attr(targetHash): # 对于未经过配置的内容，不做替换处理
+			if alt_dict.has_key(targetHash): # 对于未经过配置的内容，不做替换处理
 				target[attr] = alt_dict[targetHash]
 
 
