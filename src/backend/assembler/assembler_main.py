@@ -46,7 +46,7 @@ class Assembler:
 
 		# 6.移动样式表
 		self.mvAssets()
-
+		self.mvXSL()
 		print 'Done!'
 
 		return
@@ -149,3 +149,10 @@ class Assembler:
 		targetXmlPath = self.temp_out_dir
 		cmdMoveXml = "cp " + xmlPath + " " + targetXmlPath
 		os.system(cmdMoveXml)
+
+	def mvXSL(self):
+		homePath = os.getenv('HOME')
+		xslPath = '%s/labrador/etc/templets/stylesheets/new_web/*.xsl' % homePath
+		targetXslPath = '%s/xml_stylesheets/' % self.webroot_dir
+		cmdMoveXsl = "cp " + xslPath + " " + targetXslPath
+		os.system(cmdMoveXsl)
