@@ -79,7 +79,7 @@
 			<div id="main" class="bg2 bd1">
 				<header>
 					<div class="banner">
-						<img src="../../assets/custom/top_banner.jpg" alt="网站横幅"/>
+						<img src="/assets/custom/top_banner.jpg" alt="网站横幅"/>
 					</div>
 					<nav>
 					<ul class="loc bd1 bg_bar">
@@ -94,7 +94,7 @@
 			        </li>
 			      </xsl:for-each>
 			      <li>
-			        <a href="#"><xsl:copy-of select="article/title/*"/></a>
+			        <a href="#"><xsl:value-of select="article/title"/></a>
 			      </li>
 					</ul>
 					</nav>
@@ -102,19 +102,11 @@
 				<div id="article">
 				<article>
 				<header>
-				<h1><xsl:copy-of select="article/title/*"/></h1>
-				<div id="author">
-					<div id="author_name">
-						<xsl:copy-of select="article/author/*"/>
-					</div>
-					<div id="author_date">
-						<xsl:copy-of select="article/lastmodified/*"/>
-					</div>
-				</div>
+				<h1><xsl:value-of select="article/title"/></h1>
 				</header>
 				<div class="article_text">
 				<section>
-					<xsl:copy-of select="article/body/*" />
+					<xsl:value-of select="article/body" />
 				</section>
 				</div>
 				</article>
@@ -124,21 +116,13 @@
 				<footer>
 				<ul id="footer_links">
 					<li>
-						<a href="../../about.xml">关于本站</a>
+						<a href="/about.xml">关于本站</a>
 					</li>
 					<li>
-						<a href="../../accessible.xml">无障碍说明</a>
+						<a href="/accessible.xml">无障碍说明</a>
 					</li>
 					<li>
-						<a href="../../browsers.xml">浏览器支持</a>
-					</li>
-					<li>
-						<a>
-              <xsl:attribute name="href">
-                <xsl:value-of select="article/url"/>
-              </xsl:attribute>
-              返回原始页面
-            </a>
+						<a href="/browsers.xml">浏览器支持</a>
 					</li>
 				</ul>
 				</footer>
