@@ -62,6 +62,8 @@ private:
     //output xml dir and download webpages
     void outputWebsite(QString fileName);
 
+    void encodeURI(const QString& str, QByteArray &outArr);
+
     //tools
     bool checkWhetherNodeExists(Node &nodeItem);
     QNetworkAccessManager *m_networkAccessManager;
