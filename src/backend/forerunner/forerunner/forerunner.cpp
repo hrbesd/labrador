@@ -34,11 +34,35 @@ void ForeRunner::downloadRule(RuleRequest ruleRequest)
     m_ruleRequestThreadNum--;
     QNetworkRequest request;
     QNetworkReply *reply;
-    request.setUrl(QUrl(ruleRequest.url));
+    QByteArray encodedUrl;
+    encodeURI(ruleRequest.url, encodedUrl);
+    QUrl requestUrl;
+    requestUrl.setEncodedUrl (encodedUrl);
+    request.setUrl(requestUrl);
     reply = m_networkAccessManager->get(request);
     m_ruleDownloadingTask.insert(reply,ruleRequest);
     connect(reply,SIGNAL(finished()),this,SLOT(ruleRequestReply()));
     connect(reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(networkError(QNetworkReply::NetworkError)));
+}
+
+void ForeRunner::encodeURI (const QString &str, QByteArray &outArr)
+{
+    QTextCodec *codec = QTextCodec::codecForName("GB2312");
+    if(codec->canEncode(str)) {
+        QByteArray tmpArr;
+        tmpArr = codec->fromUnicode(str);
+        for(int i=0,size = tmpArr.length();i<size;i++){
+            char ch = tmpArr.at(i);
+            if(ch < 128 && ch > 0){
+                outArr.append(ch);
+            }else{
+                uchar low = ch & 0xff;
+                char c[3];
+                sprintf(c,"%02X",low);
+                outArr.append("%").append(c);
+            }
+        }
+    }
 }
 
 void ForeRunner::ruleRequestScheduler()
