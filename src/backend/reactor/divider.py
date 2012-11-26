@@ -33,6 +33,11 @@ class Divider:
 							sentenceTag['class'] = 'tts_data'
 							sentenceTag.string = words
 							resultSentence.append(sentenceTag)
+							words = sentence[currentLength:sentenceLength]
+							sentenceTag = self.soup.new_tag('span')
+							sentenceTag['class'] = 'tts_data'
+							sentenceTag.string = words
+							resultSentence.append(sentenceTag)
 						else:
 							currentLength = sentenceLength
 							for s in short_sentences:
