@@ -6,9 +6,12 @@ import bottle
 from bottle import run, route, request
 from threading import Thread
 from bs4 import BeautifulSoup, NavigableString
+import logger
 
 NUM_WORKER_THREADS = 8
 taskQueue = Queue.Queue(0)
+
+logger.setLogPath('/tmp/tts_proxy.log')
 
 conDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://116.255.231.36:8083', 'ttsKey':'zhangjianzong'}
 
@@ -23,6 +26,7 @@ def doWork(url):
 			for element in data_element:
 				if type(element) == NavigableString:
 					urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(element.encode('utf-8')))
+					logger.debug(urlPath)
  					conn = urllib2.urlopen(urlPath)
  					conn.close()
 
@@ -31,8 +35,11 @@ def doWork(url):
 		if img_element.has_attr('alt') and len(img_element['alt']) > 0:
 			img_alt = img_element['alt']
 			urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(img_alt.encode('utf-8')))
+			logger.debug(urlPath)
 			conn = urllib2.urlopen(urlPath)
 			conn.close()
+
+	logger.flush()
 
 def proxyWorker():
 	while True:

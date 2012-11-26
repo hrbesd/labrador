@@ -7,6 +7,8 @@ outPath = None
 logBuff = []
 LOG_WINDOW_SIZE = 5000
 
+do_log = True
+
 def setLogPath(path):
 	global outPath
 	if not outPath:
@@ -39,6 +41,8 @@ def flush():
 	flushCurrentLog()
 
 def log(level, column, message):
+	if not do_log:
+		return
 	logTime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
 	logStr = formatLog(logTime, level, column, message)
 	logBuff.append(logStr)
