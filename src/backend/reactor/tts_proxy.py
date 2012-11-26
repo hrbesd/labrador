@@ -7,11 +7,12 @@ from bottle import run, route, request
 from threading import Thread
 from bs4 import BeautifulSoup, NavigableString
 import logger
+import time
 
 NUM_WORKER_THREADS = 8
 taskQueue = Queue.Queue(0)
 
-logger.setLogPath('/tmp/tts_proxy.log')
+logger.setLogPath('/tmp/tts_proxy.%d.log' % (int(time.time())))
 
 conDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://116.255.231.36:8083', 'ttsKey':'zhangjianzong'}
 
