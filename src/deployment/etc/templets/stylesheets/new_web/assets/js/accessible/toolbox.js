@@ -81,14 +81,24 @@ var bindActions = function() {
         });
 		//鼠标进入事件
         $(this).bind("mouseenter", function() {
-	        if(speaker.speakerStatus==true){
-                $(this).parents('a').focus();
-                speaker.point.speak(this.innerHTML);
-	        	$(this).addClass("tts_reading");
-	        }
+	       // if(speaker.speakerStatus==true){
+                //$(this).parents('a').focus();
+                	//speaker.point.speak(this.innerHTML);
+	        	//$(this).addClass("tts_reading");
+	        //}
+	        $(this).parent('a').focus();
+	  	var obj = this;
+	        intervalId=setTimeout(function(){
+	            if(speaker.speakerStatus==true){
+	            	speaker.point.speak(obj.innerHTML);
+	    		$(obj).addClass("tts_reading");
+		            
+	            }
+	         },2000);
         });
         //鼠标移出事件
         $(this).bind("mouseleave", function() {
+        	window.clearTimeout(intervalId);
 	        if(speaker.speakerStatus==true){
 	        	$(this).removeClass("tts_reading");
 	        }
