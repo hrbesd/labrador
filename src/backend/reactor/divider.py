@@ -71,6 +71,18 @@ class Divider:
 			for child in element:
 				self.processSentence(child)
 
+	def strip_element(self, element):
+		if type(element) == NavigableString:
+			return element
+
+		if len(element.contents) == 0: return u''
+
+		result = u''
+		for con in element.contents:
+			result += self.strip_element(con)
+
+		return result
+
 	def doWork(self):
 		soup = self.soup
 		# first of all, process the fixed elements, like `title', `author', `lastmodified'
@@ -81,7 +93,8 @@ class Divider:
 			for element in soup.find_all(['title', 'author']):
 				if len(element.contents) == 0:
 					continue
-				content = element.contents[0].strip()
+				cur_ele = self.strip_element(element)
+				content = cur_ele.strip()
 				dataTag = self.soup.new_tag('span')
 				dataTag['class'] = 'tts_data'
 				dataTag.string = content
