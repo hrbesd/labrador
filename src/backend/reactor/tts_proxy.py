@@ -29,7 +29,6 @@ def doWork(url):
 					urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(element.encode('utf-8')))
 					logger.debug(urlPath)
  					conn = urllib2.urlopen(urlPath)
- 					print conn.read()
  					conn.close()
 
 	# issue 241
@@ -39,7 +38,6 @@ def doWork(url):
 			urlPath = conDict['jobRequestTemplate'] % (conDict['serverUrl'], conDict['ttsKey'], urllib2.quote(img_alt.encode('utf-8')))
 			logger.debug(urlPath)
 			conn = urllib2.urlopen(urlPath)
-			print conn.read()
 			conn.close()
 
 	logger.flush()
