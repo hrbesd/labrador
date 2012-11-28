@@ -86,7 +86,7 @@ var bindActions = function() {
                 	//speaker.point.speak(this.innerHTML);
 	        	//$(this).addClass("tts_reading");
 	        //}
-	        $(this).parent('a').focus();
+	        $(this).parents('a').focus();
 	  	var obj = this;
 	        intervalId=setTimeout(function(){
 	            if(speaker.speakerStatus==true){
