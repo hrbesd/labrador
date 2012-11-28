@@ -13,6 +13,21 @@ YZSpider::YZSpider(QObject *parent) :
     m_networkAccessManager = new QNetworkAccessManager(this);
     DirParser::workerDir = m_paramenters.value("--worker-dir");
     DirParser::parseDirFile(m_paramenters.value("--dir-file"),website);
+    //add updatelist.dat file
+    //record what files should be updated
+
+    QDir sharedDir(m_paramenters.value("--dir-file"));
+    sharedDir.cdUp ();
+    QFile updateFile(sharedDir.absolutePath ()+"/updatelist.dat");
+    if (!updateFile.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream out(&updateFile);
+    QLinkedList<Node>::const_iterator i;
+    for (i = website.webPageRequestTask.constBegin(); i != website.webPageRequestTask.constEnd(); ++i)
+        out<<(*i).hashName<<"\n";
+    updateFile.close ();
+
     if(website.codecName.isEmpty())
     {
         codec = QTextCodec::codecForName("utf8");
