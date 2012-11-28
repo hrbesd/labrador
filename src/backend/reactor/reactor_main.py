@@ -144,6 +144,7 @@ class Reactor:
 
 		parent = codecs.open(parentFile, 'r', 'utf-8')
 		parentContent = parent.read()
+		parentContent = html.unescape_string(parentContent)
 		parent.close()
 
 		dataSoup = BeautifulSoup(dataContent, 'lxml')
