@@ -172,6 +172,7 @@ class Reactor:
 		else:
 			xmlDataFile = codecs.open(srcFile, 'r', 'utf-8')
 			xmlData = xmlDataFile.read()
+			xmlData = html.unescape_string(xmlData)
 			xmlDataFile.close()
 			soup = BeautifulSoup(xmlData, 'lxml')
 
