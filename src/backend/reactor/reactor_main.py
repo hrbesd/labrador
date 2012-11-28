@@ -9,6 +9,7 @@ from rule_item import *
 import re, sys, os, codecs, html, time, socket
 import utils, tts_client
 from subprocess import Popen
+from sets import Set
 
 VERSION_NAME = "0.3.1.SERVER"
 
@@ -29,6 +30,8 @@ class Reactor:
 		self.count = 0
 		self.client = tts_client.TTSClient()
 		self.INVALID_TAGS = ['table', 'tbody', 'tr', 'td']
+		self.full_update = (os.getenv('REACTOR_UPDATE_ALL') == 'YES')
+		self.update_set = None
 
 	def __str__(self):
 		return 'Reactoring files in folder "' + self.in_folder_path + '" to folder "' + self.out_folder_path
@@ -95,6 +98,9 @@ class Reactor:
 
 		self.ensureOutputFolderExists()
 
+		if not self.full_update()
+			self.genUpdateList()
+
 		print 'Generating navigation files...'
 		self.genNavFiles()
 
@@ -113,6 +119,11 @@ class Reactor:
 	def ensureOutputFolderExists(self):
 		if not os.path.exists(self.out_folder_path):
 			os.makedirs(self.out_folder_path)
+
+	def genUpdateList(self):
+		update_list_path = self.shared_dir + "/updatelist.dat"
+		update_list = [line for line in open(update_list_path)]
+		self.update_set = Set(update_list)
 
 	# 生成index.xml，l、c目录下的xml
 	def genNavFiles(self):
@@ -187,7 +198,9 @@ class Reactor:
 		resultFile.close()
 
 		# 文章内容生成之后，向Proxy发送文章URL，请求生成语音内容
-		self.client.callProxy(resultFilePath.encode('utf-8'))
+		# 只发送更新的TTS请求
+		if self.full_update or (not self.full_update and isinstance(self.update_set, Set) and (filename[:-4] in self.update_set)):
+			self.client.callProxy(resultFilePath.encode('utf-8'))
 
 		self.count += 1
 		print 'Processed: %d' % self.count
