@@ -98,7 +98,7 @@ class Reactor:
 
 		self.ensureOutputFolderExists()
 
-		if not self.full_update()
+		if not self.full_update:
 			self.genUpdateList()
 
 		print 'Generating navigation files...'
@@ -122,7 +122,7 @@ class Reactor:
 
 	def genUpdateList(self):
 		update_list_path = self.shared_dir + "/updatelist.dat"
-		update_list = [line for line in open(update_list_path)]
+		update_list = [line.strip() for line in open(update_list_path)]
 		self.update_set = Set(update_list)
 
 	# 生成index.xml，l、c目录下的xml
@@ -199,7 +199,7 @@ class Reactor:
 
 		# 文章内容生成之后，向Proxy发送文章URL，请求生成语音内容
 		# 只发送更新的TTS请求
-		if self.full_update or (not self.full_update and isinstance(self.update_set, Set) and (filename[:-4] in self.update_set)):
+		if self.full_update or (not self.full_update and isinstance(self.update_set, Set) and (fileName[:-4] in self.update_set)):
 			self.client.callProxy(resultFilePath.encode('utf-8'))
 
 		self.count += 1
