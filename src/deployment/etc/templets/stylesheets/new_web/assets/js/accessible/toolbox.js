@@ -20,6 +20,15 @@ var initSM2 = function() {
 initSM2();
 
 jQuery(document).ready(function(){
+	
+	//补足5个子目录
+	$('li[class=bulletin] ul').each(function(){
+	      var len = $(this).children('li').size();
+	      var w = 5-len;
+	      for(var i=0;i<w;i++){
+	      	$(this).append("<li></li>");
+	      }
+	   });	
     // 在ready的时候，载入各种工具箱工具的状态
     loadStatus();
 
