@@ -13,7 +13,7 @@ NUM_WORKER_THREADS = 8
 taskQueue = Queue.Queue(0)
 
 logger.setLogPath('/tmp/tts_proxy.%d.log' % (int(time.time())))
-
+#request voice server
 conDict = {'jobRequestTemplate':'%s/TextToSpeech/webservice/text2Speech/text2Speech?key=%s&text=%s&base64=null', 'serverUrl':'http://116.255.231.36:8083', 'ttsKey':'zhangjianzong'}
 
 def doWork(url):
