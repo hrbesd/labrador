@@ -83,9 +83,40 @@
 			</div>
 			<nav>
 			<ul class="loc">
-				<li>
-					<a href="#"><xsl:copy-of select="website/info"/></a>
-				</li>
+ 
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                             <tr>
+                              <td  width="50%"  align="left" > 
+			    <li>
+			    <a href="#"><xsl:copy-of select="website/info"/></a>
+			    </li>
+			   </td>
+                              <td  width="40%"  align="right" > 
+		             <li> 
+                                <form target="_blank">
+                                 <xsl:attribute name="action">http://yunmd.mangren.com:8181/index.jsp</xsl:attribute>
+                                 <input type="text"    name="name"   size="20" value="" />
+                                 <input type="hidden"  name="search" value="search"/>
+                                 <input type="hidden"  name="nameUrl"  >
+		               <xsl:attribute name= "value"><xsl:value-of select="website/url"/>        	
+                                 </xsl:attribute>
+                                 </input>
+                                 <input type="submit"  value="搜索"   />
+                                </form>
+                               </li>
+			   </td>
+                             <td  width="10%"  align="right" > 	
+		            <li>
+                              <a target="_blank">
+                              <xsl:attribute name= "href">http://yunmd.mangren.com:8181/index.jsp?nameUrl=
+                              <xsl:value-of select="website/url"/>
+                              </xsl:attribute>搜索
+                                    </a> 
+			   </li>
+			  </td> 
+			 </tr>
+			</table>
+
 			</ul>
 			</nav>
 			</header>
