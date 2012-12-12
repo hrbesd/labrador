@@ -92,18 +92,18 @@
 			    </li>
 			   </td>
                               <td  width="40%"  align="right" > 
-		             <li> 
+		             
                                 <form target="_blank">
-                                 <xsl:attribute name="action">http://yunmd.mangren.com:8181/index.jsp</xsl:attribute>
+                                 <xsl:attribute  name="action">http://yunmd.mangren.com:8181/index.jsp
+                                 </xsl:attribute>
                                  <input type="text"    name="name"   size="20" value="" />
                                  <input type="hidden"  name="search" value="search"/>
                                  <input type="hidden"  name="nameUrl"  >
-		               <xsl:attribute name= "value"><xsl:value-of select="website/url"/>        	
-                                 </xsl:attribute>
+		                 <xsl:attribute name= "value"><xsl:value-of select="website/url"/>        	                         </xsl:attribute>
                                  </input>
                                  <input type="submit"  value="搜索"   />
-                                </form>
-                               </li>
+                               </form>
+                               
 			   </td>
                              <td  width="10%"  align="right" > 	
 		            <li>
