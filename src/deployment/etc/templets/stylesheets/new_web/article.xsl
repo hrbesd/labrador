@@ -41,7 +41,7 @@
 			<title><xsl:value-of select="article/title"/></title>
 		</head>
 		<body>
-			<div id="esd_voice_div"></div>
+			<!--<div id="esd_voice_div"></div>-->
 			<div id="toolbar" class="clearfix">
 		<section>
 			<div class="btn_group item_11">
