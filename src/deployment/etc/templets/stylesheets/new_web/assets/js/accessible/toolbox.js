@@ -8,12 +8,18 @@
  * Author： Void Main
  */
 var initSM2 = function() {
+	//初始化soundManager
+	soundManager.setup({
+	  	useFlashBlock: true,
+	 	url: 'swf/', // path to SoundManager2 SWF files (note trailing slash)
+	 	debugMode: false,
+	  	consoleOnly: false
+	});
 	//载入flash
-	speaker.flashvars = { allowScriptAccess:"always"};
-	speaker.swf="/assets/swf/httpService.swf";
-	swfobject.embedSWF(speaker.swf, "esd_voice_div", "0", "0",
-	                   "9.0.0", "expressInstall.swf",
-	                    speaker.flashvars,null, null, null);
+	//speaker.flashvars = { allowScriptAccess:"always"};
+	//speaker.swf="/assets/swf/httpService.swf";
+	//swfobject.embedSWF(speaker.swf, "esd_voice_div", "0", "0","9.0.0", "expressInstall.swf",
+	                   // speaker.flashvars,null, null, null);
 
 }
 
