@@ -1,4 +1,3 @@
-
 /**
  * 语音朗读模块
  *
@@ -142,7 +141,7 @@ speaker.point.speak = function (text) {
 };
 speaker.toolbar = {};
 speaker.toolbar.speak = function (toolbar_id) {
-	var url = "assets/mp3/" + toolbar_id + ".mp3";
+	var url = "/assets/mp3/" + toolbar_id + ".mp3";
 	if (speaker.ws) {
 		speaker.ws.esdStart(url);
 	}
@@ -185,7 +184,7 @@ speaker.toolbar.click = function (toolbar_id) {
 	}
 
 
-	var tool_url = "assets/mp3/click/" + toolbar_id + "_click.mp3";
+	var tool_url = "/assets/mp3/click/" + toolbar_id + "_click.mp3";
 	if (speaker.ws) {
 		speaker.ws.esdStart(tool_url);
 	}
