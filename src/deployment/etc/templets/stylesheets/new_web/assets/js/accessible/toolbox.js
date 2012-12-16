@@ -14,7 +14,7 @@ var initSM2 = function() {
 	  	var de= base64.e64($(this).html());
 	  	arr.push(de);
 	  	//保正不能超过5句,每句不能超过100字
-	  	if(arr.length>4){
+	  	if(arr.length>5){
 	 		$.ajax({
 			    type:'GET',
 			    url:t2sUrl,
