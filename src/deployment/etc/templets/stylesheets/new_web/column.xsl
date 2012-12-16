@@ -42,7 +42,6 @@
 	<title><xsl:value-of select="column/name"/></title>
 </head>
 <body>
-<!--<div id="esd_voice_div"></div>-->
 <div id="toolbar" class="clearfix">
     <section>
       <div class="btn_group item_11">
