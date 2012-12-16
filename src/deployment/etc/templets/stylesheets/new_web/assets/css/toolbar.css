@@ -110,11 +110,11 @@
 .item_51 .item_b { background-position:-42px -450px;}
 .item_51 .item_c { background-position:-84px -450px;}
 /*复位 语音帮助，翻译*/
-/*
+/*默认的样式*/
 .item_61 .item_a { background-position:-0px -50px;}
 .item_61 .item_b { background-position:-42px -50px;}
 .item_61 .item_c { background-position:-84px -50px;}
-*/
+
 /*.item_61_000 { background:url(../img/toolbar_icons.png) -0px -50px no-repeat;}*/
 .item_61_000 .item_a { background-position:-0px -50px;}
 .item_61_000 .item_b { background-position:-42px -50px;}
