@@ -20,14 +20,16 @@
    		<!-- 通用的js -->
 		<script type="text/javascript" src="/assets/js/jquery.js"></script>
 		<script type="text/javascript" src="/assets/js/jquery-bubble-popup-v3.min.js"></script>
-		<script type="text/javascript" src="/assets/js/accessible/swfobject.js"></script>
+		<!--添加soundmanager2 支持 和 bas64编码-->
+		<script type="text/javascript" src="assets/js/soundmanager2-nodebug-jsmin.js"></script>
+		<script type="text/javascript" src="assets/js/accessible/base64.js"></script>
+
 		<script type="text/javascript" src="/assets/js/accessible/basic.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/action.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/storage.js"></script>
 		<!-- 语音加载的2个js -->
-    	<script type="text/javascript" src="/assets/js/accessible/JSXML.js"></script>
-    	<script type="text/javascript" src="/assets/js/accessible/speaker.js"></script>
-    	<!-- 工具栏 -->
+    		<script type="text/javascript" src="/assets/js/accessible/speaker.js"></script>
+    		<!-- 工具栏 -->
 		<script type="text/javascript" src="/assets/js/accessible/toolbox.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/text.js"></script>
 		<!-- 快捷键绑定用的3个js -->
@@ -41,7 +43,6 @@
 				<title><xsl:value-of select="list/name"/></title>
 			</head>
 			<body>
-				<!--<div id="esd_voice_div"></div>-->
 				<div id="toolbar" class="clearfix">
 		<section>
 			<div class="btn_group item_11">
