@@ -8,38 +8,63 @@
  * Author： Void Main
  */
 var initSM2 = function() {
-	//初始化soundManager
+	var t2sUrl="http://125.211.222.45:8083/ws/batch";
+  	var arr = new Array();
+	$("span[class=tts_data]").each(function(){
+	  	var de= base64.e64($(this).html());
+	  	arr.push(de);
+	  	//保正不能超过5句,每句不能超过100字
+	  	if(arr.length>4){
+	 		$.ajax({
+			    type:'GET',
+			    url:t2sUrl,
+			    dataType:'jsonp',
+			    jsonp:"callback",
+			    data:{"b":arr},
+			    async: false
+	    	});
+	    	//清空缓存
+	 	 	arr=new Array();
+		}
+  	});
+  	//把缓存没有满5句的发送
+  	if(arr.length>0){
+ 	 	$.ajax({
+		    type:'GET',
+		    url:t2sUrl,
+		    dataType:'jsonp',
+		    jsonp:"callback",
+		    data:{"b":arr},
+		    async: false
+	    });
+  	}
+  	arr = new Array();//清空缓存
+  	//初始化soundManager播放器
 	soundManager.setup({
-	  	useFlashBlock: true,
-	 	url: 'swf/', // path to SoundManager2 SWF files (note trailing slash)
+	  	useFlashBlock: false,
+	 	url: 'assets/swf/', 
 	 	debugMode: false,
 	  	consoleOnly: false
 	});
-	//载入flash
-	//speaker.flashvars = { allowScriptAccess:"always"};
-	//speaker.swf="/assets/swf/httpService.swf";
-	//swfobject.embedSWF(speaker.swf, "esd_voice_div", "0", "0","9.0.0", "expressInstall.swf",
-	                   // speaker.flashvars,null, null, null);
 
 }
 
-initSM2();
 
 jQuery(document).ready(function(){
-	
+	initSM2();
 	//补足5个子目录
-	//$('li[class=bulletin] ul').each(function(){
-	      //var len = $(this).children('li').size();
-	      //var w = 5-len;
-	      //for(var i=0;i<w;i++){
-	      	//$(this).append("<li></li>");
-	      //}
-	  // });	
-    // 在ready的时候，载入各种工具箱工具的状态
-    loadStatus();
+	$('li[class=bulletin] ul').each(function(){
+	      var len = $(this).children('li').size();
+	      var w = 5-len;
+	      for(var i=0;i<w;i++){
+	      	$(this).append("<ul style="list-style:none; "><li>&nbsp;</li></ul>");
+	      }
+	 });	
+    	// 在ready的时候，载入各种工具箱工具的状态
+    	loadStatus();
 
-    // 绑定界面元素事件
-    bindActions();
+    	// 绑定界面元素事件
+    	bindActions();
 
 	// 绑定键盘快捷键
 	$(document).keydown(function(event){
@@ -126,9 +151,15 @@ var bindActions = function() {
 	//朗读功具栏语音
     $('div[id=toolbar] a').each(function() {
         $(this).bind("mouseover", function() {
+        	if(speaker!=null && speaker.mp3Object!=null){
+        		speaker.mp3Object.destruct();
+        	}
         	speaker.toolbar.speak($(this).attr("id"));
         });
         $(this).bind("click", function() {
+                if(speaker!=null && speaker.mp3Object!=null){
+        		speaker.mp3Object.destruct();
+        	}
         	var toolbar_id = $(this).attr("id")
         	speaker.toolbar.click(toolbar_id);
         	basic.dynamicIcon.change(toolbar_id);
