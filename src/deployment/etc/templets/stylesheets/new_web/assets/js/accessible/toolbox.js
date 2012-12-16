@@ -121,20 +121,9 @@ var bindActions = function() {
         });
 		//鼠标进入事件
         $(this).bind("mouseenter", function() {
-	       // if(speaker.speakerStatus==true){
-                //$(this).parents('a').focus();
-                	//speaker.point.speak(this.innerHTML);
-	        	//$(this).addClass("tts_reading");
-	        //}
+	        window.clearTimeout(intervalId);
+	        //设置焦点。焦点中会发送请求朗读功能
 	        $(this).parents('a').focus();
-	  	var obj = this;
-	        intervalId=setTimeout(function(){
-	            if(speaker.speakerStatus==true){
-	            	speaker.point.speak(obj.innerHTML);
-	    		$(obj).addClass("tts_reading");
-		            
-	            }
-	         },2000);
         });
         //鼠标移出事件
         $(this).bind("mouseleave", function() {
@@ -174,8 +163,12 @@ var bindActions = function() {
     		//如果批量朗读开起不会读取，因为连读会焦点跟随产生重读。
     		if(speaker.batchStatus==false){
     			var children = $(this).contents('.tts_data')
-    			children.addClass("tts_reading");
-    			//speaker.point.speak(children.html());
+    			intervalId=setTimeout(function(){
+		            if(speaker.speakerStatus==true){
+		            	speaker.point.speak(children.html());
+		    			children.addClass("tts_reading");
+		            }
+		         },2000);
     		}
         });
     	$(this).bind("blur", function() {
