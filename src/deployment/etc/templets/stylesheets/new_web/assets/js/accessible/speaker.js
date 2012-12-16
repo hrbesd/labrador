@@ -5,37 +5,31 @@
  * 提供调用后端提供语音朗读部分的功能代码
  * “包”名： speaker
  *
- * Author: Void Main
+ * Author: snailzhang
  */
 var speaker = {};
 
 // 伪成员变量
-speaker.url = "http://116.255.231.36:8083";
+speaker.url = "http://125.211.222.45:8083";
 speaker.index = 0;//连读索引
 speaker.source = new Array();//连续缓存
-//speaker.speakerStatus = false;
-//speaker.batchStatus = false;
 speaker.continueStatus = false;
 speaker.audioPlaying = false;
 speaker.read_enabled = true;
-//载入通信和播放的flash
-/*
-speaker.flashvars = { allowScriptAccess:"always"};
-document.write("<div id="esd_voice_div"></div>");
-speaker.swf="assets/swf/httpService.swf";
-swfobject.embedSWF(speaker.swf, "esd_voice_div", "0", "0",
-                   "9.0.0", "expressInstall.swf",
-                    speaker.flashvars,null, null, null);
-*/
-function wsInit() {
-	var obj = swfobject.getObjectById("esd_voice_div");
-	if (obj) {
-		speaker.ws = obj;
-	}
+speaker.mp3Object=null;//朗读语音对象
+
+speaker.ws={};
+speaker.ws.esdStart = function(url){
+	speaker.mp3Object= soundManager.createSound({
+                id:'sound',
+                url:url,
+                onfinish:callback
+        });
+      speaker.mp3Object.play();
 }
-//读完语音的回调函数
+//连读需要调用的方法
 function playComplete() {
-	if(speaker.toolbar.flg.speak == true){
+	if(speaker.toolbar.flg.speak==true){
 		speaker.toolbar.flg.speak=false;
 		return;
 	}
@@ -48,26 +42,17 @@ function playComplete() {
 
 	speaker.batch.speak(speaker.index);
 }
-// 伪成员方法
-function callback(data) {
-	xmldoc = new JSXML();
-	xmldoc.LoadXML(data);
-	//var url = xmldoc.FirstChild;
-	//var url = xmldoc.GetByName("audio");
-	//var mp3url = xmldoc.GetValue(url);
-	var XPath = "url";
-	var xml = xmldoc.GetSingleNode(XPath);
-	var mp3Url = xmldoc.GetValue(xml);
-	if (speaker.ws) {
-		speaker.ws.esdStart(mp3Url);
-	}
+// 播放完成回调方法
+function callback() {
+	speaker.mp3Object.destruct();
+	playComplete();
 }
  //停止朗读
 speaker.stop = function () {
 	$(speaker.source[speaker.index]).removeClass("tts_reading");
 	speaker.index = 0;
 	if (speaker.ws) {
-		speaker.ws.esdStop();
+		speaker.mp3Object.destruct();
 	}
 };
 //连读
@@ -75,7 +60,7 @@ speaker.batch = {};
 speaker.batch.intervalId;
 speaker.loadBatchRead = function(){
 	var batch_read = storage.getCookie('batch_read');
-    if(batch_read=='open'){
+    	if(batch_read=='open'){
 		speaker.batchStatus = true;
 		$('#batch_read').addClass('on');
 		storage.setCookie("batch_read",'open',360);
@@ -88,12 +73,12 @@ speaker.loadBatchRead = function(){
 		}, 1000);
 		//speaker.index=0;
 		//speaker.batch.speak(speaker.index);
-    }else{
+    	}else{
 		speaker.batchStatus = false;
 		storage.setCookie("batch_read",'close',360);
 		$('#batch_read').removeClass('on');
-    }
-
+    	}
+  
 }
 speaker.batchRead = function(){
 	if(speaker.batchStatus==false){
@@ -105,11 +90,11 @@ speaker.batchRead = function(){
 		storage.setCookie("batch_read",'close',360);
 		$('#batch_read').removeClass('on');
 	}
-   setTimeout(function(){
+   	setTimeout(function(){
 		speaker.index=0;
 		speaker.batch.speak(speaker.index);
-   },3000);
-
+   	},3000);
+   
 }
 speaker.batch.speak = function (index) {
 	if (speaker.batchStatus == false) {
@@ -136,7 +121,7 @@ speaker.loadPointRead = function(){
 		storage.setCookie("point_read",'close',360);
 		$('#point_read').removeClass('on');
     }
-
+   
 }
 speaker.pointRead = function(){
 	if(speaker.speakerStatus==false){
@@ -157,9 +142,8 @@ speaker.point.speak = function (text) {
 };
 speaker.toolbar = {};
 speaker.toolbar.speak = function (toolbar_id) {
-	var url = "/assets/mp3/" + toolbar_id + ".mp3";
+	var url = "assets/mp3/" + toolbar_id + ".mp3";
 	if (speaker.ws) {
-	    //document.getElementById("myDiv").innerHTML = url;
 		speaker.ws.esdStart(url);
 	}
 };
@@ -201,19 +185,24 @@ speaker.toolbar.click = function (toolbar_id) {
 	}
 
 
-	var tool_url = "/assets/mp3/click/" + toolbar_id + "_click.mp3";
+	var tool_url = "assets/mp3/click/" + toolbar_id + "_click.mp3";
 	if (speaker.ws) {
-		//document.getElementById("myDiv").innerHTML = tool_url;
 		speaker.ws.esdStart(tool_url);
 	}
 };
 // 朗读方法，唯一的对外接口
 speaker.speak = function (text) {
-	text = encodeURIComponent(text);
-    //var targetUrl = speaker.url + "/TextToSpeech/webservice/text2Speech/text2Speech?key=zhangjianzong&text=" + text+"&base64=null";
-	var targetUrl = speaker.url + "/TextToSpeech/webservice/text2Speech/getStatus?jobID=null&text=" + text;
-	if (speaker.ws) {
-		speaker.ws.load(targetUrl);
-	}
+	var de= base64.e64(text);
+    	$.ajax({
+		type:'GET',
+		url:speaker.url+'/ws/t2s',
+		dataType:'jsonp',
+		jsonp:"callback",
+		data:{"b":de},
+		async: false,
+		success:function(data){
+		    speaker.ws.esdStart(data.u);
+		}
+    	})
 };
 
