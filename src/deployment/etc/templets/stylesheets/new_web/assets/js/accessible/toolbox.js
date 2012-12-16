@@ -42,7 +42,7 @@ var initSM2 = function() {
   	//初始化soundManager播放器
 	soundManager.setup({
 	  	useFlashBlock: false,
-	 	url: 'assets/swf/', 
+	 	url: '/assets/swf/', 
 	 	debugMode: false,
 	  	consoleOnly: false
 	});
@@ -175,7 +175,7 @@ var bindActions = function() {
     		if(speaker.batchStatus==false){
     			var children = $(this).contents('.tts_data')
     			children.addClass("tts_reading");
-    			speaker.point.speak(children.html());
+    			//speaker.point.speak(children.html());
     		}
         });
     	$(this).bind("blur", function() {
