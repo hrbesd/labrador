@@ -65,7 +65,7 @@
 				<a href="#" id="line_height_reset" 	title="复位行距" 	class="item_b"></a>
 				<a href="#" id="line_height_out" 	title="减少行距" 	class="item_c"></a>
 			</div>
-			<div id="dynamicIcon" class="btn_group item_61">
+			<div id="dynamicIcon" class="btn_group item_61_000">
 				<a href="#" id="batch_read" 		title="自动朗读" 	class="item_a"></a>
 				<a href="#" id="point_read" 		title="即指即读" 	class="item_b"></a>
 				<a href="#" id="toggle_translate" 	title="翻译/Translator" 	class="item_c"></a>
