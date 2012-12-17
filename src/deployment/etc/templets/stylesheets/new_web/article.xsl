@@ -20,8 +20,8 @@
    		<!-- 通用的js -->
 		<script type="text/javascript" src="/assets/js/jquery.js"></script>
 		<!--添加soundmanager2 支持 和 bas64编码-->
-		<script type="text/javascript" src="assets/js/soundmanager2-nodebug-jsmin.js"></script>
-		<script type="text/javascript" src="assets/js/accessible/base64.js"></script>
+		<script type="text/javascript" src="/assets/js/soundmanager2-nodebug-jsmin.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/base64.js"></script>
 		<script type="text/javascript" src="/assets/js/jquery-bubble-popup-v3.min.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/basic.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/action.js"></script>
