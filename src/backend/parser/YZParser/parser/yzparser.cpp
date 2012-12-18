@@ -197,9 +197,7 @@ void YZParser::removeStyles(QString &data)
 void YZParser::cleanBodyData(QString &bodyData)
 {
     QList<QString> tagList;
-    tagList<<QString("div");
     tagList<<QString("font");
-    tagList<<QString("br");
     removeTags(bodyData,tagList);
 }
 

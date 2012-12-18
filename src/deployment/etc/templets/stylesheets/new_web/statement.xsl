@@ -20,14 +20,16 @@
    		<!-- 通用的js -->
 		<script type="text/javascript" src="/assets/js/jquery.js"></script>
 		<script type="text/javascript" src="/assets/js/jquery-bubble-popup-v3.min.js"></script>
-		<script type="text/javascript" src="/assets/js/accessible/swfobject.js"></script>
+		<!--添加soundmanager2 支持 和 bas64编码-->
+		<script type="text/javascript" src="/assets/js/soundmanager2-nodebug-jsmin.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/base64.js"></script>
+
 		<script type="text/javascript" src="/assets/js/accessible/basic.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/action.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/storage.js"></script>
 		<!-- 语音加载的2个js -->
-    	<script type="text/javascript" src="/assets/js/accessible/JSXML.js"></script>
-    	<script type="text/javascript" src="/assets/js/accessible/speaker.js"></script>
-    	<!-- 工具栏 -->
+    		<script type="text/javascript" src="/assets/js/accessible/speaker.js"></script>
+    		<!-- 工具栏 -->
 		<script type="text/javascript" src="/assets/js/accessible/toolbox.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/text.js"></script>
 		<!-- 快捷键绑定用的3个js -->
@@ -41,7 +43,6 @@
 			<title><xsl:value-of select="article/title"/></title>
 		</head>
 		<body>
-			<div id="esd_voice_div"></div>
 			<div id="toolbar" class="clearfix">
 		<section>
 			<div class="btn_group item_11">
@@ -64,7 +65,7 @@
 				<a href="#" id="line_height_reset" 	title="复位行距" 	class="item_b"></a>
 				<a href="#" id="line_height_out" 	title="减少行距" 	class="item_c"></a>
 			</div>
-			<div id="dynamicIcon" class="btn_group">
+			<div id="dynamicIcon" class="btn_group item_61_000">
 				<a href="#" id="batch_read" 		title="自动朗读" 	class="item_a"></a>
 				<a href="#" id="point_read" 		title="即指即读" 	class="item_b"></a>
 				<a href="#" id="toggle_translate" 	title="翻译/Translator" 	class="item_c"></a>

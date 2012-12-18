@@ -8,23 +8,63 @@
  * Author： Void Main
  */
 var initSM2 = function() {
-	//载入flash
-	speaker.flashvars = { allowScriptAccess:"always"};
-	speaker.swf="/assets/swf/httpService.swf";
-	swfobject.embedSWF(speaker.swf, "esd_voice_div", "0", "0",
-	                   "9.0.0", "expressInstall.swf",
-	                    speaker.flashvars,null, null, null);
+	var t2sUrl="http://125.211.222.45:8083/ws/batch";
+  	var arr = new Array();
+	$("span[class=tts_data]").each(function(){
+	  	var de= base64.e64($(this).html());
+	  	arr.push(de);
+	  	//保正不能超过5句,每句不能超过100字
+	  	if(arr.length>5){
+	 		$.ajax({
+			    type:'GET',
+			    url:t2sUrl,
+			    dataType:'jsonp',
+			    jsonp:"callback",
+			    data:{"b":arr},
+			    async: false
+	    	});
+	    	//清空缓存
+	 	 	arr=new Array();
+		}
+  	});
+  	//把缓存没有满5句的发送
+  	if(arr.length>0){
+ 	 	$.ajax({
+		    type:'GET',
+		    url:t2sUrl,
+		    dataType:'jsonp',
+		    jsonp:"callback",
+		    data:{"b":arr},
+		    async: false
+	    });
+  	}
+  	arr = new Array();//清空缓存
+  	//初始化soundManager播放器
+	soundManager.setup({
+	  	useFlashBlock: false,
+	 	url: '/assets/swf/', 
+	 	debugMode: false,
+	  	consoleOnly: false
+	});
 
 }
 
-initSM2();
 
 jQuery(document).ready(function(){
-    // 在ready的时候，载入各种工具箱工具的状态
-    loadStatus();
+	initSM2();
+	//补足5个子目录
+	$('li[class=bulletin] ul').each(function(){
+	      var len = $(this).children('li').size();
+	      var w = 5-len;
+	      for(var i=0;i<w;i++){
+	      	$(this).append("<ul style='list-style:none; '><li>&nbsp;</li></ul>");
+	      }
+	 });	
+    	// 在ready的时候，载入各种工具箱工具的状态
+    	loadStatus();
 
-    // 绑定界面元素事件
-    bindActions();
+    	// 绑定界面元素事件
+    	bindActions();
 
 	// 绑定键盘快捷键
 	$(document).keydown(function(event){
@@ -81,20 +121,9 @@ var bindActions = function() {
         });
 		//鼠标进入事件
         $(this).bind("mouseenter", function() {
-	       // if(speaker.speakerStatus==true){
-                //$(this).parents('a').focus();
-                	//speaker.point.speak(this.innerHTML);
-	        	//$(this).addClass("tts_reading");
-	        //}
+	        window.clearTimeout(intervalId);
+	        //设置焦点。焦点中会发送请求朗读功能
 	        $(this).parents('a').focus();
-	  	var obj = this;
-	        intervalId=setTimeout(function(){
-	            if(speaker.speakerStatus==true){
-	            	speaker.point.speak(obj.innerHTML);
-	    		$(obj).addClass("tts_reading");
-		            
-	            }
-	         },2000);
         });
         //鼠标移出事件
         $(this).bind("mouseleave", function() {
@@ -111,9 +140,15 @@ var bindActions = function() {
 	//朗读功具栏语音
     $('div[id=toolbar] a').each(function() {
         $(this).bind("mouseover", function() {
+        	if(speaker!=null && speaker.mp3Object!=null){
+        		speaker.mp3Object.destruct();
+        	}
         	speaker.toolbar.speak($(this).attr("id"));
         });
         $(this).bind("click", function() {
+                if(speaker!=null && speaker.mp3Object!=null){
+        		speaker.mp3Object.destruct();
+        	}
         	var toolbar_id = $(this).attr("id")
         	speaker.toolbar.click(toolbar_id);
         	basic.dynamicIcon.change(toolbar_id);
@@ -128,8 +163,12 @@ var bindActions = function() {
     		//如果批量朗读开起不会读取，因为连读会焦点跟随产生重读。
     		if(speaker.batchStatus==false){
     			var children = $(this).contents('.tts_data')
-    			children.addClass("tts_reading");
-    			speaker.point.speak(children.html());
+    			intervalId=setTimeout(function(){
+		            if(speaker.speakerStatus==true){
+		            	speaker.point.speak(children.html());
+		    			children.addClass("tts_reading");
+		            }
+		         },2000);
     		}
         });
     	$(this).bind("blur", function() {

@@ -435,8 +435,6 @@ do
 			easy_install pyparsing
 			# BeautifulSoup4:
 			easy_install beautifulsoup4
-			# XML parser for BS4
-			easy_install lxml
 			# HTML
 			# easy_install html
 			# soap lib
@@ -449,6 +447,8 @@ do
 			apt-get -y install libxslt1-dev
 			# twisted
 			easy_install twisted
+			# XML parser for BS4
+			easy_install lxml
 
 			# QT
 			apt-get -y install qt4-dev-tools

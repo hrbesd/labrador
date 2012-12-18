@@ -96,7 +96,7 @@ Delta Update就是通过增量的方式对数据进行更新，只处理新增�
 应运营方的要求，从2012年12月开始，Reactor 模块默认增量更新。如果修改了 Reactor 的规则文件并且想把更新的规则作用于历史网页，使用如下命令做全站更新：
 
 ```sh
-$ export $REACTOR_UPDATE_ALL && lab run reactor
+$ export REACTOR_UPDATE_ALL='YES' && lab run reactor
 ```
 
 ###assembler模块

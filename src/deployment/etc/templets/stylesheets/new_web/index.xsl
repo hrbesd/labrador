@@ -20,14 +20,16 @@
    		<!-- 通用的js -->
 		<script type="text/javascript" src="/assets/js/jquery.js"></script>
 		<script type="text/javascript" src="/assets/js/jquery-bubble-popup-v3.min.js"></script>
-		<script type="text/javascript" src="/assets/js/accessible/swfobject.js"></script>
+		<!--添加soundmanager2 支持 和 bas64编码-->
+		<script type="text/javascript" src="/assets/js/soundmanager2-nodebug-jsmin.js"></script>
+		<script type="text/javascript" src="/assets/js/accessible/base64.js"></script>
+
 		<script type="text/javascript" src="/assets/js/accessible/basic.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/action.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/storage.js"></script>
 		<!-- 语音加载的2个js -->
-    	<script type="text/javascript" src="/assets/js/accessible/JSXML.js"></script>
-    	<script type="text/javascript" src="/assets/js/accessible/speaker.js"></script>
-    	<!-- 工具栏 -->
+    		<script type="text/javascript" src="/assets/js/accessible/speaker.js"></script>
+    		<!-- 工具栏 -->
 		<script type="text/javascript" src="/assets/js/accessible/toolbox.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/text.js"></script>
 		<!-- 快捷键绑定用的3个js -->
@@ -41,7 +43,6 @@
 		<title><xsl:value-of select="website/info"/></title>
 	</head>
 	<body>
-		<div id="esd_voice_div"></div>
 		<div id="toolbar" class="clearfix">
 		<section>
 			<div class="btn_group item_11">
@@ -64,7 +65,7 @@
 				<a href="#" id="line_height_reset" 	title="复位行距" 	class="item_b"></a>
 				<a href="#" id="line_height_out" 	title="减少行距" 	class="item_c"></a>
 			</div>
-			<div id="dynamicIcon" class="btn_group">
+			<div id="dynamicIcon" class="btn_group item_61_000">
 				<a href="#" id="batch_read" 		title="自动朗读" 	class="item_a"></a>
 				<a href="#" id="point_read" 		title="即指即读" 	class="item_b"></a>
 				<a href="#" id="toggle_translate" 	title="翻译/Translator" 	class="item_c"></a>
@@ -83,9 +84,40 @@
 			</div>
 			<nav>
 			<ul class="loc">
-				<li>
-					<a href="#"><xsl:copy-of select="website/info"/></a>
-				</li>
+ 
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                             <tr>
+                              <td  width="50%"  align="left" > 
+			    <li>
+			    <a href="#"><xsl:copy-of select="website/info"/></a>
+			    </li>
+			   </td>
+                              <td  width="40%"  align="right" > 
+		             
+                                <form target="_blank">
+                                 <xsl:attribute  name="action">http://yunmd.mangren.com:8181/index.jsp
+                                 </xsl:attribute>
+                                 <input type="text"    name="name"   size="20" value="" />
+                                 <input type="hidden"  name="search" value="search"/>
+                                 <input type="hidden"  name="nameUrl"  >
+		                 <xsl:attribute name= "value"><xsl:value-of select="website/url"/>        	                         </xsl:attribute>
+                                 </input>
+                                 <input type="submit"  value="搜索"   />
+                               </form>
+                               
+			   </td>
+                             <td  width="10%"  align="right" > 	
+		            <li>
+                              <a target="_blank">
+                              <xsl:attribute name= "href">http://yunmd.mangren.com:8181/index.jsp?nameUrl=
+                              <xsl:value-of select="website/url"/>
+                              </xsl:attribute>搜索
+                                    </a> 
+			   </li>
+			  </td> 
+			 </tr>
+			</table>
+
 			</ul>
 			</nav>
 			</header>
