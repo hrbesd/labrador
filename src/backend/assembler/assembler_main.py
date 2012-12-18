@@ -121,9 +121,9 @@ class Assembler:
 		# process the document in 2 steps
 		# 1. Strip the html tags
 		firstLine = contents[0]
-		firstLine = firstLine[12:]
+		firstLine = firstLine[len("<html><body>"):]
 		lastLine = contents[-1]
-		lastLine = lastLine[:-14]
+		lastLine = lastLine[:-len("</body></html>")]
 		contents = [firstLine] + contents[1:-1] + [lastLine]
 		# 2. Add the xml tag and xslt tag
 		contents = [self.XML_PREFIX, content] + contents
