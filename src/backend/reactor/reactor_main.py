@@ -7,7 +7,7 @@ from executor import Executor
 from divider import Divider
 from rule_item import *
 import re, sys, os, codecs, html, time, socket
-import utils, tts_client
+import utils
 from subprocess import Popen
 from sets import Set
 
@@ -196,11 +196,6 @@ class Reactor:
 		resultFile = codecs.open(resultFilePath, 'w', 'utf-8')
 		resultFile.write(self.beautiful_soup_tag_to_unicode(soup))
 		resultFile.close()
-
-		# 文章内容生成之后，向Proxy发送文章URL，请求生成语音内容
-		# 只发送更新的TTS请求
-		if self.full_update or (not self.full_update and isinstance(self.update_set, Set) and (fileName[:-4] in self.update_set)):
-			self.client.callProxy(resultFilePath.encode('utf-8'))
 
 		self.count += 1
 		print 'Processed: %d' % self.count
