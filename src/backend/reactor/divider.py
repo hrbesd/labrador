@@ -58,7 +58,7 @@ class Divider:
 						resultSentence.append(sentenceTag)
 
 		if total_length < len(content):
-			words = sentence[total_length:]
+			words = content[total_length:]
 			sentenceTag = self.soup.new_tag('span')
 			sentenceTag['class'] = 'tts_data'
 			sentenceTag.string = words
