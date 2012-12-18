@@ -28,7 +28,6 @@ class Reactor:
 		self.buildRules()
 		self.executor = Executor(config_file_path)
 		self.count = 0
-		self.client = tts_client.TTSClient()
 		self.INVALID_TAGS = ['table', 'tbody', 'tr', 'td']
 		self.full_update = (os.getenv('REACTOR_UPDATE_ALL') == 'YES')
 		self.update_set = None
