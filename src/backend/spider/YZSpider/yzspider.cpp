@@ -45,7 +45,11 @@ void YZSpider::downloadWebPage(Node &node)
     m_webpageRequestThreadNum--;
     QNetworkRequest request;
     QNetworkReply *reply;
-    request.setUrl(QUrl(node.url));
+    QByteArray encodedUrl;
+    encodeURI(node.url, encodedUrl);
+    QUrl requestUrl;
+    requestUrl.setEncodedUrl (encodedUrl);
+    request.setUrl(requestUrl);
     reply = m_networkAccessManager->get(request);
     m_webPageDownloadingTask.insert(reply,node);
     connect(reply,SIGNAL(finished()),this,SLOT(webPageDownloaded()));
@@ -131,4 +135,24 @@ void YZSpider::initParameters()
         exit(0);
     }
     std::cout<<"spider start to run..."<<std::endl;
+}
+
+void YZSpider::encodeURI (const QString &str, QByteArray &outArr)
+{
+    QTextCodec *codec = QTextCodec::codecForName(website.codecName.toAscii ());
+    if(codec->canEncode(str)) {
+        QByteArray tmpArr;
+        tmpArr = codec->fromUnicode(str);
+        for(int i=0,size = tmpArr.length();i<size;i++){
+            char ch = tmpArr.at(i);
+            if(ch < 128 && ch > 0){
+                outArr.append(ch);
+            }else{
+                uchar low = ch & 0xff;
+                char c[3];
+                sprintf(c,"%02X",low);
+                outArr.append("%").append(c);
+            }
+        }
+    }
 }

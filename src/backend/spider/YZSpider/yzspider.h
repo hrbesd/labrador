@@ -49,6 +49,9 @@ private:
     //scheduler
     void webpageDownloadScheduler();
 
+    //encode url
+    void encodeURI(const QString& str, QByteArray &outArr);
+
     //tools
     QNetworkAccessManager *m_networkAccessManager;
     QMap<QNetworkReply*,Node> m_webPageDownloadingTask;
