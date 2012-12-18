@@ -13,11 +13,13 @@ class Divider:
 	def divide(self, element): # element is NavigableString
 		resultSentence = []
 		content = element.strip()
+		total_length = 0
 		m = self.dividerPattern.findall(content)
 		for parts in m:
 			if len(parts) == 2:
 				sentence = parts[0].strip() + parts[1].strip()
 				sentenceLength = len(sentence)
+				total_length += sentenceLength
 				currentLength = 0
 				while currentLength < sentenceLength:
 					left = currentLength
@@ -54,6 +56,14 @@ class Divider:
 						sentenceTag['class'] = 'tts_data'
 						sentenceTag.string = words
 						resultSentence.append(sentenceTag)
+
+		if total_length < len(content):
+			words = sentence[total_length:]
+			sentenceTag = self.soup.new_tag('span')
+			sentenceTag['class'] = 'tts_data'
+			sentenceTag.string = words
+			resultSentence.append(sentenceTag)
+
 		return resultSentence
 
 	def processSentence(self, element):
