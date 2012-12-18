@@ -102,13 +102,13 @@ class Assembler:
 			for fileName in files:
 				inFolder = root
 				outFilePath = self.temp_out_dir + root[len(self.in_folder_path):]
-				self.changeContent(inFolder, outFilePath, fileName, self.xsltPath('../../xml_stylesheets/article.xsl'), header='<article>')
+				self.changeContent(inFolder, outFilePath, fileName, self.xsltPath('../../xml_stylesheets/article.xsl'))
 
 				self.count = self.count + 1
 				print 'Processed %d' % self.count
 		pass
 
-	def changeContent(self, inPath, outPath, fileName, content, header=''):
+	def changeContent(self, inPath, outPath, fileName, content):
 		if not os.path.exists(outPath):
 			os.makedirs(outPath)
 
@@ -121,9 +121,9 @@ class Assembler:
 		# process the document in 2 steps
 		# 1. Strip the html tags
 		firstLine = contents[0]
-		firstLine = header + firstLine[firstLine.rindex('<'):]
+		firstLine = firstLine[12:]
 		lastLine = contents[-1]
-		lastLine = lastLine[:lastLine.index('>') + 1]
+		lastLine = lastLine[:-14]
 		contents = [firstLine] + contents[1:-1] + [lastLine]
 		# 2. Add the xml tag and xslt tag
 		contents = [self.XML_PREFIX, content] + contents
