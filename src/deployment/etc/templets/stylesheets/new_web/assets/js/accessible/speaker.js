@@ -191,6 +191,9 @@ speaker.toolbar.click = function (toolbar_id) {
 };
 // 朗读方法，唯一的对外接口
 speaker.speak = function (text) {
+	if(speaker!=null && speaker.mp3Object!=null){
+		speaker.mp3Object.destruct();
+	}
 	var de= base64.e64(text);
     	$.ajax({
 		type:'GET',
