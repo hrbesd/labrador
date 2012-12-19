@@ -123,7 +123,7 @@ var bindActions = function() {
         });
 	//鼠标进入事件
         $(this).bind("mouseenter", function() {
-	        window.clearTimeout(intervalId);
+	        //window.clearTimeout(intervalId);
 	        //设置焦点。焦点中会发送请求朗读功能
 	        $(this).parents('a').focus();
 	        var obj=$(this);
