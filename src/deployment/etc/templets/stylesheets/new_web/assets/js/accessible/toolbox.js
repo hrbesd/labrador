@@ -7,6 +7,14 @@
  *
  * Author： Void Main
  */
+ 
+//初始化soundManager播放器
+soundManager.setup({
+  useFlashBlock: false,
+  url: '/assets/swf/', 
+  debugMode: false,
+  consoleOnly: false
+});
 var initSM2 = function() {
 	var t2sUrl="http://125.211.222.45:8083/ws/batch";
   	var arr = new Array();
@@ -39,13 +47,7 @@ var initSM2 = function() {
 	    });
   	}
   	arr = new Array();//清空缓存
-  	//初始化soundManager播放器
-	soundManager.setup({
-	  	useFlashBlock: false,
-	 	url: '/assets/swf/', 
-	 	debugMode: false,
-	  	consoleOnly: false
-	});
+
 
 }
 
@@ -119,11 +121,18 @@ var bindActions = function() {
             basic.magnifier.magnifyIt(this.innerHTML);
             $('.magnifier').textfill({ maxFontPixels: 160 });
         });
-		//鼠标进入事件
+	//鼠标进入事件
         $(this).bind("mouseenter", function() {
 	        window.clearTimeout(intervalId);
 	        //设置焦点。焦点中会发送请求朗读功能
 	        $(this).parents('a').focus();
+	        var obj=$(this);
+    		intervalId=setTimeout(function(){
+		    if(speaker.speakerStatus==true){
+		    	speaker.point.speak(obj.html());
+		    	obj.addClass("tts_reading");
+		    }
+		 },2000);
         });
         //鼠标移出事件
         $(this).bind("mouseleave", function() {
@@ -140,15 +149,9 @@ var bindActions = function() {
 	//朗读功具栏语音
     $('div[id=toolbar] a').each(function() {
         $(this).bind("mouseover", function() {
-        	if(speaker!=null && speaker.mp3Object!=null){
-        		speaker.mp3Object.destruct();
-        	}
         	speaker.toolbar.speak($(this).attr("id"));
         });
         $(this).bind("click", function() {
-                if(speaker!=null && speaker.mp3Object!=null){
-        		speaker.mp3Object.destruct();
-        	}
         	var toolbar_id = $(this).attr("id")
         	speaker.toolbar.click(toolbar_id);
         	basic.dynamicIcon.change(toolbar_id);
@@ -158,6 +161,7 @@ var bindActions = function() {
         });
     });
     //切换焦点
+    /*
     $('span[class=tts_data]').parents('a').each(function() {
     	$(this).bind("focus", function() {
     		//如果批量朗读开起不会读取，因为连读会焦点跟随产生重读。
@@ -174,6 +178,7 @@ var bindActions = function() {
     	$(this).bind("blur", function() {
     		$(this).contents('.tts_data').removeClass("tts_reading");
         });
+        */
     });
 
     // change themes
