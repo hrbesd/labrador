@@ -134,11 +134,10 @@
 					</li>
 					<li>
 						<a>
-              <xsl:attribute name="href">
-                <xsl:value-of select="article/url"/>
-              </xsl:attribute>
-              返回原始页面
-            </a>
+							<xsl:attribute name="href">
+							<xsl:value-of select="article/url"/></xsl:attribute>
+							 返回原始页面
+						</a>
 					</li>
 				</ul>
 				</footer>
