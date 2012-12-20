@@ -20,13 +20,14 @@ class Reactor:
 	def __init__(self, rule_file_path, config_file_path, site_config, in_folder_path, out_folder_path, shared_dir, log_file):
 		self.rule_file_path = rule_file_path + "/reactor_rules.rrule"
 		self.config_file_path = config_file_path + "/reactor_config.config"
+		config_dir_path = site_config[:site_config.rfind('/')]
 		self.in_folder_path = in_folder_path
 		self.out_folder_path = out_folder_path
 		self.shared_dir = shared_dir
 		self.rule_list = []
 		self.log_file = log_file
 		self.buildRules()
-		self.executor = Executor(config_file_path)
+		self.executor = Executor(config_dir_path)
 		self.count = 0
 		self.INVALID_TAGS = ['table', 'tbody', 'tr', 'td']
 		self.full_update = (os.getenv('REACTOR_UPDATE_ALL') == 'YES')
