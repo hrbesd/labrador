@@ -25,6 +25,10 @@ void DirParser::parseDirFile(QString dirFile, WebSite &website)
             if(xmlReader.name()=="codec")
             {
                 website.codecName=xmlReader.readElementText();
+                if(website.codecName.isEmpty ())
+                {
+                    website.codecName="utf-8";
+                }
             }
             else if(xmlReader.name()=="node")
             {
