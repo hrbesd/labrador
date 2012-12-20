@@ -128,8 +128,7 @@
 		<li>
 			<a>
         <xsl:attribute name="href">
-          <xsl:value-of select="column/url"/>
-        </xsl:attribute>
+          <xsl:value-of select="normalize-space(column/url)"/></xsl:attribute>
         返回原始页面
       </a>
 		</li>

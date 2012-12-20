@@ -84,16 +84,16 @@
 			</div>
 			<nav>
 			<ul class="loc">
- 
+
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                              <tr>
-                              <td  width="50%"  align="left" > 
+                              <td  width="50%"  align="left" >
 			    <li>
 			    <a href="#"><xsl:copy-of select="website/info"/></a>
 			    </li>
 			   </td>
-                              <td  width="40%"  align="right" > 
-		             
+                              <td  width="40%"  align="right" >
+
                                 <form target="_blank">
                                  <xsl:attribute  name="action">http://yunmd.mangren.com:8181/index.jsp
                                  </xsl:attribute>
@@ -104,17 +104,17 @@
                                  </input>
                                  <input type="submit"  value="搜索"   />
                                </form>
-                               
+
 			   </td>
-                             <td  width="10%"  align="right" > 	
+                             <td  width="10%"  align="right" >
 		            <li>
                               <a target="_blank">
                               <xsl:attribute name= "href">http://yunmd.mangren.com:8181/index.jsp?nameUrl=
                               <xsl:value-of select="website/url"/>
                               </xsl:attribute>搜索
-                                    </a> 
+                                    </a>
 			   </li>
-			  </td> 
+			  </td>
 			 </tr>
 			</table>
 
@@ -171,8 +171,7 @@
 				<li>
 					<a>
             <xsl:attribute name="href">
-              <xsl:value-of select="website/url"/>
-            </xsl:attribute>
+              <xsl:value-of select="normalize-space(website/url)"/></xsl:attribute>
             返回原始页面
           </a>
 				</li>
