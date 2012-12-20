@@ -39,61 +39,10 @@ class Reactor:
 		parser = RuleParser()
 		self.rule_list = parser.parseFile(self.rule_file_path)
 
-	def isProxyRunning(self):
-		command = "nc -z -w 2 127.0.0.1 7800"
-		result = os.system(command)
-		return result == 0
-
-	def startProxy(self, path):
-		if (hasattr(os, "devnull")):
-			REDIRECT_TO = os.devnull
-		else:
-			REDIRECT_TO = "/dev/null"
-
-		# fork the first time (to make a non-session-leader child process)
-		try:
-			pid = os.fork()
-		except OSError, e:
-			raise RuntimeError("1st fork failed: %s [%d]" % (e.strerror, e.errno))
-		if pid != 0:
-			return
-
-		# detach from controlling terminal (to make child a session-leader)
-		os.setsid()
-		try:
-			pid = os.fork()
-		except OSError, e:
-			raise RuntimeError("2nd fork failed: %s [%d]" % (e.strerror, e.errno))
-			raise Exception, "%s [%d]" % (e.strerror, e.errno)
-		if pid != 0:
-			# child process is all done
-			os._exit(0)
-			return
-
-		# and finally let's execute the executable for the daemon!
-		try:
-			Popen(['nohup', 'python', path])
-			os._exit(0)
-		except Exception, e:
-			# oops, we're cut off from the world, let's just give up
-			os._exit(255)
-
 	def doReactorWork(self):
 		if not self.ensureInputFolderExists():
 			print "Error: Input folder does not exists."
 			return
-
-		if not self.isProxyRunning():
-			homePath = os.getenv('HOME')
-			path = '%s/labrador/butts/reactor/tts_proxy.py' % homePath
-			self.startProxy(path)
-			print 'Starting...'
-
-		# waiting for the proxy to be started
-		while not self.isProxyRunning():
-			time.sleep(1)
-
-		print "Proxy started..."
 
 		self.ensureOutputFolderExists()
 
