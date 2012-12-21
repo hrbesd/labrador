@@ -46,8 +46,8 @@ int YZParser::parseFile(QString fileName)
     }
     ArticleInterface articleInterface;
     file.readLine();
-    QByteArray title = file.readLine();
-    QByteArray baseUrl = file.readLine();
+    QByteArray title = QByteArray::fromBase64 (file.readLine());
+    QByteArray baseUrl = QByteArray::fromBase64 (file.readLine());
     QByteArray webData = file.readAll();
 
     QScriptValueList args;
@@ -58,9 +58,9 @@ int YZParser::parseFile(QString fileName)
     QString configFileVersion = QString::fromUtf8(articleItem.toMap()["version"].toByteArray().data());
     if(configFileVersion.compare(QString(BASE_VERSION))!=0)
     {
-        std::cerr<<"config file version is:"<<configFileVersion.toStdString()<<std::endl;
-        std::cerr<<"parser version is:"<<BASE_VERSION<<std::endl;
-        std::cerr<<"parser don't support this version of config file, will exit now!"<<std::endl;
+        qDebug()<<QString("config file version is:")<<configFileVersion;
+        qDebug()<<QString("parser version is:")+BASE_VERSION;
+        qDebug()<<QString("parser don't support this version of config file, will exit now!");
         exit(0);
     }
 
@@ -120,8 +120,24 @@ void YZParser::parseImageFromBody(const QString &dataString, QString base, Artic
         {
             return;
         }
-        int urlStartIndex = dataString.indexOf("src=",index,Qt::CaseInsensitive)+5;
-        int urlEndIndex = dataString.indexOf("\"",urlStartIndex);
+        int srcStartIndex = dataString.indexOf("src=",index,Qt::CaseInsensitive);
+        int startToSearchQuote = srcStartIndex+4;
+        while(dataString[startToSearchQuote]==' ')
+        {
+            startToSearchQuote++;
+        }
+        int urlStartIndex;
+        int urlEndIndex;
+        if(dataString[startToSearchQuote]=='\"')
+        {
+            urlStartIndex = startToSearchQuote+1;
+            urlEndIndex = dataString.indexOf("\"",urlStartIndex);
+        }
+        else
+        {
+            urlStartIndex = startToSearchQuote;
+            urlEndIndex = dataString.indexOf(" ",urlStartIndex);
+        }
 
         QUrl baseUrl(base);
         QUrl subUrl(QString(dataString.mid(urlStartIndex,urlEndIndex - urlStartIndex)));

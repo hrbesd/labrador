@@ -74,9 +74,9 @@ void YZSpider::webPageDownloaded()
         return;
     }
     file.write("\n");
-    file.write(nodeItem.name.toUtf8());
+    file.write(nodeItem.name.toUtf8().toBase64 ());
     file.write("\n");
-    file.write(reply->url().toString().toUtf8());
+    file.write(reply->url().toString().toUtf8().toBase64 ());
     file.write("\n");
     file.write(codec->toUnicode(result).toUtf8());
     qDebug()<<QString::number(m_webPageCount++)+ " web page downloaded";
