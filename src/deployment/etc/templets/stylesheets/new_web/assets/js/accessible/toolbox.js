@@ -178,8 +178,8 @@ var bindActions = function() {
     	$(this).bind("blur", function() {
     		$(this).contents('.tts_data').removeClass("tts_reading");
         });
-        */
     });
+        */
 
     // change themes
     // change stylesheet button
