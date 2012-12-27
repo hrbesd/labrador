@@ -19,7 +19,7 @@ var initSM2 = function() {
 	var t2sUrl="http://125.211.222.45:8083/ws/batch";
   	var arr = new Array();
 	$("span[class=tts_data]").each(function(){
-	  	var de= base64.e64($(this).text());
+	  	var de= base64.e64(this..innerHTML);
 	  	arr.push(de);
 	  	//保正不能超过5句,每句不能超过100字
 	  	if(arr.length>5){
@@ -129,7 +129,7 @@ var bindActions = function() {
 	        var obj=$(this);
     		intervalId=setTimeout(function(){
 		    if(speaker.speakerStatus==true){
-		    	speaker.point.speak(obj.html());
+		    	speaker.point.speak(obj.innerHTML);
 		    	obj.addClass("tts_reading");
 		    }
 		 },2000);
@@ -157,7 +157,7 @@ var bindActions = function() {
         	basic.dynamicIcon.change(toolbar_id);
         });
         $(this).bind("focus", function() {
-			speaker.toolbar.speak($(this).attr("id"));
+		speaker.toolbar.speak($(this).attr("id"));
         });
     });
     //切换焦点
