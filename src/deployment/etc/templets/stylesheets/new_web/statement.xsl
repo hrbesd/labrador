@@ -107,7 +107,7 @@
 				</header>
 				<div class="article_text">
 				<section>
-					<xsl:value-of select="article/body" />
+					<xsl:copy-of select="article/body/*" />
 				</section>
 				</div>
 				</article>
