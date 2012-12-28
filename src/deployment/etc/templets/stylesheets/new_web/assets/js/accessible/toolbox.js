@@ -151,8 +151,11 @@ var bindActions = function() {
     $('div[id=toolbar] a').each(function() {
         $(this).bind("mouseenter", function() {
         	if(speaker!=null && speaker.mp3Object!=null){
-			speaker.mp3Object.destruct();
-		}
+	        	if(speaker.batchStatus==true){
+				speaker.mp3Object.destruct();
+				speaker.index--;
+			}
+        	}
 		speaker.toolbar.speak($(this).attr("id"));
         });
         $(this).bind("mouseleave", function() {
