@@ -148,11 +148,14 @@ var bindActions = function() {
     });
 	//朗读功具栏语音
     $('div[id=toolbar] a').each(function() {
-        $(this).bind("mouseover", function() {
+        $(this).bind("mouseenter", function() {
         	var obj=$(this);
 	    	intervalId=setTimeout(function(){
 			speaker.toolbar.speak(obj.attr("id"));
 		 },300);
+        });
+        $(this).bind("mouseleave", function() {
+        	window.clearTimeout(intervalId);
         });
         $(this).bind("click", function() {
         	var toolbar_id = $(this).attr("id")
