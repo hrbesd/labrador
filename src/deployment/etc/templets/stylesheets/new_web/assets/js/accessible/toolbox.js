@@ -92,6 +92,7 @@ var loadStatus = function() {
 };
 
 var intervalId;
+var toolIntervalId;
 // 绑定各个id对应执行的操作
 var bindActions = function() {
     $('#should_read').click(action.toggleSpeak);
@@ -149,13 +150,10 @@ var bindActions = function() {
 	//朗读功具栏语音
     $('div[id=toolbar] a').each(function() {
         $(this).bind("mouseenter", function() {
-        	var obj=$(this);
-	    	intervalId=setTimeout(function(){
-			speaker.toolbar.speak(obj.attr("id"));
-		 },300);
+		speaker.toolbar.speak($(this).attr("id"));
         });
         $(this).bind("mouseleave", function() {
-        	window.clearTimeout(intervalId);
+        	window.clearTimeout(toolIntervalId);
         });
         $(this).bind("click", function() {
         	var toolbar_id = $(this).attr("id")
