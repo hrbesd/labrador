@@ -153,9 +153,11 @@ var bindActions = function() {
 		speaker.toolbar.speak($(this).attr("id"));
         });
         $(this).bind("mouseleave", function() {
-        	if(speaker!=null && speaker.mp3Object!=null){
-			speaker.mp3Object.destruct();
-		}
+        	if(speaker.batchStatus==false){
+	        	if(speaker!=null && speaker.mp3Object!=null){
+				speaker.mp3Object.destruct();
+			}
+        	}
         });
         $(this).bind("click", function() {
         	var toolbar_id = $(this).attr("id")
