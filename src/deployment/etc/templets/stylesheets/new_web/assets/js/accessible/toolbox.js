@@ -150,12 +150,6 @@ var bindActions = function() {
 	//朗读功具栏语音
     $('div[id=toolbar] a').each(function() {
         $(this).bind("mouseenter", function() {
-        	if(speaker!=null && speaker.mp3Object!=null){
-			speaker.mp3Object.destruct();
-	        	if(speaker.batchStatus==true){
-				speaker.index--;
-			}
-        	}
 		speaker.toolbar.speak($(this).attr("id"));
         });
         $(this).bind("mouseleave", function() {
