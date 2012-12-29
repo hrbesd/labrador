@@ -111,7 +111,7 @@
                               <a target="_blank">
                               <xsl:attribute name= "href">http://yunmd.mangren.com:8181/index.jsp?nameUrl=
                               <xsl:value-of select="website/url"/>
-                              </xsl:attribute>搜索
+                              </xsl:attribute>
                                     </a>
 			   </li>
 			  </td>
