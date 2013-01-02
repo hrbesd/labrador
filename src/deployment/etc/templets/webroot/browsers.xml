@@ -3,10 +3,10 @@
 <article>
 	<parentpageurl>
 		<node>
-			<name>返回主页</name>
+			<name><span class="tts_data">返回主页</span></name>
 			<pageurl>index.xml</pageurl>
 		</node>
 	</parentpageurl>
-	<title>浏览器支持</title>
-	<body><p>支持火狐浏览器、谷歌浏览器、IE浏览器</p></body>
+	<span class="tts_data"><title>浏览器支持</title></span>
+	<body><p><span class="tts_data">支持火狐浏览器、谷歌浏览器、IE浏览器</span></p></body>
 </article>
