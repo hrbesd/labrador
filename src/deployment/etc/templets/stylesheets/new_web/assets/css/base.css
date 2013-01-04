@@ -25,7 +25,7 @@ h2 {
 
 h1, h2, h3, h4, h5, li, #author {
 	font-family: sans-serif;
-	line-height: normal;
+	/*line-height: normal;*//*加上这句后工具栏的“增加行距”功能会失效。*/
 }
 
 p {
