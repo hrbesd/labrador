@@ -64,6 +64,9 @@ a:hover {
 	border-width: 1px;
 	border-style: solid;
 }
+#main h1 {
+	line-height: normal;/*修复正文标题重叠现象BUG 添加后正文标题将失去 工具栏增加行距 效果*/
+}
 
 .banner, .banner img {
 	width: 100%;
