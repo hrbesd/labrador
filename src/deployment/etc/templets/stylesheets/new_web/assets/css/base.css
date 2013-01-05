@@ -169,7 +169,7 @@ a:hover {
 }
 
 .article_text {
-	line-height: 150%;
+	/*line-height: 150%;*//*会使工具栏中增加行距的功能在正文中失效，*/
 	overflow: auto;
 }
 
