@@ -103,10 +103,6 @@ speaker.batchRead = function(){
 			speaker.mp3Object.destruct();
 		}
 	}
-   	setTimeout(function(){
-		speaker.index=0;
-		speaker.batch.speak(speaker.index);
-   	},3000);
    
 }
 speaker.batch.speak = function (index) {
