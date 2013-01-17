@@ -80,14 +80,28 @@ speaker.loadBatchRead = function(){
   
 }
 speaker.batchRead = function(){
-	if(speaker.batchStatus==false){
+	if(speaker.batchStatus==false){//关闭状态转为开启
 		speaker.batchStatus=true;
 		storage.setCookie("batch_read",'open',360);
 		$('#batch_read').addClass('on');
+		
+		if(speaker!=null && speaker.mp3Object!=null){
+			speaker.mp3Object.destruct();
+		}
+		speaker.index=0;
+		setTimeout(function(){
+			speaker.batch.speak(speaker.index);
+		},3000);
 	}else{
 		speaker.batchStatus=false;
 		storage.setCookie("batch_read",'close',360);
 		$('#batch_read').removeClass('on');
+		
+		$(speaker.source[speaker.index]).removeClass("tts_reading");
+		speaker.index = 0;
+		if(speaker!=null && speaker.mp3Object!=null){
+			speaker.mp3Object.destruct();
+		}
 	}
    	setTimeout(function(){
 		speaker.index=0;
