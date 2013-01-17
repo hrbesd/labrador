@@ -143,9 +143,9 @@ var bindActions = function() {
 	        }
         });
         //鼠标右键屏蔽菜单
-        $(this).bind("contextmenu", function() {
-        	return false;
-        });
+        //$(this).bind("contextmenu", function() {
+        //	return false;
+        //});
     });
 	//朗读功具栏语音
     $('div[id=toolbar] a').each(function() {
