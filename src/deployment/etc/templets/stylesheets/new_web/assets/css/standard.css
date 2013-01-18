@@ -116,9 +116,12 @@ h2, h3, h4 {
 }
 
 .bulletin ul {
+	/*
 	list-style-image: url("../img/list-style-image-blue.png");
 	*list-style-image: none;
 	*list-style-type: square;
+	*/
+	list-style-type: none;
 
 	text-shadow: 0 1px rgba(255, 255, 255, 0.8);
 	font-size: 100%;
@@ -193,9 +196,12 @@ h2, h3, h4 {
 }
 
 .list li {
+	/*
 	list-style-image: url("../img/list-style-image-blue.png");
 	*list-style-image: none;
 	*list-style-type: square;
+	*/
+	list-style-type: none;
 }
 
 
