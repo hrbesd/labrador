@@ -12,7 +12,7 @@ basic.defaults={};
 basic.defaults.theme='standard';
 basic.defaults.screenWidth=792;
 basic.defaults.fontSize=16;
-basic.defaults.lineHeight=1;
+basic.defaults.lineHeight=2;
 basic.defaults.guides='hide';
 basic.defaults.magnifier='hide';
 
