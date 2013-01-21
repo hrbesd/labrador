@@ -58,7 +58,10 @@ h2, h3, h4 {
 }
 
 .bulletin ul {
-	list-style-type: none;
+	list-style-image: url("../img/list-style-image-yellow.png");
+	*list-style-image: none;
+	*list-style-type: square;
+	
 	font-size: 100%;
 	margin: 0 0 0 18px;
 }
@@ -121,7 +124,9 @@ h2, h3, h4 {
 
 
 .list li {
-	list-style-type: square;
+	list-style-image: url("../img/list-style-image-yellow.png");
+	*list-style-image: none;
+	*list-style-type: square;
 }
 
 
