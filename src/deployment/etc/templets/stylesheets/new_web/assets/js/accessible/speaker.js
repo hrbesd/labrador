@@ -90,7 +90,8 @@ speaker.batchRead = function(){
 		}
 		speaker.index=0;
 		setTimeout(function(){
-			speaker.batch.speak(speaker.index);
+			speaker.index=0;
+			speaker.batch.speak();
 		},3000);
 	}else{
 		speaker.batchStatus=false;
@@ -105,7 +106,7 @@ speaker.batchRead = function(){
 	}
    
 }
-speaker.batch.speak = function (index) {
+speaker.batch.speak = function () {
 	if (speaker.batchStatus == false) {
 		return;
 	}
@@ -113,9 +114,9 @@ speaker.batch.speak = function (index) {
 	$("span[class=tts_data]").each(function () {
 		speaker.source.push(this);
 	});
-	$(speaker.source[index]).addClass("tts_reading");
-	$(speaker.source[index]).parents('a').focus();
-	speaker.speak(speaker.source[index].innerHTML);
+	$(speaker.source[speaker.index]).addClass("tts_reading");
+	$(speaker.source[speaker.index]).parents('a').focus();
+	speaker.speak(speaker.source[speaker.index].innerHTML);
 };
 //点读
 speaker.point = {};
