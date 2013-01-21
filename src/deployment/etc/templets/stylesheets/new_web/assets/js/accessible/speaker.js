@@ -182,7 +182,7 @@ speaker.point.speak = function (text) {
 };
 //工具栏朗读==============================================================================================
 speaker.toolbar = {};
-speaker.toolbar.src="assets/mp3/";
+speaker.toolbar.src="/assets/mp3/";
 speaker.toolbar.speak = function (toolbar_id) {
 	var url = speaker.toolbar.src + toolbar_id + ".mp3";
 	if (speaker.toolbar) {
