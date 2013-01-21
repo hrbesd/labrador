@@ -124,19 +124,19 @@
 				<footer>
 				<ul id="footer_links">
 					<li>
-						<a href="../../about.xml">关于本站</a>
+						<a href="../../about.xml"><span class="tts_data">关于本站</span></a>
 					</li>
 					<li>
-						<a href="../../accessible.xml">无障碍说明</a>
+						<a href="../../accessible.xml"><span class="tts_data">无障碍说明</span></a>
 					</li>
 					<li>
-						<a href="../../browsers.xml">浏览器支持</a>
+						<a href="../../browsers.xml"><span class="tts_data">浏览器支持</span></a>
 					</li>
 					<li>
 						<a>
 							<xsl:attribute name="href">
 							<xsl:value-of select="normalize-space(article/url)"/></xsl:attribute>
-							 返回原始页面
+							 <span class="tts_data">返回原始页面</span>
 						</a>
 					</li>
 				</ul>
