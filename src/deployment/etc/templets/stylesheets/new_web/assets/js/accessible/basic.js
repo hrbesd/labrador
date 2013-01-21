@@ -12,7 +12,7 @@ basic.defaults={};
 basic.defaults.theme='standard';
 basic.defaults.screenWidth=792;
 basic.defaults.fontSize=16;
-basic.defaults.lineHeight=22;
+basic.defaults.lineHeight=1;
 basic.defaults.guides='hide';
 basic.defaults.magnifier='hide';
 
@@ -111,43 +111,44 @@ basic.fontSize.loadSize = function(){
  *
  */
 basic.lineHeight = {};
-basic.lineHeight.heightUnit=4;
+basic.lineHeight.increase = basic.defaults.lineHeight;
 // 设置行距
 basic.lineHeight.setLineHeight = function(size) {
-	$('#main').css('line-height', size + 'px');
+	$('#main').css('line-height', size);
 }
 // 增加行距
 basic.lineHeight.increaseHeight = function() {
-	var pxHeight = parseInt($('#main').css('line-height').replace('px', ''));
-	if(pxHeight>basic.defaults.lineHeight+basic.lineHeight.heightUnit*6){
+	if(basic.lineHeight.increase>4){
 		return;
 	}
-	pxHeight = pxHeight + basic.lineHeight.heightUnit;
-    basic.lineHeight.setLineHeight(pxHeight);
-    storage.setCookie("lineHeight",pxHeight,360);
+	basic.lineHeight.increase++;
+    basic.lineHeight.setLineHeight(basic.lineHeight.increase);
+    storage.setCookie("lineHeight",basic.lineHeight.increase,360);
 }
 
 basic.lineHeight.resetLineHeight= function() {
-	basic.lineHeight.setLineHeight(basic.defaults.lineHeight);
+	basic.lineHeight.increase = basic.defaults.lineHeight;
+	basic.lineHeight.setLineHeight(basic.lineHeight.increase);
  	storage.setCookie("lineHeight",basic.defaults.lineHeight,360);
 }
 // 减少行距
 basic.lineHeight.decreaseHeight = function() {
-	var pxHeight = parseInt($('#main').css('line-height').replace('px', ''));
-	if(pxHeight<basic.defaults.lineHeight-basic.lineHeight.heightUnit*5){
+	if(basic.lineHeight.increase<2){
 		return;
 	}
-	pxHeight = pxHeight - basic.lineHeight.heightUnit;
-    basic.lineHeight.setLineHeight(pxHeight);
-     storage.setCookie("lineHeight",pxHeight,360);
+	basic.lineHeight.increase--;
+    basic.lineHeight.setLineHeight(basic.lineHeight.increase);
+     storage.setCookie("lineHeight",basic.lineHeight.increase,360);
 }
 // 载入之前的值
 basic.lineHeight.loadHeight = function() {
  	var pxSize = storage.getCookie("lineHeight");
  	if(pxSize){
  	 	basic.lineHeight.setLineHeight(pxSize);
+ 		basic.lineHeight.increase = pxSize;
  	}else{
  		storage.setCookie("lineHeight",basic.defaults.lineHeight,360);
+ 		basic.lineHeight.increase = basic.defaults.lineHeight;
  	}
 
 }
