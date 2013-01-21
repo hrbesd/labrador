@@ -46,3 +46,14 @@ storage.getCookie = function(name){
 storage.eraseCookie = function(name){
     storage.setCookie(name, "", -1);
 }
+// 清空Cookie
+storage.foreach = function(){
+  var strCookie=document.cookie;
+  var arrCookie=strCookie.split("; ");
+  for(var i=0;i<arrCookie.length;i++){
+      var arr=arrCookie[i].split("=");
+	  if(arr.length>0){
+	  		storage.eraseCookie(arr[0]);
+	  	}
+	}
+}
