@@ -11,6 +11,7 @@
  */
 keybinding.alt={};
 keybinding.alt.config={
+	/*
 	'192':'restPage',
 	'49':'changeToStandardTheme',//标准试图
 	'50':'changeToDarkTheme',//夜视	
@@ -20,12 +21,22 @@ keybinding.alt.config={
 	'222':'resetScreenWidth',//还原页宽
 	'186':'toggleMagnifier',//放大镜
 	'220':'toggleGuides'//辅助线
+	*/
+	'192':'restPage',
+	'49':'changeToStandardTheme',//标准试图
+	'50':'changeToDarkTheme',//夜视	
+	'51':'changeToHightContrastTheme',//夜视	
+	'219':'batch_read',//自动朗读
+	'221':'point_read',//文字缩小
+	'222':'resetFontSize',//文字还原
+	'186':'increaseFontSize',//文字放大
+	'220':'decreaseFontSize'//文字缩小
 }
 keybinding.ctrl={};
 keybinding.ctrl.config={
-	'219':'increaseFontSize',//文字放大 
-	'221':'decreaseFontSize',//文字缩小
-	'222':'resetFontSize'//文字还原
+	'219':'increaseScreenWidth',//增加页宽
+	'221':'decreaseScreenWidth',//减少页宽
+	'222':'resetScreenWidth'//还原页宽
 };
 keybinding.shift={};
 keybinding.shift.config={
