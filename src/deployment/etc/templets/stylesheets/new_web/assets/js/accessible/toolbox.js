@@ -60,7 +60,7 @@ jQuery(document).ready(function(){
 	      var w = 5-len;
 	      for(var i=0;i<w;i++){
 	      	//$(this).append("<ul style='list-style:none; '><li>&nbsp;</li></ul>");
-	      	$(this).append("<li>&nbsp;</li>");
+	      	$(this).append("<ul style='list-style:none; list-style-image: url(\"/assets/img/list-style-image-empty.png\");'><li>&nbsp;</li></ul>");
 	      }
 	 });	
     	// 在ready的时候，载入各种工具箱工具的状态
