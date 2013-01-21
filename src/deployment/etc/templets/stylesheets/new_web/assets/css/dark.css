@@ -117,12 +117,10 @@ h2, h3, h4 {
 }
 
 .bulletin ul {
-	/*
 	list-style-image: url("../img/list-style-image-gold.png");
 	*list-style-image: none;
 	*list-style-type: square;
-	*/
-	list-style-type: none;
+
 	font-size: 100%;
 	margin: 0 0 0 18px;
 }
@@ -195,12 +193,9 @@ h2, h3, h4 {
 }
 
 .list li {
-	/*
 	list-style-image: url("../img/list-style-image-gold.png");
 	*list-style-image: none;
 	*list-style-type: square;
-	*/
-	list-style-type: none;
 }
 
 
