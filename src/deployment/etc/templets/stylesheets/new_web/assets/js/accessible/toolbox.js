@@ -11,7 +11,7 @@
 //初始化soundManager播放器
 soundManager.setup({
   useFlashBlock: false,
-  url: '/assets/swf/', 
+  url: 'assets/swf/', 
   debugMode: false,
   consoleOnly: false
 });
