@@ -12,40 +12,7 @@ var speaker = {};
 speaker.url = "http://125.211.222.45:8083";
 speaker.index = 0;//连读索引
 speaker.source = new Array();//连续缓存
-speaker.continueStatus = false;
-speaker.audioPlaying = false;
-speaker.read_enabled = true;
-speaker.mp3Object=null;//朗读语音对象
 
-speaker.ws={};
-speaker.ws.esdStart = function(url){
-	speaker.mp3Object= soundManager.createSound({
-                id:'sound',
-                url:url,
-                onfinish:callback
-        });
-      speaker.mp3Object.play();
-}
-//连读需要调用的方法
-function playComplete() {
-	if(speaker.toolbar.flg.speak==true){
-		speaker.toolbar.flg.speak=false;
-		return;
-	}
-	$(speaker.source[speaker.index]).removeClass("tts_reading");
-	speaker.index++;
-	if (speaker.index > (speaker.source.length - 1)) {
-		speaker.index = 0;
-		return;
-	}
-
-	speaker.batch.speak(speaker.index);
-}
-// 播放完成回调方法
-function callback() {
-	speaker.mp3Object.destruct();
-	playComplete();
-}
  //停止朗读
 speaker.stop = function () {
 	$(speaker.source[speaker.index]).removeClass("tts_reading");
@@ -54,55 +21,73 @@ speaker.stop = function () {
 		speaker.mp3Object.destruct();
 	}
 };
-//连读
+//自动朗读========================================================================================
 speaker.batch = {};
 speaker.batch.intervalId;
+//通过cookie初始化
 speaker.loadBatchRead = function(){
 	var batch_read = storage.getCookie('batch_read');
     	if(batch_read=='open'){
-		speaker.batchStatus = true;
-		$('#batch_read').addClass('on');
-		storage.setCookie("batch_read",'open',360);
-		speaker.batch.intervalId = setInterval(function(){
-			if(speaker.ws){
-				speaker.index=0;
-				speaker.batch.speak(speaker.index);
-				clearInterval(speaker.batch.intervalId);
-			}
-		}, 1000);
-		//speaker.index=0;
-		//speaker.batch.speak(speaker.index);
+			speaker.batchStatus = true;
+			$('#batch_read').addClass('on');
+			storage.setCookie("batch_read",'open',360);
+			speaker.index=0;
+			speaker.batch.speak(speaker.index);
     	}else{
-		speaker.batchStatus = false;
-		storage.setCookie("batch_read",'close',360);
-		$('#batch_read').removeClass('on');
+			speaker.batchStatus = false;
+			storage.setCookie("batch_read",'close',360);
+			$('#batch_read').removeClass('on');
     	}
   
 }
+speaker.batch.esdStart = function(url){
+	if(speaker.batch.mp3Object!=null){
+		speaker.batch.mp3Object.destruct();
+	}
+	speaker.batch.mp3Object= soundManager.createSound({
+                id:'batch',
+                url:url,
+                onfinish:batchcallback
+        });
+      speaker.batch.mp3Object.play();
+}
+function batchcallback(){
+	if(speaker.batch.mp3Object!=null){
+		speaker.batch.mp3Object.destruct();
+	}
+	playComplete();
+}
+//连读需要调用的方法
+function playComplete() {
+	$(speaker.source[speaker.index]).removeClass("tts_reading");
+	speaker.index++;
+	if (speaker.index > (speaker.source.length - 1)) {
+		speaker.index = 0;
+	}
+	speaker.batch.speak(speaker.index);
+}
+//通过页面按钮操作
 speaker.batchRead = function(){
+	
 	if(speaker.batchStatus==false){//关闭状态转为开启
 		speaker.batchStatus=true;
 		storage.setCookie("batch_read",'open',360);
 		$('#batch_read').addClass('on');
-		
-		if(speaker!=null && speaker.mp3Object!=null){
-			speaker.mp3Object.destruct();
+		basic.dynamicIcon.change("batch_read");
+		if(speaker.batch.mp3Object!=null){
+			speaker.batch.mp3Object.destruct();
 		}
-		speaker.index=0;
-		setTimeout(function(){
+		speaker.batch.intervalId=setTimeout(function(){
 			speaker.index=0;
 			speaker.batch.speak();
-		},3000);
+		 },2000);
 	}else{
+		window.clearTimeout(speaker.batch.intervalId);
 		speaker.batchStatus=false;
 		storage.setCookie("batch_read",'close',360);
 		$('#batch_read').removeClass('on');
-		
+		basic.dynamicIcon.change("batch_read");
 		$(speaker.source[speaker.index]).removeClass("tts_reading");
-		speaker.index = 0;
-		if(speaker!=null && speaker.mp3Object!=null){
-			speaker.mp3Object.destruct();
-		}
 	}
    
 }
@@ -116,10 +101,40 @@ speaker.batch.speak = function () {
 	});
 	$(speaker.source[speaker.index]).addClass("tts_reading");
 	$(speaker.source[speaker.index]).parents('a').focus();
-	speaker.speak(speaker.source[speaker.index].innerHTML);
+	var text = speaker.source[speaker.index].innerHTML;
+	var de= base64.e64(text);
+   	$.ajax({
+		type:'GET',
+		url:speaker.url+'/ws/t2s',
+		dataType:'jsonp',
+		jsonp:"callback",
+		data:{"b":de},
+		async: true,
+		success:function(data){
+		    speaker.batch.esdStart(data.u);
+		}
+   	})
+	
 };
-//点读
+//即指即读=================================================================================================
 speaker.point = {};
+speaker.point.esdStart = function(url){
+	if(speaker.point.mp3Object!=null){
+		speaker.point.mp3Object.destruct();
+	}
+	speaker.point.mp3Object= soundManager.createSound({
+                id:'sound',
+                url:url,
+                onfinish:pointcallback
+        });
+      speaker.point.mp3Object.play();
+}
+function pointcallback(){
+	if(speaker.point.mp3Object!=null){
+		speaker.point.mp3Object.destruct();
+	}
+}
+//进行页面通过cookie初始化方法
 speaker.loadPointRead = function(){
 	var point_read = storage.getCookie('point_read');
     if(point_read=='open'){
@@ -133,31 +148,64 @@ speaker.loadPointRead = function(){
     }
    
 }
+//页面通过按钮操作方法
 speaker.pointRead = function(){
 	if(speaker.speakerStatus==false){
 		speaker.speakerStatus = true;
 		storage.setCookie("point_read",'open',360);
 		$('#point_read').addClass('on');
+		basic.dynamicIcon.change("point_read");
 	}else{
 		speaker.speakerStatus = false
 		storage.setCookie("point_read",'close',360);
 		$('#point_read').removeClass('on');
+		basic.dynamicIcon.change("point_read");
 	}
 }
+//开启即指即读后,调用此方法会发送请求朗读
 speaker.point.speak = function (text) {
 	if (speaker.speakerStatus == false) {
 		return;
 	}
-	speaker.speak(text);
+	var de= base64.e64(text);
+   	$.ajax({
+		type:'GET',
+		url:speaker.url+'/ws/t2s',
+		dataType:'jsonp',
+		jsonp:"callback",
+		data:{"b":de},
+		async: true,
+		success:function(data){
+		    speaker.point.esdStart(data.u);
+		}
+   	})
 };
+//工具栏朗读==============================================================================================
 speaker.toolbar = {};
+speaker.toolbar.src="assets/mp3/";
 speaker.toolbar.speak = function (toolbar_id) {
-	var url = "/assets/mp3/" + toolbar_id + ".mp3";
-	if (speaker.ws) {
-		speaker.ws.esdStart(url);
+	var url = speaker.toolbar.src + toolbar_id + ".mp3";
+	if (speaker.toolbar) {
+		speaker.toolbar.esdStart(url);
 	}
 };
 speaker.toolbar.flg={};
+speaker.toolbar.esdStart=function(url){
+	if(speaker.toolbar.mp3Object!=null){
+		speaker.toolbar.mp3Object.destruct();
+	}
+	speaker.toolbar.mp3Object=soundManager.createSound({
+                id:'tool',
+                url:url,
+                onfinish:toolcallback
+        });
+     speaker.toolbar.mp3Object.play();
+}
+function toolcallback(){
+	if(speaker.toolbar.mp3Object!=null){
+		speaker.toolbar.mp3Object.destruct();
+	}
+}
 speaker.toolbar.click = function (toolbar_id) {
 	//自动朗读
 	if (toolbar_id == "batch_read") {
@@ -195,27 +243,8 @@ speaker.toolbar.click = function (toolbar_id) {
 	}
 
 
-	var tool_url = "/assets/mp3/click/" + toolbar_id + "_click.mp3";
-	if (speaker.ws) {
-		speaker.ws.esdStart(tool_url);
+	var tool_url = speaker.toolbar.src +"click/"+ toolbar_id + "_click.mp3";
+	if (speaker.toolbar) {
+		speaker.toolbar.esdStart(tool_url);
 	}
 };
-// 朗读方法，唯一的对外接口
-speaker.speak = function (text) {
-	if(speaker!=null && speaker.mp3Object!=null){
-		speaker.mp3Object.destruct();
-	}
-	var de= base64.e64(text);
-    	$.ajax({
-		type:'GET',
-		url:speaker.url+'/ws/t2s',
-		dataType:'jsonp',
-		jsonp:"callback",
-		data:{"b":de},
-		async: false,
-		success:function(data){
-		    speaker.ws.esdStart(data.u);
-		}
-    	})
-};
-
