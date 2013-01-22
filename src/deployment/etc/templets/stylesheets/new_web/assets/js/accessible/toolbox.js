@@ -84,8 +84,8 @@ jQuery(document).ready(function(){
 	// 绑定键盘快捷键
 	$(document).keydown(function(event){
         keybinding.processKeyEvent(event);
-    });
-        */
+    	});
+      	*/
 });
 
 // 载入之前保存的修改
