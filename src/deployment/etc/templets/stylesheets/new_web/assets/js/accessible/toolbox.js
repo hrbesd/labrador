@@ -7,15 +7,7 @@
  *
  * Author： Void Main
  */
- 
-//初始化soundManager播放器
-soundManager.setup({
-  useFlashBlock: true,
-  url: 'assets/swf/', 
-  debugMode: false,
-  consoleOnly: false
-});
-var initSM2 = function() {
+var initContent = function() {
 	var t2sUrl="http://125.211.222.45:8083/ws/batch";
   	var arr = new Array();
 	$("span[class=tts_data]").each(function(){
@@ -29,7 +21,7 @@ var initSM2 = function() {
 			    dataType:'jsonp',
 			    jsonp:"callback",
 			    data:{"b":arr},
-			    async: false
+			    async: true
 	    	});
 	    	//清空缓存
 	 	 	arr=new Array();
@@ -43,17 +35,36 @@ var initSM2 = function() {
 		    dataType:'jsonp',
 		    jsonp:"callback",
 		    data:{"b":arr},
-		    async: false
+		    async: true
 	    });
   	}
   	arr = new Array();//清空缓存
 
 
 }
-
+//加载swf成功后调用的方法
+function initSM2(){
+    // 在ready的时候，载入各种工具箱工具的状态
+    loadStatus();
+    // 绑定界面元素事件
+    bindActions();
+	// 绑定键盘快捷键
+    $(document).keydown(function(event){
+        keybinding.processKeyEvent(event);
+    });
+}
 
 jQuery(document).ready(function(){
-	initSM2();
+	initContent();
+	//初始化soundManager播放器
+	soundManager.setup({
+	  useFlashBlock: true,
+	  flashVersion:9,
+	  url: '/assets/swf/', 
+	  debugMode: false,
+	  consoleOnly: false
+	  onready:initSM2
+	});
 	//补足5个子目录
 	$('li[class=bulletin] ul').each(function(){
 	      var len = $(this).children('li').size();
@@ -62,7 +73,8 @@ jQuery(document).ready(function(){
 	      	//$(this).append("<ul style='list-style:none; '><li>&nbsp;</li></ul>");
 	      	$(this).append("<ul style='list-style:none; list-style-image: url(\"/assets/img/list-style-image-empty.png\");'><li>&nbsp;</li></ul>");
 	      }
-	 });	
+	 });
+	 /*
     	// 在ready的时候，载入各种工具箱工具的状态
     	loadStatus();
 
@@ -73,6 +85,7 @@ jQuery(document).ready(function(){
 	$(document).keydown(function(event){
         keybinding.processKeyEvent(event);
     });
+        */
 });
 
 // 载入之前保存的修改
