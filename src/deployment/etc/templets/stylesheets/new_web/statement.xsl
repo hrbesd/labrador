@@ -95,7 +95,7 @@
 			        </li>
 			      </xsl:for-each>
 			      <li>
-			        <a href="#"><xsl:value-of select="article/title"/></a>
+			        <a href="#"><span class="tts_data"><xsl:value-of select="article/title"/></span></a>
 			      </li>
 					</ul>
 					</nav>
@@ -103,7 +103,7 @@
 				<div id="article">
 				<article>
 				<header>
-				<h1><xsl:value-of select="article/title"/></h1>
+				<h1><span class="tts_data"><xsl:value-of select="article/title"/></span></h1>
 				</header>
 				<div class="article_text">
 				<section>
