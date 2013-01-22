@@ -10,7 +10,7 @@
  
 //初始化soundManager播放器
 soundManager.setup({
-  useFlashBlock: false,
+  useFlashBlock: true,
   url: 'assets/swf/', 
   debugMode: false,
   consoleOnly: false
