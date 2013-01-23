@@ -58,7 +58,7 @@ jQuery(document).ready(function(){
 	initContent();
 	//初始化soundManager播放器
 	soundManager.setup({
-	  useFlashBlock: true,
+	  useFlashBlock: false,
 	  flashVersion:9,
 	  url: '/assets/swf/', 
 	  debugMode: false,
