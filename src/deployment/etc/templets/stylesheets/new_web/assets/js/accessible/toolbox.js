@@ -62,7 +62,7 @@ jQuery(document).ready(function(){
 	  flashVersion:9,
 	  url: '/assets/swf/', 
 	  debugMode: false,
-	  consoleOnly: false
+	  consoleOnly: false,
 	  onready:initSM2
 	});
 	//补足5个子目录
