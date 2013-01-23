@@ -54,4 +54,4 @@ def doTranslate(lang, text):
 	return jsonp_result
 
 server.bottle.debug(debug)
-run(host='116.255.180.236', port='9999')
+run(host='0.0.0.0', port='9999')
