@@ -53,9 +53,7 @@ a:hover {
 	width: 792px;
 	margin-left: auto;
 	margin-right: auto;
-	/*add by zjz start 0921*/
-	line-height: 22px;/*如果这个line-height属性被去掉,工具栏里行距按钮将会失效，因为得不到初始化的值，所以一定要指定行距*/
-	/*add by zjz end 0921*/
+	line-height: 2;
 }
 
 #main {
