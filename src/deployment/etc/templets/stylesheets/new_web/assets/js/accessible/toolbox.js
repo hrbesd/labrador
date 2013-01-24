@@ -44,8 +44,6 @@ var initContent = function() {
 }
 //加载swf成功后调用的方法
 function initSM2(){
-    // 在ready的时候，载入各种工具箱工具的状态
-    loadStatus();
     // 绑定界面元素事件
     bindActions();
 	// 绑定键盘快捷键
@@ -55,7 +53,6 @@ function initSM2(){
 }
 
 jQuery(document).ready(function(){
-	initContent();
 	//初始化soundManager播放器
 	soundManager.setup({
 	  useFlashBlock: false,
@@ -65,6 +62,10 @@ jQuery(document).ready(function(){
 	  consoleOnly: false,
 	  onready:initSM2
 	});
+	//初始化本网页文字转语音的状态
+	initContent();
+	// 在ready的时候，载入各种工具箱工具的状态
+    	loadStatus();
 	//补足5个子目录
 	$('li[class=bulletin] ul').each(function(){
 	      var len = $(this).children('li').size();
