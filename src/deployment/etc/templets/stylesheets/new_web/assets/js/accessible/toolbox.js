@@ -44,6 +44,10 @@ var initContent = function() {
 }
 //加载swf成功后调用的方法
 function initSM2(){
+	//初始化语音和动态图标显示
+    speaker.loadPointRead();
+    speaker.loadBatchRead();
+    basic.dynamicIcon.change("null");//初始化动态更换的图标
     // 绑定界面元素事件
     bindActions();
 	// 绑定键盘快捷键
@@ -99,10 +103,10 @@ var loadStatus = function() {
     basic.changeTheme.loadStyle();
     basic.guides.loadGuides();
     basic.magnifier.loadMagnifierStatus();
-    speaker.loadPointRead();
-    speaker.loadBatchRead();
     basic.translator.loadTranslator();
-    basic.dynamicIcon.change("null");//初始化动态更换的图标
+    //speaker.loadPointRead();
+    //speaker.loadBatchRead();
+    //basic.dynamicIcon.change("null");//初始化动态更换的图标
     //basic.styleSwitcher.loadStyleStatus();
 };
 
