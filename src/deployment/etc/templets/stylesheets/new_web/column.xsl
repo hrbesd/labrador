@@ -72,7 +72,7 @@
       <div class="btn_group item_71">
         <a href="#" id="toggle_magnifier"   title="放大镜"     class="item_a"></a>
         <a href="#" id="guides"       title="辅助线"     class="item_b"></a>
-        <a href="accessible.xml" id="accessibility"     title="无障碍说明"   class="item_c"></a>
+        <a href="../accessible.xml" id="accessibility"     title="无障碍说明"   class="item_c"></a>
       </div>
     </section>
     </div>
