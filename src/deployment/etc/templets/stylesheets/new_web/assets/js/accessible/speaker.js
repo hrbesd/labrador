@@ -68,15 +68,15 @@ function playComplete() {
 }
 //通过页面按钮操作
 speaker.batchRead = function(){
-	
+	//无论开启和关闭都先清除正在朗读的语音
+	if(speaker.batch.mp3Object!=null){
+		speaker.batch.mp3Object.destruct();
+	}
 	if(speaker.batchStatus==false){//关闭状态转为开启
 		speaker.batchStatus=true;
 		storage.setCookie("batch_read",'open',360);
 		$('#batch_read').addClass('on');
 		basic.dynamicIcon.change("batch_read");
-		if(speaker.batch.mp3Object!=null){
-			speaker.batch.mp3Object.destruct();
-		}
 		speaker.batch.intervalId=setTimeout(function(){
 			speaker.index=0;
 			speaker.batch.speak();
