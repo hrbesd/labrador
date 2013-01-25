@@ -10,7 +10,7 @@ class Divider:
 		self.soup = soup
 		self.dividerPattern = re.compile(ur"([^。！？：；……!?;\n\r]+)([。！？：；……!?;\n\r])", re.UNICODE)
 
-	def divide(self, element): # element is NavigableString
+	def divide(self, elements): # element is NavigableString or string
 		resultSentence = []
 		content = element.strip()
 		total_length = 0
@@ -66,15 +66,24 @@ class Divider:
 
 		return resultSentence
 
+	def wrapElement(self, element, content, needsWrap):
+		results = self.divide(content)
+		if len(results) == 0:
+			return
+
+		wrap_tag_name = 'p'
+		if not needsWrap:
+			wrap_tag_name = ''
+		resultTag = self.soup.new_tag(wrap_tag_name)
+		for result in results:
+			resultTag.append(result)
+		element.replaceWith(resultTag)
+
 	def processSentence(self, element):
 		if isinstance(element, NavigableString):
-			results = self.divide(element)
-			if len(results) == 0:
-				return
-			resultTag = self.soup.new_tag('p')
-			for result in results:
-				resultTag.append(result)
-			element.replaceWith(resultTag)
+			self.wrapElement(element, element, True)
+		elif isinstance(element, Tag) and element.name == 'span': # don't wrap span
+			self.wrapElement(element, element.text, False)
 		elif isinstance(element, unicode):
 			return
 		else:
