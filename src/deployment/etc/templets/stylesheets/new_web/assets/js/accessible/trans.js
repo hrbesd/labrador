@@ -10,7 +10,7 @@
 
 var trans = {};
 // VOIDMAIN 修改了对应的TransCache的IP
-trans.baseURL = "http://125.211.222.45:9999/translate/en/";
+trans.baseURL = "http://125.211.222.44:9999/translate/en/";
 
 // 翻译对应的内容
 // 参数：text - 要翻译的文字
