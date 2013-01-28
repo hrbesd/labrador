@@ -10,7 +10,7 @@ class Divider:
 		self.soup = soup
 		self.dividerPattern = re.compile(ur"([^。！？：；……!?;\n\r]+)([。！？：；……!?;\n\r])", re.UNICODE)
 
-	def divide(self, elements): # element is NavigableString or string
+	def divide(self, element): # element is NavigableString or string
 		resultSentence = []
 		content = element.strip()
 		total_length = 0
