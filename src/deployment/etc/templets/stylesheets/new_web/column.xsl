@@ -102,8 +102,9 @@
 	<h1><xsl:copy-of select="column/name"/></h1>
 	</header>
 	<ul class="column clearfix">
-		<xsl:for-each select="column/nodelist/node [position() &lt; 1001]">
+		<xsl:for-each select="column/nodelist/node">
       <xsl:sort data-type="number" select="level" order="descending" />
+      <xsl:if test="position() &lt; 1001">
       <li>
         <a>
           <xsl:attribute name="href">
@@ -113,6 +114,7 @@
           <xsl:copy-of select="name"/>
         </a>
       </li>
+      </xsl:if>
     </xsl:for-each>
 	</ul>
 </div>

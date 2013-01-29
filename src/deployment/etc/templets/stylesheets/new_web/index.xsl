@@ -138,8 +138,9 @@
               </a>
             </span>
             <ul>
-              <xsl:for-each select="nodelist/node [position() &lt; 6]">
+              <xsl:for-each select="nodelist/node">
                 <xsl:sort data-type="number" select="level" order="descending" />
+                <xsl:if test="position() &lt; 6">
                 <li>
                   <a>
                     <xsl:attribute name="href">
@@ -151,6 +152,7 @@
                     <xsl:copy-of select="name" />
                   </a>
                 </li>
+                </xsl:if>
               </xsl:for-each>
             </ul>
           </li>
