@@ -108,7 +108,7 @@
 			</header>
 			<ul class="list clearfix">
 				<xsl:for-each select="list/nodelist/node">
-          <xsl:sort data-type="number" select="level" order="descending" />
+          <xsl:sort data-type="number" select="level" />
           <xsl:if test="position() &lt; 1001">
           <li>
             <a>
