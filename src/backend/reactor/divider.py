@@ -73,7 +73,7 @@ class Divider:
 
 		wrap_tag_name = 'p'
 		if not needsWrap:
-			wrap_tag_name = ''
+			wrap_tag_name = 'span'
 		resultTag = self.soup.new_tag(wrap_tag_name)
 		for result in results:
 			resultTag.append(result)
