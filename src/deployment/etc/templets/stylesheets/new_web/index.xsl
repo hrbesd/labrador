@@ -126,6 +126,7 @@
 			<nav>
 			<ul class="clearfix">
 				<xsl:for-each select="website/nodelist/indexnode">
+          <xsl:sort data-type="number" select="node/level" />
           <li class="bulletin">
             <span>
               <a>
