@@ -103,6 +103,7 @@
 	</header>
 	<ul class="column clearfix">
 		<xsl:for-each select="column/nodelist/node [position() &lt; 1001]">
+      <xsl:sort data-type="number" select="level" />
       <li>
         <a>
           <xsl:attribute name="href">
