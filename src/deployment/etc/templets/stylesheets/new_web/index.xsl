@@ -126,7 +126,7 @@
 			<nav>
 			<ul class="clearfix">
 				<xsl:for-each select="website/nodelist/indexnode">
-          <xsl:sort data-type="number" select="node/level" />
+          <xsl:sort data-type="number" select="node/level" order="descending" />
           <li class="bulletin">
             <span>
               <a>
@@ -139,7 +139,7 @@
             </span>
             <ul>
               <xsl:for-each select="nodelist/node [position() &lt; 6]">
-                <xsl:sort data-type="number" select="level" />
+                <xsl:sort data-type="number" select="level" order="descending" />
                 <li>
                   <a>
                     <xsl:attribute name="href">
