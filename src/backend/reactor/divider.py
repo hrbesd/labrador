@@ -123,25 +123,15 @@ class Divider:
 				if len(element.contents) == 0:
 					continue
 				content = element.contents[0].strip()
-
-				# 现在时间是字符串了，reactor只负责显示
-				"""
-				try:
-					modifiedDate = datetime.datetime.fromtimestamp(long(content) / 1000)
-					dateStr = modifiedDate.strftime(u'%Y年%m月%d日'.encode('utf-8'))
-					content = dateStr.decode('utf-8')
-				except:
-					content = u""
-
-				"""
-
 				dataTag = self.soup.new_tag('span')
 				dataTag['class'] = 'tts_data'
 				dataTag.string = content
 				element.contents[0] = dataTag
 
 			for element in bodyData:
-				self.processSentence(element)
+				# do not repeatly process these elements
+				if not element.name in ['title', 'author', 'lastmodified']:
+					self.processSentence(element)
 		else: # navigation files
 			for element in soup.find_all('name'):
 				if len(element.contents) > 0 and element.contents[0]:
