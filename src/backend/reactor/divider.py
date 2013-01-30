@@ -82,7 +82,7 @@ class Divider:
 	def processSentence(self, element):
 		if isinstance(element, NavigableString):
 			self.wrapElement(element, element, True)
-		elif isinstance(element, Tag) and element.name == 'span': # don't wrap span
+		elif isinstance(element, Tag) and element.name == 'span' and element.parent != None: # don't wrap span
 			self.wrapElement(element, element.text, False)
 		elif isinstance(element, unicode):
 			return
@@ -129,9 +129,7 @@ class Divider:
 				element.contents[0] = dataTag
 
 			for element in bodyData:
-				# do not repeatly process these elements
-				if not element.name in ['title', 'author', 'lastmodified']:
-					self.processSentence(element)
+				self.processSentence(element)
 		else: # navigation files
 			for element in soup.find_all('name'):
 				if len(element.contents) > 0 and element.contents[0]:
