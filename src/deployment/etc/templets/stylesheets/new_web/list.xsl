@@ -91,9 +91,7 @@
               <xsl:attribute name="href">
                 <xsl:value-of select="pageurl"/>
               </xsl:attribute>
-              <span class="tts_data">
-                <xsl:copy-of select="name"/>
-              </span>
+              <xsl:copy-of select="name"/>
             </a>
           </li>
         </xsl:for-each>
