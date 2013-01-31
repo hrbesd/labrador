@@ -130,16 +130,17 @@ class Divider:
 
 			for element in bodyData:
 				self.processSentence(element)
-		else: # navigation files
-			for element in soup.find_all('name'):
-				if len(element.contents) > 0 and element.contents[0]:
-					try:
-						content = element.contents[0].strip()
-						dataTag = self.soup.new_tag('span')
-						dataTag['class'] = 'tts_data'
-						dataTag.string = content
-						element.contents[0] = dataTag
-					except Exception, e:
-						print e
+
+		# navigation part
+		for element in soup.find_all('name'):
+			if len(element.contents) > 0 and element.contents[0]:
+				try:
+					content = element.contents[0].strip()
+					dataTag = self.soup.new_tag('span')
+					dataTag['class'] = 'tts_data'
+					dataTag.string = content
+					element.contents[0] = dataTag
+				except Exception, e:
+					print e
 
 		return soup
