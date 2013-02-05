@@ -90,14 +90,12 @@
 			            <xsl:attribute name="href">
 			              <xsl:value-of select="pageurl"/>
 			            </xsl:attribute>
-			            <span class="tts_data">
-			            	<xsl:copy-of select="name"/>
-			          	</span>
+			            <xsl:copy-of select="name"/>
 			          </a>
 			        </li>
 			      </xsl:for-each>
 			      <li>
-			        <a href="#"><span class="tts_data"><xsl:value-of select="article/title"/></span></a>
+			        <a href="#"><xsl:value-of select="article/title"/></a>
 			      </li>
 					</ul>
 					</nav>
@@ -105,7 +103,7 @@
 				<div id="article">
 				<article>
 				<header>
-				<h1><span class="tts_data"><xsl:value-of select="article/title"/></span></h1>
+				<h1><xsl:value-of select="article/title"/></h1>
 				</header>
 				<div class="article_text">
 				<section>
