@@ -95,7 +95,7 @@
 			        </li>
 			      </xsl:for-each>
 			      <li>
-			        <a href="#"><xsl:value-of select="article/title"/></a>
+			        <a href="#"><xsl:copy-of select="article/title/*"/></a>
 			      </li>
 					</ul>
 					</nav>
@@ -103,7 +103,7 @@
 				<div id="article">
 				<article>
 				<header>
-				<h1><xsl:value-of select="article/title"/></h1>
+				<h1><xsl:copy-of select="article/title/*"/></h1>
 				</header>
 				<div class="article_text">
 				<section>
