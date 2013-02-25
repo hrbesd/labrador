@@ -101,6 +101,7 @@ class Reactor:
 		# get rid of something like "&amp;nbsp;"
 		# &amp;nbsp; => &nbsp; => " "
 		dataContent = html.unescape_string(dataContent)
+		dataContent.replace("<o:p>", "<p>").replace("</o:p>", "</p>")
 
 		parent = codecs.open(parentFile, 'r', 'utf-8')
 		parentContent = parent.read()
