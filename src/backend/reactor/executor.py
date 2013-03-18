@@ -30,7 +30,12 @@ class Executor:
 			return False
 
 		attr, value = args
-		return int(target[attr]) <= int(value)
+		target_val = 0
+		try:
+			target_val = int(target[attr])
+		except Exception, e:
+			target_val = 0
+		return target_val <= int(value)
 
 	def insideSite(self, url):
 		return False
