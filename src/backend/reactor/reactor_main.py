@@ -103,6 +103,12 @@ class Reactor:
 		dataContent = html.unescape_string(dataContent)
 		dataContent = dataContent.replace("<o:p>", "<p>").replace("</o:p>", "</p>")
 
+ 
+ 
+         dataContent = dataContent.replace("<st1:", "<!--<st1:").replace("st1:chsdate>", "st1:chsdate>-->").replace("st1:chmetcnv>", "st1:chmetcnv>-->")
+ 
+
+
 		parent = codecs.open(parentFile, 'r', 'utf-8')
 		parentContent = parent.read()
 		parentContent = html.unescape_string(parentContent)
