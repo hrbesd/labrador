@@ -9,7 +9,7 @@
 var speaker = {};
 
 // 伪成员变量
-speaker.url = "http://125.211.222.45:8083";
+speaker.url = "http://125.211.222.45";
 speaker.index = 0;//连读索引
 speaker.source = new Array();//连续缓存
 
