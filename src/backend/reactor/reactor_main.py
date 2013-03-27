@@ -101,8 +101,22 @@ class Reactor:
 		# get rid of something like "&amp;nbsp;"
 		# &amp;nbsp; => &nbsp; => " "
 		dataContent = html.unescape_string(dataContent)
-		dataContent = dataContent.replace("<o:p>", "<p>").replace("</o:p>", "</p>")
-		dataContent = dataContent.replace("<st1:", "<!--<st1:").replace("st1:chsdate>", "st1:chsdate>-->").replace("st1:chmetcnv>", "st1:chmetcnv>-->").replace("st1:personname>", "st1:personname>-->")
+
+		# dataContent = dataContent.replace("<o:p>", "<p>").replace("</o:p>", "</p>")
+		# dataContent = dataContent.replace("<st1:", "<!--<st1:").replace("st1:chsdate>", "st1:chsdate>-->").replace("st1:chmetcnv>", "st1:chmetcnv>-->").replace("st1:personname>", "st1:personname>-->")
+                #20130327 fix#374
+                str_result=dataContent 
+                r = re.compile('xml:namespace prefix = (.*?) ns')
+                s_match = r.findall(str_result)
+                for c in s_match:
+                    namespace_list = re.findall('<'+c+':.*?>',str_result)
+                    for namespace_r in namespace_list:
+                        str_result = str_result.replace(namespace_r,'')
+                    namespace_list = re.findall('</'+c+':.*?>',str_result)
+                    for namespace_r in namespace_list:
+                        str_result = str_result.replace(namespace_r,'')  
+                dataContent=str_result
+
 
 		parent = codecs.open(parentFile, 'r', 'utf-8')
 		parentContent = parent.read()
