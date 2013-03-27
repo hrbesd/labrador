@@ -117,7 +117,7 @@ class Reactor:
                         str_result = str_result.replace(namespace_r,'')  
                 namespace_list = re.findall('<\?xml:namespace prefix.*?>',str_result)
                 for namespace_r in namespace_list:
-                str_result = str_result.replace(namespace_r ,'')
+                    str_result = str_result.replace(namespace_r ,'')
                 dataContent=str_result
 
 
