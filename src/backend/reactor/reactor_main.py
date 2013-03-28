@@ -101,8 +101,7 @@ class Reactor:
 		# get rid of something like "&amp;nbsp;"
 		# &amp;nbsp; => &nbsp; => " "
 		dataContent = html.unescape_string(dataContent)
-
-		# dataContent = dataContent.replace("<o:p>", "<p>").replace("</o:p>", "</p>")
+                dataContent = dataContent.replace("<o:p>", "<p>").replace("</o:p>", "</p>")
 		# dataContent = dataContent.replace("<st1:", "<!--<st1:").replace("st1:chsdate>", "st1:chsdate>-->").replace("st1:chmetcnv>", "st1:chmetcnv>-->").replace("st1:personname>", "st1:personname>-->")
                 #20130327 fix#374
                 str_result=dataContent 
