@@ -8,7 +8,7 @@
  * Author： Void Main
  */
 var initContent = function() {
-	var t2sUrl="http://125.211.222.45/ws/batch";
+	var t2sUrl="http://voice.yunmd.net/ws/batch";
   	var arr = new Array();
 	$("span[class=tts_data]").each(function(){
 	  	var de= base64.e64($(this).text());
