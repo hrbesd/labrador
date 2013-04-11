@@ -152,7 +152,7 @@ var bindActions = function() {
 		    	speaker.point.speak(obj.text());
 		    	obj.addClass("tts_reading");
 		    }
-		 },2000);
+		 },500);
         });
         //鼠标移出事件
         $(this).bind("mouseleave", function() {
