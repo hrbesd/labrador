@@ -26,7 +26,7 @@ void YZXmlWriter::writeArticleToXml(ArticleInterface &data, QString fileName)
     
   //20130415
   if(data.bodyData.length()<2)
-  data.bodyData=data.bodyData+"<ahref="+data.url+">&#20869;&#23481;&#20026;&#31354;&#25110;&#21547;&#26080;&#27861;&#36716;&#25442;&#30340;&#35270;&#39057;&#12289;&#112;&#100;&#102;&#65292;&#35831;&#28857;&#20987;&#21407;&#22987;&#32593;&#39029;&#26597;&#30475;</a>";
+  data.bodyData=data.bodyData+"<a  href="+data.url+">&#20869;&#23481;&#20026;&#31354;&#25110;&#21547;&#26080;&#27861;&#36716;&#25442;&#30340;&#35270;&#39057;&#12289;&#112;&#100;&#102;&#65292;&#35831;&#28857;&#20987;&#21407;&#22987;&#32593;&#39029;&#26597;&#30475;</a>";
     
     writer.writeTextElement("bodyData",data.bodyData);
     if(!data.hashData.isEmpty())
