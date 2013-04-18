@@ -167,6 +167,12 @@ speaker.point.speak = function (text) {
 	if (speaker.speakerStatus == false) {
 		return;
 	}
+	speaker.send(text);
+};
+speaker.send = function(text){
+	if(text==null || text.length==0){
+		return null;
+	}
 	var de= base64.e64(text);
    	$.ajax({
 		type:'GET',
@@ -179,7 +185,7 @@ speaker.point.speak = function (text) {
 		    speaker.point.esdStart(data.u);
 		}
    	})
-};
+}
 //工具栏朗读==============================================================================================
 speaker.toolbar = {};
 speaker.toolbar.src="/assets/mp3/";
