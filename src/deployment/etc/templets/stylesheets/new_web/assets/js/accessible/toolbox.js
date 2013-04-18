@@ -51,12 +51,15 @@ function initSM2(){
     // 绑定界面元素事件
     bindActions();
 	// 绑定键盘快捷键
+/**
     $(document).keydown(function(event){
         keybinding.processKeyEvent(event);
     });
+**/
 }
 
 jQuery(document).ready(function(){
+	keybinding.bind();
 	//初始化soundManager播放器
 	soundManager.setup({
 	  useFlashBlock: false,
@@ -112,6 +115,7 @@ var loadStatus = function() {
 
 var intervalId;
 var toolIntervalId;
+var focusvalId;
 // 绑定各个id对应执行的操作
 var bindActions = function() {
     $('#should_read').click(action.toggleSpeak);
@@ -184,25 +188,22 @@ var bindActions = function() {
         });
     });
     //切换焦点
-    /*
-    $('span[class=tts_data]').parents('a').each(function() {
+    $('#main a,#footer_links a').each(function() {
     	$(this).bind("focus", function() {
     		//如果批量朗读开起不会读取，因为连读会焦点跟随产生重读。
-    		if(speaker.batchStatus==false){
-    			var children = $(this).contents('.tts_data')
-    			intervalId=setTimeout(function(){
-		            if(speaker.speakerStatus==true){
-		            	speaker.point.speak(children.html());
-		    			children.addClass("tts_reading");
-		            }
-		         },2000);
-    		}
-        });
+    		if(speaker.batchStatus==false && speaker.speakerStatus==false){
+    			var children = $(this).find("span[class=tts_data]");
+    			focusvalId=setTimeout(function(){
+    				speaker.send(children.html())
+    			}, 300);
+
+        	}
+        	});
     	$(this).bind("blur", function() {
-    		$(this).contents('.tts_data').removeClass("tts_reading");
+    		window.clearTimeout(focusvalId);
+
         });
     });
-        */
 
     // change themes
     // change stylesheet button
