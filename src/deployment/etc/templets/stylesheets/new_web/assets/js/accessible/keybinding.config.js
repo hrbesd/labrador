@@ -7,53 +7,180 @@
  * 
  * “包”名： keybinding.config
  *
- * Author: Void Main
+ * Author: Snailzhang
  */
-keybinding.alt={};
-keybinding.alt.config={
-	/*
-	'192':'restPage',
-	'49':'changeToStandardTheme',//标准试图
-	'50':'changeToDarkTheme',//夜视	
-	'51':'changeToHightContrastTheme',//高对比度
-	'219':'increaseScreenWidth',//增加页宽
-	'221':'decreaseScreenWidth',//减少页宽
-	'222':'resetScreenWidth',//还原页宽
-	'186':'toggleMagnifier',//放大镜
-	'220':'toggleGuides'//辅助线
-	*/
-	'192':'restPage',
-	'49':'changeToStandardTheme',//标准试图
-	'50':'changeToDarkTheme',//夜视	
-	'51':'changeToHightContrastTheme',//夜视	
-	'219':'batch_read',//自动朗读
-	'221':'point_read',//文字缩小
-	'222':'resetFontSize',//文字还原
-	'186':'increaseFontSize',//文字放大
-	'220':'decreaseFontSize'//文字缩小
-}
-keybinding.ctrl={};
-keybinding.ctrl.config={
-	'219':'increaseScreenWidth',//增加页宽
-	'221':'decreaseScreenWidth',//减少页宽
-	'222':'resetScreenWidth'//还原页宽
-};
-keybinding.shift={};
-keybinding.shift.config={
-	'219':'increaseLineHeight',//增加行宽 
-	'221':'decreaseLineHeight',//减少行宽
-	'222':'resetLineHeight'//还原行宽
-}
-keybinding.config = {
-	'83':'accessible',
-	'49':'changeToStandardTheme',//标准试图192
-	'50':'changeToDarkTheme',//夜视	
-	'51':'changeToHightContrastTheme'//高对比度
-	/*
-	'57':'showMagnifier',//显示放大镜//'48':'hideMagnifier',//隐藏放大镜
-	'191':'showHelp',//显示帮助
-	'a':'hideHelp',//隐藏帮助
-	'a':'toggleStyle',//横竖工具栏切换
-	'a':'toggleSpeak'//朗读
-	*/
+/**
+ * 键盘绑定配置文件
+ *
+ * 键盘绑定是一系列可以更改的键值对，其中键是键盘的按键编码，值是对应函数的名称。
+ * 这里的按键已经默认按下了ctrl+shift两个键，不再对这两个键有别的需求。
+ * 如果后续需要扩展，再进行添加
+ * 
+ * “包”名： keybinding.config
+ *
+ * Author: Void Main
+ 2.	对以下功能进行快捷键定义。
+	1)	正常模式 Ctrl+Shift+ + n （normal）
+	2)	黑夜模式 Ctrl+Shift+ + b  （black）
+	3)	高对比度模式 Ctrl+Shift+ + h （high）
+	4)	放大字体   Ctrl+Shift+ + u
+	5)	还原字体   Ctrl+Shift+ + i
+	6)	缩小字体   Ctrl+Shift+ + o
+	7)	增加页宽   Ctrl+Shift+ + j
+	8)	减小页宽   Ctrl+Shift+ + k
+	9)	还原页宽   Ctrl+Shift+ + l
+	10)	增加行距   Ctrl+Shift+ + m
+	11)	减小行距   Ctrl+Shift+ + ,
+	12)	还原行距   Ctrl+Shift+ + .
+	13)	关闭/开启自动朗读功能 Ctrl+Shift+ + r(read)
+	14)	关闭/开启即指即读功能 Ctrl+Shift+ + c (click)
+	15)	翻译功能  Ctrl+Shift+ + / （translator）
+	16)	放大镜功能  Ctrl+Shift+ + d （magnifier）
+	17)	辅助线功能  Ctrl+Shift+ + g (guide)
+	18)	无障碍说明  Ctrl+Shift+ + i (instruction)
+	19)	焦点朗读功能  Ctrl+Shift+ + f  (focus)
+	20)	正文朗读功能   Ctrl+Shift+ + p (paragraph)
+ */
+var keybinding={};
+keybinding.bind=function(){
+	//模式======================================================================
+	//正常模式
+	jQuery(document).bind('keydown', 'alt+shift+n',function (evt){
+		action.changeToStandardTheme();
+        speaker.toolbar.click("theme_standard");
+        //basic.dynamicIcon.change(toolbar_id);
+        return false;
+	});
+	//黑夜模式
+	jQuery(document).bind('keydown', 'alt+shift+b',function (evt){
+		action.changeToDarkTheme();
+        speaker.toolbar.click("theme_dark");
+        //basic.dynamicIcon.change(toolbar_id);
+        return false;
+	});
+	//高亮模式
+	jQuery(document).bind('keydown', 'alt+shift+h',function (evt){
+		action.changeToHightContrastTheme();
+        speaker.toolbar.click("theme_highcontrast");
+        //basic.dynamicIcon.change(toolbar_id);
+       return false;
+	});
+	//字体======================================================================
+	//字体放大
+	jQuery(document).bind('keydown', 'alt+shift+u',function (evt){
+		action.increaseFontSize();
+        speaker.toolbar.click("text_in");
+        return false;
+	});
+	//字体还原
+	jQuery(document).bind('keydown', 'alt+shift+i',function (evt){
+		action.resetFontSize();
+        speaker.toolbar.click("reset_text");
+        return false;
+	});
+	//字体缩小
+	jQuery(document).bind('keydown', 'alt+shift+o',function (evt){
+		action.decreaseFontSize();
+        speaker.toolbar.click("text_out");
+        return false;
+	});
+	//页宽======================================================================
+	//页宽放大
+	jQuery(document).bind('keydown', 'alt+shift+j',function (evt){
+		action.increaseScreenWidth();
+        speaker.toolbar.click("increase_width");
+        //basic.dynamicIcon.change(toolbar_id);
+        return false;
+	});
+	//还原页宽
+	jQuery(document).bind('keydown', 'alt+shift+k',function (evt){
+		action.resetScreenWidth();
+        speaker.toolbar.click("reset_width");
+        //basic.dynamicIcon.change(toolbar_id);
+        return false;
+	});
+	//页宽缩小
+	jQuery(document).bind('keydown', 'alt+shift+l',function (evt){
+		action.decreaseScreenWidth();
+        speaker.toolbar.click("decrease_width");
+        //basic.dynamicIcon.change(toolbar_id);
+       return false;
+	});
+	//行距======================================================================
+	//行距放大
+	jQuery(document).bind('keydown', 'alt+shift+m',function (evt){
+		action.increaseLineHeight();
+        speaker.toolbar.click("line_height_in");
+        //basic.dynamicIcon.change(toolbar_id);
+        return false;
+	});
+	//还原行距
+	jQuery(document).bind('keydown', 'alt+shift+,',function (evt){
+		action.resetLineHeight();
+        speaker.toolbar.click("line_height_reset");
+        //basic.dynamicIcon.change(toolbar_id);
+        return false;
+	});
+	//行距缩小
+	jQuery(document).bind('keydown', 'alt+shift+.',function (evt){
+		action.decreaseLineHeight();
+        speaker.toolbar.click("line_height_out");
+        //basic.dynamicIcon.change(toolbar_id);
+       return false;
+	});
+	//语音======================================================================
+	//自动朗读
+	jQuery(document).bind('keydown', 'alt+shift+r',function (evt){
+		action.batch_read();
+        speaker.toolbar.click("batch_read");
+        //basic.dynamicIcon.change(toolbar_id);
+        return false;
+	});
+	//即指即读
+	jQuery(document).bind('keydown', 'alt+shift+c',function (evt){
+		action.point_read();
+        speaker.toolbar.click("point_read");
+        //basic.dynamicIcon.change(toolbar_id);
+        return false;
+	});
+	//翻译
+	jQuery(document).bind('keydown', 'alt+shift+/',function (evt){
+		action.toggleTranslate();
+        speaker.toolbar.click("toggle_translate");
+        //basic.dynamicIcon.change(toolbar_id);
+       return false;
+	});
+	//放大镜
+	jQuery(document).bind('keydown', 'alt+shift+e',function (evt){
+		action.toggleMagnifier();
+       speaker.toolbar.click("toggle_magnifier");
+       return false;
+       
+	});
+	//辅助线
+	jQuery(document).bind('keydown', 'alt+shift+g',function (evt){
+		action.toggleGuides();
+       speaker.toolbar.click("guides");
+       return false;
+       
+	});
+	//无障碍说明
+	jQuery(document).bind('keydown', 'alt+shift+a',function (evt){
+	   speaker.toolbar.click("accessibility");
+	   setTimeout("window.open('accessible.xml')", 1000);
+       return false;
+       
+	});
+	//焦点朗读
+	jQuery(document).bind('keydown', 'alt+shift+f',function (evt){
+
+       return false;
+       
+	});
+	//帮助
+	jQuery(document).bind('keydown', 'alt+f1',function (evt){
+		
+       return false;
+       
+	});
 };
