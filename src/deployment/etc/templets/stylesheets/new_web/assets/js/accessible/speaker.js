@@ -86,7 +86,7 @@ speaker.batchRead = function(){
 		speaker.source=new Array();//连续缓存
 		if(speaker.bodyTextStatus==true){
 			//遍历正文保存数据
-			$(".article_text section p span[class=tts_data]").each(function() {
+			$(".article_text p span[class=tts_data]").each(function() {
 				speaker.source.push(this);
 			});
 		}else{
