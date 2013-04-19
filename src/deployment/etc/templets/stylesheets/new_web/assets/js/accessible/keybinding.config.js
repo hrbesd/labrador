@@ -122,18 +122,21 @@ keybinding.bind=function(){
 	jQuery_1_3_2(document).bind('keydown', 'alt+shift+r',function (evt){
 		action.batch_read();
         speaker.toolbar.click("batch_read");
+        //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//即指即读
 	jQuery_1_3_2(document).bind('keydown', 'alt+shift+c',function (evt){
 		action.point_read();
         speaker.toolbar.click("point_read");
+        //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//翻译
 	jQuery_1_3_2(document).bind('keydown', 'alt+shift+/',function (evt){
 		action.toggleTranslate();
         speaker.toolbar.click("toggle_translate");
+        //basic.dynamicIcon.change(toolbar_id);
        return false;
 	});
 	//放大镜
@@ -145,7 +148,7 @@ keybinding.bind=function(){
 	});
 	//辅助线
 	jQuery_1_3_2(document).bind('keydown', 'alt+shift+g',function (evt){
-		action.toggleGuides();
+	action.toggleGuides();
        speaker.toolbar.click("guides");
        return false;
        
@@ -157,23 +160,10 @@ keybinding.bind=function(){
        return false;
        
 	});
-	//朗读正文
-	jQuery_1_3_2(document).bind('keydown', 'alt+shift+p',function (evt){
-		if(speaker.bodyTextStatus==true){
-			speaker.bodyTextStatus=false;
-			speaker.toolbar.click("body_un");
-		}else{
-			//如果自动朗读以开启
-			if(speaker.batchStatus==true){
-				//action.batch_read();
-				speaker.batchRead();
-			}
-			speaker.bodyTextStatus=true;
-			speaker.toolbar.click("body");
-		}
-		speaker.batchRead();
-		
-		return false;
+	//焦点朗读
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+f',function (evt){
+
+       return false;
        
 	});
 	//帮助

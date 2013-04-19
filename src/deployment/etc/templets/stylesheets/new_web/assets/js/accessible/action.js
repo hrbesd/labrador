@@ -17,10 +17,6 @@ action.point_read = function(){
 }
 //连读
 action.batch_read = function(){
-	if(speaker.bodyTextStatus==true){
-		speaker.bodyTextStatus=false;
-		speaker.batchRead();
-	}
 	speaker.batchRead();
 }
 action.close_read = function(){
