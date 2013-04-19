@@ -12,6 +12,7 @@ var speaker = {};
 speaker.url = "http://voice.yunmd.net";
 speaker.index = 0;//连读索引
 speaker.source = new Array();//连续缓存
+speaker.bodyTextStatus = false;
 
  //停止朗读
 speaker.stop = function () {
@@ -28,15 +29,19 @@ speaker.batch.intervalId;
 speaker.loadBatchRead = function(){
 	var batch_read = storage.getCookie('batch_read');
     	if(batch_read=='open'){
-			speaker.batchStatus = true;
-			$('#batch_read').addClass('on');
-			storage.setCookie("batch_read",'open',360);
-			speaker.index=0;
-			speaker.batch.speak(speaker.index);
+		speaker.batchStatus = true;
+		$('#batch_read').addClass('on');
+		storage.setCookie("batch_read",'open',360);
+		//遍历所有保存数据
+		$("span[class=tts_data]").each(function () {
+			speaker.source.push(this);
+		});
+		speaker.index=0;
+		speaker.batch.speak(speaker.index);
     	}else{
-			speaker.batchStatus = false;
-			storage.setCookie("batch_read",'close',360);
-			$('#batch_read').removeClass('on');
+		speaker.batchStatus = false;
+		storage.setCookie("batch_read",'close',360);
+		$('#batch_read').removeClass('on');
     	}
   
 }
@@ -77,6 +82,20 @@ speaker.batchRead = function(){
 		storage.setCookie("batch_read",'open',360);
 		$('#batch_read').addClass('on');
 		basic.dynamicIcon.change("batch_read");
+		
+		speaker.source=new Array();//连续缓存
+		if(speaker.bodyTextStatus==true){
+			//遍历正文保存数据
+			$(".article_text section p span[class=tts_data]").each(function() {
+				speaker.source.push(this);
+			});
+		}else{
+			//遍历所有保存数据
+			$("span[class=tts_data]").each(function () {
+				speaker.source.push(this);
+			});
+		}
+		
 		speaker.batch.intervalId=setTimeout(function(){
 			speaker.index=0;
 			speaker.batch.speak();
@@ -84,6 +103,7 @@ speaker.batchRead = function(){
 	}else{
 		window.clearTimeout(speaker.batch.intervalId);
 		speaker.batchStatus=false;
+		speaker.bodyTextStatus=false;
 		storage.setCookie("batch_read",'close',360);
 		$('#batch_read').removeClass('on');
 		basic.dynamicIcon.change("batch_read");
@@ -95,10 +115,6 @@ speaker.batch.speak = function () {
 	if (speaker.batchStatus == false) {
 		return;
 	}
-	//遍历保存数据
-	$("span[class=tts_data]").each(function () {
-		speaker.source.push(this);
-	});
 	$(speaker.source[speaker.index]).addClass("tts_reading");
 	$(speaker.source[speaker.index]).parents('a').focus();
 	var text = speaker.source[speaker.index].innerHTML;
