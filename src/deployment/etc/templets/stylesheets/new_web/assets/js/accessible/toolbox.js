@@ -149,7 +149,7 @@ var bindActions = function() {
         $(this).bind("mouseenter", function() {
 	        //window.clearTimeout(intervalId);
 	        //设置焦点。焦点中会发送请求朗读功能
-	        $(this).parents('a').focus();
+	        //$(this).parents('a').focus();
 	        var obj=$(this);
     		intervalId=setTimeout(function(){
 		    if(speaker.speakerStatus==true){
