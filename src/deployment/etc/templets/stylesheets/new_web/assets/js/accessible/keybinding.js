@@ -3,7 +3,7 @@
 
 Original idea by by Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
  
-jQuery Plugin by Tzury Bar Yochay 
+jQuery_1_3_2 Plugin by Tzury Bar Yochay 
 tzury.by@gmail.com
 http://evalinux.wordpress.com
 http://facebook.com/profile.php?id=513676303
@@ -12,7 +12,7 @@ Project's sites:
 http://code.google.com/p/js-hotkeys/
 http://github.com/tzuryby/hotkeys/tree/master
 
-License: same as jQuery license. 
+License: same as jQuery_1_3_2 license. 
 
 USAGE:
     // simple usage
@@ -22,14 +22,14 @@ USAGE:
     $(document).bind('keydown', {combi:'Ctrl+x', disableInInput: true} , function() {});
     
 Note:
-    This plugin wraps the following jQuery methods: $.fn.find, $.fn.bind and $.fn.unbind
+    This plugin wraps the following jQuery_1_3_2 methods: $.fn.find, $.fn.bind and $.fn.unbind
 */
 
-(function (jQuery){
+(function (jQuery_1_3_2){
     // keep reference to the original $.fn.bind, $.fn.unbind and $.fn.find
-    jQuery.fn.__bind__ = jQuery.fn.bind;
-    jQuery.fn.__unbind__ = jQuery.fn.unbind;
-    jQuery.fn.__find__ = jQuery.fn.find;
+    jQuery_1_3_2.fn.__bind__ = jQuery_1_3_2.fn.bind;
+    jQuery_1_3_2.fn.__unbind__ = jQuery_1_3_2.fn.unbind;
+    jQuery_1_3_2.fn.__find__ = jQuery_1_3_2.fn.find;
     
     var hotkeys = {
         version: '0.7.9',
@@ -56,9 +56,9 @@ Note:
         }
     };
     // add firefox num pad char codes
-    //if (jQuery.browser.mozilla){
+    //if (jQuery_1_3_2.browser.mozilla){
     // add num pad char codes
-    hotkeys.specialKeys = jQuery.extend(hotkeys.specialKeys, { 96: '0', 97:'1', 98: '2', 99: 
+    hotkeys.specialKeys = jQuery_1_3_2.extend(hotkeys.specialKeys, { 96: '0', 97:'1', 98: '2', 99: 
         '3', 100: '4', 101: '5', 102: '6', 103: '7', 104: '8', 105: '9', 106: '*', 
         107: '+', 109: '-', 110: '.', 111 : '/'
         });
@@ -66,13 +66,13 @@ Note:
     
     // a wrapper around of $.fn.find 
     // see more at: http://groups.google.com/group/jquery-en/browse_thread/thread/18f9825e8d22f18d
-    jQuery.fn.find = function( selector ) {
+    jQuery_1_3_2.fn.find = function( selector ) {
         this.query = selector;
-        return jQuery.fn.__find__.apply(this, arguments);
+        return jQuery_1_3_2.fn.__find__.apply(this, arguments);
 	};
     
-    jQuery.fn.unbind = function (type, combi, fn){
-        if (jQuery.isFunction(combi)){
+    jQuery_1_3_2.fn.unbind = function (type, combi, fn){
+        if (jQuery_1_3_2.isFunction(combi)){
             fn = combi;
             combi = null;
         }
@@ -83,23 +83,23 @@ Note:
                 delete hotkeys.triggersMap[selectorId][hkTypes[x]][combi];
             }
         }
-        // call jQuery original unbind
+        // call jQuery_1_3_2 original unbind
         return  this.__unbind__(type, fn);
     };
     
-    jQuery.fn.bind = function(type, data, fn){
+    jQuery_1_3_2.fn.bind = function(type, data, fn){
         // grab keyup,keydown,keypress
         var handle = type.match(hotkeys.override);
         
-        if (jQuery.isFunction(data) || !handle){
-            // call jQuery.bind only
+        if (jQuery_1_3_2.isFunction(data) || !handle){
+            // call jQuery_1_3_2.bind only
             return this.__bind__(type, data, fn);
         }
         else{
             // split the job
             var result = null,            
             // pass the rest to the original $.fn.bind
-            pass2jq = jQuery.trim(type.replace(hotkeys.override, ''));
+            pass2jq = jQuery_1_3_2.trim(type.replace(hotkeys.override, ''));
             
             // see if there are other types, pass them to the original $.fn.bind
             if (pass2jq){
@@ -141,8 +141,8 @@ Note:
                     
                     // add attribute and call $.event.add per matched element
                     this.each(function(){
-                        // jQuery wrapper for the current element
-                        var jqElem = jQuery(this);
+                        // jQuery_1_3_2 wrapper for the current element
+                        var jqElem = jQuery_1_3_2(this);
                         
                         // element already associated with another collection
                         if (jqElem.attr('hkId') && jqElem.attr('hkId') !== selectorId){
@@ -159,9 +159,9 @@ Note:
     // work-around for opera and safari where (sometimes) the target is the element which was last 
     // clicked with the mouse and not the document event it would make sense to get the document
     hotkeys.findElement = function (elem){
-        if (!jQuery(elem).attr('hkId')){
-            if (jQuery.browser.opera || jQuery.browser.safari){
-                while (!jQuery(elem).attr('hkId') && elem.parentNode){
+        if (!jQuery_1_3_2(elem).attr('hkId')){
+            if (jQuery_1_3_2.browser.opera || jQuery_1_3_2.browser.safari){
+                while (!jQuery_1_3_2(elem).attr('hkId') && elem.parentNode){
                     elem = elem.parentNode;
                 }
             }
@@ -171,7 +171,7 @@ Note:
     // the event handler
     hotkeys.handler = function(event) {
         var target = hotkeys.findElement(event.currentTarget), 
-            jTarget = jQuery(target),
+            jTarget = jQuery_1_3_2(target),
             ids = jTarget.attr('hkId');
         
         if(ids){
@@ -224,7 +224,7 @@ Note:
                     for (var x=0; x < trigger.length; x++){
                         if(trigger[x].disableInInput){
                             // double check event.currentTarget and event.target
-                            var elem = jQuery(event.target);
+                            var elem = jQuery_1_3_2(event.target);
                             if (jTarget.is("input") || jTarget.is("textarea") || jTarget.is("select") 
                                 || elem.is("input") || elem.is("textarea") || elem.is("select")) {
                                 return true;
@@ -240,5 +240,5 @@ Note:
     };
     // place it under window so it can be extended and overridden by others
     window.hotkeys = hotkeys;
-    return jQuery;
-})(jQuery);
+    return jQuery_1_3_2;
+})(jQuery_1_3_2);

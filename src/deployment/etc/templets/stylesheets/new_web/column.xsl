@@ -19,6 +19,9 @@
 -->
       <!-- 通用的js -->
     <script type="text/javascript" src="/assets/js/jquery.js"></script>
+	<!-- 加载jQuery1.3.2版本 -->
+ 	<script type="text/javascript" src="/assets/js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript"> var jQuery_1_3_2 = $.noConflict(true);</script>
     <script type="text/javascript" src="/assets/js/jquery-bubble-popup-v3.min.js"></script>
     <!--添加soundmanager2 支持 和 bas64编码-->
     <script type="text/javascript" src="/assets/js/soundmanager2-nodebug-jsmin.js"></script>
@@ -32,7 +35,6 @@
     <script type="text/javascript" src="/assets/js/accessible/toolbox.js"></script>
     <script type="text/javascript" src="/assets/js/accessible/text.js"></script>
     <!-- 快捷键绑定用的3个js -->
-    <script type="text/javascript" src="/assets/js/accessible/shortcut.js"></script>
     <script type="text/javascript" src="/assets/js/accessible/keybinding.js"></script>
     <script type="text/javascript" src="/assets/js/accessible/keybinding.config.js"></script>
 

@@ -19,6 +19,9 @@
 -->
    		<!-- 通用的js -->
 		<script type="text/javascript" src="/assets/js/jquery.js"></script>
+		<!-- 加载jQuery1.3.2版本 -->
+ 		<script type="text/javascript" src="/assets/js/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript"> var jQuery_1_3_2 = $.noConflict(true);</script>
 		<!--添加soundmanager2 支持 和 bas64编码-->
 		<script type="text/javascript" src="/assets/js/soundmanager2-nodebug-jsmin.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/base64.js"></script>
@@ -27,12 +30,11 @@
 		<script type="text/javascript" src="/assets/js/accessible/action.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/storage.js"></script>
 		<!-- 语音加载的2个js -->
-    		<script type="text/javascript" src="/assets/js/accessible/speaker.js"></script>
-    		<!-- 工具栏 -->
+    	<script type="text/javascript" src="/assets/js/accessible/speaker.js"></script>
+    	<!-- 工具栏 -->
 		<script type="text/javascript" src="/assets/js/accessible/toolbox.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/text.js"></script>
 		<!-- 快捷键绑定用的3个js -->
-		<script type="text/javascript" src="/assets/js/accessible/shortcut.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/keybinding.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/keybinding.config.js"></script>
 

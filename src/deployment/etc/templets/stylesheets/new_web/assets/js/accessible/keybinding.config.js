@@ -7,17 +7,6 @@
  * 
  * “包”名： keybinding.config
  *
- * Author: Snailzhang
- */
-/**
- * 键盘绑定配置文件
- *
- * 键盘绑定是一系列可以更改的键值对，其中键是键盘的按键编码，值是对应函数的名称。
- * 这里的按键已经默认按下了ctrl+shift两个键，不再对这两个键有别的需求。
- * 如果后续需要扩展，再进行添加
- * 
- * “包”名： keybinding.config
- *
  * Author: Void Main
  2.	对以下功能进行快捷键定义。
 	1)	正常模式 Ctrl+Shift+ + n （normal）
@@ -45,21 +34,21 @@ var keybinding={};
 keybinding.bind=function(){
 	//模式======================================================================
 	//正常模式
-	jQuery(document).bind('keydown', 'alt+shift+n',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+n',function (evt){
 		action.changeToStandardTheme();
         speaker.toolbar.click("theme_standard");
         //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//黑夜模式
-	jQuery(document).bind('keydown', 'alt+shift+b',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+b',function (evt){
 		action.changeToDarkTheme();
         speaker.toolbar.click("theme_dark");
         //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//高亮模式
-	jQuery(document).bind('keydown', 'alt+shift+h',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+h',function (evt){
 		action.changeToHightContrastTheme();
         speaker.toolbar.click("theme_highcontrast");
         //basic.dynamicIcon.change(toolbar_id);
@@ -67,40 +56,40 @@ keybinding.bind=function(){
 	});
 	//字体======================================================================
 	//字体放大
-	jQuery(document).bind('keydown', 'alt+shift+u',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+u',function (evt){
 		action.increaseFontSize();
         speaker.toolbar.click("text_in");
         return false;
 	});
 	//字体还原
-	jQuery(document).bind('keydown', 'alt+shift+i',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+i',function (evt){
 		action.resetFontSize();
         speaker.toolbar.click("reset_text");
         return false;
 	});
 	//字体缩小
-	jQuery(document).bind('keydown', 'alt+shift+o',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+o',function (evt){
 		action.decreaseFontSize();
         speaker.toolbar.click("text_out");
         return false;
 	});
 	//页宽======================================================================
 	//页宽放大
-	jQuery(document).bind('keydown', 'alt+shift+j',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+j',function (evt){
 		action.increaseScreenWidth();
         speaker.toolbar.click("increase_width");
         //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//还原页宽
-	jQuery(document).bind('keydown', 'alt+shift+k',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+k',function (evt){
 		action.resetScreenWidth();
         speaker.toolbar.click("reset_width");
         //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//页宽缩小
-	jQuery(document).bind('keydown', 'alt+shift+l',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+l',function (evt){
 		action.decreaseScreenWidth();
         speaker.toolbar.click("decrease_width");
         //basic.dynamicIcon.change(toolbar_id);
@@ -108,21 +97,21 @@ keybinding.bind=function(){
 	});
 	//行距======================================================================
 	//行距放大
-	jQuery(document).bind('keydown', 'alt+shift+m',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+m',function (evt){
 		action.increaseLineHeight();
         speaker.toolbar.click("line_height_in");
         //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//还原行距
-	jQuery(document).bind('keydown', 'alt+shift+,',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+,',function (evt){
 		action.resetLineHeight();
         speaker.toolbar.click("line_height_reset");
         //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//行距缩小
-	jQuery(document).bind('keydown', 'alt+shift+.',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+.',function (evt){
 		action.decreaseLineHeight();
         speaker.toolbar.click("line_height_out");
         //basic.dynamicIcon.change(toolbar_id);
@@ -130,55 +119,55 @@ keybinding.bind=function(){
 	});
 	//语音======================================================================
 	//自动朗读
-	jQuery(document).bind('keydown', 'alt+shift+r',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+r',function (evt){
 		action.batch_read();
         speaker.toolbar.click("batch_read");
         //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//即指即读
-	jQuery(document).bind('keydown', 'alt+shift+c',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+c',function (evt){
 		action.point_read();
         speaker.toolbar.click("point_read");
         //basic.dynamicIcon.change(toolbar_id);
         return false;
 	});
 	//翻译
-	jQuery(document).bind('keydown', 'alt+shift+/',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+/',function (evt){
 		action.toggleTranslate();
         speaker.toolbar.click("toggle_translate");
         //basic.dynamicIcon.change(toolbar_id);
        return false;
 	});
 	//放大镜
-	jQuery(document).bind('keydown', 'alt+shift+e',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+e',function (evt){
 		action.toggleMagnifier();
        speaker.toolbar.click("toggle_magnifier");
        return false;
        
 	});
 	//辅助线
-	jQuery(document).bind('keydown', 'alt+shift+g',function (evt){
-		action.toggleGuides();
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+g',function (evt){
+	action.toggleGuides();
        speaker.toolbar.click("guides");
        return false;
        
 	});
 	//无障碍说明
-	jQuery(document).bind('keydown', 'alt+shift+a',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+a',function (evt){
 	   speaker.toolbar.click("accessibility");
 	   setTimeout("window.open('accessible.xml')", 1000);
        return false;
        
 	});
 	//焦点朗读
-	jQuery(document).bind('keydown', 'alt+shift+f',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+f',function (evt){
 
        return false;
        
 	});
 	//帮助
-	jQuery(document).bind('keydown', 'alt+f1',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+f1',function (evt){
 		
        return false;
        
