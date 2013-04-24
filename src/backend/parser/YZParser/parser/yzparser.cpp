@@ -207,7 +207,7 @@ void YZParser::removeStyles(QString &data)
 {
     QRegExp regExp("style=\"[^\"]*\"");
     regExp.setMinimal(true);
-  20130424
+//  20130424
 
 //data.replace(regExp,"");
 
