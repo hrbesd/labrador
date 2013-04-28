@@ -41,7 +41,7 @@
       <!-- 翻译功能的1个js-->
     <script type="text/javascript" src="/assets/js/accessible/trans.js"></script>
 
-	<title><xsl:value-of select="column/name"/></title>
+	<title><xsl:value-of select="column/ptitle"/></title>				
 </head>
 <body>
 <div id="toolbar" class="clearfix">
