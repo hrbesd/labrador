@@ -15,6 +15,9 @@ struct HashNode
  ***********************************/
 struct ArticleInterface
 {
+//20130428
+    QString ptitle;
+
     QString title;
     QString author;
     QString lastModified; //mseconds since Epoch
