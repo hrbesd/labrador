@@ -50,6 +50,21 @@ int YZParser::parseFile(QString fileName)
     QByteArray baseUrl = QByteArray::fromBase64 (file.readLine());
     QByteArray webData = file.readAll();
 
+//20130428
+    QString str_webData = QString::fromUtf8(webData); 
+    int i_start=0;
+    int i_end=0;
+    i_start=str_webData.indexOf("<title>");    
+    i_end=str_webData.indexOf("</title>"); 
+    QString temp = str_webData.mid(i_start+7,i_end-i_start-7); 
+
+
+
+
+
+
+
+
     QScriptValueList args;
     args << QScriptValue(webData.data())<<QScriptValue(baseUrl.data());
     QScriptValue article = m_parserValue.call(QScriptValue(),args);
@@ -65,6 +80,9 @@ int YZParser::parseFile(QString fileName)
     }
 
     articleInterface.lastModified = QString::fromUtf8(articleItem.toMap()["lastModified"].toByteArray().data());
+//20130428
+    articleInterface.ptitle = temp;
+
     articleInterface.title = QString::fromUtf8(title.data());
     articleInterface.author = QString::fromUtf8(articleItem.toMap()["author"].toByteArray().data());
     articleInterface.bodyData = QString::fromUtf8(articleItem.toMap()["body"].toByteArray().data());
