@@ -19,6 +19,9 @@ void YZXmlWriter::writeArticleToXml(ArticleInterface &data, QString fileName)
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("article");
+//20130428
+    writer.writeTextElement("ptitle", data.ptitle); 
+    
     writer.writeTextElement("title", data.title);
     writer.writeTextElement("url", data.url);
     writer.writeTextElement("author",data.author);
