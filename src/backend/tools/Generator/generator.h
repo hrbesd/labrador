@@ -31,7 +31,11 @@ private:
 
     //generate webroot
     void generateWebroot();
-    void generateIndexFile();
+//20130428
+    QString generatePageTitle(const Node &node);      
+
+
+   void generateIndexFile();
     void generateColumnFile(const Node &node);
     void generateListFile(const Node &node);
     void generateArticleFile(const Node &node);
