@@ -353,6 +353,32 @@ void Generator::generateFiles()
     }
 }
 
+//20130428
+QString Generator::generatePageTitle(const Node &node)
+{
+
+    QString ptitle="ptitle";
+    QFile file;
+    file.setFileName(m_webrootDir.absolutePath()+"/../parser/"+node.hashName.left(2)+"/"+node.hashName+".xml");    
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        std::cerr<<"can't open index file"<<std::endl;
+        return ptitle;
+    }
+    xmlReader.setDevice(&file);
+    while (!xmlReader.atEnd()) {
+        xmlReader.readNext();
+        if(xmlReader.name()=="ptitle")
+         ptitle = xmlReader.readElementText();
+    }
+    file.close();
+    return ptitle;
+}
+
+
+
+
+
 void Generator::generateColumnFile(const Node &node)
 {
     QFile file;
@@ -366,6 +392,11 @@ void Generator::generateColumnFile(const Node &node)
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("column");
+//20130428
+    QString ptitle="C";
+    ptitle=generatePageTitle(node);
+    writer.writeTextElement("ptitle",ptitle);      
+
     writer.writeTextElement("name",node.name);
     writer.writeTextElement("url",node.url);
     writeParentPageUrlXml(writer,node);
@@ -388,6 +419,11 @@ void Generator::generateListFile(const Node &node)
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("list");
+//20130428
+    QString ptitle="L";
+    ptitle=generatePageTitle(node);
+    writer.writeTextElement("ptitle",ptitle);      
+
     writer.writeTextElement("name",node.name);
     writer.writeTextElement("url",node.url);
     writeParentPageUrlXml(writer,node);
