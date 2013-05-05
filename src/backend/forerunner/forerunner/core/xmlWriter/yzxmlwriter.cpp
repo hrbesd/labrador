@@ -32,6 +32,9 @@ void YZXmlWriter::writeWebsiteItemToXml(WebSite &websiteItem, QString fileName)
 void YZXmlWriter::writeNodeItemToXml(Node &nodeItem, QXmlStreamWriter &writer)
 {
     writer.writeStartElement("node");
+//20130506
+    writer.writeTextElement("title",nodeItem.title);    
+
     writer.writeTextElement("name",nodeItem.name);
     writer.writeTextElement("url",nodeItem.url);
     writer.writeTextElement("refreshRate",nodeItem.refreshRate);
