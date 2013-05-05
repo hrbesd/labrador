@@ -43,6 +43,9 @@ struct Rule
 struct Node
 {
     QString url;
+//20130506
+    QString title;
+    
     QString name;
     QString hashName;
     QString refreshRate;
