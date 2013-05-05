@@ -115,6 +115,9 @@
               <xsl:attribute name="href">
                 <xsl:value-of select="pageurl"/>
               </xsl:attribute>
+              <xsl:attribute name="title">
+                <xsl:value-of select="title"/>
+              </xsl:attribute>      
               <xsl:copy-of select="name"/>
             </a>
           </li>
