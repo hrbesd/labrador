@@ -6,6 +6,9 @@ struct Node
 {
     Node(){ parentNode=NULL; }
     QString url;
+//20130506
+    QString title;    
+
     QString name;
     QString hashName;
     QString level;
