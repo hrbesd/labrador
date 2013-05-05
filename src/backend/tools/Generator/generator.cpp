@@ -114,6 +114,12 @@ void Generator::parseNodeXml(QXmlStreamReader &reader, Node &node)
             {
                 node.name = reader.readElementText();
             }
+            //20130506
+            if(reader.name()=="title")
+            {
+                node.title = reader.readElementText();
+            }              
+                        
             else if(reader.name()=="url")
             {
                 node.url = reader.readElementText();
@@ -265,6 +271,9 @@ void Generator::generateIndexFile()
 void Generator::writeNodeXml(QXmlStreamWriter &writer, const Node &node)
 {
     writer.writeStartElement("node");
+//20130506
+    writer.writeTextElement("title",node.title);
+
     writer.writeTextElement("name",node.name);
     writer.writeTextElement("url",node.url);
     if(node.level.isEmpty ())
