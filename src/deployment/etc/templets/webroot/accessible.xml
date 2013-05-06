@@ -23,32 +23,32 @@
 <p><span class="tts_data">所谓的网页无障碍是指残疾人、有特殊需求的健全人可以获取网络上的任何信息，为了做到这一点，就要实现网页内容无障碍以及上网使用的辅助软件技术的无障碍。</span></p>
 <h2><span class="tts_data">网站主要实现了以下三个方面的无障碍功能</span></h2>
 <ol>
-<li><span class="tts_data">全网站页面可用键盘操作，不限于鼠标。</span></li>
+<li><span class="tts_data">全网站页面可用键盘操作，不限于鼠标</span></li>
 <li><span class="tts_data">语义化的辅助提示语音功能</span></li>
 <li><span class="tts_data">无障碍网站浏览辅助功能</span></li>
 </ol>
 <h2><span class="tts_data">全网站页面可用键盘操作，不限于鼠标</span></h2>
 <ol>
-<p><span class="tts_data">定义说明：根据盲人体验员建议，为了方便记忆及使用，定义基础键为：Alt+Shift键，复合键多以该快捷键功能英文单词的首字母代替，部分以标点符号键代替</span></p>
-<li><span class="tts_data">正常模式 Alt+Shift + n</span></li>
-<li><span class="tts_data">黑夜模式 Alt +Shift + b</span></li>
-<li><span class="tts_data">高对比度模式 Alt +Shift + h</span></li>
-<li><span class="tts_data">放大字体   Alt +Shift + u</span></li>
-<li><span class="tts_data">还原字体   Alt +Shift + i</span></li>
-<li><span class="tts_data">缩小字体   Alt +Shift + o</span></li>
-<li><span class="tts_data">增加页宽   Alt +Shift + j</span></li>
-<li><span class="tts_data">减小页宽   Alt +Shift + k</span></li>
-<li><span class="tts_data">还原页宽   Alt +Shift + l</span></li>
-<li><span class="tts_data">增加行距   Alt +Shift + m</span></li>
-<li><span class="tts_data">减小行距   Alt +Shift + ,</span></li>
-<li><span class="tts_data">还原行距   Alt +Shift + .</span></li>
-<li><span class="tts_data">开启/关闭自动朗读功能 Alt +Shift + r</span></li>
-<li><span class="tts_data">开启/关闭即指即读功能 Alt +Shift + c</span></li>
-<li><span class="tts_data">开启/关闭翻译功能  Alt +Shift + ?</span></li>
-<li><span class="tts_data">开启/关闭放大镜功能  Alt +Shift + e</span></li>
-<li><span class="tts_data">开启/关闭辅助线功能  Alt +Shift + g</span></li>
-<li><span class="tts_data">开启/关闭正文朗读功能   Alt +Shift + p</span></li>
-<li><span class="tts_data">无障碍说明  Alt +Shift + a</span></li>
+<p><span class="tts_data">定义说明：根据盲人体验员建议，为了方便记忆及使用，定义基础键为：Alt+Shift键，复合键多以该快捷键功能英文单词的首字母代替，部分以标点符号键代替。</span></p>
+<li><span class="tts_data">正常模式 Alt+Shift + n键</span></li>
+<li><span class="tts_data">黑夜模式 Alt +Shift + b键</span></li>
+<li><span class="tts_data">高对比度模式 Alt +Shift + h键</span></li>
+<li><span class="tts_data">放大字体   Alt +Shift + u键</span></li>
+<li><span class="tts_data">还原字体   Alt +Shift + i键</span></li>
+<li><span class="tts_data">缩小字体   Alt +Shift + o键</span></li>
+<li><span class="tts_data">增加页宽   Alt +Shift + j键</span></li>
+<li><span class="tts_data">减小页宽   Alt +Shift + k键</span></li>
+<li><span class="tts_data">还原页宽   Alt +Shift + l键</span></li>
+<li><span class="tts_data">增加行距   Alt +Shift + m键</span></li>
+<li><span class="tts_data">减小行距   Alt +Shift + ,键</span></li>
+<li><span class="tts_data">还原行距   Alt +Shift + .键</span></li>
+<li><span class="tts_data">开启/关闭自动朗读功能 Alt +Shift + r键</span></li>
+<li><span class="tts_data">开启/关闭即指即读功能 Alt +Shift + c键</span></li>
+<li><span class="tts_data">开启/关闭翻译功能  Alt +Shift + ?键</span></li>
+<li><span class="tts_data">开启/关闭放大镜功能  Alt +Shift + e键</span></li>
+<li><span class="tts_data">开启/关闭辅助线功能  Alt +Shift + g键</span></li>
+<li><span class="tts_data">开启/关闭正文朗读功能   Alt +Shift + p键</span></li>
+<li><span class="tts_data">无障碍说明  Alt +Shift + a键</span></li>
 </ol>
 <h2><span class="tts_data">语义化的辅助提示语音功能</span></h2>
 <ol>
