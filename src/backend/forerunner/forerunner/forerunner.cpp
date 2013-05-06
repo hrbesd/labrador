@@ -122,6 +122,26 @@ void ForeRunner::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
             m_nodeUrlSet.insert(url);
             Node nodeItem;
             nodeItem.name = titleStringList[i];
+            //20130505             
+            nodeItem.title=nodeItem.name;           
+            QString     temp=">"+nodeItem.name;
+            int i_start=0;
+            int i_end=strData.indexOf(temp);
+            temp = strData.mid(i_start,i_end); 
+            i_start=temp.lastIndexOf ("<a ");
+            temp = temp.mid(i_start,i_end+1);              
+            //QStringList a_titleStringList =  parseRuleExpression(ruleItem->titleExpression,strData);
+            //nodeItem.title=ruleItem->titleExpression.value;
+            QRegExp rxlen(" title\\s*=\\s*[^\\>]*(\"|')");
+            int pos = rxlen.indexIn(temp);
+            if (pos > -1) {
+                  temp=rxlen.cap(0);   
+                nodeItem.title=temp.mid(7,temp.length());
+                
+            }
+            
+            
+
             nodeItem.url = url;
             ruleItem->nodeList.append(nodeItem);
         }
