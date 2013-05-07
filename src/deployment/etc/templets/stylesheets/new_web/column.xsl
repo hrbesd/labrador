@@ -113,7 +113,10 @@
           <xsl:attribute name="href">
             <xsl:value-of select="pageurl"/>
           </xsl:attribute>
-          <xsl:attribute name="class">column-entrance</xsl:attribute>
+              <xsl:attribute name="title">
+                <xsl:value-of select="name"/>
+              </xsl:attribute> 
+         <xsl:attribute name="class">column-entrance</xsl:attribute>
           <xsl:copy-of select="name"/>
         </a>
       </li>
