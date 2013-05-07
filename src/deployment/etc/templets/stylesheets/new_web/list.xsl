@@ -115,10 +115,19 @@
               <xsl:attribute name="href">
                 <xsl:value-of select="pageurl"/>
               </xsl:attribute>
+
               <xsl:attribute name="title">
-                <xsl:value-of select="title"/>
-              </xsl:attribute>      
-              <xsl:copy-of select="name"/>
+                 <xsl:choose>
+                  <xsl:when test="title=''">
+                  	<xsl:value-of select="name"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                  	<xsl:value-of select="title"/>
+                  </xsl:otherwise>
+                 </xsl:choose>
+              </xsl:attribute>  
+
+             <xsl:copy-of select="name"/>
             </a>
           </li>
           </xsl:if>
