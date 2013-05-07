@@ -132,7 +132,8 @@ void ForeRunner::parseRuleReply(Rule *ruleItem, QByteArray &data, QUrl &baseUrl)
             temp = temp.mid(i_start,i_end+1);              
             //QStringList a_titleStringList =  parseRuleExpression(ruleItem->titleExpression,strData);
             //nodeItem.title=ruleItem->titleExpression.value;
-            QRegExp rxlen(" title\\s*=\\s*[^\\>]*(\"|')");
+//            QRegExp rxlen(" title\\s*=\\s*[^\\>]*(\"|')");
+            QRegExp rxlen(" title\\s*=\\s*(\"|')[^\\\"|\\\']*(\"|')");
             int pos = rxlen.indexIn(temp);
             if (pos > -1) {
                   temp=rxlen.cap(0);   
