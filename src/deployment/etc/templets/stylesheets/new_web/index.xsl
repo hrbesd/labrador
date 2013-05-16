@@ -97,7 +97,7 @@
                               <td  width="40%"  align="right" >
 
                                 <form target="_blank">
-                                 <xsl:attribute  name="action">http://www.yunmd.com:8181/index.jsp
+                                 <xsl:attribute  name="action">http://search.yunmd.com/index.jsp
                                  </xsl:attribute>
                                  <input type="text"    name="name"   size="20" value="" />
                                  <input type="hidden"  name="search" value="search"/>
@@ -111,7 +111,7 @@
                              <td  width="10%"  align="right" >
 		            <li>
                               <a target="_blank">
-                              <xsl:attribute name= "href">http://www.yunmd.com:8181/index.jsp?nameUrl=
+                              <xsl:attribute name= "href">http://search.yunmd.com/index.jsp?nameUrl=
                               <xsl:value-of select="website/url"/>
                               </xsl:attribute>
                                     </a>
