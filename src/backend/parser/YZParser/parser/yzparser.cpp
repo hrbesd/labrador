@@ -54,8 +54,11 @@ int YZParser::parseFile(QString fileName)
     QString str_webData = QString::fromUtf8(webData); 
     int i_start=0;
     int i_end=0;
-    i_start=str_webData.indexOf("<title>");    
-    i_end=str_webData.indexOf("</title>"); 
+
+//20130524忽略大小写
+    i_start=str_webData.indexOf("<title>",0, Qt::CaseInsensitive);    
+    i_end=str_webData.indexOf("</title>",0, Qt::CaseInsensitive); 
+
     QString temp = str_webData.mid(i_start+7,i_end-i_start-7); 
 
 
