@@ -97,8 +97,9 @@
                               <td  width="40%"  align="right" >
 
                                 <form target="_blank">
-                                 <xsl:attribute  name="action">http://search.yunmd.com/index.jsp
-                                 </xsl:attribute>
+
+                                 <xsl:attribute  name="action">http://search.yunmd.com/index.jsp</xsl:attribute>
+
                                  <input type="text"    name="name"   size="20" value="" />
                                  <input type="hidden"  name="search" value="search"/>
                                  <input type="hidden"  name="nameUrl"  >
