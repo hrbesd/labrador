@@ -128,7 +128,7 @@
 						<a href="/browsers.xml"><span class="tts_data">浏览器支持</span></a>
 					</li>
 				</ul>
-                                <ul id="footer_links"><li><a href="http://www.hrbesd.com"><span class="tts_data">无障碍技术支持单位：哈尔滨亿时代数码科技开发有限公司</span></a></li></ul>
+                                <ul id="footer_links"><li><a href="http://www.hrbesd.com"><span class="tts_data">无障碍云技术支持单位：哈尔滨亿时代数码科技开发有限公司</span></a></li></ul>
                         </footer>
 			</div>
 			<div class="magnifier">
