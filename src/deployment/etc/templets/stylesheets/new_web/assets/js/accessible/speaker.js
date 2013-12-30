@@ -117,7 +117,7 @@ speaker.batch.speak = function () {
 	}
 	$(speaker.source[speaker.index]).addClass("tts_reading");
 	$(speaker.source[speaker.index]).parents('a').focus();
-	var text = speaker.source[speaker.index].innerHTML;
+	var text = $(speaker.source[speaker.index]).text();
 	var de= base64.e64(text);
    	$.ajax({
 		type:'GET',
