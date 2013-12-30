@@ -99,7 +99,7 @@
 
                                 <form target="_blank">
 
-                                 <xsl:attribute  name="action">http://szzf.yunmd.com:8181/index.jsp</xsl:attribute>
+                                 <xsl:attribute  name="action">http://search.yunmd.com/index.jsp</xsl:attribute>
 
                                  <input type="text"    name="name"   size="20" value="" alt="本输入框为站内搜索，请输入关键字" title="本输入框为站内搜索，请输入关键字" />
                                  <input type="hidden"  name="search" value="search"/>
