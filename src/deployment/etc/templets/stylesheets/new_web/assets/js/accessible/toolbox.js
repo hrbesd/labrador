@@ -226,7 +226,7 @@ var bindActions = function() {
 				}else if(this.tagName=='A'){
 	    			var children = $(this).find("span[class=tts_data]");
 	    			focusvalId=setTimeout(function(){
-	    				speaker.send(children.html());
+	    				speaker.send(children.text());
 	    			}, 300);
 				}
 	
