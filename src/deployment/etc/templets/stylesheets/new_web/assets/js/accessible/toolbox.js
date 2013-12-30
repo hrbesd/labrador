@@ -188,6 +188,7 @@ var bindActions = function() {
         });
     });
     //切换焦点
+    /*
     $('#main a,#footer_links a').each(function() {
     	$(this).bind("focus", function() {
     		//如果批量朗读开起不会读取，因为连读会焦点跟随产生重读。
@@ -203,6 +204,38 @@ var bindActions = function() {
     		window.clearTimeout(focusvalId);
 
         });
+    });
+    */
+    
+    
+    $('#main a,#footer_links a,#main input').each(function() {
+		if(this.tagName=='INPUT'){
+			var type = $(this).attr("type");
+			if(type=='hidden'){
+				$(this).blur();
+				return;
+			}
+		}
+		$(this).bind("focus", function() {
+			if(speaker.batchStatus==false && speaker.speakerStatus==false){
+				if(this.tagName=='INPUT'){
+	       			var value = $(this).attr("alt");
+	    			focusvalId=setTimeout(function(){
+	    				speaker.send(value);
+	    			}, 300);
+				}else if(this.tagName=='A'){
+	    			var children = $(this).find("span[class=tts_data]");
+	    			focusvalId=setTimeout(function(){
+	    				speaker.send(children.html());
+	    			}, 300);
+				}
+	
+	    	}
+		});
+		$(this).bind("blur", function() {
+			window.clearTimeout(focusvalId);
+	
+	    });
     });
 
     // change themes
