@@ -94,6 +94,7 @@ jQuery(document).ready(function(){
         keybinding.processKeyEvent(event);
     	});
       	*/
+      	$("input[name=name]").attr("x-webkit-speech","x-webkit-speech");
 });
 
 // 载入之前保存的修改
