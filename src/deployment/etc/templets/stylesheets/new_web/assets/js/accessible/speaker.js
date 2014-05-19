@@ -204,7 +204,7 @@ speaker.send = function(text){
 }
 //工具栏朗读==============================================================================================
 speaker.toolbar = {};
-speaker.toolbar.src="/assets/mp3/";
+speaker.toolbar.src="assets/mp3/";
 speaker.toolbar.speak = function (toolbar_id) {
 	var url = speaker.toolbar.src + toolbar_id + ".mp3";
 	if (speaker.toolbar) {
@@ -269,4 +269,19 @@ speaker.toolbar.click = function (toolbar_id) {
 	if (speaker.toolbar) {
 		speaker.toolbar.esdStart(tool_url);
 	}
+};
+//页面加载时提示朗读工具箱功能========================================================================================
+speaker.promptSpeakToolbar = {};
+speaker.promptSpeakToolbar.speak = function(){
+	if(speaker.promptSpeakToolbar.mp3Object!=null){
+		speaker.promptSpeakToolbar.mp3Object.destruct();
+	}
+	speaker.promptSpeakToolbar.mp3Object= soundManager.createSound({
+        id:'promptSpeakToolbar',
+        url:speaker.toolbar.src+"promptSpeakToolbar.mp3",
+        onfinish:function(){
+        	speaker.promptSpeakToolbar.mp3Object.destruct();
+        }
+    });
+	speaker.promptSpeakToolbar.mp3Object.play();
 };
