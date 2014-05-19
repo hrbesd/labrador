@@ -26,7 +26,7 @@
 	15)	翻译功能  Ctrl+Shift+ + / （translator）
 	16)	放大镜功能  Ctrl+Shift+ + d （magnifier）
 	17)	辅助线功能  Ctrl+Shift+ + g (guide)
-	18)	无障碍说明  Ctrl+Shift+ + i (instruction)
+	18)	无障碍说明  Ctrl+Shift+ + a (instruction)
 	19)	焦点朗读功能  Ctrl+Shift+ + f  (focus)
 	20)	正文朗读功能   Ctrl+Shift+ + p (paragraph)
  */
@@ -170,8 +170,26 @@ keybinding.bind=function(){
 	});
 	//帮助
 	jQuery_1_3_2(document).bind('keydown', 'alt+f1',function (evt){
-		
-       		return false;
+       	return false;
+	});
+	//朗读功能快捷键使用说明
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+s',function (evt){
+		speaker.toolbar.hotkeyMp3Object=soundManager.createSound({
+            id:'hotkey',
+            url:speaker.toolbar.src+"toolbarHotkey.mp3",
+            onfinish:function(){
+            	speaker.toolbar.hotkeyMp3Object.destruct();
+            }
+		});
+		speaker.toolbar.hotkeyMp3Object.play();
+       	return false;
        
+	});
+	//关闭朗读功能快捷键使用说明
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+f',function (evt){
+		if(speaker.toolbar.hotkeyMp3Object != null){
+			speaker.toolbar.hotkeyMp3Object.destruct();
+		}
+       	return false;
 	});
 };
