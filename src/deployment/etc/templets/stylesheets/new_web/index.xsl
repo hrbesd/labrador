@@ -38,6 +38,8 @@
 		<!-- 快捷键绑定用的3个js -->
 		<script type="text/javascript" src="/assets/js/accessible/keybinding.js"></script>
 		<script type="text/javascript" src="/assets/js/accessible/keybinding.config.js"></script>
+		<!-- 首页 -->
+		<script type="text/javascript">soundManager.setup({onready:function(){speaker.promptSpeakToolbar.speak();}});</script>
 
     	<!-- 翻译功能的1个js-->
 		<script type="text/javascript" src="/assets/js/accessible/trans.js"></script>
