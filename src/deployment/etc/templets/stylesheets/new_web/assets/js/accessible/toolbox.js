@@ -213,7 +213,7 @@ var bindActions = function() {
     });
     */
     
-    
+    /*焦点朗读
     $('#main a,#footer_links a,#main input').each(function() {
 		if(this.tagName=='INPUT'){
 			var type = $(this).attr("type");
@@ -222,7 +222,7 @@ var bindActions = function() {
 				return;
 			}
 		}
-		/*
+		
 		$(this).bind("focus", function() {
 			if(speaker.batchStatus==false && speaker.speakerStatus==false){
 				if(this.tagName=='INPUT'){
@@ -243,9 +243,9 @@ var bindActions = function() {
 			window.clearTimeout(focusvalId);
 	
 	    });
-	    */
+	    
     });
-
+    */
     // change themes
     // change stylesheet button
     $('#theme_standard').click(action.changeToStandardTheme);
