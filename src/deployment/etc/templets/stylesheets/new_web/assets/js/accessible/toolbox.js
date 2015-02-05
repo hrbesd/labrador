@@ -73,6 +73,11 @@ jQuery(document).ready(function(){
 	initContent();
 	// 在ready的时候，载入各种工具箱工具的状态
     	loadStatus();
+    	//禁止切换工具栏A链接-20150205-zjz-add-start
+	$('#toolbar a').each(function(){
+		$(this).attr("tabindex","-1");
+	});
+	//禁止切换工具栏A链接-20150205-zjz-add-end
 	//补足5个子目录
 	$('li[class=bulletin] ul').each(function(){
 	      var len = $(this).children('li').size();
@@ -217,6 +222,7 @@ var bindActions = function() {
 				return;
 			}
 		}
+		/*
 		$(this).bind("focus", function() {
 			if(speaker.batchStatus==false && speaker.speakerStatus==false){
 				if(this.tagName=='INPUT'){
@@ -237,6 +243,7 @@ var bindActions = function() {
 			window.clearTimeout(focusvalId);
 	
 	    });
+	    */
     });
 
     // change themes
