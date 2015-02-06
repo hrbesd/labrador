@@ -172,15 +172,22 @@ keybinding.bind=function(){
 	jQuery_1_3_2(document).bind('keydown', 'alt+f1',function (evt){
        	return false;
 	});
-	//朗读功能快捷键使用说明
+	//朗读功能快捷键使用说明-2015-02-06修改 start
+	speaker.toolbar.hotkeyMp3ObjectFlg=false;
 	jQuery_1_3_2(document).bind('keydown', 'alt+shift+s',function (evt){
+		if(speaker.toolbar.hotkeyMp3ObjectFlg==true){
+			return;
+		}
+		speaker.toolbar.hotkeyMp3ObjectFlg=true;
 		speaker.toolbar.hotkeyMp3Object=soundManager.createSound({
             id:'hotkey',
             url:speaker.toolbar.src+"toolbarHotkey.mp3",
             onfinish:function(){
             	speaker.toolbar.hotkeyMp3Object.destruct();
+				speaker.toolbar.hotkeyMp3ObjectFlg=false;
             }
 		});
+	
 		speaker.toolbar.hotkeyMp3Object.play();
        	return false;
        
@@ -189,7 +196,60 @@ keybinding.bind=function(){
 	jQuery_1_3_2(document).bind('keydown', 'alt+shift+f',function (evt){
 		if(speaker.toolbar.hotkeyMp3Object != null){
 			speaker.toolbar.hotkeyMp3Object.destruct();
+			speaker.toolbar.hotkeyMp3ObjectFlg=false;
 		}
        	return false;
 	});
+	//关闭和开启焦点朗读供能
+	speaker.toolbar.tabIndex=false;
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+d',function (evt){
+		if(speaker.toolbar.tabIndex==false){
+			speaker.toolbar.tabIndex=true;
+			$('#main a,#footer_links a,#main input').each(function() {
+				if(this.tagName=='INPUT'){
+					var type = $(this).attr("type");
+					if(type=='hidden'){
+						$(this).blur();
+						return;
+					}
+				}
+				
+				$(this).bind("focus", function() {
+					if(speaker.batchStatus==false && speaker.speakerStatus==false){
+						if(this.tagName=='INPUT'){
+							var value = $(this).attr("alt");
+							focusvalId=setTimeout(function(){
+								speaker.send(value);
+							}, 300);
+						}else if(this.tagName=='A'){
+							var children = $(this).find("span[class=tts_data]");
+							focusvalId=setTimeout(function(){
+								speaker.send(children.text());
+							}, 300);
+						}
+			
+					}
+				});
+				$(this).bind("blur", function() {
+					window.clearTimeout(focusvalId);
+			
+				});
+				
+			});
+		}else{
+			speaker.toolbar.tabIndex=false;
+			$('#main a,#footer_links a,#main input').each(function() {
+				if(this.tagName=='INPUT'){
+					var type = $(this).attr("type");
+					if(type=='hidden'){
+						$(this).unbind("blur");;
+						return;
+					}
+				}
+				
+				$(this).unbind("focus");
+				$(this).unbind("blur");
+				
+			});
+		}
 };
