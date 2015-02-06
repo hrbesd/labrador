@@ -252,4 +252,5 @@ keybinding.bind=function(){
 				
 			});
 		}
+	});
 };
