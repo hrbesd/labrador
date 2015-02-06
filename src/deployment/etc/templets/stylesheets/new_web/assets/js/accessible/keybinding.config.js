@@ -202,7 +202,7 @@ keybinding.bind=function(){
 	});
 	//关闭和开启焦点朗读供能
 	speaker.toolbar.tabIndex=false;
-	jQuery_1_3_2(document).bind('keydown', 'alt+shift+d',function (evt){
+	jQuery_1_3_2(document).bind('keydown', 'alt+shift+q',function (evt){
 		if(speaker.toolbar.tabIndex==false){
 			speaker.toolbar.tabIndex=true;
 			$('#main a,#footer_links a,#main input').each(function() {
