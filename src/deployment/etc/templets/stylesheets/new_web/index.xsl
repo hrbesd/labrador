@@ -115,7 +115,7 @@
 			      </td>
                              <td  width="10%"  align="right" >
 		            <li>
-                              <a target="_blank">
+                              <a target="_blank" tabindex="-1">
                               <xsl:attribute name= "href">http://search.yunmd.com/index.jsp?nameUrl=
                               <xsl:value-of select="website/url"/>
                               </xsl:attribute>
